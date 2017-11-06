@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper">
+    
+	<sql id="fea_costfecfVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.projectcode AS "projectcode",
+		a.projectname AS "projectname",
+		a.circularate AS "circularate",
+		a.shortloanrate AS "shortloanrate",
+		a.circulaloanrate AS "circulaloanrate",
+		a.receivacount AS "receivacount",
+		a.fuelcount AS "fuelcount",
+		a.origincount AS "origincount",
+		a.watercount AS "watercount",
+		a.cashcount AS "cashcount",
+		a.heatcostdisprop AS "heatcostdisprop",
+		a.heatcapdisprop AS "heatcapdisprop",
+		a.remarks AS "remarks"
+	</sql>
+	
+	<sql id="fea_costfecfVOJoins">
+		
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_costfecfVO" >
+		SELECT 
+			<include refid="fea_costfecfVOColumns"/>
+		FROM fea_costfecf a
+		<include refid="fea_costfecfVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_costfecfVO" >
+		SELECT 
+			<include refid="fea_costfecfVOColumns"/>
+		FROM fea_costfecf a
+		<include refid="fea_costfecfVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_costfecfVO" >
+		SELECT 
+			<include refid="fea_costfecfVOColumns"/>
+		FROM fea_costfecf a
+		<include refid="fea_costfecfVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_costfecf(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			projectcode,
+			projectname,
+			circularate,
+			shortloanrate,
+			circulaloanrate,
+			receivacount,
+			fuelcount,
+			origincount,
+			watercount,
+			cashcount,
+			heatcostdisprop,
+			heatcapdisprop,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{projectcode},
+			#{projectname},
+			#{circularate},
+			#{shortloanrate},
+			#{circulaloanrate},
+			#{receivacount},
+			#{fuelcount},
+			#{origincount},
+			#{watercount},
+			#{cashcount},
+			#{heatcostdisprop},
+			#{heatcapdisprop},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_costfecf SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			projectcode = #{projectcode},
+			projectname = #{projectname},
+			circularate = #{circularate},
+			shortloanrate = #{shortloanrate},
+			circulaloanrate = #{circulaloanrate},
+			receivacount = #{receivacount},
+			fuelcount = #{fuelcount},
+			origincount = #{origincount},
+			watercount = #{watercount},
+			cashcount = #{cashcount},
+			heatcostdisprop = #{heatcostdisprop},
+			heatcapdisprop = #{heatcapdisprop},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_costfecf
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_costfecf SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_costfecfVO" statementType="STATEMENT">
+		select * FROM fea_costfecf  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

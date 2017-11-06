@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper">
+    
+	<sql id="fea_productcostBVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.costtype AS "costtype",
+		a.costunit AS "costunit",
+		a.year2017 AS "year2017",
+		a.year2018 AS "year2018",
+		a.year2019 AS "year2019",
+		a.pkproductcost AS "fea_productcost.id",
+		a.remarks AS "remarks",
+		a.year2020 AS "year2020",
+		a.year2021 AS "year2021",
+		a.year2022 AS "year2022",
+		a.year2023 AS "year2023",
+		a.year2024 AS "year2024",
+		a.year2025 AS "year2025",
+		a.year2026 AS "year2026",
+		a.year2027 AS "year2027"
+	</sql>
+	
+	<sql id="fea_productcostBVOJoins">
+		
+			LEFT JOIN fea_productcost b ON b.id = a.pkproductcost
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_productcostBVO" >
+		SELECT 
+			<include refid="fea_productcostBVOColumns"/>
+		FROM fea_productcostb a
+		<include refid="fea_productcostBVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_productcostBVO" >
+		SELECT 
+			<include refid="fea_productcostBVOColumns"/>
+		FROM fea_productcostb a
+		<include refid="fea_productcostBVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="fea_productcost != null and fea_productcost.id != null and fea_productcost.id != ''">
+				AND a.pkproductcost = #{fea_productcost.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_productcostBVO" >
+		SELECT 
+			<include refid="fea_productcostBVOColumns"/>
+		FROM fea_productcostb a
+		<include refid="fea_productcostBVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_productcostb(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			costtype,
+			costunit,
+			year2017,
+			year2018,
+			year2019,
+			pkproductcost,
+			remarks,
+			year2020,
+			year2021,
+			year2022,
+			year2023,
+			year2024,
+			year2025,
+			year2026,
+			year2027
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{costtype},
+			#{costunit},
+			#{year2017},
+			#{year2018},
+			#{year2019},
+			#{fea_productcost.id},
+			#{remarks},
+			#{year2020},
+			#{year2021},
+			#{year2022},
+			#{year2023},
+			#{year2024},
+			#{year2025},
+			#{year2026},
+			#{year2027}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_productcostb SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			costtype = #{costtype},
+			costunit = #{costunit},
+			year2017 = #{year2017},
+			year2018 = #{year2018},
+			year2019 = #{year2019},
+			pkproductcost = #{fea_productcost.id},
+			remarks = #{remarks},
+			year2020 = #{year2020},
+			year2021 = #{year2021},
+			year2022 = #{year2022},
+			year2023 = #{year2023},
+			year2024 = #{year2024},
+			year2025 = #{year2025},
+			year2026 = #{year2026},
+			year2027 = #{year2027}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_productcostb
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pkproductcost = #{fea_productcost.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_productcostb SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pkproductcost = #{fea_productcost.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_productcostBVO" statementType="STATEMENT">
+		select * FROM fea_productcostb  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

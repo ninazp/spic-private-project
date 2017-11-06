@@ -1,0 +1,137 @@
+/**
+ * Copyright &copy; 2015-2020 <a href="http://www.jeeplus.org/">JeePlus</a> All rights reserved.
+ */
+package com.jeeplus.modules.fea.entity.procost;
+
+import java.util.List;
+import com.google.common.collect.Lists;
+
+import com.jeeplus.core.persistence.DataEntity;
+import com.jeeplus.common.utils.excel.annotation.ExcelField;
+
+/**
+ * 生成成本Entity
+ * @author jw
+ * @version 2017-11-06
+ */
+public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
+	
+	private static final long serialVersionUID = 1L;
+	private String projectcode;		// 项目编码
+	private String projectname;		// 项目名称
+	private Double persons;		// 定员（人）
+	private Double perwage;		// 年人均工资
+	private Double welfare;		// 福利费系数（%）
+	private Double material;		// 材料费
+	private Double insurance;		// 保险费率（‰）
+	private Double othercost;		// 其他费用
+	private Double waterprice;		// 水价（元/顿）
+	private Double wateramt;		// 供热用水量（万吨/年）
+	private List<Fea_productcostBVO> fea_productcostBVOList = Lists.newArrayList();		// 子表列表
+	
+	public Fea_productcostVO() {
+		super();
+	}
+
+	public Fea_productcostVO(String id){
+		super(id);
+	}
+
+	@ExcelField(title="项目编码", align=2, sort=6)
+	public String getProjectcode() {
+		return projectcode;
+	}
+
+	public void setProjectcode(String projectcode) {
+		this.projectcode = projectcode;
+	}
+	
+	@ExcelField(title="项目名称", align=2, sort=7)
+	public String getProjectname() {
+		return projectname;
+	}
+
+	public void setProjectname(String projectname) {
+		this.projectname = projectname;
+	}
+	
+	@ExcelField(title="定员（人）", align=2, sort=8)
+	public Double getPersons() {
+		return persons;
+	}
+
+	public void setPersons(Double persons) {
+		this.persons = persons;
+	}
+	
+	@ExcelField(title="年人均工资", align=2, sort=9)
+	public Double getPerwage() {
+		return perwage;
+	}
+
+	public void setPerwage(Double perwage) {
+		this.perwage = perwage;
+	}
+	
+	@ExcelField(title="福利费系数（%）", align=2, sort=10)
+	public Double getWelfare() {
+		return welfare;
+	}
+
+	public void setWelfare(Double welfare) {
+		this.welfare = welfare;
+	}
+	
+	@ExcelField(title="材料费", align=2, sort=11)
+	public Double getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Double material) {
+		this.material = material;
+	}
+	
+	@ExcelField(title="保险费率（‰）", align=2, sort=12)
+	public Double getInsurance() {
+		return insurance;
+	}
+
+	public void setInsurance(Double insurance) {
+		this.insurance = insurance;
+	}
+	
+	@ExcelField(title="其他费用", align=2, sort=13)
+	public Double getOthercost() {
+		return othercost;
+	}
+
+	public void setOthercost(Double othercost) {
+		this.othercost = othercost;
+	}
+	
+	@ExcelField(title="水价（元/顿）", align=2, sort=14)
+	public Double getWaterprice() {
+		return waterprice;
+	}
+
+	public void setWaterprice(Double waterprice) {
+		this.waterprice = waterprice;
+	}
+	
+	@ExcelField(title="供热用水量（万吨/年）", align=2, sort=15)
+	public Double getWateramt() {
+		return wateramt;
+	}
+
+	public void setWateramt(Double wateramt) {
+		this.wateramt = wateramt;
+	}
+	
+	public List<Fea_productcostBVO> getFea_productcostBVOList() {
+		return fea_productcostBVOList;
+	}
+
+	public void setFea_productcostBVOList(List<Fea_productcostBVO> fea_productcostBVOList) {
+		this.fea_productcostBVOList = fea_productcostBVOList;
+	}
+}

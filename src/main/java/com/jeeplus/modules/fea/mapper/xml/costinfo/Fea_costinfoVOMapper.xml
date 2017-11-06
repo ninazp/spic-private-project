@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper">
+    
+	<sql id="fea_costinfoVOColumns">
+		a.id AS "id",
+		a.projectcode AS "projectcode",
+		a.projectname AS "projectname",
+		a.costype AS "costype",
+		a.unit AS "unit",
+		a.year AS "year",
+		a.product AS "product",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.productrate AS "productrate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="fea_costinfoVOJoins">
+		
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_costinfoVO" >
+		SELECT 
+			<include refid="fea_costinfoVOColumns"/>
+		FROM fea_costinfo a
+		<include refid="fea_costinfoVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_costinfoVO" >
+		SELECT 
+			<include refid="fea_costinfoVOColumns"/>
+		FROM fea_costinfo a
+		<include refid="fea_costinfoVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_costinfoVO" >
+		SELECT 
+			<include refid="fea_costinfoVOColumns"/>
+		FROM fea_costinfo a
+		<include refid="fea_costinfoVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_costinfo(
+			id,
+			projectcode,
+			projectname,
+			costype,
+			unit,
+			year,
+			product,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			productrate,
+			del_flag
+		) VALUES (
+			#{id},
+			#{projectcode},
+			#{projectname},
+			#{costype},
+			#{unit},
+			#{year},
+			#{product},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{productrate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_costinfo SET 	
+			projectcode = #{projectcode},
+			projectname = #{projectname},
+			costype = #{costype},
+			unit = #{unit},
+			year = #{year},
+			product = #{product},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			productrate = #{productrate}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_costinfo
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_costinfo SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_costinfoVO" statementType="STATEMENT">
+		select * FROM fea_costinfo  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

@@ -13,7 +13,7 @@ import com.jeeplus.core.persistence.TreeEntity;
 /**
  * 项目登记Entity
  * @author zp
- * @version 2017-11-05
+ * @version 2017-11-06
  */
 public class FeaProject extends TreeEntity<FeaProject> {
 	

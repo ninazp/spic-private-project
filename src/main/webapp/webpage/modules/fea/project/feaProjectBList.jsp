@@ -107,8 +107,13 @@
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
 			</shiro:hasPermission>
+			<shiro:hasPermission name="fea:project:feaProjectB:add">
+				<button id="testa" class="btn btn-danger" disabled onclick="testa()">
+	            	<i class="glyphicon glyphicon-earphone"></i> 测试
+	        	</button>
+			</shiro:hasPermission>
 			<shiro:hasPermission name="fea:project:feaProjectB:del">
-				<button id="remove" class="btn btn-danger" disabled onclick="deleteAll()">
+				<button id="remove" class="btn btn-primary" disabled onclick="deleteAll()">
 	            	<i class="glyphicon glyphicon-remove"></i> 删除
 	        	</button>
 			</shiro:hasPermission>

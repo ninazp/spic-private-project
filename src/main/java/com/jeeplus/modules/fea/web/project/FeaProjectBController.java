@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.project.FeaProjectBService;
 /**
  * 项目（子表）Controller
  * @author zp
- * @version 2017-11-05
+ * @version 2017-11-06
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/project/feaProjectB")
@@ -88,6 +88,23 @@ public class FeaProjectBController extends BaseController {
 		model.addAttribute("feaProjectB", feaProjectB);
 		return "modules/fea/project/feaProjectBForm";
 	}
+	
+	
+	/**
+	 * 保存项目（子表）
+	 */
+	@ResponseBody
+	@RequiresPermissions("fea:project:feaProjectB:add")
+	@RequestMapping(value = "testa")
+	public AjaxJson testa(String ids, RedirectAttributes redirectAttributes) throws Exception{
+		AjaxJson j = new AjaxJson();
+
+//		feaProjectBService.save(feaProjectB);//新建或者编辑保存
+//		j.setSuccess(true);
+//		j.setMsg("保存项目（子表）成功");
+		return j;
+	}
+	
 
 	/**
 	 * 保存项目（子表）

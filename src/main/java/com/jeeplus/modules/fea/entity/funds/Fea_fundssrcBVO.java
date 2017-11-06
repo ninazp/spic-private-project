@@ -8,7 +8,7 @@ import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
 
 /**
- * 资金来源投资子表Entity
+ * 资金来源投资子表Entity 
  * @author jw
  * @version 2017-11-05
  */

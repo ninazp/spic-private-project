@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper">
+    
+	<sql id="fea_fundssrcVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.projectcode AS "projectCode",
+		a.projectname AS "projectName",
+		a.invest_total AS "invest_Total",
+		a.isdeduct_vtax AS "isdeduct_Vtax",
+		a.capital_prop AS "capital_Prop",
+		a.capital_amt AS "capital_Amt",
+		a.loan_prop AS "loan_Prop",
+		a.loan_amt AS "loan_Amt",
+		a.is_capital_cy AS "is_Capital_cy",
+		a.deptid AS "office.id",
+		a.pk_corp AS "pk_corp",
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="fea_fundssrcVOJoins">
+		
+		LEFT JOIN sys_office office ON office.id = a.deptid
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_fundssrcVO" >
+		SELECT 
+			<include refid="fea_fundssrcVOColumns"/>
+		FROM fea_fundssrc a
+		<include refid="fea_fundssrcVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_fundssrcVO" >
+		SELECT 
+			<include refid="fea_fundssrcVOColumns"/>
+		FROM fea_fundssrc a
+		<include refid="fea_fundssrcVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_fundssrcVO" >
+		SELECT 
+			<include refid="fea_fundssrcVOColumns"/>
+		FROM fea_fundssrc a
+		<include refid="fea_fundssrcVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_fundssrc(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			projectcode,
+			projectname,
+			invest_total,
+			isdeduct_vtax,
+			capital_prop,
+			capital_amt,
+			loan_prop,
+			loan_amt,
+			is_capital_cy,
+			deptid,
+			pk_corp
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{projectCode},
+			#{projectName},
+			#{invest_Total},
+			#{isdeduct_Vtax},
+			#{capital_Prop},
+			#{capital_Amt},
+			#{loan_Prop},
+			#{loan_Amt},
+			#{is_Capital_cy},
+			#{office.id},
+			#{pk_corp}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_fundssrc SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			projectcode = #{projectCode},
+			projectname = #{projectName},
+			invest_total = #{invest_Total},
+			isdeduct_vtax = #{isdeduct_Vtax},
+			capital_prop = #{capital_Prop},
+			capital_amt = #{capital_Amt},
+			loan_prop = #{loan_Prop},
+			loan_amt = #{loan_Amt},
+			is_capital_cy = #{is_Capital_cy},
+			deptid = #{office.id},
+			pk_corp = #{pk_corp}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_fundssrc
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_fundssrc SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_fundssrcVO" statementType="STATEMENT">
+		select * FROM fea_fundssrc  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

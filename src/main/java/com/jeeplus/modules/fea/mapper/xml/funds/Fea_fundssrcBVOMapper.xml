@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcBVOMapper">
+    
+	<sql id="fea_fundssrcBVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.capital_type  AS "capital_type ",
+		a.currency AS "currency",
+		a.exchangerate AS "exchangerate",
+		a.cap_prop AS "cap_prop",
+		a.cap_amt AS "cap_amt",
+		a.pk_fundssrc AS "fea_fundssrc.id"
+	</sql>
+	
+	<sql id="fea_fundssrcBVOJoins">
+		
+			LEFT JOIN fea_fundssrc b ON b.id = a.pk_fundssrc
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_fundssrcBVO" >
+		SELECT 
+			<include refid="fea_fundssrcBVOColumns"/>
+		FROM fea_fundssrc_b a
+		<include refid="fea_fundssrcBVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_fundssrcBVO" >
+		SELECT 
+			<include refid="fea_fundssrcBVOColumns"/>
+		FROM fea_fundssrc_b a
+		<include refid="fea_fundssrcBVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="fea_fundssrc != null and fea_fundssrc.id != null and fea_fundssrc.id != ''">
+				AND a.pk_fundssrc = #{fea_fundssrc.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_fundssrcBVO" >
+		SELECT 
+			<include refid="fea_fundssrcBVOColumns"/>
+		FROM fea_fundssrc_b a
+		<include refid="fea_fundssrcBVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_fundssrc_b(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			capital_type ,
+			currency,
+			exchangerate,
+			cap_prop,
+			cap_amt,
+			pk_fundssrc
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{capital_type },
+			#{currency},
+			#{exchangerate},
+			#{cap_prop},
+			#{cap_amt},
+			#{fea_fundssrc.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_fundssrc_b SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			capital_type  = #{capital_type },
+			currency = #{currency},
+			exchangerate = #{exchangerate},
+			cap_prop = #{cap_prop},
+			cap_amt = #{cap_amt},
+			pk_fundssrc = #{fea_fundssrc.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_fundssrc_b
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pk_fundssrc = #{fea_fundssrc.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_fundssrc_b SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pk_fundssrc = #{fea_fundssrc.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_fundssrcBVO" statementType="STATEMENT">
+		select * FROM fea_fundssrc_b  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

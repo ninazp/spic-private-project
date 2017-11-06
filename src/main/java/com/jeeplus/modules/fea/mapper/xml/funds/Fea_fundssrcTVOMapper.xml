@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper">
+    
+	<sql id="fea_fundssrcTVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.loan_typ AS "loan_typ",
+		a.currency AS "currency",
+		a.exchangerate AS "exchangerate",
+		a.loan_prop AS "loan_prop",
+		a.loan_amt AS "loan_amt",
+		a.fix_amt AS "fix_amt",
+		a.interest_count AS "interest_count",
+		a.principal_rate AS "principal_rate",
+		a.interest_rate AS "interest_rate",
+		a.commit_rate AS "commit_rate",
+		a.grace_period AS "grace_period",
+		a.repay_period AS "repay_period",
+		a.repay_type AS "repay_type",
+		a.pk_fundssrc AS "fea_fundssrc.id"
+	</sql>
+	
+	<sql id="fea_fundssrcTVOJoins">
+		
+			LEFT JOIN fea_fundssrc b ON b.id = a.pk_fundssrc
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_fundssrcTVO" >
+		SELECT 
+			<include refid="fea_fundssrcTVOColumns"/>
+		FROM fea_fundssrc_t a
+		<include refid="fea_fundssrcTVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_fundssrcTVO" >
+		SELECT 
+			<include refid="fea_fundssrcTVOColumns"/>
+		FROM fea_fundssrc_t a
+		<include refid="fea_fundssrcTVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="fea_fundssrc != null and fea_fundssrc.id != null and fea_fundssrc.id != ''">
+				AND a.pk_fundssrc = #{fea_fundssrc.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_fundssrcTVO" >
+		SELECT 
+			<include refid="fea_fundssrcTVOColumns"/>
+		FROM fea_fundssrc_t a
+		<include refid="fea_fundssrcTVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_fundssrc_t(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			loan_typ,
+			currency,
+			exchangerate,
+			loan_prop,
+			loan_amt,
+			fix_amt,
+			interest_count,
+			principal_rate,
+			interest_rate,
+			commit_rate,
+			grace_period,
+			repay_period,
+			repay_type,
+			pk_fundssrc
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{loan_typ},
+			#{currency},
+			#{exchangerate},
+			#{loan_prop},
+			#{loan_amt},
+			#{fix_amt},
+			#{interest_count},
+			#{principal_rate},
+			#{interest_rate},
+			#{commit_rate},
+			#{grace_period},
+			#{repay_period},
+			#{repay_type},
+			#{fea_fundssrc.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_fundssrc_t SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			loan_typ = #{loan_typ},
+			currency = #{currency},
+			exchangerate = #{exchangerate},
+			loan_prop = #{loan_prop},
+			loan_amt = #{loan_amt},
+			fix_amt = #{fix_amt},
+			interest_count = #{interest_count},
+			principal_rate = #{principal_rate},
+			interest_rate = #{interest_rate},
+			commit_rate = #{commit_rate},
+			grace_period = #{grace_period},
+			repay_period = #{repay_period},
+			repay_type = #{repay_type},
+			pk_fundssrc = #{fea_fundssrc.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_fundssrc_t
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pk_fundssrc = #{fea_fundssrc.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_fundssrc_t SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pk_fundssrc = #{fea_fundssrc.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_fundssrcTVO" statementType="STATEMENT">
+		select * FROM fea_fundssrc_t  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

@@ -92,66 +92,70 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
-					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
 					<td class="width-35">
 						<form:input path="projectCode" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<form:input path="projectName" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">投资总额：</label></td>
 					<td class="width-35">
-						<form:input path="invest_Total" htmlEscape="false"    class="form-control "/>
+						<form:input path="investtotal" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">增值税抵扣：</label></td>
 					<td class="width-35">
-						<sys:checkbox id="isdeduct_Vtax" name="isdeduct_Vtax" items="${fns:getDictList('')}" values="${fea_fundssrcVO.isdeduct_Vtax}" cssClass="i-checks "/>
+						<form:select path="isdeductvtax" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金比例(%)：</label></td>
 					<td class="width-35">
-						<form:input path="capital_Prop" htmlEscape="false"    class="form-control "/>
+						<form:input path="capitalprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金额度：</label></td>
 					<td class="width-35">
-						<form:input path="capital_Amt" htmlEscape="false"    class="form-control "/>
+						<form:input path="capitalamt" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">借款比例(%)：</label></td>
 					<td class="width-35">
-						<form:input path="loan_Prop" htmlEscape="false"    class="form-control "/>
+						<form:input path="loanprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">借款金额：</label></td>
 					<td class="width-35">
-						<form:input path="loan_Amt" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">注资循环：</label></td>
-					<td class="width-35">
-						<sys:checkbox id="is_Capital_cy" name="is_Capital_cy" items="${fns:getDictList('')}" values="${fea_fundssrcVO.is_Capital_cy}" cssClass="i-checks "/>
+						<form:input path="loanamt" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">注资循环：</label></td>
+					<td class="width-35">
+						<form:select path="iscapitalcy" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
+					</td>
 					<td class="width-15 active"><label class="pull-right">部门：</label></td>
 					<td class="width-35">
 						<sys:treeselect id="office" name="office.id" value="${fea_fundssrcVO.office.id}" labelName="office.name" labelValue="${fea_fundssrcVO.office.name}"
 							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">公司：</label></td>
-					<td class="width-35">
-						<form:input path="pk_corp" htmlEscape="false"    class="form-control "/>
-					</td>
 				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
+					<td class="width-35">
+						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
+					</td>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">
@@ -168,12 +172,12 @@
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>备注信息</th>
 						<th>注资方</th>
 						<th>币种</th>
 						<th>汇率</th>
 						<th>比例</th>
 						<th>额度</th>
+						<th>备注信息</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -188,12 +192,7 @@
 					</td>
 					
 					<td>
-						<textarea id="fea_fundssrcBVOList{{idx}}_remarks" name="fea_fundssrcBVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_capital_type " name="fea_fundssrcBVOList[{{idx}}].capital_type " type="text" value="{{row.capital_type }}"    class="form-control "/>
+						<input id="fea_fundssrcBVOList{{idx}}_capitaltype " name="fea_fundssrcBVOList[{{idx}}].capitaltype " type="text" value="{{row.capitaltype }}"    class="form-control "/>
 					</td>
 					
 					
@@ -208,12 +207,17 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_cap_prop" name="fea_fundssrcBVOList[{{idx}}].cap_prop" type="text" value="{{row.cap_prop}}"    class="form-control "/>
+						<input id="fea_fundssrcBVOList{{idx}}_capprop" name="fea_fundssrcBVOList[{{idx}}].capprop" type="text" value="{{row.capprop}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_cap_amt" name="fea_fundssrcBVOList[{{idx}}].cap_amt" type="text" value="{{row.cap_amt}}"    class="form-control "/>
+						<input id="fea_fundssrcBVOList{{idx}}_capamt" name="fea_fundssrcBVOList[{{idx}}].capamt" type="text" value="{{row.capamt}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<textarea id="fea_fundssrcBVOList{{idx}}_remarks" name="fea_fundssrcBVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
 					</td>
 					
 					<td class="text-center" width="10">
@@ -238,7 +242,6 @@
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>备注信息</th>
 						<th>借款类别</th>
 						<th>币种</th>
 						<th>汇率</th>
@@ -252,6 +255,7 @@
 						<th>宽限期</th>
 						<th>还款期</th>
 						<th>还款方式</th>
+						<th>备注信息</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -266,12 +270,7 @@
 					</td>
 					
 					<td>
-						<textarea id="fea_fundssrcTVOList{{idx}}_remarks" name="fea_fundssrcTVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_loan_typ" name="fea_fundssrcTVOList[{{idx}}].loan_typ" type="text" value="{{row.loan_typ}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_loantyp" name="fea_fundssrcTVOList[{{idx}}].loantyp" type="text" value="{{row.loantyp}}"    class="form-control "/>
 					</td>
 					
 					
@@ -286,7 +285,7 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_loan_prop" name="fea_fundssrcTVOList[{{idx}}].loan_prop" type="text" value="{{row.loan_prop}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_loanprop" name="fea_fundssrcTVOList[{{idx}}].loanprop" type="text" value="{{row.loanprop}}"    class="form-control "/>
 					</td>
 					
 					
@@ -296,42 +295,47 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_fix_amt" name="fea_fundssrcTVOList[{{idx}}].fix_amt" type="text" value="{{row.fix_amt}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_fixamt" name="fea_fundssrcTVOList[{{idx}}].fixamt" type="text" value="{{row.fixamt}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_interest_count" name="fea_fundssrcTVOList[{{idx}}].interest_count" type="text" value="{{row.interest_count}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_interestcount" name="fea_fundssrcTVOList[{{idx}}].interestcount" type="text" value="{{row.interestcount}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_principal_rate" name="fea_fundssrcTVOList[{{idx}}].principal_rate" type="text" value="{{row.principal_rate}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_principalrate" name="fea_fundssrcTVOList[{{idx}}].principalrate" type="text" value="{{row.principalrate}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_interest_rate" name="fea_fundssrcTVOList[{{idx}}].interest_rate" type="text" value="{{row.interest_rate}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_interestrate" name="fea_fundssrcTVOList[{{idx}}].interestrate" type="text" value="{{row.interestrate}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_commit_rate" name="fea_fundssrcTVOList[{{idx}}].commit_rate" type="text" value="{{row.commit_rate}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_commitrate" name="fea_fundssrcTVOList[{{idx}}].commitrate" type="text" value="{{row.commitrate}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_grace_period" name="fea_fundssrcTVOList[{{idx}}].grace_period" type="text" value="{{row.grace_period}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_graceperiod" name="fea_fundssrcTVOList[{{idx}}].graceperiod" type="text" value="{{row.graceperiod}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_repay_period" name="fea_fundssrcTVOList[{{idx}}].repay_period" type="text" value="{{row.repay_period}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_repayperiod" name="fea_fundssrcTVOList[{{idx}}].repayperiod" type="text" value="{{row.repayperiod}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_repay_type" name="fea_fundssrcTVOList[{{idx}}].repay_type" type="text" value="{{row.repay_type}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_repaytype" name="fea_fundssrcTVOList[{{idx}}].repaytype" type="text" value="{{row.repaytype}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<textarea id="fea_fundssrcTVOList{{idx}}_remarks" name="fea_fundssrcTVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
 					</td>
 					
 					<td class="text-center" width="10">

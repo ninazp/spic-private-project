@@ -4,23 +4,19 @@
     
 	<sql id="fea_fundssrcBVOColumns">
 		a.id AS "id",
-		a.create_by AS "createBy.id",
-		a.create_date AS "createDate",
-		a.update_by AS "updateBy.id",
-		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		a.capital_type  AS "capital_type ",
+		a.capitaltype  AS "capitaltype ",
 		a.currency AS "currency",
 		a.exchangerate AS "exchangerate",
-		a.cap_prop AS "cap_prop",
-		a.cap_amt AS "cap_amt",
-		a.pk_fundssrc AS "fea_fundssrc.id"
+		a.capprop AS "capprop",
+		a.capamt AS "capamt",
+		a.pkfundssrc AS "fea_fundssrc.id"
 	</sql>
 	
 	<sql id="fea_fundssrcBVOJoins">
 		
-			LEFT JOIN fea_fundssrc b ON b.id = a.pk_fundssrc
+			LEFT JOIN fea_fundssrc b ON b.id = a.pkfundssrc
 	</sql>
 	
     
@@ -41,7 +37,7 @@
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			${dataScope}
 			<if test="fea_fundssrc != null and fea_fundssrc.id != null and fea_fundssrc.id != ''">
-				AND a.pk_fundssrc = #{fea_fundssrc.id}
+				AND a.pkfundssrc = #{fea_fundssrc.id}
 			</if>
 		</where>
 		<choose>
@@ -49,7 +45,6 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.create_date ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -68,7 +63,6 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.create_date ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -76,46 +70,36 @@
 	<insert id="insert">
 		INSERT INTO fea_fundssrc_b(
 			id,
-			create_by,
-			create_date,
-			update_by,
-			update_date,
 			remarks,
 			del_flag,
-			capital_type ,
+			capitaltype ,
 			currency,
 			exchangerate,
-			cap_prop,
-			cap_amt,
-			pk_fundssrc
+			capprop,
+			capamt,
+			pkfundssrc
 		) VALUES (
 			#{id},
-			#{createBy.id},
-			#{createDate},
-			#{updateBy.id},
-			#{updateDate},
 			#{remarks},
 			#{delFlag},
-			#{capital_type },
+			#{capitaltype },
 			#{currency},
 			#{exchangerate},
-			#{cap_prop},
-			#{cap_amt},
+			#{capprop},
+			#{capamt},
 			#{fea_fundssrc.id}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE fea_fundssrc_b SET 	
-			update_by = #{updateBy.id},
-			update_date = #{updateDate},
 			remarks = #{remarks},
-			capital_type  = #{capital_type },
+			capitaltype  = #{capitaltype },
 			currency = #{currency},
 			exchangerate = #{exchangerate},
-			cap_prop = #{cap_prop},
-			cap_amt = #{cap_amt},
-			pk_fundssrc = #{fea_fundssrc.id}
+			capprop = #{capprop},
+			capamt = #{capamt},
+			pkfundssrc = #{fea_fundssrc.id}
 		WHERE id = #{id}
 	</update>
 	
@@ -128,7 +112,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE pk_fundssrc = #{fea_fundssrc.id}
+				WHERE pkfundssrc = #{fea_fundssrc.id}
 			</otherwise>
 		</choose>
 	</update>
@@ -142,7 +126,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE pk_fundssrc = #{fea_fundssrc.id}
+				WHERE pkfundssrc = #{fea_fundssrc.id}
 			</otherwise>
 		</choose>
 	</update>

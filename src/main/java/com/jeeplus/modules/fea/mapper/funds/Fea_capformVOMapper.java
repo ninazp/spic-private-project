@@ -5,14 +5,14 @@ package com.jeeplus.modules.fea.mapper.funds;
 
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.core.persistence.annotation.MyBatisMapper;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 
 /**
- * 资金来源投资子表MAPPER接口
+ * 资产形成MAPPER接口
  * @author jw
  * @version 2017-11-06
  */
 @MyBatisMapper
-public interface Fea_fundssrcBVOMapper extends BaseMapper<Fea_fundssrcBVO> {
+public interface Fea_capformVOMapper extends BaseMapper<Fea_capformVO> {
 	
 }

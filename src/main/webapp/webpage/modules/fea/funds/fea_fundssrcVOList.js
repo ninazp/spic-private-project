@@ -81,18 +81,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'remarks',
-		        title: '备注信息',
+		        field: 'projectCode',
+		        title: '项目编码',
 		        sortable: true
 		        ,formatter:function(value, row , index){
 		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		         }
-		       
-		    }
-			,{
-		        field: 'projectCode',
-		        title: '项目编码',
-		        sortable: true
 		       
 		    }
 			,{
@@ -102,60 +96,50 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'invest_Total',
+		        field: 'investtotal',
 		        title: '投资总额',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'isdeduct_Vtax',
+		        field: 'isdeductvtax',
 		        title: '增值税抵扣',
 		        sortable: true,
 		        formatter:function(value, row , index){
-		        	var valueArray = value.split(",");
-		        	var labelArray = [];
-		        	for(var i =0 ; i<valueArray.length-1; i++){
-		        		labelArray[i] = jp.getDictLabel(${fns:toJson(fns:getDictList(''))}, valueArray[i], "-");
-		        	}
-		        	return labelArray.join(",");
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
 		        }
 		       
 		    }
 			,{
-		        field: 'capital_Prop',
+		        field: 'capitalprop',
 		        title: '资本金比例(%)',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'capital_Amt',
+		        field: 'capitalamt',
 		        title: '资本金额度',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'loan_Prop',
+		        field: 'loanprop',
 		        title: '借款比例(%)',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'loan_Amt',
+		        field: 'loanamt',
 		        title: '借款金额',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'is_Capital_cy',
+		        field: 'iscapitalcy',
 		        title: '注资循环',
 		        sortable: true,
 		        formatter:function(value, row , index){
-		        	var valueArray = value.split(",");
-		        	var labelArray = [];
-		        	for(var i =0 ; i<valueArray.length-1; i++){
-		        		labelArray[i] = jp.getDictLabel(${fns:toJson(fns:getDictList(''))}, valueArray[i], "-");
-		        	}
-		        	return labelArray.join(",");
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
 		        }
 		       
 		    }
@@ -166,8 +150,8 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'pk_corp',
-		        title: '公司',
+		        field: 'remarks',
+		        title: '备注信息',
 		        sortable: true
 		       
 		    }
@@ -315,12 +299,12 @@ $(document).ready(function() {
 						<table class="ani table">
 						<thead>
 							<tr>
-								<th>备注信息</th>
 								<th>注资方</th>
 								<th>币种</th>
 								<th>汇率</th>
 								<th>比例</th>
 								<th>额度</th>
+								<th>备注信息</th>
 							</tr>
 						</thead>
 						<tbody id="fea_fundssrcVOChild-{{idx}}-1-List">
@@ -331,7 +315,6 @@ $(document).ready(function() {
 					<table class="ani table">
 						<thead>
 							<tr>
-								<th>备注信息</th>
 								<th>借款类别</th>
 								<th>币种</th>
 								<th>汇率</th>
@@ -345,7 +328,7 @@ $(document).ready(function() {
 								<th>宽限期</th>
 								<th>还款期</th>
 								<th>还款方式</th>
-								<th>主表外键</th>
+								<th>备注信息</th>
 							</tr>
 						</thead>
 						<tbody id="fea_fundssrcVOChild-{{idx}}-2-List">
@@ -357,10 +340,7 @@ $(document).ready(function() {
 	<script type="text/template" id="fea_fundssrcVOChild1Tpl">//<!--
 				<tr>
 					<td>
-						{{row.remarks}}
-					</td>
-					<td>
-						{{row.capital_type }}
+						{{row.capitaltype }}
 					</td>
 					<td>
 						{{row.currency}}
@@ -369,20 +349,20 @@ $(document).ready(function() {
 						{{row.exchangerate}}
 					</td>
 					<td>
-						{{row.cap_prop}}
+						{{row.capprop}}
 					</td>
 					<td>
-						{{row.cap_amt}}
+						{{row.capamt}}
+					</td>
+					<td>
+						{{row.remarks}}
 					</td>
 				</tr>//-->
 	</script>
 	<script type="text/template" id="fea_fundssrcVOChild2Tpl">//<!--
 				<tr>
 					<td>
-						{{row.remarks}}
-					</td>
-					<td>
-						{{row.loan_typ}}
+						{{row.loantyp}}
 					</td>
 					<td>
 						{{row.currency}}
@@ -391,37 +371,37 @@ $(document).ready(function() {
 						{{row.exchangerate}}
 					</td>
 					<td>
-						{{row.loan_prop}}
+						{{row.loanprop}}
 					</td>
 					<td>
 						{{row.loan_amt}}
 					</td>
 					<td>
-						{{row.fix_amt}}
+						{{row.fixamt}}
 					</td>
 					<td>
-						{{row.interest_count}}
+						{{row.interestcount}}
 					</td>
 					<td>
-						{{row.principal_rate}}
+						{{row.principalrate}}
 					</td>
 					<td>
-						{{row.interest_rate}}
+						{{row.interestrate}}
 					</td>
 					<td>
-						{{row.commit_rate}}
+						{{row.commitrate}}
 					</td>
 					<td>
-						{{row.grace_period}}
+						{{row.graceperiod}}
 					</td>
 					<td>
-						{{row.repay_period}}
+						{{row.repayperiod}}
 					</td>
 					<td>
-						{{row.repay_type}}
+						{{row.repaytype}}
 					</td>
 					<td>
-						{{row.fea_fundssrc.id}}
+						{{row.remarks}}
 					</td>
 				</tr>//-->
 	</script>

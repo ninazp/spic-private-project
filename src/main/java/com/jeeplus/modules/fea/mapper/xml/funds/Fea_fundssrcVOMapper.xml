@@ -12,15 +12,15 @@
 		a.del_flag AS "delFlag",
 		a.projectcode AS "projectCode",
 		a.projectname AS "projectName",
-		a.invest_total AS "invest_Total",
-		a.isdeduct_vtax AS "isdeduct_Vtax",
-		a.capital_prop AS "capital_Prop",
-		a.capital_amt AS "capital_Amt",
-		a.loan_prop AS "loan_Prop",
-		a.loan_amt AS "loan_Amt",
-		a.is_capital_cy AS "is_Capital_cy",
+		a.investtotal AS "investtotal",
+		a.isdeductvtax AS "isdeductvtax",
+		a.capitalprop AS "capitalprop",
+		a.capitalamt AS "capitalamt",
+		a.loanprop AS "loanprop",
+		a.loanamt AS "loanamt",
+		a.iscapitalcy AS "iscapitalcy",
 		a.deptid AS "office.id",
-		a.pk_corp AS "pk_corp",
+		a.corp AS "corp",
 				
 				
 				
@@ -103,15 +103,15 @@
 			del_flag,
 			projectcode,
 			projectname,
-			invest_total,
-			isdeduct_vtax,
-			capital_prop,
-			capital_amt,
-			loan_prop,
-			loan_amt,
-			is_capital_cy,
+			investtotal,
+			isdeductvtax,
+			capitalprop,
+			capitalamt,
+			loanprop,
+			loanamt,
+			iscapitalcy,
 			deptid,
-			pk_corp
+			corp
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -122,15 +122,15 @@
 			#{delFlag},
 			#{projectCode},
 			#{projectName},
-			#{invest_Total},
-			#{isdeduct_Vtax},
-			#{capital_Prop},
-			#{capital_Amt},
-			#{loan_Prop},
-			#{loan_Amt},
-			#{is_Capital_cy},
+			#{investtotal},
+			#{isdeductvtax},
+			#{capitalprop},
+			#{capitalamt},
+			#{loanprop},
+			#{loanamt},
+			#{iscapitalcy},
 			#{office.id},
-			#{pk_corp}
+			#{corp}
 		)
 	</insert>
 	
@@ -141,15 +141,15 @@
 			remarks = #{remarks},
 			projectcode = #{projectCode},
 			projectname = #{projectName},
-			invest_total = #{invest_Total},
-			isdeduct_vtax = #{isdeduct_Vtax},
-			capital_prop = #{capital_Prop},
-			capital_amt = #{capital_Amt},
-			loan_prop = #{loan_Prop},
-			loan_amt = #{loan_Amt},
-			is_capital_cy = #{is_Capital_cy},
+			investtotal = #{investtotal},
+			isdeductvtax = #{isdeductvtax},
+			capitalprop = #{capitalprop},
+			capitalamt = #{capitalamt},
+			loanprop = #{loanprop},
+			loanamt = #{loanamt},
+			iscapitalcy = #{iscapitalcy},
 			deptid = #{office.id},
-			pk_corp = #{pk_corp}
+			corp = #{corp}
 		WHERE id = #{id}
 	</update>
 	

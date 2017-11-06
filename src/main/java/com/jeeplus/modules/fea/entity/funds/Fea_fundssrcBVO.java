@@ -8,18 +8,18 @@ import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
 
 /**
- * 资金来源投资子表Entity 
+ * 资金来源投资子表Entity
  * @author jw
- * @version 2017-11-05
+ * @version 2017-11-06
  */
 public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private String capital_type ;		// 注资方
+	private String capitaltype ;		// 注资方
 	private String currency;		// 币种
 	private String exchangerate;		// 汇率
-	private Double cap_prop;		// 比例
-	private Double cap_amt;		// 额度
+	private Double capprop;		// 比例
+	private Double capamt;		// 额度
 	private Fea_fundssrcVO fea_fundssrc;		// 主外键 父类
 	
 	public Fea_fundssrcBVO() {
@@ -34,16 +34,16 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.fea_fundssrc = fea_fundssrc;
 	}
 
-	@ExcelField(title="注资方", align=2, sort=7)
-	public String getCapital_type () {
-		return capital_type ;
+	@ExcelField(title="注资方", align=2, sort=3)
+	public String getCapitaltype () {
+		return capitaltype ;
 	}
 
-	public void setCapital_type (String capital_type ) {
-		this.capital_type  = capital_type ;
+	public void setCapitaltype (String capitaltype ) {
+		this.capitaltype  = capitaltype ;
 	}
 	
-	@ExcelField(title="币种", align=2, sort=8)
+	@ExcelField(title="币种", align=2, sort=4)
 	public String getCurrency() {
 		return currency;
 	}
@@ -52,7 +52,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.currency = currency;
 	}
 	
-	@ExcelField(title="汇率", align=2, sort=9)
+	@ExcelField(title="汇率", align=2, sort=5)
 	public String getExchangerate() {
 		return exchangerate;
 	}
@@ -61,22 +61,22 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.exchangerate = exchangerate;
 	}
 	
-	@ExcelField(title="比例", align=2, sort=10)
-	public Double getCap_prop() {
-		return cap_prop;
+	@ExcelField(title="比例", align=2, sort=6)
+	public Double getCapprop() {
+		return capprop;
 	}
 
-	public void setCap_prop(Double cap_prop) {
-		this.cap_prop = cap_prop;
+	public void setCapprop(Double capprop) {
+		this.capprop = capprop;
 	}
 	
-	@ExcelField(title="额度", align=2, sort=11)
-	public Double getCap_amt() {
-		return cap_amt;
+	@ExcelField(title="额度", align=2, sort=7)
+	public Double getCapamt() {
+		return capamt;
 	}
 
-	public void setCap_amt(Double cap_amt) {
-		this.cap_amt = cap_amt;
+	public void setCapamt(Double capamt) {
+		this.capamt = capamt;
 	}
 	
 	public Fea_fundssrcVO getFea_fundssrc() {

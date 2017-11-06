@@ -13,22 +13,22 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源Entity
  * @author jw
- * @version 2017-11-05
+ * @version 2017-11-06
  */
 public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectCode;		// 项目编码
 	private String projectName;		// 项目名称
-	private Double invest_Total;		// 投资总额
-	private String isdeduct_Vtax;		// 增值税抵扣
-	private Double capital_Prop;		// 资本金比例(%)
-	private Double capital_Amt;		// 资本金额度
-	private Double loan_Prop;		// 借款比例(%)
-	private Double loan_Amt;		// 借款金额
-	private String is_Capital_cy;		// 注资循环
+	private Double investtotal;		// 投资总额
+	private String isdeductvtax;		// 增值税抵扣
+	private Double capitalprop;		// 资本金比例(%)
+	private Double capitalamt;		// 资本金额度
+	private Double loanprop;		// 借款比例(%)
+	private Double loanamt;		// 借款金额
+	private String iscapitalcy;		// 注资循环
 	private Office office;		// 部门
-	private String pk_corp;		// 公司
+	private String corp;		// 公司
 	private List<Fea_fundssrcBVO> fea_fundssrcBVOList = Lists.newArrayList();		// 子表列表
 	private List<Fea_fundssrcTVO> fea_fundssrcTVOList = Lists.newArrayList();		// 子表列表
 	
@@ -59,66 +59,66 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	}
 	
 	@ExcelField(title="投资总额", align=2, sort=9)
-	public Double getInvest_Total() {
-		return invest_Total;
+	public Double getInvesttotal() {
+		return investtotal;
 	}
 
-	public void setInvest_Total(Double invest_Total) {
-		this.invest_Total = invest_Total;
+	public void setInvesttotal(Double investtotal) {
+		this.investtotal = investtotal;
 	}
 	
-	@ExcelField(title="增值税抵扣", dictType="", align=2, sort=10)
-	public String getIsdeduct_Vtax() {
-		return isdeduct_Vtax;
+	@ExcelField(title="增值税抵扣", dictType="yes_no", align=2, sort=10)
+	public String getIsdeductvtax() {
+		return isdeductvtax;
 	}
 
-	public void setIsdeduct_Vtax(String isdeduct_Vtax) {
-		this.isdeduct_Vtax = isdeduct_Vtax;
+	public void setIsdeductvtax(String isdeductvtax) {
+		this.isdeductvtax = isdeductvtax;
 	}
 	
 	@ExcelField(title="资本金比例(%)", align=2, sort=11)
-	public Double getCapital_Prop() {
-		return capital_Prop;
+	public Double getCapitalprop() {
+		return capitalprop;
 	}
 
-	public void setCapital_Prop(Double capital_Prop) {
-		this.capital_Prop = capital_Prop;
+	public void setCapitalprop(Double capitalprop) {
+		this.capitalprop = capitalprop;
 	}
 	
 	@ExcelField(title="资本金额度", align=2, sort=12)
-	public Double getCapital_Amt() {
-		return capital_Amt;
+	public Double getCapitalamt() {
+		return capitalamt;
 	}
 
-	public void setCapital_Amt(Double capital_Amt) {
-		this.capital_Amt = capital_Amt;
+	public void setCapitalamt(Double capitalamt) {
+		this.capitalamt = capitalamt;
 	}
 	
 	@ExcelField(title="借款比例(%)", align=2, sort=13)
-	public Double getLoan_Prop() {
-		return loan_Prop;
+	public Double getLoanprop() {
+		return loanprop;
 	}
 
-	public void setLoan_Prop(Double loan_Prop) {
-		this.loan_Prop = loan_Prop;
+	public void setLoanprop(Double loanprop) {
+		this.loanprop = loanprop;
 	}
 	
 	@ExcelField(title="借款金额", align=2, sort=14)
-	public Double getLoan_Amt() {
-		return loan_Amt;
+	public Double getLoanamt() {
+		return loanamt;
 	}
 
-	public void setLoan_Amt(Double loan_Amt) {
-		this.loan_Amt = loan_Amt;
+	public void setLoanamt(Double loanamt) {
+		this.loanamt = loanamt;
 	}
 	
-	@ExcelField(title="注资循环", dictType="", align=2, sort=15)
-	public String getIs_Capital_cy() {
-		return is_Capital_cy;
+	@ExcelField(title="注资循环", dictType="yes_no", align=2, sort=15)
+	public String getIscapitalcy() {
+		return iscapitalcy;
 	}
 
-	public void setIs_Capital_cy(String is_Capital_cy) {
-		this.is_Capital_cy = is_Capital_cy;
+	public void setIscapitalcy(String iscapitalcy) {
+		this.iscapitalcy = iscapitalcy;
 	}
 	
 	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
@@ -131,12 +131,12 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	}
 	
 	@ExcelField(title="公司", align=2, sort=17)
-	public String getPk_corp() {
-		return pk_corp;
+	public String getCorp() {
+		return corp;
 	}
 
-	public void setPk_corp(String pk_corp) {
-		this.pk_corp = pk_corp;
+	public void setCorp(String corp) {
+		this.corp = corp;
 	}
 	
 	public List<Fea_fundssrcBVO> getFea_fundssrcBVOList() {

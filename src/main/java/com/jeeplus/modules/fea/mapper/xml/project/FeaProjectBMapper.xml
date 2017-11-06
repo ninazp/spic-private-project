@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper">
+    
+	<sql id="feaProjectBColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.project_code AS "projectCode",
+		a.project_name AS "projectName",
+		a.heat_area AS "heatArea",
+		a.kind AS "kind.id",
+		a.address AS "address",
+		a.heat_days AS "heatDays",
+		a.project_start AS "projectStart",
+		a.startup_date AS "startupDate",
+		a.construct_period AS "constructPeriod",
+		a.product_date AS "productDate",
+		a.deptid AS "office.id",
+		a.pk_corp AS "pkCorp",
+		b.name AS "kind.name",
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="feaProjectBJoins">
+			LEFT JOIN fea_project b ON b.id = a.kind
+		LEFT JOIN sys_office office ON office.id = a.deptid
+	</sql>
+	
+    
+	<select id="get" resultType="FeaProjectB" >
+		SELECT 
+			<include refid="feaProjectBColumns"/>
+		FROM fea_project_b a
+		<include refid="feaProjectBJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FeaProjectB" >
+		SELECT 
+			<include refid="feaProjectBColumns"/>
+		FROM fea_project_b a
+		<include refid="feaProjectBJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="projectCode != null and projectCode != ''">
+				AND a.project_code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{projectCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{projectCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{projectCode},'%')</if>
+			</if>
+			<if test="projectName != null and projectName != ''">
+				AND a.project_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{projectName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{projectName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{projectName},'%')</if>
+			</if>
+			<if test="kind != null and kind.id != null and kind.id != ''">
+				AND a.kind = #{kind.id}
+			</if>
+			<if test="projectStart != null and projectStart != ''">
+				AND a.project_start = #{projectStart}
+			</if>
+			<if test="startupDate != null and startupDate != ''">
+				AND a.startup_date = #{startupDate}
+			</if>
+			<if test="office != null and office.id != null and office.id != ''">
+				AND a.deptid = #{office.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="FeaProjectB" >
+		SELECT 
+			<include refid="feaProjectBColumns"/>
+		FROM fea_project_b a
+		<include refid="feaProjectBJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_project_b(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			project_code,
+			project_name,
+			heat_area,
+			kind,
+			address,
+			heat_days,
+			project_start,
+			startup_date,
+			construct_period,
+			product_date,
+			deptid,
+			pk_corp
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{projectCode},
+			#{projectName},
+			#{heatArea},
+			#{kind.id},
+			#{address},
+			#{heatDays},
+			#{projectStart},
+			#{startupDate},
+			#{constructPeriod},
+			#{productDate},
+			#{office.id},
+			#{pkCorp}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_project_b SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			project_code = #{projectCode},
+			project_name = #{projectName},
+			heat_area = #{heatArea},
+			kind = #{kind.id},
+			address = #{address},
+			heat_days = #{heatDays},
+			project_start = #{projectStart},
+			startup_date = #{startupDate},
+			construct_period = #{constructPeriod},
+			product_date = #{productDate},
+			deptid = #{office.id},
+			pk_corp = #{pkCorp}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_project_b
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE kind = #{kind.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_project_b SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE kind = #{kind.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="FeaProjectB" statementType="STATEMENT">
+		select * FROM fea_project_b  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

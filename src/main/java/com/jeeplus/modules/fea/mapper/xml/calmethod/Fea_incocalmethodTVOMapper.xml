@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.calmethod.Fea_incocalmethodTVOMapper">
+    
+	<sql id="fea_incocalmethodTVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.itemtype AS "itemtype",
+		a.unitname AS "unitname",
+		a.year17 AS "year17",
+		a.year18 AS "year18",
+		a.year19 AS "year19",
+		a.year20 AS "year20",
+		a.year21 AS "year21",
+		a.year22 AS "year22",
+		a.year23 AS "year23",
+		a.year24 AS "year24",
+		a.year25 AS "year25",
+		a.year26 AS "year26",
+		a.pkincocalmth AS "fea_incocalmethod.id"
+	</sql>
+	
+	<sql id="fea_incocalmethodTVOJoins">
+		
+			LEFT JOIN fea_incocalmethod b ON b.id = a.pkincocalmth
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_incocalmethodTVO" >
+		SELECT 
+			<include refid="fea_incocalmethodTVOColumns"/>
+		FROM fea_incocalmethod_t a
+		<include refid="fea_incocalmethodTVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_incocalmethodTVO" >
+		SELECT 
+			<include refid="fea_incocalmethodTVOColumns"/>
+		FROM fea_incocalmethod_t a
+		<include refid="fea_incocalmethodTVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="fea_incocalmethod != null and fea_incocalmethod.id != null and fea_incocalmethod.id != ''">
+				AND a.pkincocalmth = #{fea_incocalmethod.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_incocalmethodTVO" >
+		SELECT 
+			<include refid="fea_incocalmethodTVOColumns"/>
+		FROM fea_incocalmethod_t a
+		<include refid="fea_incocalmethodTVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_incocalmethod_t(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			itemtype,
+			unitname,
+			year17,
+			year18,
+			year19,
+			year20,
+			year21,
+			year22,
+			year23,
+			year24,
+			year25,
+			year26,
+			pkincocalmth
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{itemtype},
+			#{unitname},
+			#{year17},
+			#{year18},
+			#{year19},
+			#{year20},
+			#{year21},
+			#{year22},
+			#{year23},
+			#{year24},
+			#{year25},
+			#{year26},
+			#{fea_incocalmethod.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_incocalmethod_t SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			itemtype = #{itemtype},
+			unitname = #{unitname},
+			year17 = #{year17},
+			year18 = #{year18},
+			year19 = #{year19},
+			year20 = #{year20},
+			year21 = #{year21},
+			year22 = #{year22},
+			year23 = #{year23},
+			year24 = #{year24},
+			year25 = #{year25},
+			year26 = #{year26},
+			pkincocalmth = #{fea_incocalmethod.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_incocalmethod_t
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pkincocalmth = #{fea_incocalmethod.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_incocalmethod_t SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE pkincocalmth = #{fea_incocalmethod.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_incocalmethodTVO" statementType="STATEMENT">
+		select * FROM fea_incocalmethod_t  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

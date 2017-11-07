@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper">
+    
+	<sql id="fea_incomesetVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.projectcode AS "projectcode",
+		a.projectname AS "projectname",
+		a.salerate AS "salerate",
+		a.umctax AS "umctax",
+		a.surtax AS "surtax",
+		a.isvtax AS "isvtax",
+		a.vtaxrate AS "vtaxrate",
+		a.fuelrate AS "fuelrate",
+		a.freightrate AS "freightrate",
+		a.waterrate AS "waterrate",
+		a.materialrate AS "materialrate",
+		a.materialprop AS "materialprop",
+		a.incomerate AS "incomerate",
+		a.legalaccfund AS "legalaccfund",
+		a.accfund AS "accfund",
+		a.benchmarkrate AS "benchmarkrate",
+		a.averagerate AS "averagerate",
+		a.isaccfundwsd AS "isaccfundwsd",
+		a.remarks AS "remarks"
+	</sql>
+	
+	<sql id="fea_incomesetVOJoins">
+		
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_incomesetVO" >
+		SELECT 
+			<include refid="fea_incomesetVOColumns"/>
+		FROM fea_incomeset a
+		<include refid="fea_incomesetVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_incomesetVO" >
+		SELECT 
+			<include refid="fea_incomesetVOColumns"/>
+		FROM fea_incomeset a
+		<include refid="fea_incomesetVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_incomesetVO" >
+		SELECT 
+			<include refid="fea_incomesetVOColumns"/>
+		FROM fea_incomeset a
+		<include refid="fea_incomesetVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_incomeset(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			projectcode,
+			projectname,
+			salerate,
+			umctax,
+			surtax,
+			isvtax,
+			vtaxrate,
+			fuelrate,
+			freightrate,
+			waterrate,
+			materialrate,
+			materialprop,
+			incomerate,
+			legalaccfund,
+			accfund,
+			benchmarkrate,
+			averagerate,
+			isaccfundwsd,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{projectcode},
+			#{projectname},
+			#{salerate},
+			#{umctax},
+			#{surtax},
+			#{isvtax},
+			#{vtaxrate},
+			#{fuelrate},
+			#{freightrate},
+			#{waterrate},
+			#{materialrate},
+			#{materialprop},
+			#{incomerate},
+			#{legalaccfund},
+			#{accfund},
+			#{benchmarkrate},
+			#{averagerate},
+			#{isaccfundwsd},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_incomeset SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			projectcode = #{projectcode},
+			projectname = #{projectname},
+			salerate = #{salerate},
+			umctax = #{umctax},
+			surtax = #{surtax},
+			isvtax = #{isvtax},
+			vtaxrate = #{vtaxrate},
+			fuelrate = #{fuelrate},
+			freightrate = #{freightrate},
+			waterrate = #{waterrate},
+			materialrate = #{materialrate},
+			materialprop = #{materialprop},
+			incomerate = #{incomerate},
+			legalaccfund = #{legalaccfund},
+			accfund = #{accfund},
+			benchmarkrate = #{benchmarkrate},
+			averagerate = #{averagerate},
+			isaccfundwsd = #{isaccfundwsd},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_incomeset
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_incomeset SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_incomesetVO" statementType="STATEMENT">
+		select * FROM fea_incomeset  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

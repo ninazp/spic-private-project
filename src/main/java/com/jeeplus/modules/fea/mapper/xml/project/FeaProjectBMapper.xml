@@ -20,6 +20,7 @@
 		a.startup_date AS "startupDate",
 		a.construct_period AS "constructPeriod",
 		a.product_date AS "productDate",
+		a.countyears AS "countyears",
 		a.deptid AS "office.id",
 		a.pk_corp AS "pkCorp",
 		b.name AS "fea_project.name",
@@ -121,6 +122,7 @@
 			startup_date,
 			construct_period,
 			product_date,
+			countyears,
 			deptid,
 			pk_corp
 		) VALUES (
@@ -141,6 +143,7 @@
 			#{startupDate},
 			#{constructPeriod},
 			#{productDate},
+			#{countyears},
 			#{office.id},
 			#{pkCorp}
 		)
@@ -161,6 +164,7 @@
 			startup_date = #{startupDate},
 			construct_period = #{constructPeriod},
 			product_date = #{productDate},
+			countyears = #{countyears},
 			deptid = #{office.id},
 			pk_corp = #{pkCorp}
 		WHERE id = #{id}

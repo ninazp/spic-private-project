@@ -15,7 +15,6 @@
 		a.year2018 AS "year2018",
 		a.year2019 AS "year2019",
 		a.pkproductcost AS "fea_productcost.id",
-		a.remarks AS "remarks",
 		a.year2020 AS "year2020",
 		a.year2021 AS "year2021",
 		a.year2022 AS "year2022",
@@ -23,7 +22,8 @@
 		a.year2024 AS "year2024",
 		a.year2025 AS "year2025",
 		a.year2026 AS "year2026",
-		a.year2027 AS "year2027"
+		a.year2027 AS "year2027",
+		a.remarks AS "remarks"
 	</sql>
 	
 	<sql id="fea_productcostBVOJoins">
@@ -95,7 +95,6 @@
 			year2018,
 			year2019,
 			pkproductcost,
-			remarks,
 			year2020,
 			year2021,
 			year2022,
@@ -103,7 +102,8 @@
 			year2024,
 			year2025,
 			year2026,
-			year2027
+			year2027,
+			remarks
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -117,7 +117,6 @@
 			#{year2018},
 			#{year2019},
 			#{fea_productcost.id},
-			#{remarks},
 			#{year2020},
 			#{year2021},
 			#{year2022},
@@ -125,7 +124,8 @@
 			#{year2024},
 			#{year2025},
 			#{year2026},
-			#{year2027}
+			#{year2027},
+			#{remarks}
 		)
 	</insert>
 	
@@ -139,7 +139,6 @@
 			year2018 = #{year2018},
 			year2019 = #{year2019},
 			pkproductcost = #{fea_productcost.id},
-			remarks = #{remarks},
 			year2020 = #{year2020},
 			year2021 = #{year2021},
 			year2022 = #{year2022},
@@ -147,7 +146,8 @@
 			year2024 = #{year2024},
 			year2025 = #{year2025},
 			year2026 = #{year2026},
-			year2027 = #{year2027}
+			year2027 = #{year2027},
+			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
 	

@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 成本种类Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-09
  */
 public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 	
@@ -95,7 +95,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.fea_productcost = fea_productcost;
 	}
 	
-	@ExcelField(title="2020", align=2, sort=13)
+	@ExcelField(title="2020", align=2, sort=12)
 	public Double getYear2020() {
 		return year2020;
 	}
@@ -104,7 +104,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2020 = year2020;
 	}
 	
-	@ExcelField(title="2021", align=2, sort=14)
+	@ExcelField(title="2021", align=2, sort=13)
 	public Double getYear2021() {
 		return year2021;
 	}
@@ -113,7 +113,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2021 = year2021;
 	}
 	
-	@ExcelField(title="2022", align=2, sort=15)
+	@ExcelField(title="2022", align=2, sort=14)
 	public Double getYear2022() {
 		return year2022;
 	}
@@ -122,7 +122,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2022 = year2022;
 	}
 	
-	@ExcelField(title="2023", align=2, sort=16)
+	@ExcelField(title="2023", align=2, sort=15)
 	public Double getYear2023() {
 		return year2023;
 	}
@@ -131,7 +131,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2023 = year2023;
 	}
 	
-	@ExcelField(title="2024", align=2, sort=17)
+	@ExcelField(title="2024", align=2, sort=16)
 	public Double getYear2024() {
 		return year2024;
 	}
@@ -140,7 +140,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2024 = year2024;
 	}
 	
-	@ExcelField(title="2025", align=2, sort=18)
+	@ExcelField(title="2025", align=2, sort=17)
 	public Double getYear2025() {
 		return year2025;
 	}
@@ -149,7 +149,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2025 = year2025;
 	}
 	
-	@ExcelField(title="2026", align=2, sort=19)
+	@ExcelField(title="2026", align=2, sort=18)
 	public Double getYear2026() {
 		return year2026;
 	}
@@ -158,7 +158,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.year2026 = year2026;
 	}
 	
-	@ExcelField(title="2027", align=2, sort=20)
+	@ExcelField(title="2027", align=2, sort=19)
 	public Double getYear2027() {
 		return year2027;
 	}

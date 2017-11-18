@@ -133,19 +133,61 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'waterprice',
-		        title: '水价（元/顿）',
+		        title: '地热井费用',
 		        sortable: true
 		       
 		    }
 			,{
 		        field: 'wateramt',
-		        title: '供热用水量（万吨/年）',
+		        title: '泵送热水系统',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'remarks',
-		        title: '备注信息',
+		        field: 'midcontcost',
+		        title: '中间换热系统',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'waterheatcost',
+		        title: '水源热泵系统',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'controlcost',
+		        title: '控制系统',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'checkcost',
+		        title: '设计监理费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'buildcost',
+		        title: '建筑工程费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'setupcost',
+		        title: '安装工程费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'pipecost',
+		        title: '管网',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'heatdeposit',
+		        title: '供热质量保证金',
 		        sortable: true
 		       
 		    }

@@ -17,9 +17,17 @@
 		a.material AS "material",
 		a.insurance AS "insurance",
 		a.othercost AS "othercost",
-		a.waterprice AS "waterprice",
-		a.wateramt AS "wateramt",
-		a.remarks AS "remarks"
+		a.drjcost AS "waterprice",
+		a.bsrcost AS "wateramt",
+		a.remarks AS "remarks",
+		a.midcontcost AS "midcontcost",
+		a.waterheatcost AS "waterheatcost",
+		a.controlcost AS "controlcost",
+		a.checkcost AS "checkcost",
+		a.buildcost AS "buildcost",
+		a.setupcost AS "setupcost",
+		a.pipecost AS "pipecost",
+		a.heatdeposit AS "heatdeposit"
 	</sql>
 	
 	<sql id="fea_productcostVOJoins">
@@ -89,9 +97,17 @@
 			material,
 			insurance,
 			othercost,
-			waterprice,
-			wateramt,
-			remarks
+			drjcost,
+			bsrcost,
+			remarks,
+			midcontcost,
+			waterheatcost,
+			controlcost,
+			checkcost,
+			buildcost,
+			setupcost,
+			pipecost,
+			heatdeposit
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -109,7 +125,15 @@
 			#{othercost},
 			#{waterprice},
 			#{wateramt},
-			#{remarks}
+			#{remarks},
+			#{midcontcost},
+			#{waterheatcost},
+			#{controlcost},
+			#{checkcost},
+			#{buildcost},
+			#{setupcost},
+			#{pipecost},
+			#{heatdeposit}
 		)
 	</insert>
 	
@@ -125,9 +149,17 @@
 			material = #{material},
 			insurance = #{insurance},
 			othercost = #{othercost},
-			waterprice = #{waterprice},
-			wateramt = #{wateramt},
-			remarks = #{remarks}
+			drjcost = #{waterprice},
+			bsrcost = #{wateramt},
+			remarks = #{remarks},
+			midcontcost = #{midcontcost},
+			waterheatcost = #{waterheatcost},
+			controlcost = #{controlcost},
+			checkcost = #{checkcost},
+			buildcost = #{buildcost},
+			setupcost = #{setupcost},
+			pipecost = #{pipecost},
+			heatdeposit = #{heatdeposit}
 		WHERE id = #{id}
 	</update>
 	

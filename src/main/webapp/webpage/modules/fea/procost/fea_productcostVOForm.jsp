@@ -132,23 +132,55 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">水价（元/顿）：</label></td>
+					<td class="width-15 active"><label class="pull-right">地热井费用：</label></td>
 					<td class="width-35">
 						<form:input path="waterprice" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">供热用水量（万吨/年）：</label></td>
+					<td class="width-15 active"><label class="pull-right">泵送热水系统：</label></td>
 					<td class="width-35">
 						<form:input path="wateramt" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
+					<td class="width-15 active"><label class="pull-right">中间换热系统：</label></td>
 					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
+						<form:input path="midcontcost" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+					<td class="width-15 active"><label class="pull-right">水源热泵系统：</label></td>
+					<td class="width-35">
+						<form:input path="waterheatcost" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">控制系统：</label></td>
+					<td class="width-35">
+						<form:input path="controlcost" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">设计监理费：</label></td>
+					<td class="width-35">
+						<form:input path="checkcost" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">建筑工程费：</label></td>
+					<td class="width-35">
+						<form:input path="buildcost" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">安装工程费：</label></td>
+					<td class="width-35">
+						<form:input path="setupcost" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">管网：</label></td>
+					<td class="width-35">
+						<form:input path="pipecost" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">供热质量保证金：</label></td>
+					<td class="width-35">
+						<form:input path="heatdeposit" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">

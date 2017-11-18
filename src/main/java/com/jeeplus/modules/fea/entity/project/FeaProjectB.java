@@ -3,10 +3,8 @@
  */
 package com.jeeplus.modules.fea.entity.project;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import javax.validation.constraints.NotNull;
 import com.jeeplus.modules.sys.entity.Office;
 
 import com.jeeplus.core.persistence.DataEntity;
@@ -15,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 项目（子表）Entity
  * @author zp
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class FeaProjectB extends DataEntity<FeaProjectB> {
 	
@@ -30,6 +28,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	private Date startupDate;		// 开工日期
 	private Double constructPeriod;		// 建设期(月)
 	private Date productDate;		// 投产日期
+	private Double countyears;		// 计算期（年）
 	private Office office;		// 部门
 	private String pkCorp;		// 公司
 	
@@ -63,7 +62,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.projectName = projectName;
 	}
 	
-	@NotNull(message="供暖面积不能为空")
 	@ExcelField(title="供暖面积", align=2, sort=9)
 	public Double getHeatArea() {
 		return heatArea;
@@ -90,7 +88,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.address = address;
 	}
 	
-	@NotNull(message="供暖天数不能为空")
 	@ExcelField(title="供暖天数", align=2, sort=12)
 	public Double getHeatDays() {
 		return heatDays;
@@ -101,7 +98,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="项目起始日期不能为空")
 	@ExcelField(title="项目起始日期", align=2, sort=13)
 	public Date getProjectStart() {
 		return projectStart;
@@ -112,7 +108,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="开工日期不能为空")
 	@ExcelField(title="开工日期", align=2, sort=14)
 	public Date getStartupDate() {
 		return startupDate;
@@ -122,7 +117,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.startupDate = startupDate;
 	}
 	
-	@NotNull(message="建设期(月)不能为空")
 	@ExcelField(title="建设期(月)", align=2, sort=15)
 	public Double getConstructPeriod() {
 		return constructPeriod;
@@ -133,7 +127,6 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(message="投产日期不能为空")
 	@ExcelField(title="投产日期", align=2, sort=16)
 	public Date getProductDate() {
 		return productDate;
@@ -143,8 +136,16 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.productDate = productDate;
 	}
 	
-	@NotNull(message="部门不能为空")
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=17)
+	@ExcelField(title="计算期（年）", align=2, sort=17)
+	public Double getCountyears() {
+		return countyears;
+	}
+
+	public void setCountyears(Double countyears) {
+		this.countyears = countyears;
+	}
+	
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=18)
 	public Office getOffice() {
 		return office;
 	}
@@ -153,7 +154,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.office = office;
 	}
 	
-	@ExcelField(title="公司", align=2, sort=18)
+	@ExcelField(title="公司", align=2, sort=19)
 	public String getPkCorp() {
 		return pkCorp;
 	}

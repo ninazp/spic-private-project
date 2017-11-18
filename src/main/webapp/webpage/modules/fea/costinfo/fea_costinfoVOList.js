@@ -93,7 +93,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'costype',
-		        title: '成本种类',
+		        title: '产品种类',
 		        sortable: true
 		       
 		    }
@@ -104,8 +104,8 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'year',
-		        title: '年度',
+		        field: 'productrate',
+		        title: '产品税（%）',
 		        sortable: true
 		       
 		    }
@@ -116,14 +116,68 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'productrate',
-		        title: '产品税（%）',
+		        field: 'year',
+		        title: '2017',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'remarks',
-		        title: '备注信息',
+		        field: 'year18',
+		        title: '2018',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year19',
+		        title: '2019',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year20',
+		        title: '2020',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year21',
+		        title: '2021',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year22',
+		        title: '2022',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year23',
+		        title: '2023',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year24',
+		        title: '2024',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year25',
+		        title: '2025',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year26',
+		        title: '2026',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year27',
+		        title: '2027',
 		        sortable: true
 		       
 		    }

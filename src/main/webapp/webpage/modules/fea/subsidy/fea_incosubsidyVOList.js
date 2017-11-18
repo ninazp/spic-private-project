@@ -265,5 +265,5 @@ $(document).ready(function() {
 	  jp.openDialogView('查看补贴收入', "${ctx}/fea/subsidy/fea_incosubsidyVO/form?id=" + id,'800px', '500px', $('#fea_incosubsidyVOTable'));
 	  </shiro:lacksPermission>
   }
-
+  
 </script>

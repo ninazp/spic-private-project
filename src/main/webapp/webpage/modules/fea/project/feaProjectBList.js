@@ -54,7 +54,7 @@ $(document).ready(function() {
                    if($el.data("item") == "edit"){
                    	edit(row.id);
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该项目记录吗？', function(){
+                        jp.confirm('确认要删除该项目（子表）记录吗？', function(){
                        	jp.loading();
                        	jp.get("${ctx}/fea/project/feaProjectB/delete?id="+row.id, function(data){
                    	  		if(data.success){
@@ -146,6 +146,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'countyears',
+		        title: '计算期（年）',
+		        sortable: true
+		       
+		    }
+			,{
 		        field: 'office.name',
 		        title: '部门',
 		        sortable: true
@@ -166,10 +172,7 @@ $(document).ready(function() {
                 'check-all.bs.table uncheck-all.bs.table', function () {
             $('#remove').prop('disabled', ! $('#feaProjectBTable').bootstrapTable('getSelections').length);
             $('#edit').prop('disabled', $('#feaProjectBTable').bootstrapTable('getSelections').length!=1);
-            $('#testa').prop('disabled', false);
         });
-	  
-	  
 		  
 		$("#btnImport").click(function(){
 			jp.open({
@@ -226,7 +229,7 @@ $(document).ready(function() {
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该项目记录吗？', function(){
+		jp.confirm('确认要删除该项目（子表）记录吗？', function(){
 			jp.loading();  	
 			jp.get("${ctx}/fea/project/feaProjectB/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
@@ -239,24 +242,6 @@ $(document).ready(function() {
           	   
 		})
   }
-  
-  function testa(){
-
-	  jp.confirm('自定义按钮即将访问后台？', function(){
-			jp.loading();  	
-			jp.get("${ctx}/fea/project/feaProjectB/testa?ids=" + getIdSelections(), function(data){
-       	  		if(data.success){
-       	  			$('#feaProjectBTable').bootstrapTable('refresh');
-       	  			jp.success(data.msg);
-       	  		}else{
-       	  			jp.error(data.msg);
-       	  		}
-       	  	})
-        	   
-		})
-  }
-  
-  
    function add(){
 	  jp.openDialog('新增项目（子表）', "${ctx}/fea/project/feaProjectB/form",'800px', '500px', $('#feaProjectBTable'));
   }

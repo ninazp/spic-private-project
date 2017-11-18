@@ -65,7 +65,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">成本种类：</label></td>
+					<td class="width-15 active"><label class="pull-right">产品种类：</label></td>
 					<td class="width-35">
 						<form:input path="costype" htmlEscape="false"    class="form-control "/>
 					</td>
@@ -75,9 +75,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">年度：</label></td>
+					<td class="width-15 active"><label class="pull-right">产品税（%）：</label></td>
 					<td class="width-35">
-						<form:input path="year" htmlEscape="false"    class="form-control "/>
+						<form:input path="productrate" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">产量：</label></td>
 					<td class="width-35">
@@ -85,15 +85,63 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">产品税（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">2017：</label></td>
 					<td class="width-35">
-						<form:input path="productrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="year" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
+					<td class="width-15 active"><label class="pull-right">2018：</label></td>
 					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
+						<form:input path="year18" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">2019：</label></td>
+					<td class="width-35">
+						<form:input path="year19" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">2020：</label></td>
+					<td class="width-35">
+						<form:input path="year20" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">2021：</label></td>
+					<td class="width-35">
+						<form:input path="year21" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">2022：</label></td>
+					<td class="width-35">
+						<form:input path="year22" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">2023：</label></td>
+					<td class="width-35">
+						<form:input path="year23" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">2024：</label></td>
+					<td class="width-35">
+						<form:input path="year24" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">2025：</label></td>
+					<td class="width-35">
+						<form:input path="year25" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">2026：</label></td>
+					<td class="width-35">
+						<form:input path="year26" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">2027：</label></td>
+					<td class="width-35">
+						<form:input path="year27" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

@@ -15,7 +15,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">项目列表</h3>
+		<h3 class="panel-title">项目（子表）列表</h3>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -107,13 +107,8 @@
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:project:feaProjectB:add">
-				<button id="testa" class="btn btn-danger" disabled onclick="testa()">
-	            	<i class="glyphicon glyphicon-earphone"></i> 测试
-	        	</button>
-			</shiro:hasPermission>
 			<shiro:hasPermission name="fea:project:feaProjectB:del">
-				<button id="remove" class="btn btn-primary" disabled onclick="deleteAll()">
+				<button id="remove" class="btn btn-danger" disabled onclick="deleteAll()">
 	            	<i class="glyphicon glyphicon-remove"></i> 删除
 	        	</button>
 			</shiro:hasPermission>

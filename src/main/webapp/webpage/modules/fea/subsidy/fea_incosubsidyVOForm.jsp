@@ -57,11 +57,11 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
 					<td class="width-35">
-						<form:input path="projectcode"   htmlEscape="false"  class="form-control "/>
+						<form:input path="projectcode"  disabled="true" htmlEscape="false"  class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"   class="form-control "/>
+						<form:input path="projectname"  disabled="true" htmlEscape="false"   class="form-control "/>
 					</td>
 				</tr>
 				<tr>
@@ -84,7 +84,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">2017：</label></td>
 					<td class="width-35">
-						<form:input path="year17" htmlEscape="false"    class="form-control "/>
+						<form:input path="year17"   htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>

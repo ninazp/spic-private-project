@@ -10,29 +10,29 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 基本参数Entity
  * @author jw
- * @version 2017-11-07
+ * @version 2017-11-18
  */
 public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
-	private Double salerate;		// 售热销项税率（%）
+	private Double vtaxrate;		// 综合增值税税率（%）
+	private Double incomerate;		// 所得税税率（%）
 	private Double umctax;		// 城市维护建设税率（%）
 	private Double surtax;		// 教育费附加费率（%）
-	private String isvtax;		// 综合增值税测算
-	private Double vtaxrate;		// 综合增值税税率（%）
-	private Double fuelrate;		// 燃料费扣税率（%）
-	private Double freightrate;		// 运费扣税率（%）
-	private Double waterrate;		// 水费扣税率（%）
-	private Double materialrate;		// 材料费扣税率（%）
-	private Double materialprop;		// 维修费中材料费比例（%）
-	private Double incomerate;		// 所得税税率（%）
-	private Double legalaccfund;		// 法定公积金
-	private Double accfund;		// 任意公积金
-	private Double benchmarkrate;		// 项目基准收益率（%）
-	private Double averagerate;		// 平均资本成本率（%）
+	private Double legalaccfund;		// 法定盈余公积金比例（%）
+	private Double accfund;		// 任意盈余公积金比例（%）
 	private String isaccfundwsd;		// 公积金提取不超过资本金的50%
+	private Double yflrprop;		// 应付利润比例（%）
+	private String isvtaxjzjt;		// 增值税即征即退50%
+	private String issdssjsm;		// 所得税三免三减半
+	private String capinvesttype;		// 资本金投入方式
+	private Double capinvestprop;		// 资本金比例（%）
+	private Double capinvestrate;		// 资本金基准收益率（%）
+	private Double industrysqrate;		// 行业基准收益率（所得税前）（%）
+	private Double industryshrate;		// 行业基准收益率（所得税后）（%）
+	private Double capcostrate;		// 资本成本率（%）
 	
 	public Fea_incomesetVO() {
 		super();
@@ -60,43 +60,7 @@ public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="售热销项税率（%）", align=2, sort=8)
-	public Double getSalerate() {
-		return salerate;
-	}
-
-	public void setSalerate(Double salerate) {
-		this.salerate = salerate;
-	}
-	
-	@ExcelField(title="城市维护建设税率（%）", align=2, sort=9)
-	public Double getUmctax() {
-		return umctax;
-	}
-
-	public void setUmctax(Double umctax) {
-		this.umctax = umctax;
-	}
-	
-	@ExcelField(title="教育费附加费率（%）", align=2, sort=10)
-	public Double getSurtax() {
-		return surtax;
-	}
-
-	public void setSurtax(Double surtax) {
-		this.surtax = surtax;
-	}
-	
-	@ExcelField(title="综合增值税测算", dictType="yes_no", align=2, sort=11)
-	public String getIsvtax() {
-		return isvtax;
-	}
-
-	public void setIsvtax(String isvtax) {
-		this.isvtax = isvtax;
-	}
-	
-	@ExcelField(title="综合增值税税率（%）", align=2, sort=12)
+	@ExcelField(title="综合增值税税率（%）", align=2, sort=8)
 	public Double getVtaxrate() {
 		return vtaxrate;
 	}
@@ -105,52 +69,7 @@ public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 		this.vtaxrate = vtaxrate;
 	}
 	
-	@ExcelField(title="燃料费扣税率（%）", align=2, sort=13)
-	public Double getFuelrate() {
-		return fuelrate;
-	}
-
-	public void setFuelrate(Double fuelrate) {
-		this.fuelrate = fuelrate;
-	}
-	
-	@ExcelField(title="运费扣税率（%）", align=2, sort=14)
-	public Double getFreightrate() {
-		return freightrate;
-	}
-
-	public void setFreightrate(Double freightrate) {
-		this.freightrate = freightrate;
-	}
-	
-	@ExcelField(title="水费扣税率（%）", align=2, sort=15)
-	public Double getWaterrate() {
-		return waterrate;
-	}
-
-	public void setWaterrate(Double waterrate) {
-		this.waterrate = waterrate;
-	}
-	
-	@ExcelField(title="材料费扣税率（%）", align=2, sort=16)
-	public Double getMaterialrate() {
-		return materialrate;
-	}
-
-	public void setMaterialrate(Double materialrate) {
-		this.materialrate = materialrate;
-	}
-	
-	@ExcelField(title="维修费中材料费比例（%）", align=2, sort=17)
-	public Double getMaterialprop() {
-		return materialprop;
-	}
-
-	public void setMaterialprop(Double materialprop) {
-		this.materialprop = materialprop;
-	}
-	
-	@ExcelField(title="所得税税率（%）", align=2, sort=18)
+	@ExcelField(title="所得税税率（%）", align=2, sort=9)
 	public Double getIncomerate() {
 		return incomerate;
 	}
@@ -159,7 +78,25 @@ public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 		this.incomerate = incomerate;
 	}
 	
-	@ExcelField(title="法定公积金", align=2, sort=19)
+	@ExcelField(title="城市维护建设税率（%）", align=2, sort=10)
+	public Double getUmctax() {
+		return umctax;
+	}
+
+	public void setUmctax(Double umctax) {
+		this.umctax = umctax;
+	}
+	
+	@ExcelField(title="教育费附加费率（%）", align=2, sort=11)
+	public Double getSurtax() {
+		return surtax;
+	}
+
+	public void setSurtax(Double surtax) {
+		this.surtax = surtax;
+	}
+	
+	@ExcelField(title="法定盈余公积金比例（%）", align=2, sort=12)
 	public Double getLegalaccfund() {
 		return legalaccfund;
 	}
@@ -168,7 +105,7 @@ public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 		this.legalaccfund = legalaccfund;
 	}
 	
-	@ExcelField(title="任意公积金", align=2, sort=20)
+	@ExcelField(title="任意盈余公积金比例（%）", align=2, sort=13)
 	public Double getAccfund() {
 		return accfund;
 	}
@@ -177,31 +114,94 @@ public class Fea_incomesetVO extends DataEntity<Fea_incomesetVO> {
 		this.accfund = accfund;
 	}
 	
-	@ExcelField(title="项目基准收益率（%）", align=2, sort=21)
-	public Double getBenchmarkrate() {
-		return benchmarkrate;
-	}
-
-	public void setBenchmarkrate(Double benchmarkrate) {
-		this.benchmarkrate = benchmarkrate;
-	}
-	
-	@ExcelField(title="平均资本成本率（%）", align=2, sort=22)
-	public Double getAveragerate() {
-		return averagerate;
-	}
-
-	public void setAveragerate(Double averagerate) {
-		this.averagerate = averagerate;
-	}
-	
-	@ExcelField(title="公积金提取不超过资本金的50%", dictType="yes_no", align=2, sort=23)
+	@ExcelField(title="公积金提取不超过资本金的50%", dictType="yes_no", align=2, sort=14)
 	public String getIsaccfundwsd() {
 		return isaccfundwsd;
 	}
 
 	public void setIsaccfundwsd(String isaccfundwsd) {
 		this.isaccfundwsd = isaccfundwsd;
+	}
+	
+	@ExcelField(title="应付利润比例（%）", align=2, sort=16)
+	public Double getYflrprop() {
+		return yflrprop;
+	}
+
+	public void setYflrprop(Double yflrprop) {
+		this.yflrprop = yflrprop;
+	}
+	
+	@ExcelField(title="增值税即征即退50%", dictType="yes_no", align=2, sort=17)
+	public String getIsvtaxjzjt() {
+		return isvtaxjzjt;
+	}
+
+	public void setIsvtaxjzjt(String isvtaxjzjt) {
+		this.isvtaxjzjt = isvtaxjzjt;
+	}
+	
+	@ExcelField(title="所得税三免三减半", dictType="yes_no", align=2, sort=18)
+	public String getIssdssjsm() {
+		return issdssjsm;
+	}
+
+	public void setIssdssjsm(String issdssjsm) {
+		this.issdssjsm = issdssjsm;
+	}
+	
+	@ExcelField(title="资本金投入方式", align=2, sort=19)
+	public String getCapinvesttype() {
+		return capinvesttype;
+	}
+
+	public void setCapinvesttype(String capinvesttype) {
+		this.capinvesttype = capinvesttype;
+	}
+	
+	@ExcelField(title="资本金比例（%）", align=2, sort=20)
+	public Double getCapinvestprop() {
+		return capinvestprop;
+	}
+
+	public void setCapinvestprop(Double capinvestprop) {
+		this.capinvestprop = capinvestprop;
+	}
+	
+	@ExcelField(title="资本金基准收益率（%）", align=2, sort=21)
+	public Double getCapinvestrate() {
+		return capinvestrate;
+	}
+
+	public void setCapinvestrate(Double capinvestrate) {
+		this.capinvestrate = capinvestrate;
+	}
+	
+	@ExcelField(title="行业基准收益率（所得税前）（%）", align=2, sort=22)
+	public Double getIndustrysqrate() {
+		return industrysqrate;
+	}
+
+	public void setIndustrysqrate(Double industrysqrate) {
+		this.industrysqrate = industrysqrate;
+	}
+	
+	@ExcelField(title="行业基准收益率（所得税后）（%）", align=2, sort=23)
+	public Double getIndustryshrate() {
+		return industryshrate;
+	}
+
+	public void setIndustryshrate(Double industryshrate) {
+		this.industryshrate = industryshrate;
+	}
+	
+	@ExcelField(title="资本成本率（%）", align=2, sort=24)
+	public Double getCapcostrate() {
+		return capcostrate;
+	}
+
+	public void setCapcostrate(Double capcostrate) {
+		this.capcostrate = capcostrate;
 	}
 	
 }

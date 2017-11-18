@@ -4,14 +4,14 @@
     
 	<sql id="fea_fundssrcBVOColumns">
 		a.id AS "id",
-		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
 		a.capitaltype  AS "capitaltype ",
 		a.currency AS "currency",
 		a.exchangerate AS "exchangerate",
 		a.capprop AS "capprop",
 		a.capamt AS "capamt",
-		a.pkfundssrc AS "fea_fundssrc.id"
+		a.pkfundssrc AS "fea_fundssrc.id",
+		a.remarks AS "remarks"
 	</sql>
 	
 	<sql id="fea_fundssrcBVOJoins">
@@ -70,36 +70,36 @@
 	<insert id="insert">
 		INSERT INTO fea_fundssrc_b(
 			id,
-			remarks,
 			del_flag,
 			capitaltype ,
 			currency,
 			exchangerate,
 			capprop,
 			capamt,
-			pkfundssrc
+			pkfundssrc,
+			remarks
 		) VALUES (
 			#{id},
-			#{remarks},
 			#{delFlag},
 			#{capitaltype },
 			#{currency},
 			#{exchangerate},
 			#{capprop},
 			#{capamt},
-			#{fea_fundssrc.id}
+			#{fea_fundssrc.id},
+			#{remarks}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE fea_fundssrc_b SET 	
-			remarks = #{remarks},
 			capitaltype  = #{capitaltype },
 			currency = #{currency},
 			exchangerate = #{exchangerate},
 			capprop = #{capprop},
 			capamt = #{capamt},
-			pkfundssrc = #{fea_fundssrc.id}
+			pkfundssrc = #{fea_fundssrc.id},
+			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
 	

@@ -10,16 +10,20 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 财务费用及流动资金Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
-	private Double circularate;		// 流动资金贷款利率（%）
-	private Double shortloanrate;		// 短期借款贷款利率（%）
+	private Double circulaamt;		// 流动资金指标
 	private Double circulaloanrate;		// 流动资金贷款比例（%）
+	private Double circularate;		// 流动资金贷款利率（%）
+	private Double langloanrate;		// 长期贷款利率（%）
+	private String langrepaytype;		// 长期还款方式
+	private Double repayyear;		// 预定还款年限（年）
+	private Double shortloanrate;		// 短期借款贷款利率（%）
 	private Double receivacount;		// 应收账款周转次数
 	private Double fuelcount;		// 燃料周转次数
 	private Double origincount;		// 原材料周转次数
@@ -54,25 +58,16 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="流动资金贷款利率（%）", align=2, sort=8)
-	public Double getCircularate() {
-		return circularate;
+	@ExcelField(title="流动资金指标", align=2, sort=8)
+	public Double getCirculaamt() {
+		return circulaamt;
 	}
 
-	public void setCircularate(Double circularate) {
-		this.circularate = circularate;
+	public void setCirculaamt(Double circulaamt) {
+		this.circulaamt = circulaamt;
 	}
 	
-	@ExcelField(title="短期借款贷款利率（%）", align=2, sort=9)
-	public Double getShortloanrate() {
-		return shortloanrate;
-	}
-
-	public void setShortloanrate(Double shortloanrate) {
-		this.shortloanrate = shortloanrate;
-	}
-	
-	@ExcelField(title="流动资金贷款比例（%）", align=2, sort=10)
+	@ExcelField(title="流动资金贷款比例（%）", align=2, sort=9)
 	public Double getCirculaloanrate() {
 		return circulaloanrate;
 	}
@@ -81,7 +76,52 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.circulaloanrate = circulaloanrate;
 	}
 	
-	@ExcelField(title="应收账款周转次数", align=2, sort=11)
+	@ExcelField(title="流动资金贷款利率（%）", align=2, sort=10)
+	public Double getCircularate() {
+		return circularate;
+	}
+
+	public void setCircularate(Double circularate) {
+		this.circularate = circularate;
+	}
+	
+	@ExcelField(title="长期贷款利率（%）", align=2, sort=11)
+	public Double getLangloanrate() {
+		return langloanrate;
+	}
+
+	public void setLangloanrate(Double langloanrate) {
+		this.langloanrate = langloanrate;
+	}
+	
+	@ExcelField(title="长期还款方式", align=2, sort=12)
+	public String getLangrepaytype() {
+		return langrepaytype;
+	}
+
+	public void setLangrepaytype(String langrepaytype) {
+		this.langrepaytype = langrepaytype;
+	}
+	
+	@ExcelField(title="预定还款年限（年）", align=2, sort=13)
+	public Double getRepayyear() {
+		return repayyear;
+	}
+
+	public void setRepayyear(Double repayyear) {
+		this.repayyear = repayyear;
+	}
+	
+	@ExcelField(title="短期借款贷款利率（%）", align=2, sort=14)
+	public Double getShortloanrate() {
+		return shortloanrate;
+	}
+
+	public void setShortloanrate(Double shortloanrate) {
+		this.shortloanrate = shortloanrate;
+	}
+	
+	@ExcelField(title="应收账款周转次数", align=2, sort=15)
 	public Double getReceivacount() {
 		return receivacount;
 	}
@@ -90,7 +130,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.receivacount = receivacount;
 	}
 	
-	@ExcelField(title="燃料周转次数", align=2, sort=12)
+	@ExcelField(title="燃料周转次数", align=2, sort=16)
 	public Double getFuelcount() {
 		return fuelcount;
 	}
@@ -99,7 +139,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.fuelcount = fuelcount;
 	}
 	
-	@ExcelField(title="原材料周转次数", align=2, sort=13)
+	@ExcelField(title="原材料周转次数", align=2, sort=17)
 	public Double getOrigincount() {
 		return origincount;
 	}
@@ -108,7 +148,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.origincount = origincount;
 	}
 	
-	@ExcelField(title="水费周转次数", align=2, sort=14)
+	@ExcelField(title="水费周转次数", align=2, sort=18)
 	public Double getWatercount() {
 		return watercount;
 	}
@@ -117,7 +157,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.watercount = watercount;
 	}
 	
-	@ExcelField(title="现金周转次数", align=2, sort=15)
+	@ExcelField(title="现金周转次数", align=2, sort=19)
 	public Double getCashcount() {
 		return cashcount;
 	}
@@ -126,7 +166,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.cashcount = cashcount;
 	}
 	
-	@ExcelField(title="发热成本摊销比例（%）", align=2, sort=16)
+	@ExcelField(title="发热成本摊销比例（%）", align=2, sort=20)
 	public Double getHeatcostdisprop() {
 		return heatcostdisprop;
 	}
@@ -135,7 +175,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.heatcostdisprop = heatcostdisprop;
 	}
 	
-	@ExcelField(title="发热投资分摊次数(%)", align=2, sort=17)
+	@ExcelField(title="发热投资分摊次数(%)", align=2, sort=21)
 	public Double getHeatcapdisprop() {
 		return heatcapdisprop;
 	}

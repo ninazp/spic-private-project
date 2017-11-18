@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 /**
  * 资产形成MAPPER接口
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 @MyBatisMapper
 public interface Fea_capformVOMapper extends BaseMapper<Fea_capformVO> {

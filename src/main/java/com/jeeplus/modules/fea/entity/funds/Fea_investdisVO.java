@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 投资分配Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	
@@ -22,6 +22,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	private String year;		// 年度
 	private Double investprop;		// 投资比例
 	private Double investamt;		// 投资额度
+	private Double deductvtax;		// 可抵扣税金
 	private Double cappropsum;		// 注资方合计
 	private Double loanpropsum;		// 融资合计
 	private List<Fea_investdisBVO> fea_investdisBVOList = Lists.newArrayList();		// 子表列表
@@ -79,7 +80,16 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.investamt = investamt;
 	}
 	
-	@ExcelField(title="注资方合计", align=2, sort=6)
+	@ExcelField(title="可抵扣税金", align=2, sort=6)
+	public Double getDeductvtax() {
+		return deductvtax;
+	}
+
+	public void setDeductvtax(Double deductvtax) {
+		this.deductvtax = deductvtax;
+	}
+	
+	@ExcelField(title="注资方合计", align=2, sort=7)
 	public Double getCappropsum() {
 		return cappropsum;
 	}
@@ -88,7 +98,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.cappropsum = cappropsum;
 	}
 	
-	@ExcelField(title="融资合计", align=2, sort=7)
+	@ExcelField(title="融资合计", align=2, sort=8)
 	public Double getLoanpropsum() {
 		return loanpropsum;
 	}

@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源融资子表Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 	
@@ -42,7 +42,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.fea_fundssrc = fea_fundssrc;
 	}
 
-	@ExcelField(title="借款类别", align=2, sort=3)
+	@ExcelField(title="借款类别", align=2, sort=2)
 	public String getLoantyp() {
 		return loantyp;
 	}
@@ -51,7 +51,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.loantyp = loantyp;
 	}
 	
-	@ExcelField(title="币种", align=2, sort=4)
+	@ExcelField(title="币种", align=2, sort=3)
 	public String getCurrency() {
 		return currency;
 	}
@@ -60,7 +60,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.currency = currency;
 	}
 	
-	@ExcelField(title="汇率", align=2, sort=5)
+	@ExcelField(title="汇率", align=2, sort=4)
 	public Double getExchangerate() {
 		return exchangerate;
 	}
@@ -69,7 +69,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.exchangerate = exchangerate;
 	}
 	
-	@ExcelField(title="比例", align=2, sort=6)
+	@ExcelField(title="比例", align=2, sort=5)
 	public Double getLoanprop() {
 		return loanprop;
 	}
@@ -78,7 +78,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.loanprop = loanprop;
 	}
 	
-	@ExcelField(title="额度", align=2, sort=7)
+	@ExcelField(title="额度", align=2, sort=6)
 	public Double getLoan_amt() {
 		return loan_amt;
 	}
@@ -87,7 +87,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.loan_amt = loan_amt;
 	}
 	
-	@ExcelField(title="固定额度", align=2, sort=8)
+	@ExcelField(title="固定额度", align=2, sort=7)
 	public Double getFixamt() {
 		return fixamt;
 	}
@@ -96,7 +96,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.fixamt = fixamt;
 	}
 	
-	@ExcelField(title="计息次数", align=2, sort=9)
+	@ExcelField(title="计息次数", align=2, sort=8)
 	public Double getInterestcount() {
 		return interestcount;
 	}
@@ -105,7 +105,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.interestcount = interestcount;
 	}
 	
-	@ExcelField(title="本金利率", align=2, sort=10)
+	@ExcelField(title="本金利率", align=2, sort=9)
 	public Double getPrincipalrate() {
 		return principalrate;
 	}
@@ -114,7 +114,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.principalrate = principalrate;
 	}
 	
-	@ExcelField(title="利息利率", align=2, sort=11)
+	@ExcelField(title="利息利率", align=2, sort=10)
 	public Double getInterestrate() {
 		return interestrate;
 	}
@@ -123,7 +123,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.interestrate = interestrate;
 	}
 	
-	@ExcelField(title="承诺费率", align=2, sort=12)
+	@ExcelField(title="承诺费率", align=2, sort=11)
 	public Double getCommitrate() {
 		return commitrate;
 	}
@@ -132,7 +132,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.commitrate = commitrate;
 	}
 	
-	@ExcelField(title="宽限期", align=2, sort=13)
+	@ExcelField(title="宽限期", align=2, sort=12)
 	public Double getGraceperiod() {
 		return graceperiod;
 	}
@@ -141,7 +141,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.graceperiod = graceperiod;
 	}
 	
-	@ExcelField(title="还款期", align=2, sort=14)
+	@ExcelField(title="还款期", align=2, sort=13)
 	public Double getRepayperiod() {
 		return repayperiod;
 	}
@@ -150,7 +150,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.repayperiod = repayperiod;
 	}
 	
-	@ExcelField(title="还款方式", align=2, sort=15)
+	@ExcelField(title="还款方式", align=2, sort=14)
 	public String getRepaytype() {
 		return repaytype;
 	}

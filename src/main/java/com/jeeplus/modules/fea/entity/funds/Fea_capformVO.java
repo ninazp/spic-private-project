@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资产形成Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 	
@@ -18,7 +18,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private Double fixassetprop;		// 固定资产形成比例（%）
-	private Double uselifefat;		// 折旧年限（年）
+	private Double uselifefat;		// 折旧年限（%）
 	private Double residualrate;		// 残值率（%）
 	private Double intangibleprop;		// 无形资产形成比例（%）
 	private Double usefullitb;		// 折旧年限（%）
@@ -60,7 +60,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.fixassetprop = fixassetprop;
 	}
 	
-	@ExcelField(title="折旧年限（年）", align=2, sort=4)
+	@ExcelField(title="折旧年限（%）", align=2, sort=4)
 	public Double getUselifefat() {
 		return uselifefat;
 	}

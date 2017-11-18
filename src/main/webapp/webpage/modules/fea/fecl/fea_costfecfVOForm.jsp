@@ -65,59 +65,39 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金贷款利率（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">流动资金指标：</label></td>
 					<td class="width-35">
-						<form:input path="circularate" htmlEscape="false"    class="form-control "/>
+						<form:input path="circulaamt" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">短期借款贷款利率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="shortloanrate" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">流动资金贷款比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="circulaloanrate" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">应收账款周转次数：</label></td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">流动资金贷款利率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="receivacount" htmlEscape="false"    class="form-control "/>
+						<form:input path="circularate" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">长期贷款利率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="langloanrate" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">燃料周转次数：</label></td>
+					<td class="width-15 active"><label class="pull-right">长期还款方式：</label></td>
 					<td class="width-35">
-						<form:input path="fuelcount" htmlEscape="false"    class="form-control "/>
+						<form:input path="langrepaytype" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">原材料周转次数：</label></td>
+					<td class="width-15 active"><label class="pull-right">预定还款年限（年）：</label></td>
 					<td class="width-35">
-						<form:input path="origincount" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">水费周转次数：</label></td>
-					<td class="width-35">
-						<form:input path="watercount" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">现金周转次数：</label></td>
-					<td class="width-35">
-						<form:input path="cashcount" htmlEscape="false"    class="form-control "/>
+						<form:input path="repayyear" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">发热成本摊销比例（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">短期借款贷款利率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="heatcostdisprop" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">发热投资分摊次数(%)：</label></td>
-					<td class="width-35">
-						<form:input path="heatcapdisprop" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
-					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
+						<form:input path="shortloanrate" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"></td>
 		   			<td class="width-35" ></td>

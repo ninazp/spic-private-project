@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源投资子表Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 	
@@ -34,7 +34,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.fea_fundssrc = fea_fundssrc;
 	}
 
-	@ExcelField(title="注资方", align=2, sort=3)
+	@ExcelField(title="注资方", align=2, sort=2)
 	public String getCapitaltype () {
 		return capitaltype ;
 	}
@@ -43,7 +43,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.capitaltype  = capitaltype ;
 	}
 	
-	@ExcelField(title="币种", align=2, sort=4)
+	@ExcelField(title="币种", align=2, sort=3)
 	public String getCurrency() {
 		return currency;
 	}
@@ -52,7 +52,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.currency = currency;
 	}
 	
-	@ExcelField(title="汇率", align=2, sort=5)
+	@ExcelField(title="汇率", align=2, sort=4)
 	public String getExchangerate() {
 		return exchangerate;
 	}
@@ -61,7 +61,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.exchangerate = exchangerate;
 	}
 	
-	@ExcelField(title="比例", align=2, sort=6)
+	@ExcelField(title="比例", align=2, sort=5)
 	public Double getCapprop() {
 		return capprop;
 	}
@@ -70,7 +70,7 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.capprop = capprop;
 	}
 	
-	@ExcelField(title="额度", align=2, sort=7)
+	@ExcelField(title="额度", align=2, sort=6)
 	public Double getCapamt() {
 		return capamt;
 	}

@@ -4,7 +4,6 @@
     
 	<sql id="fea_fundssrcTVOColumns">
 		a.id AS "id",
-		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
 		a.loantyp AS "loantyp",
 		a.currency AS "currency",
@@ -19,7 +18,8 @@
 		a.graceperiod AS "graceperiod",
 		a.repayperiod AS "repayperiod",
 		a.repaytype AS "repaytype",
-		a.pkfundssrc AS "fea_fundssrc.id"
+		a.pkfundssrc AS "fea_fundssrc.id",
+		a.remarks AS "remarks"
 	</sql>
 	
 	<sql id="fea_fundssrcTVOJoins">
@@ -78,7 +78,6 @@
 	<insert id="insert">
 		INSERT INTO fea_fundssrc_t(
 			id,
-			remarks,
 			del_flag,
 			loantyp,
 			currency,
@@ -93,10 +92,10 @@
 			graceperiod,
 			repayperiod,
 			repaytype,
-			pkfundssrc
+			pkfundssrc,
+			remarks
 		) VALUES (
 			#{id},
-			#{remarks},
 			#{delFlag},
 			#{loantyp},
 			#{currency},
@@ -111,13 +110,13 @@
 			#{graceperiod},
 			#{repayperiod},
 			#{repaytype},
-			#{fea_fundssrc.id}
+			#{fea_fundssrc.id},
+			#{remarks}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE fea_fundssrc_t SET 	
-			remarks = #{remarks},
 			loantyp = #{loantyp},
 			currency = #{currency},
 			exchangerate = #{exchangerate},
@@ -131,7 +130,8 @@
 			graceperiod = #{graceperiod},
 			repayperiod = #{repayperiod},
 			repaytype = #{repaytype},
-			pkfundssrc = #{fea_fundssrc.id}
+			pkfundssrc = #{fea_fundssrc.id},
+			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
 	

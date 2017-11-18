@@ -65,89 +65,92 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">售热销项税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="salerate" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">城市维护建设税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="umctax" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">教育费附加费率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="surtax" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">综合增值税测算：</label></td>
-					<td class="width-35">
-						<form:select path="isvtax" class="form-control ">
-							<form:option value="" label=""/>
-							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-						</form:select>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">综合增值税税率（%）：</label></td>
 					<td class="width-35">
 						<form:input path="vtaxrate" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">燃料费扣税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="fuelrate" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">运费扣税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="freightrate" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">水费扣税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="waterrate" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">材料费扣税率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="materialrate" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">维修费中材料费比例（%）：</label></td>
-					<td class="width-35">
-						<form:input path="materialprop" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">所得税税率（%）：</label></td>
 					<td class="width-35">
 						<form:input path="incomerate" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">法定公积金：</label></td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">城市维护建设税率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="umctax" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">教育费附加费率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="surtax" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">法定盈余公积金比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="legalaccfund" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">任意公积金：</label></td>
+					<td class="width-15 active"><label class="pull-right">任意盈余公积金比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="accfund" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">项目基准收益率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="benchmarkrate" htmlEscape="false"    class="form-control "/>
-					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">平均资本成本率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="averagerate" htmlEscape="false"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">公积金提取不超过资本金的50%：</label></td>
 					<td class="width-35">
 						<form:select path="isaccfundwsd" class="form-control ">
 							<form:option value="" label=""/>
 							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 						</form:select>
+					</td>
+					<td class="width-15 active"><label class="pull-right">应付利润比例（%）：</label></td>
+					<td class="width-35">
+						<form:input path="yflrprop" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">增值税即征即退50%：</label></td>
+					<td class="width-35">
+						<form:select path="isvtaxjzjt" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
+					</td>
+					<td class="width-15 active"><label class="pull-right">所得税三免三减半：</label></td>
+					<td class="width-35">
+						<form:select path="issdssjsm" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">资本金投入方式：</label></td>
+					<td class="width-35">
+						<form:input path="capinvesttype" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">资本金比例（%）：</label></td>
+					<td class="width-35">
+						<form:input path="capinvestprop" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">资本金基准收益率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="capinvestrate" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">行业基准收益率（所得税前）（%）：</label></td>
+					<td class="width-35">
+						<form:input path="industrysqrate" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">行业基准收益率（所得税后）（%）：</label></td>
+					<td class="width-35">
+						<form:input path="industryshrate" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">资本成本率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="capcostrate" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 		 	</tbody>

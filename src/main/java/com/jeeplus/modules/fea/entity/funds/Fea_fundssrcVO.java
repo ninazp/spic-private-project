@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源Entity
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	
@@ -22,6 +22,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	private String projectName;		// 项目名称
 	private Double investtotal;		// 投资总额
 	private String isdeductvtax;		// 增值税抵扣
+	private Double deductvtax;		// 可抵扣税金
 	private Double capitalprop;		// 资本金比例(%)
 	private Double capitalamt;		// 资本金额度
 	private Double loanprop;		// 借款比例(%)
@@ -40,7 +41,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目编码", align=2, sort=7)
+	@ExcelField(title="项目编码", align=2, sort=6)
 	public String getProjectCode() {
 		return projectCode;
 	}
@@ -49,7 +50,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.projectCode = projectCode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=8)
+	@ExcelField(title="项目名称", align=2, sort=7)
 	public String getProjectName() {
 		return projectName;
 	}
@@ -58,7 +59,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.projectName = projectName;
 	}
 	
-	@ExcelField(title="投资总额", align=2, sort=9)
+	@ExcelField(title="投资总额", align=2, sort=8)
 	public Double getInvesttotal() {
 		return investtotal;
 	}
@@ -67,13 +68,22 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.investtotal = investtotal;
 	}
 	
-	@ExcelField(title="增值税抵扣", dictType="yes_no", align=2, sort=10)
+	@ExcelField(title="增值税抵扣", dictType="yes_no", align=2, sort=9)
 	public String getIsdeductvtax() {
 		return isdeductvtax;
 	}
 
 	public void setIsdeductvtax(String isdeductvtax) {
 		this.isdeductvtax = isdeductvtax;
+	}
+	
+	@ExcelField(title="可抵扣税金", align=2, sort=10)
+	public Double getDeductvtax() {
+		return deductvtax;
+	}
+
+	public void setDeductvtax(Double deductvtax) {
+		this.deductvtax = deductvtax;
 	}
 	
 	@ExcelField(title="资本金比例(%)", align=2, sort=11)

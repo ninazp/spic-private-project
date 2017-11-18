@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.funds.Fea_capformVOService;
 /**
  * 资产形成Controller
  * @author jw
- * @version 2017-11-06
+ * @version 2017-11-18
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/funds/fea_capformVO")

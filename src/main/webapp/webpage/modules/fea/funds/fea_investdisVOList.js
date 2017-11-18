@@ -114,6 +114,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'deductvtax',
+		        title: '可抵扣税金',
+		        sortable: true
+		       
+		    }
+			,{
 		        field: 'cappropsum',
 		        title: '注资方合计',
 		        sortable: true

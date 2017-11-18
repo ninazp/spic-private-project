@@ -92,8 +92,14 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'salerate',
-		        title: '售热销项税率（%）',
+		        field: 'vtaxrate',
+		        title: '综合增值税税率（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'incomerate',
+		        title: '所得税税率（%）',
 		        sortable: true
 		       
 		    }
@@ -110,77 +116,14 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'isvtax',
-		        title: '综合增值税测算',
-		        sortable: true,
-		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
-		        }
-		       
-		    }
-			,{
-		        field: 'vtaxrate',
-		        title: '综合增值税税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'fuelrate',
-		        title: '燃料费扣税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'freightrate',
-		        title: '运费扣税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'waterrate',
-		        title: '水费扣税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'materialrate',
-		        title: '材料费扣税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'materialprop',
-		        title: '维修费中材料费比例（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'incomerate',
-		        title: '所得税税率（%）',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'legalaccfund',
-		        title: '法定公积金',
+		        title: '法定盈余公积金比例（%）',
 		        sortable: true
 		       
 		    }
 			,{
 		        field: 'accfund',
-		        title: '任意公积金',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'benchmarkrate',
-		        title: '项目基准收益率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'averagerate',
-		        title: '平均资本成本率（%）',
+		        title: '任意盈余公积金比例（%）',
 		        sortable: true
 		       
 		    }
@@ -191,6 +134,66 @@ $(document).ready(function() {
 		        formatter:function(value, row , index){
 		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
 		        }
+		       
+		    }
+			,{
+		        field: 'yflrprop',
+		        title: '应付利润比例（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'isvtaxjzjt',
+		        title: '增值税即征即退50%',
+		        sortable: true,
+		        formatter:function(value, row , index){
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
+		        }
+		       
+		    }
+			,{
+		        field: 'issdssjsm',
+		        title: '所得税三免三减半',
+		        sortable: true,
+		        formatter:function(value, row , index){
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
+		        }
+		       
+		    }
+			,{
+		        field: 'capinvesttype',
+		        title: '资本金投入方式',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'capinvestprop',
+		        title: '资本金比例（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'capinvestrate',
+		        title: '资本金基准收益率（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'industrysqrate',
+		        title: '行业基准收益率（所得税前）（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'industryshrate',
+		        title: '行业基准收益率（所得税后）（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'capcostrate',
+		        title: '资本成本率（%）',
+		        sortable: true
 		       
 		    }
 		     ]

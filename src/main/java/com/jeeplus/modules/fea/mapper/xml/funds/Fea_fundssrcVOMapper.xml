@@ -8,12 +8,12 @@
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
-		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
 		a.projectcode AS "projectCode",
 		a.projectname AS "projectName",
 		a.investtotal AS "investtotal",
 		a.isdeductvtax AS "isdeductvtax",
+		a.deductvtax AS "deductvtax",
 		a.capitalprop AS "capitalprop",
 		a.capitalamt AS "capitalamt",
 		a.loanprop AS "loanprop",
@@ -21,6 +21,7 @@
 		a.iscapitalcy AS "iscapitalcy",
 		a.deptid AS "office.id",
 		a.corp AS "corp",
+		a.remarks AS "remarks",
 				
 				
 				
@@ -62,6 +63,12 @@
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			${dataScope}
+			<if test="projectCode != null and projectCode != ''">
+				AND a.projectcode LIKE 
+					<if test="dbName == 'oracle'">'%'||#{projectCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{projectCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{projectCode},'%')</if>
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -99,38 +106,40 @@
 			create_date,
 			update_by,
 			update_date,
-			remarks,
 			del_flag,
 			projectcode,
 			projectname,
 			investtotal,
 			isdeductvtax,
+			deductvtax,
 			capitalprop,
 			capitalamt,
 			loanprop,
 			loanamt,
 			iscapitalcy,
 			deptid,
-			corp
+			corp,
+			remarks
 		) VALUES (
 			#{id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
-			#{remarks},
 			#{delFlag},
 			#{projectCode},
 			#{projectName},
 			#{investtotal},
 			#{isdeductvtax},
+			#{deductvtax},
 			#{capitalprop},
 			#{capitalamt},
 			#{loanprop},
 			#{loanamt},
 			#{iscapitalcy},
 			#{office.id},
-			#{corp}
+			#{corp},
+			#{remarks}
 		)
 	</insert>
 	
@@ -138,18 +147,19 @@
 		UPDATE fea_fundssrc SET 	
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			remarks = #{remarks},
 			projectcode = #{projectCode},
 			projectname = #{projectName},
 			investtotal = #{investtotal},
 			isdeductvtax = #{isdeductvtax},
+			deductvtax = #{deductvtax},
 			capitalprop = #{capitalprop},
 			capitalamt = #{capitalamt},
 			loanprop = #{loanprop},
 			loanamt = #{loanamt},
 			iscapitalcy = #{iscapitalcy},
 			deptid = #{office.id},
-			corp = #{corp}
+			corp = #{corp},
+			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
 	

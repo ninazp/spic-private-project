@@ -16,18 +16,12 @@
 		a.welfare AS "welfare",
 		a.material AS "material",
 		a.insurance AS "insurance",
-		a.othercost AS "othercost",
-		a.drjcost AS "waterprice",
 		a.bsrcost AS "wateramt",
 		a.remarks AS "remarks",
-		a.midcontcost AS "midcontcost",
-		a.waterheatcost AS "waterheatcost",
-		a.controlcost AS "controlcost",
-		a.checkcost AS "checkcost",
-		a.buildcost AS "buildcost",
-		a.setupcost AS "setupcost",
-		a.pipecost AS "pipecost",
-		a.heatdeposit AS "heatdeposit"
+		a.heatdeposit AS "heatdeposit",
+		a.intangibletx AS "intangibletx",
+		a.otherassettx AS "otherassettx",
+		a.othercost AS "othercost"
 	</sql>
 	
 	<sql id="fea_productcostVOJoins">
@@ -96,18 +90,12 @@
 			welfare,
 			material,
 			insurance,
-			othercost,
-			drjcost,
 			bsrcost,
 			remarks,
-			midcontcost,
-			waterheatcost,
-			controlcost,
-			checkcost,
-			buildcost,
-			setupcost,
-			pipecost,
-			heatdeposit
+			heatdeposit,
+			intangibletx,
+			otherassettx,
+			othercost
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -122,18 +110,12 @@
 			#{welfare},
 			#{material},
 			#{insurance},
-			#{othercost},
-			#{waterprice},
 			#{wateramt},
 			#{remarks},
-			#{midcontcost},
-			#{waterheatcost},
-			#{controlcost},
-			#{checkcost},
-			#{buildcost},
-			#{setupcost},
-			#{pipecost},
-			#{heatdeposit}
+			#{heatdeposit},
+			#{intangibletx},
+			#{otherassettx},
+			#{othercost}
 		)
 	</insert>
 	
@@ -148,18 +130,12 @@
 			welfare = #{welfare},
 			material = #{material},
 			insurance = #{insurance},
-			othercost = #{othercost},
-			drjcost = #{waterprice},
 			bsrcost = #{wateramt},
 			remarks = #{remarks},
-			midcontcost = #{midcontcost},
-			waterheatcost = #{waterheatcost},
-			controlcost = #{controlcost},
-			checkcost = #{checkcost},
-			buildcost = #{buildcost},
-			setupcost = #{setupcost},
-			pipecost = #{pipecost},
-			heatdeposit = #{heatdeposit}
+			heatdeposit = #{heatdeposit},
+			intangibletx = #{intangibletx},
+			otherassettx = #{otherassettx},
+			othercost = #{othercost}
 		WHERE id = #{id}
 	</update>
 	

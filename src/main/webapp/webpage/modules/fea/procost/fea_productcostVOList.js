@@ -126,68 +126,32 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'othercost',
-		        title: '其他费用',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'waterprice',
-		        title: '地热井费用',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'wateramt',
-		        title: '泵送热水系统',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'midcontcost',
-		        title: '中间换热系统',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'waterheatcost',
-		        title: '水源热泵系统',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'controlcost',
-		        title: '控制系统',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'checkcost',
-		        title: '设计监理费',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'buildcost',
-		        title: '建筑工程费',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'setupcost',
-		        title: '安装工程费',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'pipecost',
-		        title: '管网',
+		        title: '泵送费',
 		        sortable: true
 		       
 		    }
 			,{
 		        field: 'heatdeposit',
-		        title: '供热质量保证金',
+		        title: '供暖费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'intangibletx',
+		        title: '无形资产摊销（年）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'otherassettx',
+		        title: '其他资产摊销（年）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'othercost',
+		        title: '其他费用',
 		        sortable: true
 		       
 		    }

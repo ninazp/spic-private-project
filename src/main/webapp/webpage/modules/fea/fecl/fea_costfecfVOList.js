@@ -92,14 +92,8 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'circularate',
-		        title: '流动资金贷款利率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'shortloanrate',
-		        title: '短期借款贷款利率（%）',
+		        field: 'circulaamt',
+		        title: '流动资金指标',
 		        sortable: true
 		       
 		    }
@@ -110,50 +104,32 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'receivacount',
-		        title: '应收账款周转次数',
+		        field: 'circularate',
+		        title: '流动资金贷款利率（%）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'fuelcount',
-		        title: '燃料周转次数',
+		        field: 'langloanrate',
+		        title: '长期贷款利率（%）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'origincount',
-		        title: '原材料周转次数',
+		        field: 'langrepaytype',
+		        title: '长期还款方式',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'watercount',
-		        title: '水费周转次数',
+		        field: 'repayyear',
+		        title: '预定还款年限（年）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'cashcount',
-		        title: '现金周转次数',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatcostdisprop',
-		        title: '发热成本摊销比例（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatcapdisprop',
-		        title: '发热投资分摊次数(%)',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
+		        field: 'shortloanrate',
+		        title: '短期借款贷款利率（%）',
 		        sortable: true
 		       
 		    }

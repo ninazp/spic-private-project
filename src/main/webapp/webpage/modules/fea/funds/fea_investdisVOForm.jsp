@@ -180,7 +180,7 @@
 					<td>
 						<select id="fea_investdisBVOList{{idx}}_investtype" name="fea_investdisBVOList[{{idx}}].investtype" data-value="{{row.investtype}}" class="form-control m-b  ">
 							<option value=""></option>
-							<c:forEach items="${fns:getDictList('	distrtype')}" var="dict">
+							<c:forEach items="${fns:getDictList('distrtype')}" var="dict">
 								<option value="${dict.value}">${dict.label}</option>
 							</c:forEach>
 						</select>

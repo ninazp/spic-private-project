@@ -4,6 +4,7 @@
     
 	<sql id="fea_investdisBVOColumns">
 		a.id AS "id",
+		a.zjname AS "zjname",
 		a.investtype AS "investtype",
 		a.investprop AS "investprop",
 		a.investamt AS "investamt",
@@ -13,7 +14,9 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.jsamt AS "jsamt",
+		a.ldamt AS "ldamt"
 	</sql>
 	
 	<sql id="fea_investdisBVOJoins">
@@ -74,6 +77,7 @@
 	<insert id="insert">
 		INSERT INTO fea_investdis_b(
 			id,
+			zjname,
 			investtype,
 			investprop,
 			investamt,
@@ -83,9 +87,12 @@
 			update_by,
 			update_date,
 			remarks,
-			del_flag
+			del_flag,
+			jsamt,
+			ldamt
 		) VALUES (
 			#{id},
+			#{zjname},
 			#{investtype},
 			#{investprop},
 			#{investamt},
@@ -95,19 +102,24 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
-			#{delFlag}
+			#{delFlag},
+			#{jsamt},
+			#{ldamt}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE fea_investdis_b SET 	
+			zjname = #{zjname},
 			investtype = #{investtype},
 			investprop = #{investprop},
 			investamt = #{investamt},
 			pkinvestdis = #{fea_investdis.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			jsamt = #{jsamt},
+			ldamt = #{ldamt}
 		WHERE id = #{id}
 	</update>
 	

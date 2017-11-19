@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源Entity
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-19
  */
 public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	

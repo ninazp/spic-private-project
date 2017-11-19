@@ -10,6 +10,8 @@
 		a.exchangerate AS "exchangerate",
 		a.capprop AS "capprop",
 		a.capamt AS "capamt",
+		a.jstzamt AS "jstzamt",
+		a.ldtzamt AS "ldtzamt",
 		a.pkfundssrc AS "fea_fundssrc.id",
 		a.remarks AS "remarks"
 	</sql>
@@ -76,6 +78,8 @@
 			exchangerate,
 			capprop,
 			capamt,
+			jstzamt,
+			ldtzamt,
 			pkfundssrc,
 			remarks
 		) VALUES (
@@ -86,6 +90,8 @@
 			#{exchangerate},
 			#{capprop},
 			#{capamt},
+			#{jstzamt},
+			#{ldtzamt},
 			#{fea_fundssrc.id},
 			#{remarks}
 		)
@@ -98,6 +104,8 @@
 			exchangerate = #{exchangerate},
 			capprop = #{capprop},
 			capamt = #{capamt},
+			jstzamt = #{jstzamt},
+			ldtzamt = #{ldtzamt},
 			pkfundssrc = #{fea_fundssrc.id},
 			remarks = #{remarks}
 		WHERE id = #{id}

@@ -10,15 +10,18 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 投资分配组成Entity
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-19
  */
 public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 	
 	private static final long serialVersionUID = 1L;
+	private String zjname;		// 资金方名称
 	private String investtype;		// 投资类别
 	private Double investprop;		// 投资比例（%）
 	private Double investamt;		// 投资金额
 	private Fea_investdisVO fea_investdis;		// 主表主键 父类
+	private Double jsamt;		// 用于建设金额
+	private Double ldamt;		// 用于流动资金金额
 	
 	public Fea_investdisBVO() {
 		super();
@@ -32,7 +35,16 @@ public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 		this.fea_investdis = fea_investdis;
 	}
 
-	@ExcelField(title="投资类别", align=2, sort=1)
+	@ExcelField(title="资金方名称", align=2, sort=1)
+	public String getZjname() {
+		return zjname;
+	}
+
+	public void setZjname(String zjname) {
+		this.zjname = zjname;
+	}
+	
+	@ExcelField(title="投资类别", dictType="	distrtype", align=2, sort=2)
 	public String getInvesttype() {
 		return investtype;
 	}
@@ -41,7 +53,7 @@ public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 		this.investtype = investtype;
 	}
 	
-	@ExcelField(title="投资比例（%）", align=2, sort=2)
+	@ExcelField(title="投资比例（%）", align=2, sort=3)
 	public Double getInvestprop() {
 		return investprop;
 	}
@@ -50,7 +62,7 @@ public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 		this.investprop = investprop;
 	}
 	
-	@ExcelField(title="投资金额", align=2, sort=3)
+	@ExcelField(title="投资金额", align=2, sort=4)
 	public Double getInvestamt() {
 		return investamt;
 	}
@@ -65,6 +77,24 @@ public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 
 	public void setFea_investdis(Fea_investdisVO fea_investdis) {
 		this.fea_investdis = fea_investdis;
+	}
+	
+	@ExcelField(title="用于建设金额", align=2, sort=12)
+	public Double getJsamt() {
+		return jsamt;
+	}
+
+	public void setJsamt(Double jsamt) {
+		this.jsamt = jsamt;
+	}
+	
+	@ExcelField(title="用于流动资金金额", align=2, sort=13)
+	public Double getLdamt() {
+		return ldamt;
+	}
+
+	public void setLdamt(Double ldamt) {
+		this.ldamt = ldamt;
 	}
 	
 }

@@ -153,10 +153,12 @@
 				<thead>
 					<tr>
 						<th class="hide"></th>
+						<th>资金方名称</th>
 						<th>投资类别</th>
 						<th>投资比例（%）</th>
 						<th>投资金额</th>
-						<th>备注信息</th>
+						<th>用于建设金额</th>
+						<th>用于流动资金金额</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -171,7 +173,17 @@
 					</td>
 					
 					<td>
-						<input id="fea_investdisBVOList{{idx}}_investtype" name="fea_investdisBVOList[{{idx}}].investtype" type="text" value="{{row.investtype}}"    class="form-control "/>
+						<input id="fea_investdisBVOList{{idx}}_zjname" name="fea_investdisBVOList[{{idx}}].zjname" type="text" value="{{row.zjname}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<select id="fea_investdisBVOList{{idx}}_investtype" name="fea_investdisBVOList[{{idx}}].investtype" data-value="{{row.investtype}}" class="form-control m-b  ">
+							<option value=""></option>
+							<c:forEach items="${fns:getDictList('	distrtype')}" var="dict">
+								<option value="${dict.value}">${dict.label}</option>
+							</c:forEach>
+						</select>
 					</td>
 					
 					
@@ -186,7 +198,12 @@
 					
 					
 					<td>
-						<textarea id="fea_investdisBVOList{{idx}}_remarks" name="fea_investdisBVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
+						<input id="fea_investdisBVOList{{idx}}_jsamt" name="fea_investdisBVOList[{{idx}}].jsamt" type="text" value="{{row.jsamt}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_investdisBVOList{{idx}}_ldamt" name="fea_investdisBVOList[{{idx}}].ldamt" type="text" value="{{row.ldamt}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">

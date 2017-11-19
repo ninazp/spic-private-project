@@ -176,8 +176,9 @@
 						<th>币种</th>
 						<th>汇率</th>
 						<th>比例</th>
-						<th>额度</th>
-						<th>备注信息</th>
+						<th>注资金额</th>
+						<th>其中建设投资资本金</th>
+						<th>其中流动资金资本金</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -217,7 +218,12 @@
 					
 					
 					<td>
-						<textarea id="fea_fundssrcBVOList{{idx}}_remarks" name="fea_fundssrcBVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
+						<input id="fea_fundssrcBVOList{{idx}}_jstzamt" name="fea_fundssrcBVOList[{{idx}}].jstzamt" type="text" value="{{row.jstzamt}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_fundssrcBVOList{{idx}}_ldtzamt" name="fea_fundssrcBVOList[{{idx}}].ldtzamt" type="text" value="{{row.ldtzamt}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">
@@ -242,20 +248,20 @@
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>借款类别</th>
+						<th>借款方</th>
 						<th>币种</th>
 						<th>汇率</th>
 						<th>比例</th>
-						<th>额度</th>
-						<th>固定额度</th>
+						<th>借款金额</th>
+						<th>其中长期借款</th>
+						<th>其中流动资金借款</th>
 						<th>计息次数</th>
 						<th>本金利率</th>
 						<th>利息利率</th>
+						<th>还款方式</th>
+						<th>还款期</th>
 						<th>承诺费率</th>
 						<th>宽限期</th>
-						<th>还款期</th>
-						<th>还款方式</th>
-						<th>备注信息</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -295,7 +301,12 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_fixamt" name="fea_fundssrcTVOList[{{idx}}].fixamt" type="text" value="{{row.fixamt}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_langamt" name="fea_fundssrcTVOList[{{idx}}].langamt" type="text" value="{{row.langamt}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_fundssrcTVOList{{idx}}_shortamt" name="fea_fundssrcTVOList[{{idx}}].shortamt" type="text" value="{{row.shortamt}}"    class="form-control "/>
 					</td>
 					
 					
@@ -310,7 +321,17 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_interestrate" name="fea_fundssrcTVOList[{{idx}}].interestrate" type="text" value="{{row.interestrate}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_langrate" name="fea_fundssrcTVOList[{{idx}}].langrate" type="text" value="{{row.langrate}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_fundssrcTVOList{{idx}}_repaytype" name="fea_fundssrcTVOList[{{idx}}].repaytype" type="text" value="{{row.repaytype}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_fundssrcTVOList{{idx}}_repayperiod" name="fea_fundssrcTVOList[{{idx}}].repayperiod" type="text" value="{{row.repayperiod}}"    class="form-control "/>
 					</td>
 					
 					
@@ -321,21 +342,6 @@
 					
 					<td>
 						<input id="fea_fundssrcTVOList{{idx}}_graceperiod" name="fea_fundssrcTVOList[{{idx}}].graceperiod" type="text" value="{{row.graceperiod}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_repayperiod" name="fea_fundssrcTVOList[{{idx}}].repayperiod" type="text" value="{{row.repayperiod}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_repaytype" name="fea_fundssrcTVOList[{{idx}}].repaytype" type="text" value="{{row.repaytype}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<textarea id="fea_fundssrcTVOList{{idx}}_remarks" name="fea_fundssrcTVOList[{{idx}}].remarks" rows="4"    class="form-control ">{{row.remarks}}</textarea>
 					</td>
 					
 					<td class="text-center" width="10">

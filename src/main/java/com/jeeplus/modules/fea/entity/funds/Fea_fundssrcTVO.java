@@ -10,24 +10,25 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源融资子表Entity
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-19
  */
 public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private String loantyp;		// 借款类别
+	private String loantyp;		// 借款方
 	private String currency;		// 币种
 	private Double exchangerate;		// 汇率
 	private Double loanprop;		// 比例
-	private Double loan_amt;		// 额度
-	private Double fixamt;		// 固定额度
+	private Double loan_amt;		// 借款金额
+	private Double langamt;		// 其中长期借款
+	private Double shortamt;		// 其中流动资金借款
 	private Double interestcount;		// 计息次数
 	private Double principalrate;		// 本金利率
-	private Double interestrate;		// 利息利率
+	private Double langrate;		// 利息利率
+	private String repaytype;		// 还款方式
+	private Double repayperiod;		// 还款期
 	private Double commitrate;		// 承诺费率
 	private Double graceperiod;		// 宽限期
-	private Double repayperiod;		// 还款期
-	private String repaytype;		// 还款方式
 	private Fea_fundssrcVO fea_fundssrc;		// 主表外键 父类
 	
 	public Fea_fundssrcTVO() {
@@ -42,7 +43,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.fea_fundssrc = fea_fundssrc;
 	}
 
-	@ExcelField(title="借款类别", align=2, sort=2)
+	@ExcelField(title="借款方", align=2, sort=2)
 	public String getLoantyp() {
 		return loantyp;
 	}
@@ -78,7 +79,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.loanprop = loanprop;
 	}
 	
-	@ExcelField(title="额度", align=2, sort=6)
+	@ExcelField(title="借款金额", align=2, sort=6)
 	public Double getLoan_amt() {
 		return loan_amt;
 	}
@@ -87,16 +88,25 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.loan_amt = loan_amt;
 	}
 	
-	@ExcelField(title="固定额度", align=2, sort=7)
-	public Double getFixamt() {
-		return fixamt;
+	@ExcelField(title="其中长期借款", align=2, sort=7)
+	public Double getLangamt() {
+		return langamt;
 	}
 
-	public void setFixamt(Double fixamt) {
-		this.fixamt = fixamt;
+	public void setLangamt(Double langamt) {
+		this.langamt = langamt;
 	}
 	
-	@ExcelField(title="计息次数", align=2, sort=8)
+	@ExcelField(title="其中流动资金借款", align=2, sort=8)
+	public Double getShortamt() {
+		return shortamt;
+	}
+
+	public void setShortamt(Double shortamt) {
+		this.shortamt = shortamt;
+	}
+	
+	@ExcelField(title="计息次数", align=2, sort=9)
 	public Double getInterestcount() {
 		return interestcount;
 	}
@@ -105,7 +115,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.interestcount = interestcount;
 	}
 	
-	@ExcelField(title="本金利率", align=2, sort=9)
+	@ExcelField(title="本金利率", align=2, sort=10)
 	public Double getPrincipalrate() {
 		return principalrate;
 	}
@@ -114,31 +124,22 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.principalrate = principalrate;
 	}
 	
-	@ExcelField(title="利息利率", align=2, sort=10)
-	public Double getInterestrate() {
-		return interestrate;
+	@ExcelField(title="利息利率", align=2, sort=11)
+	public Double getLangrate() {
+		return langrate;
 	}
 
-	public void setInterestrate(Double interestrate) {
-		this.interestrate = interestrate;
+	public void setLangrate(Double langrate) {
+		this.langrate = langrate;
 	}
 	
-	@ExcelField(title="承诺费率", align=2, sort=11)
-	public Double getCommitrate() {
-		return commitrate;
+	@ExcelField(title="还款方式", align=2, sort=12)
+	public String getRepaytype() {
+		return repaytype;
 	}
 
-	public void setCommitrate(Double commitrate) {
-		this.commitrate = commitrate;
-	}
-	
-	@ExcelField(title="宽限期", align=2, sort=12)
-	public Double getGraceperiod() {
-		return graceperiod;
-	}
-
-	public void setGraceperiod(Double graceperiod) {
-		this.graceperiod = graceperiod;
+	public void setRepaytype(String repaytype) {
+		this.repaytype = repaytype;
 	}
 	
 	@ExcelField(title="还款期", align=2, sort=13)
@@ -150,13 +151,22 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.repayperiod = repayperiod;
 	}
 	
-	@ExcelField(title="还款方式", align=2, sort=14)
-	public String getRepaytype() {
-		return repaytype;
+	@ExcelField(title="承诺费率", align=2, sort=14)
+	public Double getCommitrate() {
+		return commitrate;
 	}
 
-	public void setRepaytype(String repaytype) {
-		this.repaytype = repaytype;
+	public void setCommitrate(Double commitrate) {
+		this.commitrate = commitrate;
+	}
+	
+	@ExcelField(title="宽限期", align=2, sort=15)
+	public Double getGraceperiod() {
+		return graceperiod;
+	}
+
+	public void setGraceperiod(Double graceperiod) {
+		this.graceperiod = graceperiod;
 	}
 	
 	public Fea_fundssrcVO getFea_fundssrc() {

@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.funds.Fea_investdisVOService;
 /**
  * 投资分配Controller
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-19
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/funds/fea_investdisVO")

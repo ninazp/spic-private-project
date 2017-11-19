@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源投资子表Entity
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-19
  */
 public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 	
@@ -19,7 +19,9 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 	private String currency;		// 币种
 	private String exchangerate;		// 汇率
 	private Double capprop;		// 比例
-	private Double capamt;		// 额度
+	private Double capamt;		// 注资金额
+	private Double jstzamt;		// 其中建设投资资本金
+	private Double ldtzamt;		// 其中流动资金资本金
 	private Fea_fundssrcVO fea_fundssrc;		// 主外键 父类
 	
 	public Fea_fundssrcBVO() {
@@ -70,13 +72,31 @@ public class Fea_fundssrcBVO extends DataEntity<Fea_fundssrcBVO> {
 		this.capprop = capprop;
 	}
 	
-	@ExcelField(title="额度", align=2, sort=6)
+	@ExcelField(title="注资金额", align=2, sort=6)
 	public Double getCapamt() {
 		return capamt;
 	}
 
 	public void setCapamt(Double capamt) {
 		this.capamt = capamt;
+	}
+	
+	@ExcelField(title="其中建设投资资本金", align=2, sort=7)
+	public Double getJstzamt() {
+		return jstzamt;
+	}
+
+	public void setJstzamt(Double jstzamt) {
+		this.jstzamt = jstzamt;
+	}
+	
+	@ExcelField(title="其中流动资金资本金", align=2, sort=8)
+	public Double getLdtzamt() {
+		return ldtzamt;
+	}
+
+	public void setLdtzamt(Double ldtzamt) {
+		this.ldtzamt = ldtzamt;
 	}
 	
 	public Fea_fundssrcVO getFea_fundssrc() {

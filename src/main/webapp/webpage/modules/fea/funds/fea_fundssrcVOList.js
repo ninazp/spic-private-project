@@ -303,8 +303,9 @@ $(document).ready(function() {
 								<th>币种</th>
 								<th>汇率</th>
 								<th>比例</th>
-								<th>额度</th>
-								<th>备注信息</th>
+								<th>注资金额</th>
+								<th>其中建设投资资本金</th>
+								<th>其中流动资金资本金</th>
 							</tr>
 						</thead>
 						<tbody id="fea_fundssrcVOChild-{{idx}}-1-List">
@@ -315,20 +316,20 @@ $(document).ready(function() {
 					<table class="ani table">
 						<thead>
 							<tr>
-								<th>借款类别</th>
+								<th>借款方</th>
 								<th>币种</th>
 								<th>汇率</th>
 								<th>比例</th>
-								<th>额度</th>
-								<th>固定额度</th>
+								<th>借款金额</th>
+								<th>其中长期借款</th>
+								<th>其中流动资金借款</th>
 								<th>计息次数</th>
 								<th>本金利率</th>
 								<th>利息利率</th>
+								<th>还款方式</th>
+								<th>还款期</th>
 								<th>承诺费率</th>
 								<th>宽限期</th>
-								<th>还款期</th>
-								<th>还款方式</th>
-								<th>备注信息</th>
 							</tr>
 						</thead>
 						<tbody id="fea_fundssrcVOChild-{{idx}}-2-List">
@@ -355,7 +356,10 @@ $(document).ready(function() {
 						{{row.capamt}}
 					</td>
 					<td>
-						{{row.remarks}}
+						{{row.jstzamt}}
+					</td>
+					<td>
+						{{row.ldtzamt}}
 					</td>
 				</tr>//-->
 	</script>
@@ -377,7 +381,10 @@ $(document).ready(function() {
 						{{row.loan_amt}}
 					</td>
 					<td>
-						{{row.fixamt}}
+						{{row.langamt}}
+					</td>
+					<td>
+						{{row.shortamt}}
 					</td>
 					<td>
 						{{row.interestcount}}
@@ -386,22 +393,19 @@ $(document).ready(function() {
 						{{row.principalrate}}
 					</td>
 					<td>
-						{{row.interestrate}}
+						{{row.langrate}}
+					</td>
+					<td>
+						{{row.repaytype}}
+					</td>
+					<td>
+						{{row.repayperiod}}
 					</td>
 					<td>
 						{{row.commitrate}}
 					</td>
 					<td>
 						{{row.graceperiod}}
-					</td>
-					<td>
-						{{row.repayperiod}}
-					</td>
-					<td>
-						{{row.repaytype}}
-					</td>
-					<td>
-						{{row.remarks}}
 					</td>
 				</tr>//-->
 	</script>

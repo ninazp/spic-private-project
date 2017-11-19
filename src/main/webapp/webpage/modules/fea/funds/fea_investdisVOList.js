@@ -273,10 +273,12 @@ $(document).ready(function() {
 						<table class="ani table">
 						<thead>
 							<tr>
+								<th>资金方名称</th>
 								<th>投资类别</th>
 								<th>投资比例（%）</th>
 								<th>投资金额</th>
-								<th>备注信息</th>
+								<th>用于建设金额</th>
+								<th>用于流动资金金额</th>
 							</tr>
 						</thead>
 						<tbody id="fea_investdisVOChild-{{idx}}-1-List">
@@ -288,7 +290,10 @@ $(document).ready(function() {
 	<script type="text/template" id="fea_investdisVOChild1Tpl">//<!--
 				<tr>
 					<td>
-						{{row.investtype}}
+						{{row.zjname}}
+					</td>
+					<td>
+						{{dict.investtype}}
 					</td>
 					<td>
 						{{row.investprop}}
@@ -297,7 +302,10 @@ $(document).ready(function() {
 						{{row.investamt}}
 					</td>
 					<td>
-						{{row.remarks}}
+						{{row.jsamt}}
+					</td>
+					<td>
+						{{row.ldamt}}
 					</td>
 				</tr>//-->
 	</script>

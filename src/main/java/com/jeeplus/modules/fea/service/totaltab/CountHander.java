@@ -25,7 +25,7 @@ public class CountHander {
 		prjectdouble.add(currentproductmonth);
 		prjectdouble.add(countyear);
 		
-		return prjectdouble;
+		return prjectdouble; 
 	}
 	
 	public static List<Double> getzicc(Fea_fundssrcVO fundsrcvo){

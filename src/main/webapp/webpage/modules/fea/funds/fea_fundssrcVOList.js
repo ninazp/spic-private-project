@@ -111,6 +111,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'deductvtax',
+		        title: '可抵扣税金',
+		        sortable: true
+		       
+		    }
+			,{
 		        field: 'capitalprop',
 		        title: '资本金比例(%)',
 		        sortable: true
@@ -131,6 +137,12 @@ $(document).ready(function() {
 			,{
 		        field: 'loanamt',
 		        title: '借款金额',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'setupinterest',
+		        title: '建设期利息',
 		        sortable: true
 		       
 		    }

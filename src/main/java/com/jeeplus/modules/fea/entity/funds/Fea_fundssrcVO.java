@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源Entity
  * @author jw
- * @version 2017-11-19
+ * @version 2017-11-25
  */
 public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	
@@ -27,6 +27,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	private Double capitalamt;		// 资本金额度
 	private Double loanprop;		// 借款比例(%)
 	private Double loanamt;		// 借款金额
+	private Double setupinterest;		// 建设期利息
 	private String iscapitalcy;		// 注资循环
 	private Office office;		// 部门
 	private String corp;		// 公司
@@ -122,7 +123,16 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.loanamt = loanamt;
 	}
 	
-	@ExcelField(title="注资循环", dictType="yes_no", align=2, sort=15)
+	@ExcelField(title="建设期利息", align=2, sort=15)
+	public Double getSetupinterest() {
+		return setupinterest;
+	}
+
+	public void setSetupinterest(Double setupinterest) {
+		this.setupinterest = setupinterest;
+	}
+	
+	@ExcelField(title="注资循环", dictType="yes_no", align=2, sort=16)
 	public String getIscapitalcy() {
 		return iscapitalcy;
 	}
@@ -131,7 +141,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.iscapitalcy = iscapitalcy;
 	}
 	
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=17)
 	public Office getOffice() {
 		return office;
 	}
@@ -140,7 +150,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.office = office;
 	}
 	
-	@ExcelField(title="公司", align=2, sort=17)
+	@ExcelField(title="公司", align=2, sort=18)
 	public String getCorp() {
 		return corp;
 	}

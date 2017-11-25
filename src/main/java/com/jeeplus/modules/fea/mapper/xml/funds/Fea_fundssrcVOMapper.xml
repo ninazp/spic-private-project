@@ -18,10 +18,12 @@
 		a.capitalamt AS "capitalamt",
 		a.loanprop AS "loanprop",
 		a.loanamt AS "loanamt",
+		a.setupinterest AS "setupinterest",
 		a.iscapitalcy AS "iscapitalcy",
 		a.deptid AS "office.id",
 		a.corp AS "corp",
 		a.remarks AS "remarks",
+				
 				
 				
 				
@@ -116,6 +118,7 @@
 			capitalamt,
 			loanprop,
 			loanamt,
+			setupinterest,
 			iscapitalcy,
 			deptid,
 			corp,
@@ -136,6 +139,7 @@
 			#{capitalamt},
 			#{loanprop},
 			#{loanamt},
+			#{setupinterest},
 			#{iscapitalcy},
 			#{office.id},
 			#{corp},
@@ -156,6 +160,7 @@
 			capitalamt = #{capitalamt},
 			loanprop = #{loanprop},
 			loanamt = #{loanamt},
+			setupinterest = #{setupinterest},
 			iscapitalcy = #{iscapitalcy},
 			deptid = #{office.id},
 			corp = #{corp},

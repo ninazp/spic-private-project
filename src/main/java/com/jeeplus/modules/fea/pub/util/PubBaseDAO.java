@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jeeplus.core.persistence.BaseMapper;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 
 public class PubBaseDAO {
 
@@ -15,7 +16,7 @@ public class PubBaseDAO {
 	 * @param basemapper
 	 * @return
 	 */
-	public static List<Object> getMutiParentVO(String table , String id,String wheresql,BaseMapper basemapper){
+	public static List<?> getMutiParentVO(String table , String id,String wheresql,BaseMapper basemapper){
 		
 		List<Object> objlst = new ArrayList<Object>();
 		

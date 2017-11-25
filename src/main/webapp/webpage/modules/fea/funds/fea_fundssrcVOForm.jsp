@@ -115,23 +115,33 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
+					<td class="width-35">
+						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
+					</td>
 					<td class="width-15 active"><label class="pull-right">资本金比例(%)：</label></td>
 					<td class="width-35">
 						<form:input path="capitalprop" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金额度：</label></td>
 					<td class="width-35">
 						<form:input path="capitalamt" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">借款比例(%)：</label></td>
 					<td class="width-35">
 						<form:input path="loanprop" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">借款金额：</label></td>
 					<td class="width-35">
 						<form:input path="loanamt" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">建设期利息：</label></td>
+					<td class="width-35">
+						<form:input path="setupinterest" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>

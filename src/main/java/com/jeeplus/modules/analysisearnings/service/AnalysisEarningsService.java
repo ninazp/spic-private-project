@@ -20,7 +20,7 @@ import com.jeeplus.modules.analysisearnings.mapper.AnalysisEarningsBMapper;
 /**
  * 敏感分析（单因素）Service
  * @author zp
- * @version 2017-11-19
+ * @version 2017-11-28
  */
 @Service
 @Transactional(readOnly = true)

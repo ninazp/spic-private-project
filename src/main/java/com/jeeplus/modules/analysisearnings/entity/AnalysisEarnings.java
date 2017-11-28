@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.analysisearnings.entity;
 
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import java.util.List;
 import com.google.common.collect.Lists;
 
@@ -12,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 敏感分析（单因素）Entity
  * @author zp
- * @version 2017-11-19
+ * @version 2017-11-28
  */
 public class AnalysisEarnings extends DataEntity<AnalysisEarnings> {
 	
@@ -23,6 +24,7 @@ public class AnalysisEarnings extends DataEntity<AnalysisEarnings> {
 	private String waterAmount;		// 水费
 	private String laborAmount;		// 人工费
 	private String warmAmount;		// 取暖费
+	private FeaProjectB feaProjectB;		// 项目
 	private List<AnalysisEarningsB> analysisEarningsBList = Lists.newArrayList();		// 子表列表
 	
 	public AnalysisEarnings() {
@@ -85,6 +87,15 @@ public class AnalysisEarnings extends DataEntity<AnalysisEarnings> {
 
 	public void setWarmAmount(String warmAmount) {
 		this.warmAmount = warmAmount;
+	}
+	
+	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=13)
+	public FeaProjectB getFeaProjectB() {
+		return feaProjectB;
+	}
+
+	public void setFeaProjectB(FeaProjectB feaProjectB) {
+		this.feaProjectB = feaProjectB;
 	}
 	
 	public List<AnalysisEarningsB> getAnalysisEarningsBList() {

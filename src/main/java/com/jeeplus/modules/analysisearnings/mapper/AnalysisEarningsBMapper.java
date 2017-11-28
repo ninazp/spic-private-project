@@ -10,7 +10,7 @@ import com.jeeplus.modules.analysisearnings.entity.AnalysisEarningsB;
 /**
  * 敏感分析（单因素）子表MAPPER接口
  * @author zp
- * @version 2017-11-19
+ * @version 2017-11-28
  */
 @MyBatisMapper
 public interface AnalysisEarningsBMapper extends BaseMapper<AnalysisEarningsB> {

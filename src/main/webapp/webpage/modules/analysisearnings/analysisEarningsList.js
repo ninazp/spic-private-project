@@ -128,6 +128,12 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
+			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目',
+		        sortable: true
+		       
+		    }
 		     ]
 		
 		});

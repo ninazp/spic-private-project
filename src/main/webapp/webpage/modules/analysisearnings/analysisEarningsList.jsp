@@ -72,6 +72,16 @@
 		    });
 			//radiosChecked();
 			initChart();
+			
+			$('#feaProjectB').bind('keypress', function (event) {  
+				alert("test");
+	            if (event.keyCode == "13") {
+	                alert("test");  
+	               search();  
+	               return false;
+	               } 
+               	}
+             );
 		});
 		
 		function radiosChecked(){
@@ -251,6 +261,20 @@
 						<form:form id="inputForm" modelAttribute="analysisEarnings" action="${ctx}/analysisearnings/analysisEarnings/zhaopeng" method="post" class="form-horizontal">
 							<form:hidden path="id"/>
 							<sys:message content="${message}"/>
+							<table class="table table-no-bordered" style="width:450px">
+							   <tbody>
+						   			<fieldset>
+									<legend>项目选择</legend>
+										<tr>
+											<td class="width-15 active"><label class="pull-right">项目：</label></td>
+											<td class="width-35">
+												<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+													 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+											</td>
+										</tr>
+									</fieldset>
+							 	</tbody>
+							</table>
 							
 							<table class="table table-no-bordered" style="width:450px">
 								<tr>
@@ -335,7 +359,6 @@
 										<form:input path="warmAmount" htmlEscape="false"    class="form-control "/>
 									</td>
 						  		</tr>
-									
 							</table>
 							
 							<table class="table table-no-bordered" style="width:450px">

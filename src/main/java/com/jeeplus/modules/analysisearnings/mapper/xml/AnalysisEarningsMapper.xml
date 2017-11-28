@@ -15,11 +15,27 @@
 		a.electricity_amount AS "electricityAmount",
 		a.water_amount AS "waterAmount",
 		a.labor_amount AS "laborAmount",
-		a.warm_amount AS "warmAmount"
+		a.warm_amount AS "warmAmount",
+		a.project_id AS "feaProjectB.id",
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="analysisEarningsJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -83,7 +99,8 @@
 			electricity_amount,
 			water_amount,
 			labor_amount,
-			warm_amount
+			warm_amount,
+			project_id
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -97,7 +114,8 @@
 			#{electricityAmount},
 			#{waterAmount},
 			#{laborAmount},
-			#{warmAmount}
+			#{warmAmount},
+			#{feaProjectB.id}
 		)
 	</insert>
 	
@@ -111,7 +129,8 @@
 			electricity_amount = #{electricityAmount},
 			water_amount = #{waterAmount},
 			labor_amount = #{laborAmount},
-			warm_amount = #{warmAmount}
+			warm_amount = #{warmAmount},
+			project_id = #{feaProjectB.id}
 		WHERE id = #{id}
 	</update>
 	

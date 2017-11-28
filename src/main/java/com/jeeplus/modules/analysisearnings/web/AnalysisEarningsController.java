@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.analysisearnings.web;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ import com.jeeplus.modules.analysisearnings.service.AnalysisEarningsService;
 /**
  * 敏感分析（单因素）Controller
  * @author zp
- * @version 2017-11-19
+ * @version 2017-11-28
  */
 @Controller
 @RequestMapping(value = "${adminPath}/analysisearnings/analysisEarnings")
@@ -216,25 +218,6 @@ public class AnalysisEarningsController extends BaseController {
 		}
 		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
     }
-	
-	/**
-	 */
-	@ResponseBody
-	@RequiresPermissions(value={"analysisearnings:analysisEarnings:add","analysisearnings:analysisEarnings:edit"},logical=Logical.OR)
-	@RequestMapping(value = "calculation")
-	public AjaxJson calculation(String json, AnalysisEarnings analysisEarnings, Model model, RedirectAttributes redirectAttributes) throws Exception{
-		AjaxJson j = new AjaxJson();
-//		if (!beanValidator(model, analysisEarnings)){
-//			j.setSuccess(false);
-//			j.setMsg("非法参数！");
-//			return j;
-//		}
-//		//新增或编辑表单保存
-//		analysisEarningsService.save(analysisEarnings);//保存
-//		j.setSuccess(true);
-//		j.setMsg("保存敏感分析（单因素）成功");
-		return j;
-	}
 	
 
 }

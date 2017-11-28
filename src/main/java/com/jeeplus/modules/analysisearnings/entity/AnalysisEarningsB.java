@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 敏感分析（单因素）子表Entity
  * @author zp
- * @version 2017-11-19
+ * @version 2017-11-28
  */
 public class AnalysisEarningsB extends DataEntity<AnalysisEarningsB> {
 	

@@ -126,9 +126,12 @@
 					<td class="width-35">
 						<form:input path="warmAmount" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<td class="width-35">
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="test" fieldKeys="projectName" searchLabels="test1" searchKeys="projectName" ></sys:gridselect>
+					</td>
+				</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">

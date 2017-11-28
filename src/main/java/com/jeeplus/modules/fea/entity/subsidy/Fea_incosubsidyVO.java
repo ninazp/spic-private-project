@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 补贴收入Entity
  * @author jw
- * @version 2017-11-08
+ * @version 2017-11-28
  */
 public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 	
@@ -20,16 +20,31 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 	private String subsidytype;		// 补贴类型
 	private String unitname;		// 单位
 	private String ispaytax;		// 是否纳税
-	private Double year17;		// 2017
-	private Double year18;		// 2018
-	private Double year19;		// 2019
-	private Double year20;		// 2020
-	private Double year21;		// 2021
-	private Double year22;		// 2022
-	private Double year23;		// 2023
-	private Double year24;		// 2024
-	private Double year25;		// 2025
-	private Double year26;		// 2026
+	private Double year1;		// 第1年
+	private Double year2;		// 第2年
+	private Double year3;		// 第3年
+	private Double year4;		// 第4年
+	private Double year5;		// 第5年
+	private Double year6;		// 第6年
+	private Double year7;		// 第7年
+	private Double year8;		// 第8年
+	private Double year9;		// 第9年
+	private Double year10;		// 第10年
+	private Double year11;		// 第11年
+	private Double year12;		// 第12年
+	private Double year13;		// 第13年
+	private Double year14;		// 第14年
+	private Double year15;		// 第15年
+	private Double year16;		// 第16年
+	private Double year17;		// 第17年
+	private Double year18;		// 第18年
+	private Double year19;		// 第19年
+	private Double year20;		// 第20年
+	private Double year21;		// 第21年
+	private Double year22;		// 第22年
+	private Double year23;		// 第23年
+	private Double year24;		// 第24年
+	private Double year25;		// 第25年
 	
 	public Fea_incosubsidyVO() {
 		super();
@@ -84,7 +99,151 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.ispaytax = ispaytax;
 	}
 	
-	@ExcelField(title="2017", align=2, sort=12)
+	@ExcelField(title="第1年", align=2, sort=12)
+	public Double getYear1() {
+		return year1;
+	}
+
+	public void setYear1(Double year1) {
+		this.year1 = year1;
+	}
+	
+	@ExcelField(title="第2年", align=2, sort=13)
+	public Double getYear2() {
+		return year2;
+	}
+
+	public void setYear2(Double year2) {
+		this.year2 = year2;
+	}
+	
+	@ExcelField(title="第3年", align=2, sort=14)
+	public Double getYear3() {
+		return year3;
+	}
+
+	public void setYear3(Double year3) {
+		this.year3 = year3;
+	}
+	
+	@ExcelField(title="第4年", align=2, sort=15)
+	public Double getYear4() {
+		return year4;
+	}
+
+	public void setYear4(Double year4) {
+		this.year4 = year4;
+	}
+	
+	@ExcelField(title="第5年", align=2, sort=16)
+	public Double getYear5() {
+		return year5;
+	}
+
+	public void setYear5(Double year5) {
+		this.year5 = year5;
+	}
+	
+	@ExcelField(title="第6年", align=2, sort=17)
+	public Double getYear6() {
+		return year6;
+	}
+
+	public void setYear6(Double year6) {
+		this.year6 = year6;
+	}
+	
+	@ExcelField(title="第7年", align=2, sort=18)
+	public Double getYear7() {
+		return year7;
+	}
+
+	public void setYear7(Double year7) {
+		this.year7 = year7;
+	}
+	
+	@ExcelField(title="第8年", align=2, sort=19)
+	public Double getYear8() {
+		return year8;
+	}
+
+	public void setYear8(Double year8) {
+		this.year8 = year8;
+	}
+	
+	@ExcelField(title="第9年", align=2, sort=20)
+	public Double getYear9() {
+		return year9;
+	}
+
+	public void setYear9(Double year9) {
+		this.year9 = year9;
+	}
+	
+	@ExcelField(title="第10年", align=2, sort=21)
+	public Double getYear10() {
+		return year10;
+	}
+
+	public void setYear10(Double year10) {
+		this.year10 = year10;
+	}
+	
+	@ExcelField(title="第11年", align=2, sort=22)
+	public Double getYear11() {
+		return year11;
+	}
+
+	public void setYear11(Double year11) {
+		this.year11 = year11;
+	}
+	
+	@ExcelField(title="第12年", align=2, sort=23)
+	public Double getYear12() {
+		return year12;
+	}
+
+	public void setYear12(Double year12) {
+		this.year12 = year12;
+	}
+	
+	@ExcelField(title="第13年", align=2, sort=24)
+	public Double getYear13() {
+		return year13;
+	}
+
+	public void setYear13(Double year13) {
+		this.year13 = year13;
+	}
+	
+	@ExcelField(title="第14年", align=2, sort=25)
+	public Double getYear14() {
+		return year14;
+	}
+
+	public void setYear14(Double year14) {
+		this.year14 = year14;
+	}
+	
+	@ExcelField(title="第15年", align=2, sort=26)
+	public Double getYear15() {
+		return year15;
+	}
+
+	public void setYear15(Double year15) {
+		this.year15 = year15;
+	}
+	
+	@ExcelField(title="第16年", align=2, sort=27)
+	public Double getYear16() {
+		return year16;
+	}
+
+	public void setYear16(Double year16) {
+		this.year16 = year16;
+	}
+	
+	@ExcelField(title="第17年", align=2, sort=28)
 	public Double getYear17() {
 		return year17;
 	}
@@ -93,7 +252,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year17 = year17;
 	}
 	
-	@ExcelField(title="2018", align=2, sort=13)
+	@ExcelField(title="第18年", align=2, sort=29)
 	public Double getYear18() {
 		return year18;
 	}
@@ -102,7 +261,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year18 = year18;
 	}
 	
-	@ExcelField(title="2019", align=2, sort=14)
+	@ExcelField(title="第19年", align=2, sort=30)
 	public Double getYear19() {
 		return year19;
 	}
@@ -111,7 +270,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year19 = year19;
 	}
 	
-	@ExcelField(title="2020", align=2, sort=15)
+	@ExcelField(title="第20年", align=2, sort=31)
 	public Double getYear20() {
 		return year20;
 	}
@@ -120,7 +279,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year20 = year20;
 	}
 	
-	@ExcelField(title="2021", align=2, sort=16)
+	@ExcelField(title="第21年", align=2, sort=32)
 	public Double getYear21() {
 		return year21;
 	}
@@ -129,7 +288,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year21 = year21;
 	}
 	
-	@ExcelField(title="2022", align=2, sort=17)
+	@ExcelField(title="第22年", align=2, sort=33)
 	public Double getYear22() {
 		return year22;
 	}
@@ -138,7 +297,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year22 = year22;
 	}
 	
-	@ExcelField(title="2023", align=2, sort=18)
+	@ExcelField(title="第23年", align=2, sort=34)
 	public Double getYear23() {
 		return year23;
 	}
@@ -147,7 +306,7 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year23 = year23;
 	}
 	
-	@ExcelField(title="2024", align=2, sort=19)
+	@ExcelField(title="第24年", align=2, sort=35)
 	public Double getYear24() {
 		return year24;
 	}
@@ -156,22 +315,13 @@ public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 		this.year24 = year24;
 	}
 	
-	@ExcelField(title="2025", align=2, sort=20)
+	@ExcelField(title="第25年", align=2, sort=36)
 	public Double getYear25() {
 		return year25;
 	}
 
 	public void setYear25(Double year25) {
 		this.year25 = year25;
-	}
-	
-	@ExcelField(title="2026", align=2, sort=21)
-	public Double getYear26() {
-		return year26;
-	}
-
-	public void setYear26(Double year26) {
-		this.year26 = year26;
 	}
 	
 }

@@ -134,7 +134,6 @@
 			repayperiod = #{repayperiod},
 			commitrate = #{commitrate},
 			graceperiod = #{graceperiod},
-			pkfundssrc = #{fea_fundssrc.id},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

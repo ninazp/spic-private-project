@@ -114,7 +114,6 @@
 			investtype = #{investtype},
 			investprop = #{investprop},
 			investamt = #{investamt},
-			pkinvestdis = #{fea_investdis.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},

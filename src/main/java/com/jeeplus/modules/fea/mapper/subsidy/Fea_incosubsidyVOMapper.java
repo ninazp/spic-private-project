@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.subsidy.Fea_incosubsidyVO;
 /**
  * 补贴收入MAPPER接口
  * @author jw
- * @version 2017-11-08
+ * @version 2017-11-28
  */
 @MyBatisMapper
 public interface Fea_incosubsidyVOMapper extends BaseMapper<Fea_incosubsidyVO> {

@@ -167,17 +167,31 @@
 						<th class="hide"></th>
 						<th>成本种类</th>
 						<th>单位</th>
-						<th>2017</th>
-						<th>2018</th>
-						<th>2019</th>
-						<th>2020</th>
-						<th>2021</th>
-						<th>2022</th>
-						<th>2023</th>
-						<th>2024</th>
-						<th>2025</th>
-						<th>2026</th>
-						<th>2027</th>
+						<th>第1年</th>
+						<th>第2年</th>
+						<th>第3年</th>
+						<th>第4年</th>
+						<th>第5年</th>
+						<th>第6年</th>
+						<th>第7年</th>
+						<th>第8年</th>
+						<th>第9年</th>
+						<th>第10年</th>
+						<th>第11年</th>
+						<th>第12年</th>
+						<th>第13年</th>
+						<th>第14年</th>
+						<th>第15年</th>
+						<th>第16年</th>
+						<th>第17年</th>
+						<th>第18年</th>
+						<th>第19年</th>
+						<th>第20年</th>
+						<th>第21年</th>
+						<th>第22年</th>
+						<th>第23年</th>
+						<th>第24年</th>
+						<th>第25年</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -202,57 +216,127 @@
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2017" name="fea_productcostBVOList[{{idx}}].year2017" type="text" value="{{row.year2017}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year1" name="fea_productcostBVOList[{{idx}}].year1" type="text" value="{{row.year1}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2018" name="fea_productcostBVOList[{{idx}}].year2018" type="text" value="{{row.year2018}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year2" name="fea_productcostBVOList[{{idx}}].year2" type="text" value="{{row.year2}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2019" name="fea_productcostBVOList[{{idx}}].year2019" type="text" value="{{row.year2019}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year3" name="fea_productcostBVOList[{{idx}}].year3" type="text" value="{{row.year3}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2020" name="fea_productcostBVOList[{{idx}}].year2020" type="text" value="{{row.year2020}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year4" name="fea_productcostBVOList[{{idx}}].year4" type="text" value="{{row.year4}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2021" name="fea_productcostBVOList[{{idx}}].year2021" type="text" value="{{row.year2021}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year5" name="fea_productcostBVOList[{{idx}}].year5" type="text" value="{{row.year5}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2022" name="fea_productcostBVOList[{{idx}}].year2022" type="text" value="{{row.year2022}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year6" name="fea_productcostBVOList[{{idx}}].year6" type="text" value="{{row.year6}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2023" name="fea_productcostBVOList[{{idx}}].year2023" type="text" value="{{row.year2023}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year7" name="fea_productcostBVOList[{{idx}}].year7" type="text" value="{{row.year7}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2024" name="fea_productcostBVOList[{{idx}}].year2024" type="text" value="{{row.year2024}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year8" name="fea_productcostBVOList[{{idx}}].year8" type="text" value="{{row.year8}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2025" name="fea_productcostBVOList[{{idx}}].year2025" type="text" value="{{row.year2025}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year9" name="fea_productcostBVOList[{{idx}}].year9" type="text" value="{{row.year9}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2026" name="fea_productcostBVOList[{{idx}}].year2026" type="text" value="{{row.year2026}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year10" name="fea_productcostBVOList[{{idx}}].year10" type="text" value="{{row.year10}}"    class="form-control "/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_year2027" name="fea_productcostBVOList[{{idx}}].year2027" type="text" value="{{row.year2027}}"    class="form-control "/>
+						<input id="fea_productcostBVOList{{idx}}_year11" name="fea_productcostBVOList[{{idx}}].year11" type="text" value="{{row.year11}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year12" name="fea_productcostBVOList[{{idx}}].year12" type="text" value="{{row.year12}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year13" name="fea_productcostBVOList[{{idx}}].year13" type="text" value="{{row.year13}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year14" name="fea_productcostBVOList[{{idx}}].year14" type="text" value="{{row.year14}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year15" name="fea_productcostBVOList[{{idx}}].year15" type="text" value="{{row.year15}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year16" name="fea_productcostBVOList[{{idx}}].year16" type="text" value="{{row.year16}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year17" name="fea_productcostBVOList[{{idx}}].year17" type="text" value="{{row.year17}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year18" name="fea_productcostBVOList[{{idx}}].year18" type="text" value="{{row.year18}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year19" name="fea_productcostBVOList[{{idx}}].year19" type="text" value="{{row.year19}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year20" name="fea_productcostBVOList[{{idx}}].year20" type="text" value="{{row.year20}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year21" name="fea_productcostBVOList[{{idx}}].year21" type="text" value="{{row.year21}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year22" name="fea_productcostBVOList[{{idx}}].year22" type="text" value="{{row.year22}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year23" name="fea_productcostBVOList[{{idx}}].year23" type="text" value="{{row.year23}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year24" name="fea_productcostBVOList[{{idx}}].year24" type="text" value="{{row.year24}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year25" name="fea_productcostBVOList[{{idx}}].year25" type="text" value="{{row.year25}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">

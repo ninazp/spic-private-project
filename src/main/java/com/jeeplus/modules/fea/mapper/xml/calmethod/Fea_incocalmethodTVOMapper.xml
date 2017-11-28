@@ -143,7 +143,6 @@
 			year24 = #{year24},
 			year25 = #{year25},
 			year26 = #{year26},
-			pkincocalmth = #{fea_incocalmethod.id}
 		WHERE id = #{id}
 	</update>
 	

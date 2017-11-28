@@ -41,7 +41,6 @@ public class CountHander {
 		List<Fea_fundssrcBVO>  bvolst = fundsrcvo.getFea_fundssrcBVOList();
 		List<Fea_fundssrcTVO>  tvolst = fundsrcvo.getFea_fundssrcTVOList();
 		
-		
 		//1,1.1,1.2,1.3
 		Double d1=0.0;
 		Double d11=0.0;

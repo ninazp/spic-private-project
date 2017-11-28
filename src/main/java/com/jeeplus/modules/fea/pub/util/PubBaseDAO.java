@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jeeplus.core.persistence.BaseMapper;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 
 public class PubBaseDAO {
 

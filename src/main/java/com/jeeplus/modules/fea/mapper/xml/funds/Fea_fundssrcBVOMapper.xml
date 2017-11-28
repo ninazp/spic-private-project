@@ -106,7 +106,6 @@
 			capamt = #{capamt},
 			jstzamt = #{jstzamt},
 			ldtzamt = #{ldtzamt},
-			pkfundssrc = #{fea_fundssrc.id},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

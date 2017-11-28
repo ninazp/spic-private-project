@@ -20,7 +20,7 @@ import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
 /**
  * 生成成本Service
  * @author jw
- * @version 2017-11-18
+ * @version 2017-11-28
  */
 @Service
 @Transactional(readOnly = true)

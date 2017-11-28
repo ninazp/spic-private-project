@@ -157,7 +157,6 @@
 			project_code = #{projectCode},
 			project_name = #{projectName},
 			heat_area = #{heatArea},
-			kind = #{fea_project.id},
 			address = #{address},
 			heat_days = #{heatDays},
 			project_start = #{projectStart},

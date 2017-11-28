@@ -65,39 +65,29 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金指标：</label></td>
+					<td class="width-15 active"><label class="pull-right">借款年度：</label></td>
+					<td class="width-35">
+						<form:input path="loanyears" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">短期借款金额：</label></td>
 					<td class="width-35">
 						<form:input path="circulaamt" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">流动资金贷款比例（%）：</label></td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">短期借款利率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="circularate" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">偿还短期借款金额：</label></td>
 					<td class="width-35">
 						<form:input path="circulaloanrate" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金贷款利率（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">短期借款利息：</label></td>
 					<td class="width-35">
-						<form:input path="circularate" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">长期贷款利率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="langloanrate" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">长期还款方式：</label></td>
-					<td class="width-35">
-						<form:input path="langrepaytype" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">预定还款年限（年）：</label></td>
-					<td class="width-35">
-						<form:input path="repayyear" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">短期借款贷款利率（%）：</label></td>
-					<td class="width-35">
-						<form:input path="shortloanrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="dqjkintrest" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"></td>
 		   			<td class="width-35" ></td>

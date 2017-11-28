@@ -140,33 +140,6 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
-			,{
-		        field: 'setupinterest',
-		        title: '建设期利息',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'iscapitalcy',
-		        title: '注资循环',
-		        sortable: true,
-		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
-		        }
-		       
-		    }
-			,{
-		        field: 'office.name',
-		        title: '部门',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
-		       
-		    }
 		     ]
 		
 		});
@@ -303,21 +276,19 @@ $(document).ready(function() {
 <script type="text/template" id="fea_fundssrcVOChildrenTpl">//<!--
 	<div class="tabs-container">
 		<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab-{{idx}}-1" aria-expanded="true">资金来源投资子表</a></li>
-				<li><a data-toggle="tab" href="#tab-{{idx}}-2" aria-expanded="true">资金来源融资子表</a></li>
+				<li class="active"><a data-toggle="tab" href="#tab-{{idx}}-1" aria-expanded="true">投资来源</a></li>
+				<li><a data-toggle="tab" href="#tab-{{idx}}-2" aria-expanded="true">融资来源</a></li>
 		</ul>
 		<div class="tab-content">
 				 <div id="tab-{{idx}}-1" class="tab-pane fade in active">
 						<table class="ani table">
 						<thead>
 							<tr>
-								<th>注资方</th>
+								<th>注资方名称</th>
 								<th>币种</th>
 								<th>汇率</th>
 								<th>比例</th>
 								<th>注资金额</th>
-								<th>其中建设投资资本金</th>
-								<th>其中流动资金资本金</th>
 							</tr>
 						</thead>
 						<tbody id="fea_fundssrcVOChild-{{idx}}-1-List">
@@ -333,14 +304,12 @@ $(document).ready(function() {
 								<th>汇率</th>
 								<th>比例</th>
 								<th>借款金额</th>
-								<th>其中长期借款</th>
-								<th>其中流动资金借款</th>
-								<th>计息次数</th>
-								<th>本金利率</th>
-								<th>利息利率</th>
+								<th>计息次数（年）</th>
+								<th>本金利率（%）</th>
+								<th>利息利率（%）</th>
 								<th>还款方式</th>
 								<th>还款期</th>
-								<th>承诺费率</th>
+								<th>承诺费率（%）</th>
 								<th>宽限期</th>
 							</tr>
 						</thead>
@@ -353,7 +322,7 @@ $(document).ready(function() {
 	<script type="text/template" id="fea_fundssrcVOChild1Tpl">//<!--
 				<tr>
 					<td>
-						{{row.capitaltype }}
+						{{row.capitaltype}}
 					</td>
 					<td>
 						{{row.currency}}
@@ -366,12 +335,6 @@ $(document).ready(function() {
 					</td>
 					<td>
 						{{row.capamt}}
-					</td>
-					<td>
-						{{row.jstzamt}}
-					</td>
-					<td>
-						{{row.ldtzamt}}
 					</td>
 				</tr>//-->
 	</script>
@@ -390,13 +353,7 @@ $(document).ready(function() {
 						{{row.loanprop}}
 					</td>
 					<td>
-						{{row.loan_amt}}
-					</td>
-					<td>
-						{{row.langamt}}
-					</td>
-					<td>
-						{{row.shortamt}}
+						{{row.loanamt}}
 					</td>
 					<td>
 						{{row.interestcount}}

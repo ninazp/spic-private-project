@@ -5,13 +5,11 @@
 	<sql id="fea_fundssrcBVOColumns">
 		a.id AS "id",
 		a.del_flag AS "delFlag",
-		a.capitaltype  AS "capitaltype ",
+		a.capitaltype AS "capitaltype",
 		a.currency AS "currency",
 		a.exchangerate AS "exchangerate",
 		a.capprop AS "capprop",
 		a.capamt AS "capamt",
-		a.jstzamt AS "jstzamt",
-		a.ldtzamt AS "ldtzamt",
 		a.pkfundssrc AS "fea_fundssrc.id",
 		a.remarks AS "remarks"
 	</sql>
@@ -73,25 +71,21 @@
 		INSERT INTO fea_fundssrc_b(
 			id,
 			del_flag,
-			capitaltype ,
+			capitaltype,
 			currency,
 			exchangerate,
 			capprop,
 			capamt,
-			jstzamt,
-			ldtzamt,
 			pkfundssrc,
 			remarks
 		) VALUES (
 			#{id},
 			#{delFlag},
-			#{capitaltype },
+			#{capitaltype},
 			#{currency},
 			#{exchangerate},
 			#{capprop},
 			#{capamt},
-			#{jstzamt},
-			#{ldtzamt},
 			#{fea_fundssrc.id},
 			#{remarks}
 		)
@@ -99,13 +93,12 @@
 	
 	<update id="update">
 		UPDATE fea_fundssrc_b SET 	
-			capitaltype  = #{capitaltype },
+			capitaltype = #{capitaltype},
 			currency = #{currency},
 			exchangerate = #{exchangerate},
 			capprop = #{capprop},
 			capamt = #{capamt},
-			jstzamt = #{jstzamt},
-			ldtzamt = #{ldtzamt},
+			pkfundssrc = #{fea_fundssrc.id},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

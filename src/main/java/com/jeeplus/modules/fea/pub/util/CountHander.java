@@ -62,20 +62,20 @@ public class CountHander {
 		
 		//资金筹备
 		for(Fea_fundssrcBVO bvo :bvolst){
-		    d211 = d211 + bvo.getJstzamt();
-		    d212 = d212+bvo.getLdtzamt();
+//		    d211 = d211 + bvo.getJstzamt();
+//		    d212 = d212+bvo.getLdtzamt();
 		    d21= d211+d212;
 		}
 		
 		//借款
 		for(Fea_fundssrcTVO tvo :tvolst){
-		    d2211 = d2211 + tvo.getLangamt();//长期借款本金
+//		    d2211 = d2211 + tvo.getLangamt();//长期借款本金
 		    d2212 = d2212+20.65;//？？？？？建设期利息
 		    
 		    //长期借款
 		    d221= d2211+d2212;
 		    //短期借款
-		    d222 = d222+tvo.getShortamt();
+//		    d222 = d222+tvo.getShortamt();
 		    
 		    d22 = d221+d222;
 		}

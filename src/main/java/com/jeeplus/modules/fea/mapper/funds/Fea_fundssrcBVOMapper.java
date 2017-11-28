@@ -8,9 +8,9 @@ import com.jeeplus.core.persistence.annotation.MyBatisMapper;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
 
 /**
- * 资金来源投资子表MAPPER接口
+ * 投资来源MAPPER接口
  * @author jw
- * @version 2017-11-25
+ * @version 2017-11-28
  */
 @MyBatisMapper
 public interface Fea_fundssrcBVOMapper extends BaseMapper<Fea_fundssrcBVO> {

@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.funds.Fea_fundssrcVOService;
 /**
  * 资金来源Controller
  * @author jw
- * @version 2017-11-25
+ * @version 2017-11-28
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/funds/fea_fundssrcVO")

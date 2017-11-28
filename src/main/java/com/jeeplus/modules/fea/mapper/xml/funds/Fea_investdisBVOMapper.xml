@@ -8,15 +8,15 @@
 		a.investtype AS "investtype",
 		a.investprop AS "investprop",
 		a.investamt AS "investamt",
+		a.jsamt AS "jsamt",
+		a.ldamt AS "ldamt",
 		a.pkinvestdis AS "fea_investdis.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag",
-		a.jsamt AS "jsamt",
-		a.ldamt AS "ldamt"
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="fea_investdisBVOJoins">
@@ -81,30 +81,30 @@
 			investtype,
 			investprop,
 			investamt,
+			jsamt,
+			ldamt,
 			pkinvestdis,
 			create_by,
 			create_date,
 			update_by,
 			update_date,
 			remarks,
-			del_flag,
-			jsamt,
-			ldamt
+			del_flag
 		) VALUES (
 			#{id},
 			#{zjname},
 			#{investtype},
 			#{investprop},
 			#{investamt},
+			#{jsamt},
+			#{ldamt},
 			#{fea_investdis.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
-			#{delFlag},
-			#{jsamt},
-			#{ldamt}
+			#{delFlag}
 		)
 	</insert>
 	
@@ -114,11 +114,12 @@
 			investtype = #{investtype},
 			investprop = #{investprop},
 			investamt = #{investamt},
+			jsamt = #{jsamt},
+			ldamt = #{ldamt},
+			pkinvestdis = #{fea_investdis.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			remarks = #{remarks},
-			jsamt = #{jsamt},
-			ldamt = #{ldamt}
+			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
 	

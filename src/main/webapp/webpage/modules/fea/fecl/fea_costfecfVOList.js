@@ -92,44 +92,32 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'circulaamt',
-		        title: '流动资金指标',
+		        field: 'loanyears',
+		        title: '借款年度',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'circulaloanrate',
-		        title: '流动资金贷款比例（%）',
+		        field: 'circulaamt',
+		        title: '短期借款金额',
 		        sortable: true
 		       
 		    }
 			,{
 		        field: 'circularate',
-		        title: '流动资金贷款利率（%）',
+		        title: '短期借款利率（%）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'langloanrate',
-		        title: '长期贷款利率（%）',
+		        field: 'circulaloanrate',
+		        title: '偿还短期借款金额',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'langrepaytype',
-		        title: '长期还款方式',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'repayyear',
-		        title: '预定还款年限（年）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'shortloanrate',
-		        title: '短期借款贷款利率（%）',
+		        field: 'dqjkintrest',
+		        title: '短期借款利息',
 		        sortable: true
 		       
 		    }

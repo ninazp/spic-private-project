@@ -266,7 +266,7 @@ $(document).ready(function() {
 <script type="text/template" id="fea_investdisVOChildrenTpl">//<!--
 	<div class="tabs-container">
 		<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab-{{idx}}-1" aria-expanded="true">投资分配组成</a></li>
+				<li class="active"><a data-toggle="tab" href="#tab-{{idx}}-1" aria-expanded="true">分配组成</a></li>
 		</ul>
 		<div class="tab-content">
 				 <div id="tab-{{idx}}-1" class="tab-pane fade in active">
@@ -274,9 +274,9 @@ $(document).ready(function() {
 						<thead>
 							<tr>
 								<th>资金方名称</th>
-								<th>投资类别</th>
-								<th>投资比例（%）</th>
-								<th>投资金额</th>
+								<th>资金方类别</th>
+								<th>当期比例（%）</th>
+								<th>资金金额</th>
 								<th>用于建设金额</th>
 								<th>用于流动资金金额</th>
 							</tr>

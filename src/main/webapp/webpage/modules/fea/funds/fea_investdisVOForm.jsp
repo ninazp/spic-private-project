@@ -143,7 +143,7 @@
 		</table>
 		<div class="tabs-container">
             <ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">投资分配组成：</a>
+				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">分配组成：</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -154,9 +154,9 @@
 					<tr>
 						<th class="hide"></th>
 						<th>资金方名称</th>
-						<th>投资类别</th>
-						<th>投资比例（%）</th>
-						<th>投资金额</th>
+						<th>资金方类别</th>
+						<th>当期比例（%）</th>
+						<th>资金金额</th>
 						<th>用于建设金额</th>
 						<th>用于流动资金金额</th>
 						<th width="10">&nbsp;</th>

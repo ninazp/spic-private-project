@@ -139,30 +139,6 @@
 					<td class="width-35">
 						<form:input path="loanamt" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">建设期利息：</label></td>
-					<td class="width-35">
-						<form:input path="setupinterest" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">注资循环：</label></td>
-					<td class="width-35">
-						<form:select path="iscapitalcy" class="form-control ">
-							<form:option value="" label=""/>
-							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-						</form:select>
-					</td>
-					<td class="width-15 active"><label class="pull-right">部门：</label></td>
-					<td class="width-35">
-						<sys:treeselect id="office" name="office.id" value="${fea_fundssrcVO.office.id}" labelName="office.name" labelValue="${fea_fundssrcVO.office.name}"
-							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
-					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
-					</td>
 					<td class="width-15 active"></td>
 		   			<td class="width-35" ></td>
 		  		</tr>
@@ -170,9 +146,9 @@
 		</table>
 		<div class="tabs-container">
             <ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">资金来源投资子表：</a>
+				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">投资来源：</a>
                 </li>
-				<li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">资金来源融资子表：</a>
+				<li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">融资来源：</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -182,13 +158,11 @@
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>注资方</th>
+						<th>注资方名称</th>
 						<th>币种</th>
 						<th>汇率</th>
 						<th>比例</th>
 						<th>注资金额</th>
-						<th>其中建设投资资本金</th>
-						<th>其中流动资金资本金</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -203,7 +177,7 @@
 					</td>
 					
 					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_capitaltype " name="fea_fundssrcBVOList[{{idx}}].capitaltype " type="text" value="{{row.capitaltype }}"    class="form-control "/>
+						<input id="fea_fundssrcBVOList{{idx}}_capitaltype" name="fea_fundssrcBVOList[{{idx}}].capitaltype" type="text" value="{{row.capitaltype}}"    class="form-control "/>
 					</td>
 					
 					
@@ -224,16 +198,6 @@
 					
 					<td>
 						<input id="fea_fundssrcBVOList{{idx}}_capamt" name="fea_fundssrcBVOList[{{idx}}].capamt" type="text" value="{{row.capamt}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_jstzamt" name="fea_fundssrcBVOList[{{idx}}].jstzamt" type="text" value="{{row.jstzamt}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcBVOList{{idx}}_ldtzamt" name="fea_fundssrcBVOList[{{idx}}].ldtzamt" type="text" value="{{row.ldtzamt}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">
@@ -263,14 +227,12 @@
 						<th>汇率</th>
 						<th>比例</th>
 						<th>借款金额</th>
-						<th>其中长期借款</th>
-						<th>其中流动资金借款</th>
-						<th>计息次数</th>
-						<th>本金利率</th>
-						<th>利息利率</th>
+						<th>计息次数（年）</th>
+						<th>本金利率（%）</th>
+						<th>利息利率（%）</th>
 						<th>还款方式</th>
 						<th>还款期</th>
-						<th>承诺费率</th>
+						<th>承诺费率（%）</th>
 						<th>宽限期</th>
 						<th width="10">&nbsp;</th>
 					</tr>
@@ -306,17 +268,7 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_loan_amt" name="fea_fundssrcTVOList[{{idx}}].loan_amt" type="text" value="{{row.loan_amt}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_langamt" name="fea_fundssrcTVOList[{{idx}}].langamt" type="text" value="{{row.langamt}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_shortamt" name="fea_fundssrcTVOList[{{idx}}].shortamt" type="text" value="{{row.shortamt}}"    class="form-control "/>
+						<input id="fea_fundssrcTVOList{{idx}}_loanamt" name="fea_fundssrcTVOList[{{idx}}].loanamt" type="text" value="{{row.loanamt}}"    class="form-control "/>
 					</td>
 					
 					

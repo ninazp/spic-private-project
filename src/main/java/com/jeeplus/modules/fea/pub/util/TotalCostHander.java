@@ -4,18 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TotalCostHander {
-	
-	public static Double getassetval(List<Double> totaltable){
-		Double assetval = 0.0;
-		for(Double tval : totaltable){
-			
-			
-		}
-		
-		return assetval;
-	}
-	
-
 	/**
 	 * 总成本费用表  -  计算再利息表之后
 	 * @param paramdoub：折旧固定资产原值，维修和保险固定资产原值，
@@ -24,7 +12,7 @@ public class TotalCostHander {
 	 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
 	 * @return
 	 */
-	public List<List<Double>> getTotalCost(List<Double> paramdoub,List<Double> repairrate ){
+	public static List<List<Double>> getTotalCost(List<Double> paramdoub,List<Double> repairrate ){
 		List<List<Double>> retlistlist = new ArrayList<List<Double>>();
 
 		Double assetVal = paramdoub.get(0);
@@ -32,15 +20,14 @@ public class TotalCostHander {
 		Double depyears = paramdoub.get(2);
 		Double depleftrate = paramdoub.get(3);
 		Double bxrate = paramdoub.get(4);
-		Double persons = paramdoub.get(5);
-		Double wage = paramdoub.get(6);
-		Double benefit =paramdoub.get(7);
-		Double heatcost = paramdoub.get(8);
-		Double brcost = paramdoub.get(9);
-		Double firstmths = paramdoub.get(10);
+		Double wage = paramdoub.get(5);
+		Double benefit =paramdoub.get(6);
+		Double heatcost = paramdoub.get(7);
+		Double brcost = paramdoub.get(8);
+		Double firstmths = paramdoub.get(9);
 		Double totalcalyears = paramdoub.get(10);
-		Double txval = paramdoub.get(12);
-		Double txvalyear = paramdoub.get(13);
+		Double txval = paramdoub.get(11);
+		Double txvalyear = paramdoub.get(12);
 
 		//折旧费 
 		List<Double> zjlist = getdepreciation(assetVal, depyears, depleftrate,
@@ -48,7 +35,7 @@ public class TotalCostHander {
 		//维修费
 		List<Double> wxlist = getRepairsCost(assetValwb, repairrate, firstmths, totalcalyears);
 		//工资及福利
-		List<Double> wagelist = getWagebenefit( persons, wage, benefit, firstmths, totalcalyears);
+		List<Double> wagelist = getWagebenefit( wage, benefit, firstmths, totalcalyears);
 		//保险费
 		List<Double> bxlist = getBXcost(assetValwb, bxrate, firstmths, totalcalyears);
 		//供暖费
@@ -62,7 +49,7 @@ public class TotalCostHander {
 
 		//固定成本
 		List<Double> fixlist = new ArrayList<Double>();
-		for(int i=1;i<totalcalyears;i++){
+		for(int i=0;i<=totalcalyears;i++){
 			Double doub = zjlist.get(i)+wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
 			+txlist.get(i)+interestlist.get(i)+brlist.get(i);
 			fixlist.add(doub);
@@ -73,7 +60,7 @@ public class TotalCostHander {
 
 		//总成本
 		List<Double> totallist = new ArrayList<Double>();
-		for(int i=1;i<totalcalyears;i++){
+		for(int i=0;i<=totalcalyears;i++){
 			Double doub = zjlist.get(i)+wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
 			+txlist.get(i)+interestlist.get(i)+brlist.get(i)+heatlist.get(i);
 			totallist.add(doub);
@@ -81,7 +68,7 @@ public class TotalCostHander {
 
 		//经营成本 = =维修费+工资及福利+保险费+取暖费+泵热费
 		List<Double> salecostlist = new ArrayList<Double>();
-		for(int i=1;i<=totalcalyears;i++){
+		for(int i=0;i<=totalcalyears;i++){
 			Double doub = wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
 			               +brlist.get(i)+heatlist.get(i);
 			
@@ -92,6 +79,7 @@ public class TotalCostHander {
 		retlistlist.add(wxlist);
 		retlistlist.add(wagelist);
 		retlistlist.add(bxlist);
+		retlistlist.add(heatlist);
 		retlistlist.add(txlist);
 		retlistlist.add(interestlist);
 		retlistlist.add(brlist);
@@ -111,26 +99,26 @@ public class TotalCostHander {
 	 * @param depyears
 	 * @return
 	 */
-	public List<Double> getdepreciation(Double assetVal,Double depyears,Double depleftrate,
+	public static List<Double> getdepreciation(Double assetVal,Double depyears,Double depleftrate,
 			Double firstmths,Double totalcalyears){
 
 		List<Double> retList = new ArrayList<Double>();
-		Double yearval = (assetVal/depyears)*(1-depleftrate);
+		Double yearval = (assetVal/depyears)*(1-depleftrate/100);
 		Double sumval = 0.0;
 		retList.add(sumval);
 		for(int i=1;i<=totalcalyears;i++){
 			Double doub1 =0.0;
 			if(i==1){
 				doub1 = yearval*(firstmths/12);
-			}else if(i<Math.min(depyears,totalcalyears)){
+			}else if(i<Math.min(depyears,totalcalyears)+1){
 				doub1 = yearval;
-			}else if(i==Math.min(depyears,totalcalyears)){
+			}else if(i==Math.min(depyears,totalcalyears)+1){
 				if(depyears<totalcalyears){
 					doub1 = yearval-yearval*(firstmths/12);
 				}else{
 					doub1 = yearval;
 				}
-			}else if(i>Math.min(depyears, totalcalyears)){
+			}else if(i>Math.min(depyears, totalcalyears)+1){
 				if(depyears<totalcalyears){
 					doub1 = 0.0;
 				}else{
@@ -154,7 +142,7 @@ public class TotalCostHander {
 	 * @param totalcalyears
 	 * @return
 	 */
-	public List<Double> getRepairsCost(Double assetVal,List<Double> bxrate,Double firstmths,Double totalcalyears){
+	public static List<Double> getRepairsCost(Double assetVal,List<Double> bxrate,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		
 		
@@ -162,7 +150,7 @@ public class TotalCostHander {
 		retlist.add(sumval);
 		Double temp = 0.0;
 		for(int i=1;i<=totalcalyears;i++){
-			Double repval = assetVal*bxrate.get(i-1);
+			Double repval = assetVal*bxrate.get(i-1)/100;
 			if(i==1){
 				temp = repval*(firstmths/12);
 				retlist.add(temp);
@@ -184,9 +172,9 @@ public class TotalCostHander {
 	 * @param firstmths 第一年月份
 	 * @return totalyears 总计计算年份
 	 */
-	public List<Double> getBXcost(Double assetVal,Double bxrate,Double firstmths,Double totalcalyears){
+	public static List<Double> getBXcost(Double assetVal,Double bxrate,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
-		Double repval = assetVal*bxrate;
+		Double repval = assetVal*bxrate/1000;
 		
 		Double sumval = 0.0;
 		retlist.add(sumval);
@@ -194,7 +182,6 @@ public class TotalCostHander {
 		for(int i=1;i<=totalcalyears;i++){
 			if(i==1){
 				temp = repval*(firstmths/12);
-				retlist.add(temp);
 			}else{
 				temp = repval;
 			}
@@ -214,9 +201,9 @@ public class TotalCostHander {
 	 * @param totalcalyears 计算总年份
 	 * @return
 	 */
-	public List<Double> getWagebenefit(Double persons,Double wage,Double benefit,Double firstmths,Double totalcalyears){
+	public static List<Double> getWagebenefit(Double wage,Double benefit,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
-		Double wageval = persons*wage*(1+benefit);
+		Double wageval = wage*(1+benefit/100);
 		
 		Double sumval = 0.0;
 		retlist.add(sumval);
@@ -241,7 +228,7 @@ public class TotalCostHander {
 	 * @param totalcalyears
 	 * @return
 	 */
-	public List<Double> getheatbrcost(Double heatcost,Double firstmths,Double totalcalyears){
+	public static List<Double> getheatbrcost(Double heatcost,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		Double wageval = heatcost;
 		
@@ -272,7 +259,7 @@ public class TotalCostHander {
 	 * @param totalcalyears
 	 * @return
 	 */
-	public List<Double> gettx(Double txdoub,Double firstmths,Double totalcalyears){
+	public static List<Double> gettx(Double txdoub,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		Double sumval = 0.0;
 		retlist.add(sumval);

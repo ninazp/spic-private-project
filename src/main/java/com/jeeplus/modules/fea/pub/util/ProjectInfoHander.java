@@ -31,7 +31,7 @@ public class ProjectInfoHander {
 		prjectdouble.add(currentproductmonth);//当年供热月份
 		prjectdouble.add(countyear);//计算期，比如21年
 		prjectdouble.add(year+0.0);//计算开始年
-		prjectdouble.add(heatarea);//常规供热面积
+		prjectdouble.add(heatarea);//供热面积
 		
 		return prjectdouble;
 	}

@@ -39,7 +39,14 @@
 		a.year22 AS "year22",
 		a.year23 AS "year23",
 		a.year24 AS "year24",
-		a.year25 AS "year25"
+		a.year25 AS "year25",
+		a.year26 AS "year26",
+		a.year27 AS "year27",
+		a.year28 AS "year28",
+		a.year29 AS "year29",
+		a.year30 AS "year30",
+		a.year31 AS "year31",
+		a.year32 AS "year32"
 	</sql>
 	
 	<sql id="fea_incosubsidyVOJoins">
@@ -131,7 +138,14 @@
 			year22,
 			year23,
 			year24,
-			year25
+			year25,
+			year26,
+			year27,
+			year28,
+			year29,
+			year30,
+			year31,
+			year32
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -169,7 +183,14 @@
 			#{year22},
 			#{year23},
 			#{year24},
-			#{year25}
+			#{year25},
+			#{year26},
+			#{year27},
+			#{year28},
+			#{year29},
+			#{year30},
+			#{year31},
+			#{year32}
 		)
 	</insert>
 	
@@ -207,7 +228,14 @@
 			year22 = #{year22},
 			year23 = #{year23},
 			year24 = #{year24},
-			year25 = #{year25}
+			year25 = #{year25},
+			year26 = #{year26},
+			year27 = #{year27},
+			year28 = #{year28},
+			year29 = #{year29},
+			year30 = #{year30},
+			year31 = #{year31},
+			year32 = #{year32}
 		WHERE id = #{id}
 	</update>
 	

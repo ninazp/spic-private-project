@@ -11,11 +11,10 @@
 		a.del_flag AS "delFlag",
 		a.projectcode AS "projectcode",
 		a.projectname AS "projectname",
-		a.loanyears AS "loanyears",
-		a.circulaamt AS "circulaamt",
 		a.circularate AS "circularate",
-		a.chloanamt AS "circulaloanrate",
-		a.dqjkintrest AS "dqjkintrest",
+		a.flowamt AS "flowamt",
+		a.flowloanprop AS "flowloanprop",
+		a.flowcaprate AS "flowcaprate",
 		a.remarks AS "remarks"
 	</sql>
 	
@@ -80,11 +79,10 @@
 			del_flag,
 			projectcode,
 			projectname,
-			loanyears,
-			circulaamt,
 			circularate,
-			chloanamt,
-			dqjkintrest,
+			flowamt,
+			flowloanprop,
+			flowcaprate,
 			remarks
 		) VALUES (
 			#{id},
@@ -95,11 +93,10 @@
 			#{delFlag},
 			#{projectcode},
 			#{projectname},
-			#{loanyears},
-			#{circulaamt},
 			#{circularate},
-			#{circulaloanrate},
-			#{dqjkintrest},
+			#{flowamt},
+			#{flowloanprop},
+			#{flowcaprate},
 			#{remarks}
 		)
 	</insert>
@@ -110,11 +107,10 @@
 			update_date = #{updateDate},
 			projectcode = #{projectcode},
 			projectname = #{projectname},
-			loanyears = #{loanyears},
-			circulaamt = #{circulaamt},
 			circularate = #{circularate},
-			chloanamt = #{circulaloanrate},
-			dqjkintrest = #{dqjkintrest},
+			flowamt = #{flowamt},
+			flowloanprop = #{flowloanprop},
+			flowcaprate = #{flowcaprate},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

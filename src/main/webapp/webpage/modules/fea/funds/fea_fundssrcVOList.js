@@ -365,7 +365,7 @@ $(document).ready(function() {
 						{{row.langrate}}
 					</td>
 					<td>
-						{{row.repaytype}}
+						{{dict.repaytype}}
 					</td>
 					<td>
 						{{row.repayperiod}}

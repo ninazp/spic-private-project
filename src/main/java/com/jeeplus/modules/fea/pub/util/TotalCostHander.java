@@ -1,9 +1,84 @@
 package com.jeeplus.modules.fea.pub.util;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
+import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
+
 public class TotalCostHander {
+	
+	
+	public static List<List<Double>> getTotalcosttable(
+			Fea_capformVOMapper fea_capformVOMapper,
+			Fea_productcostVOMapper fea_productcostVOmapper,
+			Fea_productcostBVOMapper fea_productcostBVOmapper,
+			List<Double> projectinfo,Double assetval,Double assetwbval ){
+		
+		List<List<Double>> totaltable = new ArrayList<List<Double>>();
+		//总成本表
+				//查询成本+基本参数+借款还利利息
+				/**
+				 * 折旧固定资产原值，维修和保险固定资产原值，
+				 *                   折旧年限，残值率，维修费率，
+				 *                   保险费率，工资,福利，供热,泵热费，
+				 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
+				 */
+				List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", fea_capformVOMapper);
+				List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", fea_productcostVOmapper);
+				if(null!=fea_capform && fea_capform.size()>0 && null!=productcost && productcost.size()>0){
+					for(Fea_productcostVO pcost : productcost){
+						List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", fea_productcostBVOmapper);
+						List<Double> repairrate = new ArrayList<Double>();
+						for(Fea_productcostBVO bvo : pbvolst){
+							if(bvo.getCosttype().contains("维修费") || bvo.getCosttype().equals("1")){
+								for(int j=0;j<projectinfo.get(1);j++){
+									try {
+										Method m = bvo.getClass().getMethod("getYear"+(j+1));
+										Double rated = (Double) m.invoke(bvo);
+										repairrate.add(rated);
+									} catch (Exception e) {
+										e.printStackTrace();
+									} 
+								}
+							}
+						}
+
+						List<Double> paramdoub = new ArrayList<Double>();
+
+						paramdoub.add(assetval);
+						paramdoub.add(assetwbval);
+
+						// 折旧年限，残值率
+						paramdoub.add(fea_capform.get(0).getUselifefat());
+						paramdoub.add(fea_capform.get(0).getResidualrate());
+						// * 保险费率，工资,福利，供热,泵热费，
+						paramdoub.add(pcost.getInsurance());
+						Double yearwage = pcost.getPersons()*pcost.getPerwage(); 
+						paramdoub.add(yearwage);
+						paramdoub.add(pcost.getWelfare());
+						paramdoub.add(pcost.getHeatdeposit());
+						paramdoub.add(pcost.getWateramt());
+
+						// * 第一年的供热月份，总计算年限，摊销原值，摊销年限
+						paramdoub.add(projectinfo.get(0));
+						paramdoub.add(projectinfo.get(1));
+
+						paramdoub.add(0.0);
+						paramdoub.add(0.0);
+						paramdoub.add(0.0);
+
+						totaltable = TotalCostHander.getTotalCost(paramdoub, repairrate);
+					}
+				}
+				return totaltable;
+	}
+	
 	/**
 	 * 总成本费用表  -  计算再利息表之后
 	 * @param paramdoub：折旧固定资产原值，维修和保险固定资产原值，
@@ -289,10 +364,10 @@ public class TotalCostHander {
 	}
 
 	
-	public static List<Double> getrepaylx(List<List<Double>> langlst,List<List<Double>> flowlst,List<List<Double>> shortlst){
+	public static List<Double> getrepaylx(List<List<Double>> interesttable){
 		List<Double> retlst = new ArrayList<Double>();
-		for(int i = 0;i<langlst.get(0).size();i++){
-			retlst.add(langlst.get(4).get(i)+flowlst.get(2).get(i)+shortlst.get(2).get(i));
+		for(int i = 0;i<interesttable.get(0).size();i++){
+			retlst.add(interesttable.get(4).get(i)+interesttable.get(8).get(i)+interesttable.get(12).get(i));
 		}
 		return retlst;
 	}

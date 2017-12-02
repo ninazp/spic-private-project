@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 融资来源Entity
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 	
@@ -113,7 +113,7 @@ public class Fea_fundssrcTVO extends DataEntity<Fea_fundssrcTVO> {
 		this.langrate = langrate;
 	}
 	
-	@ExcelField(title="还款方式", align=2, sort=10)
+	@ExcelField(title="还款方式", dictType="loan_type", align=2, sort=10)
 	public String getRepaytype() {
 		return repaytype;
 	}

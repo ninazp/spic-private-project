@@ -116,7 +116,6 @@
 			investamt = #{investamt},
 			jsamt = #{jsamt},
 			ldamt = #{ldamt},
-			pkinvestdis = #{fea_investdis.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}

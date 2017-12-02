@@ -288,7 +288,12 @@
 					
 					
 					<td>
-						<input id="fea_fundssrcTVOList{{idx}}_repaytype" name="fea_fundssrcTVOList[{{idx}}].repaytype" type="text" value="{{row.repaytype}}"    class="form-control "/>
+						<select id="fea_fundssrcTVOList{{idx}}_repaytype" name="fea_fundssrcTVOList[{{idx}}].repaytype" data-value="{{row.repaytype}}" class="form-control m-b  ">
+							<option value=""></option>
+							<c:forEach items="${fns:getDictList('loan_type')}" var="dict">
+								<option value="${dict.value}">${dict.label}</option>
+							</c:forEach>
+						</select>
 					</td>
 					
 					

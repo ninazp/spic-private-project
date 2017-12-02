@@ -92,32 +92,26 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'loanyears',
-		        title: '借款年度',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'circulaamt',
-		        title: '短期借款金额',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'circularate',
 		        title: '短期借款利率（%）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'circulaloanrate',
-		        title: '偿还短期借款金额',
+		        field: 'flowamt',
+		        title: '流动资金指标（万元）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'dqjkintrest',
-		        title: '短期借款利息',
+		        field: 'flowloanprop',
+		        title: '流动资金贷款比例（%）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'flowcaprate',
+		        title: '流动资金贷款利率（%）',
 		        sortable: true
 		       
 		    }

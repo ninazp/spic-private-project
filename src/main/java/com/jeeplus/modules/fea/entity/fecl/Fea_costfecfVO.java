@@ -10,18 +10,17 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 财务费用及流动资金Entity
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
-	private String loanyears;		// 借款年度
-	private Double circulaamt;		// 短期借款金额
 	private Double circularate;		// 短期借款利率（%）
-	private Double circulaloanrate;		// 偿还短期借款金额
-	private Double dqjkintrest;		// 短期借款利息
+	private Double flowamt;		// 流动资金指标（万元）
+	private Double flowloanprop;		// 流动资金贷款比例（%）
+	private Double flowcaprate;		// 流动资金贷款利率（%）
 	
 	public Fea_costfecfVO() {
 		super();
@@ -49,25 +48,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="借款年度", align=2, sort=8)
-	public String getLoanyears() {
-		return loanyears;
-	}
-
-	public void setLoanyears(String loanyears) {
-		this.loanyears = loanyears;
-	}
-	
-	@ExcelField(title="短期借款金额", align=2, sort=9)
-	public Double getCirculaamt() {
-		return circulaamt;
-	}
-
-	public void setCirculaamt(Double circulaamt) {
-		this.circulaamt = circulaamt;
-	}
-	
-	@ExcelField(title="短期借款利率（%）", align=2, sort=10)
+	@ExcelField(title="短期借款利率（%）", align=2, sort=8)
 	public Double getCircularate() {
 		return circularate;
 	}
@@ -76,22 +57,31 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.circularate = circularate;
 	}
 	
-	@ExcelField(title="偿还短期借款金额", align=2, sort=11)
-	public Double getCirculaloanrate() {
-		return circulaloanrate;
+	@ExcelField(title="流动资金指标（万元）", align=2, sort=9)
+	public Double getFlowamt() {
+		return flowamt;
 	}
 
-	public void setCirculaloanrate(Double circulaloanrate) {
-		this.circulaloanrate = circulaloanrate;
+	public void setFlowamt(Double flowamt) {
+		this.flowamt = flowamt;
 	}
 	
-	@ExcelField(title="短期借款利息", align=2, sort=12)
-	public Double getDqjkintrest() {
-		return dqjkintrest;
+	@ExcelField(title="流动资金贷款比例（%）", align=2, sort=10)
+	public Double getFlowloanprop() {
+		return flowloanprop;
 	}
 
-	public void setDqjkintrest(Double dqjkintrest) {
-		this.dqjkintrest = dqjkintrest;
+	public void setFlowloanprop(Double flowloanprop) {
+		this.flowloanprop = flowloanprop;
+	}
+	
+	@ExcelField(title="流动资金贷款利率（%）", align=2, sort=11)
+	public Double getFlowcaprate() {
+		return flowcaprate;
+	}
+
+	public void setFlowcaprate(Double flowcaprate) {
+		this.flowcaprate = flowcaprate;
 	}
 	
 }

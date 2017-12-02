@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 
-public class CountHander {
+public class ProjectInfoHander {
+	
+	public static List<Double> getprojectinfo(
+			FeaProjectB projectvo){
 
-	public static List<Double> handprject(FeaProjectB  projectvo){
 		List<Double> prjectdouble = new ArrayList<Double>();
 
 		Double heatarea = projectvo.getHeatArea();//供暖面积
@@ -26,8 +32,66 @@ public class CountHander {
 		prjectdouble.add(countyear);//计算期，比如21年
 		prjectdouble.add(year+0.0);//计算开始年
 		prjectdouble.add(heatarea);//常规供热面积
-
-		return prjectdouble; 
+		
+		return prjectdouble;
+	}
+	
+	public static Double getdekuje(Fea_fundssrcVOMapper fea_fundssrcVOMapper,FeaProjectB projectvo){
+		Double deductval = 0.0;
+		//查询资金来源
+		List<Fea_fundssrcVO>   distrvolst = (List<Fea_fundssrcVO>) PubBaseDAO.
+				getMutiParentVO("fea_fundssrc", "id", " projectcode='"+projectvo.getProjectCode()+"' ", fea_fundssrcVOMapper);
+		if(null!=distrvolst && distrvolst.size()>0){
+			for(Fea_fundssrcVO fvo : distrvolst){
+				deductval = deductval+fvo.getDeductvtax();
+			}
+		}
+		
+		return deductval;
+	}
+	
+	public static List<List<Double>> getzjcctable(
+			Fea_investdisVOMapper fea_investdisVOMapper,
+			Fea_investdisBVOMapper fea_investdisBVOMapper,FeaProjectB projectvo){
+		
+		List<List<Double>> rettable = new ArrayList<List<Double>>();
+		
+		List<List<Double>> zjcktable = new ArrayList<List<Double>>();
+		
+		//查询资金来源
+		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
+				getMutiParentVO("fea_investdis", "id", " projectcode='B0001' ", fea_investdisVOMapper);
+		if(null!=distrvolst && distrvolst.size()>0){
+			for(Fea_investdisVO fvo : distrvolst){
+				List<Fea_investdisBVO>   distriblst = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", " pkinvestdis='"+fvo.getId()+"' ", fea_investdisBVOMapper);
+				fvo.setFea_investdisBVOList(distriblst);
+				List<Double> cktable = ProjectInfoHander.getzicc(fvo);
+				zjcktable.add(cktable);
+			}
+		}
+		
+		for(int i=0;i<zjcktable.size();i++){
+			for(int j=0;j<zjcktable.get(i).size();j++){
+				if(i==0){
+				    List<Double> zktable = new ArrayList<Double>();
+				    zktable.add(0.0);
+				    zktable.add(zjcktable.get(i).get(j));
+				    rettable.add(zktable);
+				}else{
+					rettable.get(j).add(zjcktable.get(i).get(j));
+				}
+			}
+		}
+		
+		for(int i=0;i<rettable.size();i++){
+			Double tmpsum = 0.0;
+			for(int j=0;j<rettable.get(i).size();j++){
+				tmpsum = tmpsum+rettable.get(i).get(j);
+			}
+			rettable.get(i).set(0, tmpsum);
+		}
+		
+		return rettable;
 	}
 
 	/**

@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
 /**
  * 融资来源MAPPER接口
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 @MyBatisMapper
 public interface Fea_fundssrcTVOMapper extends BaseMapper<Fea_fundssrcTVO> {

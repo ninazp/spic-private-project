@@ -192,6 +192,13 @@
 						<th>第23年</th>
 						<th>第24年</th>
 						<th>第25年</th>
+						<th>第26年</th>
+						<th>第27年</th>
+						<th>第28年</th>
+						<th>第29年</th>
+						<th>第30年</th>
+						<th>第31年</th>
+						<th>第32年</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -337,6 +344,41 @@
 					
 					<td>
 						<input id="fea_productcostBVOList{{idx}}_year25" name="fea_productcostBVOList[{{idx}}].year25" type="text" value="{{row.year25}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year26" name="fea_productcostBVOList[{{idx}}].year26" type="text" value="{{row.year26}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year27" name="fea_productcostBVOList[{{idx}}].year27" type="text" value="{{row.year27}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year28" name="fea_productcostBVOList[{{idx}}].year28" type="text" value="{{row.year28}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year29" name="fea_productcostBVOList[{{idx}}].year29" type="text" value="{{row.year29}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year30" name="fea_productcostBVOList[{{idx}}].year30" type="text" value="{{row.year30}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year31" name="fea_productcostBVOList[{{idx}}].year31" type="text" value="{{row.year31}}"    class="form-control "/>
+					</td>
+					
+					
+					<td>
+						<input id="fea_productcostBVOList{{idx}}_year32" name="fea_productcostBVOList[{{idx}}].year32" type="text" value="{{row.year32}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">

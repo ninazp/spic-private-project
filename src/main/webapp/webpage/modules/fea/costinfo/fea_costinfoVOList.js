@@ -110,8 +110,8 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'product',
-		        title: '产量',
+		        field: 'year',
+		        title: '第1年',
 		        sortable: true
 		       
 		    }
@@ -256,6 +256,48 @@ $(document).ready(function() {
 			,{
 		        field: 'year25',
 		        title: '第25年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year26',
+		        title: '第26年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year27',
+		        title: '第27年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year28',
+		        title: '第28年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year29',
+		        title: '第29年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year30',
+		        title: '第30年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year31',
+		        title: '第31年',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'year32',
+		        title: '第32年',
 		        sortable: true
 		       
 		    }

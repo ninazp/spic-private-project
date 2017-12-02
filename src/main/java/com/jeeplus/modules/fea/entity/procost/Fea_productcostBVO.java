@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 成本种类Entity
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-01
  */
 public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 	
@@ -43,6 +43,13 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 	private Double year23;		// 第23年
 	private Double year24;		// 第24年
 	private Double year25;		// 第25年
+	private String year26;		// 第26年
+	private String year27;		// 第27年
+	private String year28;		// 第28年
+	private String year29;		// 第29年
+	private String year30;		// 第30年
+	private String year31;		// 第31年
+	private String year32;		// 第32年
 	
 	public Fea_productcostBVO() {
 		super();
@@ -305,6 +312,69 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 
 	public void setYear25(Double year25) {
 		this.year25 = year25;
+	}
+	
+	@ExcelField(title="第26年", align=2, sort=35)
+	public String getYear26() {
+		return year26;
+	}
+
+	public void setYear26(String year26) {
+		this.year26 = year26;
+	}
+	
+	@ExcelField(title="第27年", align=2, sort=36)
+	public String getYear27() {
+		return year27;
+	}
+
+	public void setYear27(String year27) {
+		this.year27 = year27;
+	}
+	
+	@ExcelField(title="第28年", align=2, sort=37)
+	public String getYear28() {
+		return year28;
+	}
+
+	public void setYear28(String year28) {
+		this.year28 = year28;
+	}
+	
+	@ExcelField(title="第29年", align=2, sort=38)
+	public String getYear29() {
+		return year29;
+	}
+
+	public void setYear29(String year29) {
+		this.year29 = year29;
+	}
+	
+	@ExcelField(title="第30年", align=2, sort=39)
+	public String getYear30() {
+		return year30;
+	}
+
+	public void setYear30(String year30) {
+		this.year30 = year30;
+	}
+	
+	@ExcelField(title="第31年", align=2, sort=40)
+	public String getYear31() {
+		return year31;
+	}
+
+	public void setYear31(String year31) {
+		this.year31 = year31;
+	}
+	
+	@ExcelField(title="第32年", align=2, sort=41)
+	public String getYear32() {
+		return year32;
+	}
+
+	public void setYear32(String year32) {
+		this.year32 = year32;
 	}
 	
 }

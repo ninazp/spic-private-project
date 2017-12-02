@@ -269,5 +269,13 @@ public class TotalCostHander {
 		return retlist;
 	}
 
+	
+	public static List<Double> getrepaylx(List<List<Double>> langlst,List<List<Double>> flowlst,List<List<Double>> shortlst){
+		List<Double> retlst = new ArrayList<Double>();
+		for(int i = 0;i<langlst.get(0).size();i++){
+			retlst.add(langlst.get(4).get(i)+flowlst.get(2).get(i)+shortlst.get(2).get(i));
+		}
+		return retlst;
+	}
 
 }

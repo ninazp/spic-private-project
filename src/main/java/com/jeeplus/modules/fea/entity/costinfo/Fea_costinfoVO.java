@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 成本种类及产量Entity
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 public class Fea_costinfoVO extends DataEntity<Fea_costinfoVO> {
 	
@@ -46,6 +46,13 @@ public class Fea_costinfoVO extends DataEntity<Fea_costinfoVO> {
 	private Double year23;		// 第23年
 	private Double year24;		// 第24年
 	private Double year25;		// 第25年
+	private Double year26;		// 第26年
+	private Double year27;		// 第27年
+	private Double year28;		// 第28年
+	private Double year29;		// 第29年
+	private Double year30;		// 第30年
+	private Double year31;		// 第31年
+	private Double year32;		// 第32年
 	
 	public Fea_costinfoVO() {
 		super();
@@ -332,6 +339,69 @@ public class Fea_costinfoVO extends DataEntity<Fea_costinfoVO> {
 
 	public void setYear25(Double year25) {
 		this.year25 = year25;
+	}
+	
+	@ExcelField(title="第26年", align=2, sort=38)
+	public Double getYear26() {
+		return year26;
+	}
+
+	public void setYear26(Double year26) {
+		this.year26 = year26;
+	}
+	
+	@ExcelField(title="第27年", align=2, sort=39)
+	public Double getYear27() {
+		return year27;
+	}
+
+	public void setYear27(Double year27) {
+		this.year27 = year27;
+	}
+	
+	@ExcelField(title="第28年", align=2, sort=40)
+	public Double getYear28() {
+		return year28;
+	}
+
+	public void setYear28(Double year28) {
+		this.year28 = year28;
+	}
+	
+	@ExcelField(title="第29年", align=2, sort=41)
+	public Double getYear29() {
+		return year29;
+	}
+
+	public void setYear29(Double year29) {
+		this.year29 = year29;
+	}
+	
+	@ExcelField(title="第30年", align=2, sort=42)
+	public Double getYear30() {
+		return year30;
+	}
+
+	public void setYear30(Double year30) {
+		this.year30 = year30;
+	}
+	
+	@ExcelField(title="第31年", align=2, sort=43)
+	public Double getYear31() {
+		return year31;
+	}
+
+	public void setYear31(Double year31) {
+		this.year31 = year31;
+	}
+	
+	@ExcelField(title="第32年", align=2, sort=44)
+	public Double getYear32() {
+		return year32;
+	}
+
+	public void setYear32(Double year32) {
+		this.year32 = year32;
 	}
 	
 }

@@ -318,6 +318,13 @@ $(document).ready(function() {
 								<th>第23年</th>
 								<th>第24年</th>
 								<th>第25年</th>
+								<th>第26年</th>
+								<th>第27年</th>
+								<th>第28年</th>
+								<th>第29年</th>
+								<th>第30年</th>
+								<th>第31年</th>
+								<th>第32年</th>
 							</tr>
 						</thead>
 						<tbody id="fea_productcostVOChild-{{idx}}-1-List">
@@ -408,6 +415,27 @@ $(document).ready(function() {
 					</td>
 					<td>
 						{{row.year25}}
+					</td>
+					<td>
+						{{row.year26}}
+					</td>
+					<td>
+						{{row.year27}}
+					</td>
+					<td>
+						{{row.year28}}
+					</td>
+					<td>
+						{{row.year29}}
+					</td>
+					<td>
+						{{row.year30}}
+					</td>
+					<td>
+						{{row.year31}}
+					</td>
+					<td>
+						{{row.year32}}
 					</td>
 				</tr>//-->
 	</script>

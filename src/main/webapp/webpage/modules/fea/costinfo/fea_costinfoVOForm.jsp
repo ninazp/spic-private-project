@@ -79,9 +79,9 @@
 					<td class="width-35">
 						<form:input path="productrate" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">产量：</label></td>
+					<td class="width-15 active"><label class="pull-right">第1年：</label></td>
 					<td class="width-35">
-						<form:input path="product" htmlEscape="false"    class="form-control "/>
+						<form:input path="year" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
@@ -204,6 +204,44 @@
 						<form:input path="year25" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">第26年：</label></td>
+					<td class="width-35">
+						<form:input path="year26" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">第27年：</label></td>
+					<td class="width-35">
+						<form:input path="year27" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">第28年：</label></td>
+					<td class="width-35">
+						<form:input path="year28" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">第29年：</label></td>
+					<td class="width-35">
+						<form:input path="year29" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">第30年：</label></td>
+					<td class="width-35">
+						<form:input path="year30" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">第31年：</label></td>
+					<td class="width-35">
+						<form:input path="year31" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">第32年：</label></td>
+					<td class="width-35">
+						<form:input path="year32" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.costinfo.Fea_costinfoVOService;
 /**
  * 成本种类及产量Controller
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/costinfo/fea_costinfoVO")

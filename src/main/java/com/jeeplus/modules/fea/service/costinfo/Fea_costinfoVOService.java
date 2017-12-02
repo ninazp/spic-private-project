@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 /**
  * 成本种类及产量Service
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-02
  */
 @Service
 @Transactional(readOnly = true)

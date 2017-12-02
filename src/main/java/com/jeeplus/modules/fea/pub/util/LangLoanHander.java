@@ -32,13 +32,28 @@ public class LangLoanHander {
 		
 		retlst.add(langloanlst);
 		
+		List<List<Double>> ltemp = new ArrayList<List<Double>>();
 		for(int j=0;j<cqjkje.size();j++){
 			List<List<Double>> yhlxsll = getyhlxs(j, cqjkje.get(j), loanrate, returnnum, firstmths, totalcalyears);
-			for(int i=0;i<yhlxsll.size();i++){
-				retlst.add(yhlxsll.get(i));
+			if(j==0){
+			  for(int i=0;i<yhlxsll.size();i++){
+				 retlst.add(yhlxsll.get(i));
+		 	  }
+			}else{
+				for(int i=0;i<yhlxsll.size();i++){
+					 List<Double> tempi = new ArrayList<Double>();
+					 for(int m=0;m<yhlxsll.get(i).size();m++){
+						tempi.add(ltemp.get(i).get(m)+yhlxsll.get(i).get(m));
+					 }
+					 ltemp.set(i, tempi);
+			 	}
 			}
 		}
-	    
+	    for(int i=0;i<ltemp.size();i++){
+	    	retlst.add(ltemp.get(i));
+	    }
+		
+		
 	return retlst;
 }
 

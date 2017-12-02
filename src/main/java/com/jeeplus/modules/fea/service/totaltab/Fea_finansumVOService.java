@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
+import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
@@ -20,8 +21,8 @@ import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
+import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
@@ -29,8 +30,10 @@ import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.totaltab.Fea_finansumVOMapper;
 import com.jeeplus.modules.fea.pub.util.CountHander;
+import com.jeeplus.modules.fea.pub.util.FlowLoanHander;
 import com.jeeplus.modules.fea.pub.util.LangLoanHander;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.fea.pub.util.ShortLoanHander;
 import com.jeeplus.modules.fea.pub.util.TotalCostHander;
 
 /**
@@ -54,6 +57,8 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 	private Fea_productcostBVOMapper fea_productcostBVOmapper;
 	@Autowired
 	private Fea_capformVOMapper fea_capformVOMapper;
+	@Autowired
+	private Fea_costinfoVOMapper fea_costinfoVOMapper;
 
 
 	public Fea_finansumVO get(String id) {
@@ -85,8 +90,6 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
 		//借款还利息表
 		List<List<Double>> interesttable = new ArrayList<List<Double>>();
-
-
 
 		//通过id查询得到项目信息
 		FeaProjectB  projectvo =  projectmapper.get("dc940aa030b04f9ab32e543574cc847d");
@@ -186,16 +189,31 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 				totaltable = TotalCostHander.getTotalCost(paramdoub, repairrate);
 			}
 		}
-
+		
+		//获取长期借款金额
 		List<Double> cqjkje = new ArrayList<Double>();
 		for(int i=0;i<zjcktable.size();i++){
 			cqjkje.add(zjcktable.get(i).get(9));
 		}
-		//利息表
-		List<List<Double>> langloanlst = LangLoanHander.getlanghbfx(cqjkje, 4.9, 15.0, 2.0, 21.0);
+		//利息表 - 长期借款的利息 怎么获取，流动借款的业务场景，短期借款的算法；
+		List<List<Double>> langloanlst = LangLoanHander.getlanghbfx(cqjkje, 4.9, 15.0, projectinfo.get(0),projectinfo.get(1));
+		List<List<Double>> flowloanlst = FlowLoanHander.getflowhbfx(1, 24.50, 4.35,projectinfo.get(0),projectinfo.get(1));
+		List<List<Double>>  shortlst = ShortLoanHander.getShortLoanList(projectinfo.get(1), 4.35);
+		
+		//计算完成利润表才能计算
+		List<List<Double>> bfrate = new ArrayList<List<Double>>();
+	
+		//更新总成本费用表 -- 利息支出
+		List<Double> lxzc = TotalCostHander.getrepaylx(langloanlst, flowloanlst, shortlst);
+		totaltable.set(6, lxzc);
+		//利润表
+		
+		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.getMutiParentVO("fea_costinfo", "id", " projectcode='B0001' ", fea_costinfoVOMapper);
 
-		System.out.println(langloanlst);
-
+		
+		
+		
+		
 		//super.delete(fea_finansumVO);
 	}
 }

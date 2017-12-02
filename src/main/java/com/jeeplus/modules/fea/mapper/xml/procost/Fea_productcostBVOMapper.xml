@@ -201,7 +201,6 @@
 			year1 = #{year1},
 			year2 = #{year2},
 			year3 = #{year3},
-			pkproductcost = #{fea_productcost.id},
 			year4 = #{year4},
 			year5 = #{year5},
 			year6 = #{year6},

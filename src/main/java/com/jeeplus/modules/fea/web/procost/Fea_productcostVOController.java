@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.service.procost.Fea_productcostVOService;
 /**
  * 生成成本Controller
  * @author jw
- * @version 2017-12-01
+ * @version 2017-12-02
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/procost/fea_productcostVO")
@@ -86,27 +86,25 @@ public class Fea_productcostVOController extends BaseController {
 	@RequestMapping(value = "form")
 	public String form(Fea_productcostVO fea_productcostVO, Model model) {
 		model.addAttribute("fea_productcostVO", fea_productcostVO);
+		if(StringUtils.isBlank(fea_productcostVO.getId())){//如果ID是空为添加
+			model.addAttribute("isAdd", true);
+		}
 		return "modules/fea/procost/fea_productcostVOForm";
 	}
 
 	/**
 	 * 保存生成成本
 	 */
-	@ResponseBody
 	@RequiresPermissions(value={"fea:procost:fea_productcostVO:add","fea:procost:fea_productcostVO:edit"},logical=Logical.OR)
 	@RequestMapping(value = "save")
-	public AjaxJson save(Fea_productcostVO fea_productcostVO, Model model, RedirectAttributes redirectAttributes) throws Exception{
-		AjaxJson j = new AjaxJson();
+	public String save(Fea_productcostVO fea_productcostVO, Model model, RedirectAttributes redirectAttributes) throws Exception{
 		if (!beanValidator(model, fea_productcostVO)){
-			j.setSuccess(false);
-			j.setMsg("非法参数！");
-			return j;
+			return form(fea_productcostVO, model);
 		}
 		//新增或编辑表单保存
 		fea_productcostVOService.save(fea_productcostVO);//保存
-		j.setSuccess(true);
-		j.setMsg("保存生成成本成功");
-		return j;
+		addMessage(redirectAttributes, "保存生成成本成功");
+		return "redirect:"+Global.getAdminPath()+"/fea/procost/fea_productcostVO/?repage";
 	}
 	
 	/**

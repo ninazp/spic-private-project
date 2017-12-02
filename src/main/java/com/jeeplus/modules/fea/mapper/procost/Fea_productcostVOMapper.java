@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
 /**
  * 生成成本MAPPER接口
  * @author jw
- * @version 2017-12-01
+ * @version 2017-12-02
  */
 @MyBatisMapper
 public interface Fea_productcostVOMapper extends BaseMapper<Fea_productcostVO> {

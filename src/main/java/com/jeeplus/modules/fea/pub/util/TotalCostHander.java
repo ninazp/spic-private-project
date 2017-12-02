@@ -23,7 +23,6 @@ public class TotalCostHander {
 		Double wage = paramdoub.get(5);
 		Double benefit =paramdoub.get(6);
 		Double heatcost = paramdoub.get(7);
-		Double brcost = paramdoub.get(8);
 		Double firstmths = paramdoub.get(9);
 		Double totalcalyears = paramdoub.get(10);
 		Double txval = paramdoub.get(11);
@@ -42,39 +41,12 @@ public class TotalCostHander {
 		List<Double> heatlist = getheatbrcost( heatcost, firstmths, totalcalyears);
 		//摊销
 		List<Double> txlist = gettx(txval, firstmths, totalcalyears);
+		List<Double> otherlist = gettx(txval, firstmths, totalcalyears);
 		//利息支出  先去计算利息表--再计算这个
 		List<Double> interestlist = gettx(txval, firstmths, totalcalyears);
-		//泵热费
-		List<Double> brlist = getheatbrcost( brcost, firstmths, totalcalyears);
+//		//泵热费
+//		List<Double> brlist = getheatbrcost( brcost, firstmths, totalcalyears);
 
-		//固定成本
-		List<Double> fixlist = new ArrayList<Double>();
-		for(int i=0;i<=totalcalyears;i++){
-			Double doub = zjlist.get(i)+wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
-			+txlist.get(i)+interestlist.get(i)+brlist.get(i);
-			fixlist.add(doub);
-		}
-
-		//可变成本
-		List<Double> changelist = heatlist;
-
-		//总成本
-		List<Double> totallist = new ArrayList<Double>();
-		for(int i=0;i<=totalcalyears;i++){
-			Double doub = zjlist.get(i)+wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
-			+txlist.get(i)+interestlist.get(i)+brlist.get(i)+heatlist.get(i);
-			totallist.add(doub);
-		}
-
-		//经营成本 = =维修费+工资及福利+保险费+取暖费+泵热费
-		List<Double> salecostlist = new ArrayList<Double>();
-		for(int i=0;i<=totalcalyears;i++){
-			Double doub = wxlist.get(i)+wagelist.get(i)+bxlist.get(i)
-			               +brlist.get(i)+heatlist.get(i);
-			
-			salecostlist.add(doub);
-		}
-		
 		retlistlist.add(zjlist);
 		retlistlist.add(wxlist);
 		retlistlist.add(wagelist);
@@ -82,14 +54,61 @@ public class TotalCostHander {
 		retlistlist.add(heatlist);
 		retlistlist.add(txlist);
 		retlistlist.add(interestlist);
-		retlistlist.add(brlist);
-		retlistlist.add(fixlist);
-		retlistlist.add(changelist);
-		retlistlist.add(totallist);
-		retlistlist.add(salecostlist);
+		retlistlist.add(otherlist);
 
 		return retlistlist;
 	}
+	
+	/**
+	 *   retlistlist.add(zjlist);
+		retlistlist.add(wxlist);
+		retlistlist.add(wagelist);
+		retlistlist.add(bxlist);
+		retlistlist.add(heatlist);
+		retlistlist.add(txlist);
+		retlistlist.add(interestlist);
+	 * @param retlistlist
+	 * @param totalcalyears
+	 * @return
+	 */
+	public static List<List<Double>> getallTotalCost(List<List<Double>> retlst,Double totalcalyears){
+		
+		//固定成本
+				List<Double> fixlist = new ArrayList<Double>();
+				for(int i=0;i<=totalcalyears;i++){
+					Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+					+retlst.get(5).get(i)+retlst.get(6).get(i);
+					fixlist.add(doub);
+				}
+
+				//可变成本
+				List<Double> changelist = retlst.get(4);
+
+				//总成本
+				List<Double> totallist = new ArrayList<Double>();
+				for(int i=0;i<=totalcalyears;i++){
+					Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+							+retlst.get(4).get(i)+retlst.get(5).get(i)+retlst.get(6).get(i);
+					totallist.add(doub);
+				}
+
+				//经营成本 = =维修费+工资及福利+保险费+取暖费+泵热费
+				List<Double> salecostlist = new ArrayList<Double>();
+				for(int i=0;i<=totalcalyears;i++){
+					Double doub = retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+					               +retlst.get(4).get(i);
+					
+					salecostlist.add(doub);
+				}
+				
+				retlst.add(fixlist);
+				retlst.add(changelist);
+				retlst.add(totallist);
+				retlst.add(salecostlist);
+				
+		return retlst;
+	}
+	
 
 	/**
 	 * 折旧费

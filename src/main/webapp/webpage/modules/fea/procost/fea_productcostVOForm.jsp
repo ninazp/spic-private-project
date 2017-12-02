@@ -5,34 +5,12 @@
 	<title>生成成本管理</title>
 	<meta name="decorator" content="ani"/>
 	<script type="text/javascript">
-		var validateForm;
-		var $table; // 父页面table表格id
-		var $topIndex;//弹出窗口的 index
-		function doSubmit(table, index){//回调函数，在编辑和保存动作时，供openDialog调用提交表单。
-		  if(validateForm.form()){
-			  $table = table;
-			  $topIndex = index;
-			  jp.loading();
-			  $("#inputForm").submit();
-			  return true;
-		  }
-
-		  return false;
-		}
 
 		$(document).ready(function() {
-			validateForm = $("#inputForm").validate({
+			$("#inputForm").validate({
 				submitHandler: function(form){
-					jp.post("${ctx}/fea/procost/fea_productcostVO/save",$('#inputForm').serialize(),function(data){
-						if(data.success){
-	                    	$table.bootstrapTable('refresh');
-	                    	jp.success(data.msg);
-	                    	jp.close($topIndex);//关闭dialog
-
-	                    }else{
-            	  			jp.error(data.msg);
-	                    }
-					})
+					jp.loading();
+					form.submit();
 				},
 				errorContainer: "#messageBox",
 				errorPlacement: function(error, element) {
@@ -85,74 +63,92 @@
 		}
 	</script>
 </head>
-<body class="bg-white">
+<body>
+<div class="wrapper wrapper-content">				
+<div class="row">
+	<div class="col-md-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title"> 
+				<a class="panelButton" href="${ctx}/fea/procost/fea_productcostVO"><i class="ti-angle-left"></i> 返回</a>
+			</h3>
+		</div>
+		<div class="panel-body">
 		<form:form id="inputForm" modelAttribute="fea_productcostVO" action="${ctx}/fea/procost/fea_productcostVO/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>
-		<table class="table table-bordered">
-		   <tbody>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
-					<td class="width-35">
+		<sys:message content="${message}"/>	
+				<div class="form-group">
+					<label class="col-sm-2 control-label">项目编码：</label>
+					<div class="col-sm-10">
 						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">项目名称：</label>
+					<div class="col-sm-10">
 						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">定员（人）：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">定员（人）：</label>
+					<div class="col-sm-10">
 						<form:input path="persons" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">年人均工资：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">年人均工资：</label>
+					<div class="col-sm-10">
 						<form:input path="perwage" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">福利费系数（%）：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">福利费系数（%）：</label>
+					<div class="col-sm-10">
 						<form:input path="welfare" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">材料费：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">材料费：</label>
+					<div class="col-sm-10">
 						<form:input path="material" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">保险费率（‰）：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">保险费率（‰）：</label>
+					<div class="col-sm-10">
 						<form:input path="insurance" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">泵送费：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">泵送费：</label>
+					<div class="col-sm-10">
 						<form:input path="wateramt" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">供暖费：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">供暖费：</label>
+					<div class="col-sm-10">
 						<form:input path="heatdeposit" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">无形资产摊销（年）：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">无形资产摊销（年）：</label>
+					<div class="col-sm-10">
 						<form:input path="intangibletx" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">其他资产摊销（年）：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">其他资产摊销（年）：</label>
+					<div class="col-sm-10">
 						<form:input path="otherassettx" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">其他费用：</label></td>
-					<td class="width-35">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">其他费用：</label>
+					<div class="col-sm-10">
 						<form:input path="othercost" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-		 	</tbody>
-		</table>
+					</div>
+				</div>
 		<div class="tabs-container">
             <ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">成本种类：</a>
@@ -399,6 +395,21 @@
 			</div>
 		</div>
 		</div>
+		<c:if test="${fns:hasPermission('fea:procost:fea_productcostVO:edit') || isAdd}">
+				<div class="col-lg-3"></div>
+		        <div class="col-lg-6">
+		             <div class="form-group text-center">
+		                 <div>
+		                     <button class="btn btn-primary btn-block btn-lg btn-parsley" data-loading-text="正在提交...">提 交</button>
+		                 </div>
+		             </div>
+		        </div>
+		</c:if>
 		</form:form>
+		</div>				
+	</div>
+	</div>
+</div>
+</div>
 </body>
 </html>

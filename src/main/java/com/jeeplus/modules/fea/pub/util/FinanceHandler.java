@@ -67,14 +67,14 @@ public class FinanceHandler {
 			ret114.add(0.0);
 			ret11.add(lrtable.get(0).get(i)+lrtable.get(5).get(i));
 			
-			ret121.add(costtable.get(10).get(i));//经营成本
+			ret121.add(costtable.get(11).get(i));//经营成本
 			ret122.add(0.0);//进项税额
 			ret123.add(lrtable.get(1).get(i));//税金
 			ret124.add(0.0);//增值税
 			ret125.add(lrtable.get(9).get(i));//所得税
 			ret126.add(0.0);
 			ret12.add(ret121.get(i)+ret122.get(i)+ret123.get(i)+ret124.get(i)+ret125.get(i)+ret126.get(i));
-			ret1.add(ret11.get(i)+ret12.get(i));
+			ret1.add(ret11.get(i)-ret12.get(i));
 			
 			ret21.add(lrtable.get(10).get(i));
 			if(i>=cctable.get(1).size()){
@@ -102,7 +102,7 @@ public class FinanceHandler {
 			ret315.add(loanrepay.get(11).get(i));
 			ret316.add(0.0);
 			
-			ret31.add(ret311.get(i)+ret312.get(i)+ret313.get(i)+ret314.get(i)+ret315.get(i)+ret315.get(i));
+			ret31.add(ret311.get(i)+ret312.get(i)+ret313.get(i)+ret314.get(i)+ret315.get(i)+ret316.get(i));
 			
 			ret321.add(costtable.get(6).get(i));
 			ret322.add(loanrepay.get(3).get(i)+loanrepay.get(11).get(i));

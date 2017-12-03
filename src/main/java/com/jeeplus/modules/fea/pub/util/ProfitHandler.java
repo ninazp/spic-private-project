@@ -74,9 +74,9 @@ public class ProfitHandler {
 		for(int i=0;i<totalcosttable.get(10).size();i++){
 			if(i==0){
 			  profit3.add(0.0);profit5.add(0.0);profit6.add(0.0);profit7.add(0.0);
-			  profit8.add(0.0);profit9.add(0.0);profit10.add(0.0);profit11.add(0.0);profit12.add(0.0);
+			  profit8.add(0.0);profit10.add(0.0);profit11.add(0.0);profit12.add(0.0);
 			  profit13.add(0.0);profit14.add(0.0);profit15.add(0.0);profit16.add(0.0);profit17.add(0.0);
-			  profit18.add(0.0);profit19.add(0.0);
+			  profit18.add(0.0);profit19.add(0.0);profit5bak.add(0.0);
 			}else{
 				profit3.add(totalcosttable.get(10).get(i));//总成本费用
 				
@@ -84,24 +84,40 @@ public class ProfitHandler {
 				profit5bak.add(profit1.get(i)-profit2.get(i)-profit3.get(i)+profit4.get(i));
 				//弥补以前年度
 				if(profit5.get(i)>0){
-					 profit6.add(0.0);
 					 Double lramt = profit5.get(i);
+					 boolean fortrue = false;
 					 for(int j=i-5;(j<i && j>=1 && profit5bak.get(j)<0);j++){
+						 fortrue = true;
 						 lramt = lramt+profit5bak.get(j);
 						 if(lramt<=0){
-							 profit6.add(profit5.get(i));
+							 if(i<profit6.size() && profit6.get(i)>0 ){
+								 profit6.set(i,profit5.get(i));
+							 }else{
+								 profit6.add(profit5.get(i));
+							 }
 							 profit5bak.set(j, lramt);
+							 break;
 						 }else if(lramt>0){
-							 profit6.add(profit5.get(i)-lramt);
+							 if(i<profit6.size() && profit6.get(i)>0){
+								 profit6.set(i,profit5.get(i)-lramt);
+							 }else{
+								 profit6.add(profit5.get(i)-lramt);
+							 }
+							 
 							 profit5bak.set(j, 0.0);
 						 }
 					 }
+					 if(!fortrue) profit6.add(0.0);
 				}else{
 					profit6.add(0.0);
 				}
 				
 				//所得额及所得税
-				profit7.add(profit5.get(i)-profit6.get(i));
+				if(profit5.get(i)-profit6.get(i)>0){
+				    profit7.add(profit5.get(i)-profit6.get(i));
+				}else{
+					profit7.add(0.0);
+				}
 				if(profit7.get(i)>0){
 					if(dcount<3){
 						profit8.add(0.0);
@@ -127,7 +143,7 @@ public class ProfitHandler {
 				}else{
 					profit13.add(0.0);
 				}
-				profit14.add(profit12.get(0)-profit13.get(i));
+				profit14.add(profit12.get(i)-profit13.get(i));
 				profit15.add(0.0);
 				if(profit14.get(i)>0){
 					if(profit14.get(i)>=profit14.get(i)){
@@ -149,7 +165,6 @@ public class ProfitHandler {
 			  profit6.set(0,profit6.get(0)+profit6.get(i));
 			  profit7.set(0,profit7.get(0)+profit7.get(i));
 			  profit8.set(0,profit8.get(0)+profit8.get(i));
-			  profit9.set(0,profit9.get(0)+profit9.get(i));
 			  profit10.set(0,profit10.get(0)+profit10.get(i));
 			  profit12.set(0,profit12.get(0)+profit12.get(i));
 			  profit13.set(0,profit13.get(0)+profit13.get(i));

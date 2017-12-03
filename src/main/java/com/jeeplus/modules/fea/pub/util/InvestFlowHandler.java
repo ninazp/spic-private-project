@@ -45,8 +45,8 @@ public class InvestFlowHandler {
 			ret12.add(lrtable.get(10).get(i));
 			
 			if(i==0 || i==totalyears){
-				ret13.add(cctable.get(3).get(0));
-				ret14.add(assetval-costtable.get(0).get(0));
+				ret14.add(cctable.get(3).get(0));
+				ret13.add(assetval-costtable.get(0).get(0));
 			}else{
 				ret13.add(0.0);
 				ret14.add(0.0);
@@ -75,11 +75,11 @@ public class InvestFlowHandler {
 				start = start+1;
 			}
 			if(start>3 && start<7 && lrtable.get(19).get(i)>0){
-				ret5.add(lrtable.get(19).get(i)*ftaxrate/2);
-				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/2;
+				ret5.add(lrtable.get(19).get(i)*ftaxrate/200);
+				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/200;
 			}else if(start>=7 && lrtable.get(19).get(i)>0){
-				ret5.add(lrtable.get(19).get(i)*ftaxrate);
-				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate;
+				ret5.add(lrtable.get(19).get(i)*ftaxrate/100);
+				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/100;
 			}else{
 				ret5.add(0.0);
 			}

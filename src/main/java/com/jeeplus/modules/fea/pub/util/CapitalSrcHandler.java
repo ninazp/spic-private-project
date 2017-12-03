@@ -15,7 +15,7 @@ public class CapitalSrcHandler {
 	 * @return
 	 */
 	public static List<List<Double>> getCapitalSrcTable(Double totalyears,List<List<Double>> lrtable,
-			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
+			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,Double assetval
 			){
 
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
@@ -58,7 +58,7 @@ public class CapitalSrcHandler {
 			
 			if(i==0 || i==totalyears){
 				ret10.add(cctable.get(3).get(0));
-				ret19.add(costtable.get(0).get(0));
+				ret19.add(assetval - costtable.get(0).get(0));
 			}else{
 				ret10.add(0.0);
 				ret19.add(0.0);
@@ -77,7 +77,7 @@ public class CapitalSrcHandler {
 				ret23.add(cctable.get(3).get(i));
 			}
 			
-			ret24.add(lrtable.get(11).get(i));
+			ret24.add(lrtable.get(9).get(i));
 			ret25.add(lrtable.get(17).get(i));
 			ret26.add(loanrepay.get(3).get(i)+loanrepay.get(9).get(i)+loanrepay.get(11).get(i));
 			ret27.add(0.0);

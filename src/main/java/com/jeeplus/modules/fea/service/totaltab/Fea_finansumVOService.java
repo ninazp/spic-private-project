@@ -34,6 +34,7 @@ import com.jeeplus.modules.fea.pub.util.ProfitHandler;
 import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 import com.jeeplus.modules.fea.pub.util.TotalCostHander;
+import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 /**
  * 财务指标汇总表Service
@@ -129,7 +130,7 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
         
         //8--资金来源与运用表
         List<List<Double>> capitalsrcTable = CapitalSrcHandler.getCapitalSrcTable(
-        		projectinfo.get(1),lrtable, totalcostltable, zjcktable, interestTable);
+        		projectinfo.get(1),lrtable, totalcostltable, zjcktable, interestTable,assetval);
         
         
         //9--资产负债表
@@ -158,6 +159,16 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
         
         Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(14).toArray(new Double[0]));
         
+        WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
+        WriteExcelCal.getexcel("totalcostltable.xls",totalcostltable);
+        WriteExcelCal.getexcel("lrtable.xls",lrtable);
+        WriteExcelCal.getexcel("interestTable.xls",interestTable);
+        WriteExcelCal.getexcel("financeplantable.xls",financeplantable);
+        WriteExcelCal.getexcel("investHandlerTable.xls",investHandlerTable);
+        WriteExcelCal.getexcel("capitalTable.xls",capitalTable);
+        WriteExcelCal.getexcel("capitalsrcTable.xls",capitalsrcTable);
+        WriteExcelCal.getexcel("balancetable.xls",balancetable);
+        WriteExcelCal.getexcel("eVAHandlerTable.xls",eVAHandlerTable);
         
         System.out.println(doub1+"\n"+doub2+"\n"+doub3+"\n"+doub4+retunperiod+retunperiod2);
 	}

@@ -40,8 +40,8 @@ public class CapitalHandler {
 			ret12.add(lrtable.get(10).get(i));
 			
 			if(i==0 || i==totalyears){
-				ret13.add(cctable.get(3).get(0));
-				ret14.add(assetval-costtable.get(0).get(0));
+				ret14.add(cctable.get(3).get(0));
+				ret13.add(assetval-costtable.get(0).get(0));
 			}else{
 				ret13.add(0.0);
 				ret14.add(0.0);
@@ -56,7 +56,7 @@ public class CapitalHandler {
 			ret22.add(loanrepay.get(3).get(i)+loanrepay.get(9).get(i));
 			ret23.add(costtable.get(6).get(i));
 			ret24.add(costtable.get(11).get(i));
-			ret25.add(costtable.get(1).get(i));
+			ret25.add(lrtable.get(1).get(i));
 			ret26.add(lrtable.get(9).get(i));
 			ret2.add(ret21.get(i)+ret22.get(i)+ret23.get(i)+ret24.get(i)+ret25.get(i)+ret26.get(i));
 			ret3.add(ret1.get(i)-ret2.get(i));

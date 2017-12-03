@@ -77,18 +77,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'remarks',
-		        title: '备注信息',
+		        field: 'projectCode',
+		        title: '项目编号',
 		        sortable: true
 		        ,formatter:function(value, row , index){
 		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		         }
-		       
-		    }
-			,{
-		        field: 'projectCode',
-		        title: '项目编号',
-		        sortable: true
 		       
 		    }
 			,{
@@ -104,7 +98,7 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'fea_project.name',
+		        field: 'kind.name',
 		        title: '类型',
 		        sortable: true
 		       

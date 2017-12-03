@@ -64,41 +64,37 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
-					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">项目编号：</label></td>
 					<td class="width-35">
 						<form:input path="projectCode" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<form:input path="projectName" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">供暖面积：</label></td>
 					<td class="width-35">
 						<form:input path="heatArea" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">类型：</label></td>
 					<td class="width-35">
-						<sys:treeselect id="fea_project" name="fea_project.id" value="${feaProjectB.fea_project.id}" labelName="fea_project.name" labelValue="${feaProjectB.fea_project.name}"
+						<sys:treeselect id="kind" name="kind.id" value="${feaProjectB.kind.id}" labelName="kind.name" labelValue="${feaProjectB.kind.name}"
 							title="类型" url="/fea/project/feaProject/treeData" extId="${feaProjectB.id}" cssClass="form-control " allowClear="true"/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">项目地址：</label></td>
 					<td class="width-35">
 						<form:input path="address" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">供暖天数：</label></td>
 					<td class="width-35">
 						<form:input path="heatDays" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">项目起始日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
@@ -110,8 +106,6 @@
 			                </div>
 			            </p>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">开工日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
@@ -123,12 +117,12 @@
 			                </div>
 			            </p>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">建设期(月)：</label></td>
 					<td class="width-35">
 						<form:input path="constructPeriod" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">投产日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
@@ -140,20 +134,18 @@
 			                </div>
 			            </p>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">计算期（年）：</label></td>
 					<td class="width-35">
 						<form:input path="countyears" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">部门：</label></td>
 					<td class="width-35">
 						<sys:treeselect id="office" name="office.id" value="${feaProjectB.office.id}" labelName="office.name" labelValue="${feaProjectB.office.name}"
 							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 	</form:form>

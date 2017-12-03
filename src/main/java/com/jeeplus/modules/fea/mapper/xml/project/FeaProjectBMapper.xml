@@ -13,7 +13,7 @@
 		a.project_code AS "projectCode",
 		a.project_name AS "projectName",
 		a.heat_area AS "heatArea",
-		a.kind AS "fea_project.id",
+		a.kind AS "kind.id",
 		a.address AS "address",
 		a.heat_days AS "heatDays",
 		a.project_start AS "projectStart",
@@ -23,7 +23,7 @@
 		a.countyears AS "countyears",
 		a.deptid AS "office.id",
 		a.pk_corp AS "pkCorp",
-		b.name AS "fea_project.name",
+		b.name AS "kind.name",
 		office.name AS "office.name"
 	</sql>
 	
@@ -61,8 +61,8 @@
 					<if test="dbName == 'mssql'">'%'+#{projectName}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{projectName},'%')</if>
 			</if>
-			<if test="fea_project != null and fea_project.id != null and fea_project.id != ''">
-				AND a.kind = #{fea_project.id}
+			<if test="kind != null and kind.id != null and kind.id != ''">
+				AND a.kind = #{kind.id}
 			</if>
 			<if test="projectStart != null and projectStart != ''">
 				AND a.project_start = #{projectStart}
@@ -136,7 +136,7 @@
 			#{projectCode},
 			#{projectName},
 			#{heatArea},
-			#{fea_project.id},
+			#{kind.id},
 			#{address},
 			#{heatDays},
 			#{projectStart},
@@ -157,6 +157,7 @@
 			project_code = #{projectCode},
 			project_name = #{projectName},
 			heat_area = #{heatArea},
+			kind = #{kind.id},
 			address = #{address},
 			heat_days = #{heatDays},
 			project_start = #{projectStart},
@@ -178,7 +179,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE kind = #{fea_project.id}
+				WHERE kind = #{kind.id}
 			</otherwise>
 		</choose>
 	</update>
@@ -192,7 +193,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE kind = #{fea_project.id}
+				WHERE kind = #{kind.id}
 			</otherwise>
 		</choose>
 	</update>

@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 /**
  * 项目（子表）MAPPER接口
  * @author zp
- * @version 2017-11-18
+ * @version 2017-12-02
  */
 @MyBatisMapper
 public interface FeaProjectBMapper extends BaseMapper<FeaProjectB> {

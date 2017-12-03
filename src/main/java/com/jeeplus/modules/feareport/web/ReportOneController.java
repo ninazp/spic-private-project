@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.feareport.web;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,15 +26,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.jeeplus.common.utils.DateUtils;
+import com.jeeplus.common.utils.IdGen;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
+import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.service.CrudService;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
+import com.jeeplus.modules.fea.mapper.totaltab.Fea_finansumVOMapper;
+import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
 import com.jeeplus.modules.feareport.entity.ReportOne;
 import com.jeeplus.modules.feareport.service.ReportOneService;
+import com.jeeplus.modules.iim.entity.LayGroup;
+import com.jeeplus.modules.iim.entity.LayGroupUser;
+import com.jeeplus.modules.sys.entity.User;
 
 /**
  * 报表Controller
@@ -208,5 +218,23 @@ public class ReportOneController extends BaseController {
 		}
 		return "redirect:"+Global.getAdminPath()+"/feareport/reportOne/?repage";
     }
+	
+	/**
+	 * 获取报表数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:reportOne:add","feareport:reportOne:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getReportDatas")
+	public AjaxJson getReportDatas(String ids, RedirectAttributes redirectAttributes) throws Exception{
+		
+		List<List<Double>> datas = reportOneService.gettest();
+		AjaxJson j = new AjaxJson();
+		LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();
+		body.put("datas", datas);
+		//j.setBody(body);
+		j.setMsg(datas.toString());
+		j.setSuccess(true);
+		return j;
+	}
 
 }

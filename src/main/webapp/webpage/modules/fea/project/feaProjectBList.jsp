@@ -56,6 +56,11 @@
 				<form:input path="projectName" htmlEscape="false" maxlength="300"  class=" form-control"/>
 			</div>
 			 <div class="col-xs-12 col-sm-6 col-md-4">
+				<label class="label-item single-overflow pull-left" title="类型：">类型：</label>
+				<sys:treeselect id="kind" name="kind.id" value="${feaProjectB.kind.id}" labelName="kind.name" labelValue="${feaProjectB.kind.name}"
+					title="类型" url="/fea/project/feaProject/treeData" extId="${feaProjectB.id}" cssClass="form-control " allowClear="true"/>
+			</div>
+			 <div class="col-xs-12 col-sm-6 col-md-4">
 				<div class="form-group">
 					<label class="label-item single-overflow pull-left" title="项目起始日期：">&nbsp;项目起始日期：</label>
 					<div class="col-xs-12">

@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 项目（子表）Entity
  * @author zp
- * @version 2017-11-18
+ * @version 2017-12-02
  */
 public class FeaProjectB extends DataEntity<FeaProjectB> {
 	
@@ -21,7 +21,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	private String projectCode;		// 项目编号
 	private String projectName;		// 项目名称
 	private Double heatArea;		// 供暖面积
-	private FeaProject fea_project;		// 类型 父类
+	private FeaProject kind;		// 类型 父类
 	private String address;		// 项目地址
 	private Double heatDays;		// 供暖天数
 	private Date projectStart;		// 项目起始日期
@@ -40,8 +40,8 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		super(id);
 	}
 
-	public FeaProjectB(FeaProject fea_project){
-		this.fea_project = fea_project;
+	public FeaProjectB(FeaProject kind){
+		this.kind = kind;
 	}
 
 	@ExcelField(title="项目编号", align=2, sort=7)
@@ -71,12 +71,12 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.heatArea = heatArea;
 	}
 	
-	public FeaProject getFea_project() {
-		return fea_project;
+	public FeaProject getKind() {
+		return kind;
 	}
 
-	public void setFea_project(FeaProject fea_project) {
-		this.fea_project = fea_project;
+	public void setKind(FeaProject kind) {
+		this.kind = kind;
 	}
 	
 	@ExcelField(title="项目地址", align=2, sort=11)

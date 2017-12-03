@@ -83,11 +83,11 @@
 				var opt = {
 					silent: true,
 					query:{
-						'fea_project.id':node.id
+						'kind.id':node.id
 					}
 				};
-				$("#fea_projectId").val(node.id);
-				$("#fea_projectName").val(node.text);
+				$("#kindId").val(node.id);
+				$("#kindName").val(node.text);
 				$('#feaProjectBTable').bootstrapTable('refresh',opt);
 			}).on('loaded.jstree', function() {
 				$("#feaProjectjsTree").jstree('open_all');

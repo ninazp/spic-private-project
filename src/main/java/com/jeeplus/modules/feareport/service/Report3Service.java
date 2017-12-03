@@ -3,7 +3,6 @@
  */
 package com.jeeplus.modules.feareport.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +33,17 @@ import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 import com.jeeplus.modules.fea.pub.util.TotalCostHander;
 import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
-import com.jeeplus.modules.fea.service.project.FeaProjectBService;
-import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
-import com.jeeplus.modules.feareport.entity.ReportOne;
-import com.jeeplus.modules.feareport.mapper.ReportOneMapper;
+import com.jeeplus.modules.feareport.entity.Report3;
+import com.jeeplus.modules.feareport.mapper.Report3Mapper;
 
 /**
- * 报表Service
+ * 项目资本金现金流量表Service
  * @author zp
- * @version 2017-11-28
+ * @version 2017-12-03
  */
 @Service
 @Transactional(readOnly = true)
-public class ReportOneService extends CrudService<ReportOneMapper, ReportOne> {
+public class Report3Service extends CrudService<Report3Mapper, Report3> {
 	
 	@Autowired
 	private FeaProjectBMapper projectmapper;
@@ -67,29 +64,29 @@ public class ReportOneService extends CrudService<ReportOneMapper, ReportOne> {
 	@Autowired
 	private Fea_incosubsidyVOMapper fea_incosubsidyVOMapper;
 
-	public ReportOne get(String id) {
+	public Report3 get(String id) {
 		return super.get(id);
 	}
 	
-	public List<ReportOne> findList(ReportOne reportOne) {
-		return super.findList(reportOne);
+	public List<Report3> findList(Report3 report3) {
+		return super.findList(report3);
 	}
 	
-	public Page<ReportOne> findPage(Page<ReportOne> page, ReportOne reportOne) {
-		return super.findPage(page, reportOne);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(ReportOne reportOne) {
-		super.save(reportOne);
+	public Page<Report3> findPage(Page<Report3> page, Report3 report3) {
+		return super.findPage(page, report3);
 	}
 	
 	@Transactional(readOnly = false)
-	public void delete(ReportOne reportOne) {
-		super.delete(reportOne);
+	public void save(Report3 report3) {
+		super.save(report3);
 	}
 	
-	public List<List<Double>> gettest(){
+	@Transactional(readOnly = false)
+	public void delete(Report3 report3) {
+		super.delete(report3);
+	}
+	
+	public List<List<Double>> getReportDatas(){
 		FeaProjectB  projectvo =  projectmapper.get("dc940aa030b04f9ab32e543574cc847d");
 		List<Double> projectinfo = ProjectInfoHander.getprojectinfo(projectvo);
 
@@ -176,7 +173,7 @@ public class ReportOneService extends CrudService<ReportOneMapper, ReportOne> {
         WriteExcelCal.getexcel("eVAHandlerTable.xls",eVAHandlerTable);
         
         System.out.println(doub1+"\n"+doub2+"\n"+doub3+"\n"+doub4+retunperiod+retunperiod2);
-		return totalcostltable;
+		return capitalTable;
 	}
 	
 }

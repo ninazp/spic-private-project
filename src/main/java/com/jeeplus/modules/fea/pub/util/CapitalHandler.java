@@ -6,21 +6,7 @@ import java.util.List;
 public class CapitalHandler {
 
 	/**
-	 * 1	现金流入
-1.1	营业收入
-1.2	配套收入
-1.3	回收固定资产余值
-1.4	回收流动资金
-2	现金流出
-2.1	建设投资
-2.2	流动资金
-2.3	经营成本
-2.4	营业税金附加
-3	所得税前净现金流量（1-2）
-4	累计所得税前净现金流量
-5	调整所得税
-6	所得税后净现金流量（3-5）
-7	累计所得税后净现金流量
+	 * 项目资本金现金流量表
 	 * @param totalyears
 	 * @param lrtable
 	 * @param costtable
@@ -29,7 +15,7 @@ public class CapitalHandler {
 	 * @return
 	 */
 
-	public static List<List<Double>> getFinanceTable(Double totalyears,List<List<Double>> lrtable,
+	public static List<List<Double>> getCapitalTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
 		 ,Double assetval){
 

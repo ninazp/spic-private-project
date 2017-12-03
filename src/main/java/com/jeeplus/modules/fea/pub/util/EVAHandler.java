@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EVAHandler {
-	public static List<List<Double>> getFinanceTable(Double totalyears,List<List<Double>> lrtable,
+	public static List<List<Double>> getEVAHandlerTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> zcfztable){
 
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();

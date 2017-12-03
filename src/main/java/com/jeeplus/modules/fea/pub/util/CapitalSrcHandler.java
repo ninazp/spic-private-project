@@ -5,8 +5,16 @@ import java.util.List;
 
 public class CapitalSrcHandler {
 
-	
-	public static List<List<Double>> getFinanceTable(Double totalyears,List<List<Double>> lrtable,
+	/**
+	 * 资金来源与运用表
+	 * @param totalyears
+	 * @param lrtable
+	 * @param costtable
+	 * @param cctable
+	 * @param loanrepay
+	 * @return
+	 */
+	public static List<List<Double>> getCapitalSrcTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
 			){
 

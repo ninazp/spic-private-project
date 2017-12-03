@@ -5,8 +5,19 @@ import java.util.List;
 
 public class BalanceHandler {
 
-	
-	public static List<List<Double>> getFinanceTable(Double totalyears,List<List<Double>> lrtable,
+	/**
+	 * 资产负债表
+	 * @param totalyears
+	 * @param lrtable
+	 * @param costtable
+	 * @param cctable
+	 * @param loanrepay
+	 * @param capsrttable
+	 * @param assetval
+	 * @param dicudoub
+	 * @return
+	 */
+	public static List<List<Double>> getBalanceTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
 			,List<List<Double>> capsrttable,Double assetval,Double dicudoub){
 

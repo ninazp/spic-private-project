@@ -5,6 +5,15 @@ import java.util.List;
 
 public class FinanceHandler {
 
+	/**
+	 * 财务计划现金流量表
+	 * @param totalyears
+	 * @param lrtable
+	 * @param costtable
+	 * @param cctable
+	 * @param loanrepay
+	 * @return
+	 */
 	public static List<List<Double>> getFinanceTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay){
 		

@@ -50,6 +50,7 @@ public class BalanceHandler {
 		Double flowasset = 0.0;
 		Double capamt = 0.0;
 		Double gjjamt = 0.0;
+		Double assetlost = 0.0;
 		for(int i=1;i<=totalyears;i++){
 			ret111.add(capsrttable.get(20).get(i));
 			if(i<cctable.get(3).size()){
@@ -65,9 +66,11 @@ public class BalanceHandler {
 			}
 			if(i==1){
 				ret13.add(0-costtable.get(0).get(1));
+				assetlost = assetlost+costtable.get(0).get(1);
 				ret15.add(0.0);
 			}else{
-				ret13.add(assetval-costtable.get(0).get(i));
+				assetlost = assetlost+costtable.get(0).get(i);
+				ret13.add(assetval-assetlost);
 				ret15.add(dicudoub);
 			}
 			

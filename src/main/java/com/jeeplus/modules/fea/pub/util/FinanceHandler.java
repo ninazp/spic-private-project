@@ -90,13 +90,13 @@ public class FinanceHandler {
 		    ret223.add(0.0);
 			ret2.add(ret21.get(i)-ret22.get(i));
 			if(i>=cctable.get(1).size()){
-				ret311.add(cctable.get(5).get(i));
-				ret312.add(cctable.get(10).get(i));
-				ret313.add(cctable.get(11).get(i));
-			}else{
 				ret311.add(0.0);
 				ret312.add(0.0);
 				ret313.add(0.0);
+			}else{
+				ret311.add(cctable.get(5).get(i));
+				ret312.add(cctable.get(10).get(i));
+				ret313.add(cctable.get(11).get(i));
 			}
 			ret314.add(0.0);
 			ret315.add(loanrepay.get(11).get(i));
@@ -112,7 +112,7 @@ public class FinanceHandler {
 			
 			ret3.add(ret31.get(i)-ret32.get(i));
 			
-			ret4.add(ret1.get(i)+ret2.get(2)+ret3.get(3));
+			ret4.add(ret1.get(i)+ret2.get(i)+ret3.get(i));
 			
 			if(i==0){
 				ret5.add(0.0);

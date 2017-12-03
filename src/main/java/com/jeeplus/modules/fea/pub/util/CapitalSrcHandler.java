@@ -49,7 +49,7 @@ public class CapitalSrcHandler {
 			ret14.add(loanrepay.get(0).get(i));//长期借款
 			ret15.add(loanrepay.get(6).get(i));//长期借款
 			ret16.add(loanrepay.get(10).get(i));//长期借款
-			if(i>=cctable.size()){
+			if(i>=cctable.get(5).size()){
 				ret17.add(0.0);
 			}else{
 				ret17.add(cctable.get(5).get(i));
@@ -67,9 +67,10 @@ public class CapitalSrcHandler {
 			ret1.add(ret11.get(i)+ret12.get(i)+ret13.get(i)+ret14.get(i)+
 					ret15.get(i)+ret16.get(i)+ret17.get(i)+ret18.get(i)+ret19.get(i)+ret10.get(i));
 			
-			if(i>=cctable.size()){
+			if(i>=cctable.get(1).size()){
 				ret21.add(0.0);
 				ret22.add(0.0);
+				ret23.add(0.0);
 			}else{
 				ret21.add(cctable.get(1).get(i));
 				ret22.add(cctable.get(2).get(i));

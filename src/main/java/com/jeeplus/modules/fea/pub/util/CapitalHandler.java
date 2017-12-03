@@ -48,7 +48,7 @@ public class CapitalHandler {
 			}
 
 			ret1.add(ret11.get(i)+ret12.get(i)+ret13.get(i)+ret14.get(i));
-			if(i>=cctable.size()){
+			if(i>=cctable.get(5).size()){
 				ret21.add(0.0);
 			}else{
 				ret21.add(cctable.get(5).get(i));
@@ -58,7 +58,7 @@ public class CapitalHandler {
 			ret24.add(costtable.get(11).get(i));
 			ret25.add(costtable.get(1).get(i));
 			ret26.add(lrtable.get(9).get(i));
-
+			ret2.add(ret21.get(i)+ret22.get(i)+ret23.get(i)+ret24.get(i)+ret25.get(i)+ret26.get(i));
 			ret3.add(ret1.get(i)-ret2.get(i));
 		}
 		rettable.add(ret1);

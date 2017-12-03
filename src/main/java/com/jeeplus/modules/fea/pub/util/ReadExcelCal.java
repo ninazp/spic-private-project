@@ -20,7 +20,7 @@ public class ReadExcelCal {
 			Sheet sheet = wb1.getSheetAt(0);
 			
 			for(int i = 1 ;i<flowfinanceVals.length;i++){
-				sheet.getRow(0).getCell(i).setCellValue(flowfinanceVals[i]);
+				sheet.getRow(0).getCell(i-1).setCellValue(flowfinanceVals[i]);
 			}
 			sheet.getRow(1).getCell(0).setCellValue(rate1);
 			sheet.getRow(1).getCell(1).setCellValue(rate2);

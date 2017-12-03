@@ -52,17 +52,20 @@ public class BalanceHandler {
 		Double gjjamt = 0.0;
 		for(int i=1;i<=totalyears;i++){
 			ret111.add(capsrttable.get(20).get(i));
-			if(i<=cctable.get(3).size()){
+			if(i<cctable.get(3).size()){
 				flowasset = flowasset+cctable.get(3).get(i);
 			}
 			ret112.add(flowasset);
 			
-			ret11.add(ret111.get(i)+ret112.get(i));
-			ret12.add(cctable.get(1).get(i)+cctable.get(2).get(i));
-			
+			ret11.add(ret111.get(i-1)+ret112.get(i-1));
+			if(i<cctable.get(1).size()){
+			   ret12.add(cctable.get(1).get(i)+cctable.get(2).get(i));
+			}else{
+				ret12.add(0.0);
+			}
 			if(i==1){
 				ret13.add(0-costtable.get(0).get(1));
-				ret14.add(dicudoub);
+				ret15.add(0.0);
 			}else{
 				ret13.add(assetval-costtable.get(0).get(i));
 				ret15.add(dicudoub);
@@ -70,16 +73,21 @@ public class BalanceHandler {
 			
 			ret14.add(0.0);
 			
-			ret1.add(ret11.get(i)+ret12.get(i)+ret13.get(i)+ret14.get(i)+ret15.get(i));
+			ret1.add(ret11.get(i-1)+ret12.get(i-1)+ret13.get(i-1)+ret14.get(i-1)+ret15.get(i-1));
 			
 			ret211.add(loanrepay.get(10).get(i));
 			ret212.add(0.0);
-			if(i<totalyears) ret22.add(loanrepay.get(1).get(i+1));
+			if(i<totalyears){
+				ret22.add(loanrepay.get(1).get(i+1));
+			}else{
+				ret22.add(0.0);
+			}
+			ret21.add(ret211.get(i-1)+ret212.get(i-1));
 			ret23.add(loanrepay.get(7).get(i));
 			
-			ret24.add(ret21.get(i)+ret22.get(i)+ret23.get(i));
+			ret24.add(ret21.get(i-1)+ret22.get(i-1)+ret23.get(i-1));
 			
-			if(i<=cctable.get(3).size()){
+			if(i<cctable.get(3).size()){
 				capamt = capamt+cctable.get(5).get(i);
 			}
 			ret251.add(capamt);
@@ -89,13 +97,13 @@ public class BalanceHandler {
 			ret253.add(gjjamt);
 			ret254.add(lrtable.get(18).get(i));
 			
-			ret25.add(ret251.get(i)+ret252.get(i)+ret253.get(i)+ret254.get(i));
+			ret25.add(ret251.get(i-1)+ret252.get(i-1)+ret253.get(i-1)+ret254.get(i-1));
 			
-			ret2.add(ret24.get(i)+ret25.get(i));
+			ret2.add(ret24.get(i-1)+ret25.get(i-1));
 			
-			ret3.add(ret1.get(i)-ret2.get(i));
+			ret3.add(ret1.get(i-1)-ret2.get(i-1));
 			
-			ret4.add(ret24.get(i)/ret1.get(i));
+			ret4.add(ret24.get(i-1)/ret1.get(i-1));
 			
 		}
 		

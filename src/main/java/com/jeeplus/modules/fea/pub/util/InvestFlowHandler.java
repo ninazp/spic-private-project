@@ -52,7 +52,7 @@ public class InvestFlowHandler {
 				ret14.add(0.0);
 			}
 			ret1.add(ret11.get(i)+ret12.get(i)+ret13.get(i)+ret14.get(i));
-			if(i>=cctable.size()){
+			if(i>=cctable.get(1).size()){
 				ret21.add(0.0);
 				ret22.add(0.0);
 			}else{

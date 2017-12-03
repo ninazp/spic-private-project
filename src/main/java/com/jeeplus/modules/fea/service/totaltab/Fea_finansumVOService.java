@@ -140,7 +140,7 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
         		,deductval);
         
         //10 -- EVA测算表
-        List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrtable, totalcostltable, zjcktable);
+        List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrtable, totalcostltable, balancetable);
         
         Double doub3 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
         		0.07, 0.06, "3");

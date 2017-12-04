@@ -28,6 +28,7 @@ public class CreateReportPubDMO {
 			retlst.add(volst.get(0).getIndustrysqrate());//税前收益率
 			retlst.add(volst.get(0).getIndustryshrate());//税后收益率
 			retlst.add(Double.valueOf(volst.get(0).getIssdssjsm()));//所得税三减三免
+			
 		 */
 		String wheresql = " (projectcode='"+projectvo.getProjectCode()+
 				"' or projectcode='"+projectvo.getId()+"')";

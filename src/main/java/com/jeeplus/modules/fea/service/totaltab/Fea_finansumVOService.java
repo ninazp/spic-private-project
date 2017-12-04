@@ -97,7 +97,12 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 		
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("projectid", "dc940aa030b04f9ab32e543574cc847d");
-		CreateReportPubDMO.getallreporttable(maper, param);
+		Map<String,List<List<Double>>> reporttable = CreateReportPubDMO.getallreporttable(maper, param);
+		
+		List<Double> investirrnpv = CreateReportPubDMO.getinvest_irrnpv(reporttable.get("项目投资现金流量表"));
+		List<Double> capitalirrnpv =  CreateReportPubDMO.getcapital_irrnpv(reporttable.get("项目资本金现金流量表"));
+		
+		System.out.println(investirrnpv+""+capitalirrnpv);
 	}
 	
 }

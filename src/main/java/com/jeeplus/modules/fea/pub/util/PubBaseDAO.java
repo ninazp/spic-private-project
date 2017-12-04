@@ -40,6 +40,7 @@ public class PubBaseDAO {
 		List<Fea_incomesetVO> volst = (List<Fea_incomesetVO>) getMutiParentVO(table, id, wheresql, basemapper);
 		if(null!=volst && volst.size()>0){
 			//incomerate 所得税
+			
 //			private Double incomerate;		// 所得税税率（%）
 //			private Double umctax;		// 城市维护建设税率（%）
 //			private Double surtax;		// 教育费附加费率（%）

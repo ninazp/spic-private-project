@@ -127,7 +127,7 @@ public class CreateReportPubDMO {
    
    public static List<Double> getcapital_irrnpv(List<List<Double>> capitalTable){
        List<Double> retlst = new ArrayList<Double>();
-	   Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(10).toArray(new Double[0]),
+	   Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 		0.07, 0.06, "3");
        retlst.add(doub3);  
        

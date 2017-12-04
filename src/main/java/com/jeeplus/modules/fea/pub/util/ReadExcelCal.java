@@ -15,7 +15,7 @@ public class ReadExcelCal {
 			Double rate1,Double rate2,
 			String returntype){
 		try {
-			FileInputStream fis = new FileInputStream("E:/my_work/testexcel/11.xls");
+			FileInputStream fis = new FileInputStream("/excelt/formulairrnpv.xls");
 			Workbook wb1=new HSSFWorkbook(fis);
 			Sheet sheet = wb1.getSheetAt(0);
 			

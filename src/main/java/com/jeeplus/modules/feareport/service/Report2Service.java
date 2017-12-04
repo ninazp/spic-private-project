@@ -162,16 +162,6 @@ public class Report2Service extends CrudService<Report2Mapper, Report2> {
         
         Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(14).toArray(new Double[0]));
         
-        WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
-        WriteExcelCal.getexcel("totalcostltable.xls",totalcostltable);
-        WriteExcelCal.getexcel("lrtable.xls",lrtable);
-        WriteExcelCal.getexcel("interestTable.xls",interestTable);
-        WriteExcelCal.getexcel("financeplantable.xls",financeplantable);
-        WriteExcelCal.getexcel("investHandlerTable.xls",investHandlerTable);
-        WriteExcelCal.getexcel("capitalTable.xls",capitalTable);
-        WriteExcelCal.getexcel("capitalsrcTable.xls",capitalsrcTable);
-        WriteExcelCal.getexcel("balancetable.xls",balancetable);
-        WriteExcelCal.getexcel("eVAHandlerTable.xls",eVAHandlerTable);
         
         System.out.println(doub1+"\n"+doub2+"\n"+doub3+"\n"+doub4+retunperiod+retunperiod2);
 		return investHandlerTable;

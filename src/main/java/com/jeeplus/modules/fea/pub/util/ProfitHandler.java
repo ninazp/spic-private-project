@@ -24,34 +24,9 @@ public class ProfitHandler {
 		//利润表与利润分配表
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
 		
-		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
-				getMutiParentVO("fea_costinfo", "id", " projectcode='B0001' ",
-						 baseMapper);
-		List<Double> costrate = new ArrayList<Double>();	
-		for(Fea_costinfoVO fcvo : fea_costinfovo){
-			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
-				for(int j=0;j<projectinfo.get(1);j++){
-					try {
-						Method m ;
-						if(j==0){
-							m = fcvo.getClass().getMethod("getYear");
-						}else{
-							m = fcvo.getClass().getMethod("getYear"+(j+1));
-						}
-						Object rated = m.invoke(fcvo);
-						if(null!=rated){
-							costrate.add((Double)rated);
-						}else{
-							costrate.add(0.00);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					} 
-				}
-			}
-		}
+		List<Double> productrate = getproduct(projectinfo, baseMapper);
 
-		List<Double> profit1 = ProfitHandler.getincome(costrate, projectinfo.get(3),price, projectinfo.get(1));
+		List<Double> profit1 = ProfitHandler.getincome(productrate, projectinfo.get(3),price, projectinfo.get(1));
 		List<Double> profit2 = ProfitHandler.gettax(0.0, projectinfo.get(1));
 		List<Double> profit21 = ProfitHandler.gettax(0.0, projectinfo.get(1));
 		List<Double> profit22 = ProfitHandler.gettax(0.0, projectinfo.get(1));
@@ -193,6 +168,37 @@ public class ProfitHandler {
 		profittable.add(profit19);
 		
 		return profittable;
+	}
+	
+	public static List<Double> getproduct(List<Double> projectinfo,BaseMapper basemaper){
+		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
+				getMutiParentVO("fea_costinfo", "id", " projectcode='B0001' ",
+						basemaper);
+		List<Double> costrate = new ArrayList<Double>();	
+		for(Fea_costinfoVO fcvo : fea_costinfovo){
+			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
+				for(int j=0;j<projectinfo.get(1);j++){
+					try {
+						Method m ;
+						if(j==0){
+							m = fcvo.getClass().getMethod("getYear");
+						}else{
+							m = fcvo.getClass().getMethod("getYear"+(j+1));
+						}
+						Object rated = m.invoke(fcvo);
+						if(null!=rated){
+							costrate.add((Double)rated);
+						}else{
+							costrate.add(0.00);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				}
+			}
+		}
+		
+		return costrate;
 	}
 
 	public static List<Double> getincome(List<Double> occuprate,Double heararea,Double price,Double totalyears){

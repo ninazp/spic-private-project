@@ -1,5 +1,6 @@
 package com.jeeplus.modules.fea.pub.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class CreateReportPubDMO {
 	    FeaProjectB  projectvo =  (FeaProjectB) maper.get("projectmapper").get(parammap.get("projectid"));
 		List<Double> projectinfo = ProjectInfoHander.getprojectinfo(projectvo);
 		/**
+		 *   -- 基本参数节点
 		 * retlst.add(volst.get(0).getIncomerate());//所得税税率
 			retlst.add(volst.get(0).getLegalaccfund());//法定盈余公积金比率
 			retlst.add(volst.get(0).getYflrprop());//应付利润比率
@@ -31,18 +33,15 @@ public class CreateReportPubDMO {
 				"' or projectcode='"+projectvo.getId()+"')";
 		List<Double> incomeset = PubBaseDAO.getFea_incomeset("fea_incomeset", "id", wheresql, maper.get("fea_incomesetVOMapper"));
 		
-		//资金来源表 - 抵扣金额 ，长期贷款利率，年限
 		/**
-		 *   抵扣金额
+		 *  查找 资金来源表 - 抵扣金额 ，长期贷款利率，年限 等信息
 		 * * private Double interestcount;		// 计息次数（年）
 	                   private Double principalrate;		// 本金利率（%）
 	                   private Double langrate;		// 利息利率（%）
 	                   private String repaytype;		// 还款方式
 		 */
 		List<Double>  fundssrcparam = ProjectInfoHander.getfundssrc(maper.get("fea_fundssrcVOMapper"),maper.get("fea_fundssrcTVOMapper"), projectvo);
-		
 		Double deductval = fundssrcparam.get(0);
-		
 		Double shortloanrate = 0.00;
 		List<Fea_costfecfVO> Fea_costfecfVOlst = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", wheresql, maper.get("fea_costfecfVOMapper"));
 		if(null!=Fea_costfecfVOlst && Fea_costfecfVOlst.size()>0){
@@ -103,21 +102,7 @@ public class CreateReportPubDMO {
        //10 -- EVA测算表
        List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrtable, totalcostltable, balancetable);
        
-//       Double doub3 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
-//       		0.07, 0.06, "3");
-//       
-//       Double doub1 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
-//       		0.07, 0.06, "1");
-//       
-//       Double retunperiod =  ReadExcelCal.getreturnperiod(investHandlerTable.get(11).toArray(new Double[0]));
-//       
-//       Double doub4 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
-//       		0.07, 0.06, "3");
-//       
-//       Double doub2 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
-//       		0.07, 0.06, "2");
-//       
-//       Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(14).toArray(new Double[0]));
+
 //       
 //       WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
 //       WriteExcelCal.getexcel("totalcostltable.xls",totalcostltable);
@@ -139,6 +124,45 @@ public class CreateReportPubDMO {
        
        return retmap;
 	}
+   
+   public static List<Double> getcapital_irrnpv(List<List<Double>> capitalTable){
+       List<Double> retlst = new ArrayList<Double>();
+	   Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(10).toArray(new Double[0]),
+		0.07, 0.06, "3");
+       retlst.add(doub3);  
+       
+//       StringBuffer retrunstr = new StringBuffer("计算指标：\n");
+//       retrunstr.append("资本金财务内部收益率（%）: "+retlst.get(0));
+        
+      return retlst;
+   }
+   
+   public static List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){
+       List<Double> retlst = new ArrayList<Double>();
+	   Double doub3 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
+		0.07, 0.06, "3");
+       Double doub1 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
+		0.07, 0.06, "1");
+       Double retunperiod =  ReadExcelCal.getreturnperiod(investHandlerTable.get(11).toArray(new Double[0]));
+       Double doub4 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
+		0.07, 0.06, "4");
+       Double doub2 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
+		0.07, 0.06, "2");
+       Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(14).toArray(new Double[0]));
+       retlst.add(doub3);  retlst.add(doub4);
+       retlst.add(doub1);  retlst.add(doub2); 
+       retlst.add(retunperiod);  retlst.add(retunperiod2);
+       
+//       StringBuffer retrunstr = new StringBuffer("计算指标：\n");
+//       retrunstr.append("项目投资财务内部收益率（%）（所得税前）: "+retlst.get(0));
+//       retrunstr.append("项目投资财务内部收益率（%）（所得税后）: "+retlst.get(1));
+//       retrunstr.append("项目投资财务净现值（万元）（所得税前）: "+retlst.get(2));
+//       retrunstr.append("项目投资财务净现值（万元）（所得税后）: "+retlst.get(3));
+//       retrunstr.append("项目投资回收期（年）（所得税前）   : "+retlst.get(4));
+//       retrunstr.append("项目投资回收期（年）（所得税后）: "+retlst.get(5));
+        
+      return retlst;
+   }
 	
 	
 }

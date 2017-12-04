@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jeeplus.core.persistence.BaseMapper;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
@@ -36,23 +40,45 @@ public class ProjectInfoHander {
 		return prjectdouble;
 	}
 	
-	public static Double getdekuje(Fea_fundssrcVOMapper fea_fundssrcVOMapper,FeaProjectB projectvo){
+	public static List<Double> getfundssrc(BaseMapper baseMapper,BaseMapper baseMappert, FeaProjectB projectvo){
 		Double deductval = 0.0;
+		List<Double> retlst = new ArrayList<Double>();
 		//查询资金来源
 		List<Fea_fundssrcVO>   distrvolst = (List<Fea_fundssrcVO>) PubBaseDAO.
-				getMutiParentVO("fea_fundssrc", "id", " projectcode='"+projectvo.getProjectCode()+"' ", fea_fundssrcVOMapper);
+				getMutiParentVO("fea_fundssrc", "id", " projectcode='"+projectvo.getProjectCode()+"' ", baseMapper);
 		if(null!=distrvolst && distrvolst.size()>0){
 			for(Fea_fundssrcVO fvo : distrvolst){
-				deductval = deductval+fvo.getDeductvtax();
+				deductval = deductval+((null==fvo.getDeductvtax())?0.00:fvo.getDeductvtax());
+				retlst.add(deductval);
+				List<Fea_fundssrcTVO>   fundssrctlst = (List<Fea_fundssrcTVO>) PubBaseDAO.getMutiParentVO("fea_fundssrc_t", "id", " pkfundssrc='"+fvo.getId()+"' ", baseMappert);
+				if(null!=fundssrctlst && fundssrctlst.size()>0){
+				    /**
+				     * private Double interestcount;		// 计息次数（年）
+	                   private Double principalrate;		// 本金利率（%）
+	                   private Double langrate;		// 利息利率（%）
+	                   private String repaytype;		// 还款方式
+				     */
+					for(Fea_fundssrcTVO tvo : fundssrctlst){
+					  retlst.add(tvo.getInterestcount());
+					  retlst.add(tvo.getPrincipalrate());
+					  retlst.add(tvo.getLangrate());
+					  retlst.add(Double.valueOf(tvo.getRepaytype()));
+				  }
+				}else{
+					  retlst.add(15.00);
+					  retlst.add(4.9);
+					  retlst.add(4.9);
+					  retlst.add(1.00);
+				}
 			}
 		}
 		
-		return deductval;
+		return retlst;
 	}
 	
 	public static List<List<Double>> getzjcctable(
-			Fea_investdisVOMapper fea_investdisVOMapper,
-			Fea_investdisBVOMapper fea_investdisBVOMapper,FeaProjectB projectvo){
+			BaseMapper baseMapper,
+			BaseMapper baseMapperb,FeaProjectB projectvo){
 		
 		List<List<Double>> rettable = new ArrayList<List<Double>>();
 		
@@ -60,10 +86,10 @@ public class ProjectInfoHander {
 		
 		//查询资金来源
 		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
-				getMutiParentVO("fea_investdis", "id", " projectcode='B0001' ", fea_investdisVOMapper);
+				getMutiParentVO("fea_investdis", "id", " projectcode='B0001' ", baseMapper);
 		if(null!=distrvolst && distrvolst.size()>0){
 			for(Fea_investdisVO fvo : distrvolst){
-				List<Fea_investdisBVO>   distriblst = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", " pkinvestdis='"+fvo.getId()+"' ", fea_investdisBVOMapper);
+				List<Fea_investdisBVO>   distriblst = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", " pkinvestdis='"+fvo.getId()+"' ", baseMapperb);
 				fvo.setFea_investdisBVOList(distriblst);
 				List<Double> cktable = ProjectInfoHander.getzicc(fvo);
 				zjcktable.add(cktable);
@@ -124,17 +150,17 @@ public class ProjectInfoHander {
 
 		//资金筹备
 		for(Fea_investdisBVO bvo :bvolst){
-			if(bvo.getInvesttype().equals("1")){
-				d211 = d211 + bvo.getJsamt();
-				d212 = d212+bvo.getLdamt();
+			if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("1")){
+				d211 = d211 + ((null==bvo.getJsamt())?0.00:bvo.getJsamt());
+				d212 = d212+((null==bvo.getLdamt())?0.00:bvo.getLdamt());
 				d21= d211+d212;
 			}
 		}
 
 		//借款
 		for(Fea_investdisBVO bvo :bvolst){
-			if(bvo.getInvesttype().equals("2")){
-				d2211 = d2211 + bvo.getJsamt();//长期借款本金
+			if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("2")){
+				d2211 = d2211 + ((null==bvo.getJsamt())?0.00:bvo.getJsamt());//长期借款本金
 				d2212 = d2212+20.65;//？？？？？建设期利息
 
 				//长期借款

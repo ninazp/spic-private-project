@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
@@ -15,9 +16,9 @@ public class TotalCostHander {
 	
 	
 	public static List<List<Double>> getTotalcosttable(
-			Fea_capformVOMapper fea_capformVOMapper,
-			Fea_productcostVOMapper fea_productcostVOmapper,
-			Fea_productcostBVOMapper fea_productcostBVOmapper,
+			BaseMapper baseMapper,
+			BaseMapper baseMapper2,
+			BaseMapper baseMapper3,
 			List<Double> projectinfo,Double assetval,Double assetwbval ){
 		
 		List<List<Double>> totaltable = new ArrayList<List<Double>>();
@@ -29,19 +30,23 @@ public class TotalCostHander {
 				 *                   保险费率，工资,福利，供热,泵热费，
 				 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
 				 */
-				List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", fea_capformVOMapper);
-				List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", fea_productcostVOmapper);
+				List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", baseMapper);
+				List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", baseMapper2);
 				if(null!=fea_capform && fea_capform.size()>0 && null!=productcost && productcost.size()>0){
 					for(Fea_productcostVO pcost : productcost){
-						List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", fea_productcostBVOmapper);
+						List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", baseMapper3);
 						List<Double> repairrate = new ArrayList<Double>();
 						for(Fea_productcostBVO bvo : pbvolst){
 							if(bvo.getCosttype().contains("维修费") || bvo.getCosttype().equals("1")){
 								for(int j=0;j<projectinfo.get(1);j++){
 									try {
 										Method m = bvo.getClass().getMethod("getYear"+(j+1));
-										Double rated = (Double) m.invoke(bvo);
-										repairrate.add(rated);
+										Object rated = m.invoke(bvo);
+										if(null!=rated){
+											repairrate.add((Double)rated);
+										}else{
+											repairrate.add(0.00);
+										}
 									} catch (Exception e) {
 										e.printStackTrace();
 									} 
@@ -55,16 +60,37 @@ public class TotalCostHander {
 						paramdoub.add(assetwbval);
 
 						// 折旧年限，残值率
-						paramdoub.add(fea_capform.get(0).getUselifefat());
-						paramdoub.add(fea_capform.get(0).getResidualrate());
+						if(null!=fea_capform && fea_capform.size()>0 && null!=fea_capform.get(0)){
+							paramdoub.add(fea_capform.get(0).getUselifefat());
+							paramdoub.add(fea_capform.get(0).getResidualrate());
+						}else{
+							paramdoub.add(0.00);
+							paramdoub.add(0.00);
+						}
+						
 						// * 保险费率，工资,福利，供热,泵热费，
-						paramdoub.add(pcost.getInsurance());
-						Double yearwage = pcost.getPersons()*pcost.getPerwage(); 
-						paramdoub.add(yearwage);
-						paramdoub.add(pcost.getWelfare());
-						paramdoub.add(pcost.getHeatdeposit());
-						paramdoub.add(pcost.getWateramt());
-
+						if(null!=pcost.getInsurance() && null!=pcost.getPersons() && null!=pcost.getPerwage()){
+						  paramdoub.add(pcost.getInsurance());
+						  Double yearwage = pcost.getPersons()*pcost.getPerwage(); 
+						  paramdoub.add(yearwage);
+						}else{
+							paramdoub.add(0.00);
+							paramdoub.add(0.00);
+						}
+						
+						if(null!=pcost.getWelfare() && null!=pcost.getHeatdeposit()){
+							paramdoub.add(pcost.getWelfare());
+							paramdoub.add(pcost.getHeatdeposit());
+						}else{
+							paramdoub.add(0.00);
+							paramdoub.add(0.00);
+						}
+						if(null!=pcost.getWateramt()){
+						    paramdoub.add(pcost.getWateramt());
+						}else{
+							paramdoub.add(0.00);
+						}
+						
 						// * 第一年的供热月份，总计算年限，摊销原值，摊销年限
 						paramdoub.add(projectinfo.get(0));
 						paramdoub.add(projectinfo.get(1));

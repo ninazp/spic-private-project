@@ -17,7 +17,7 @@ public class InvestFlowHandler {
 	
 	public static List<List<Double>> getInvestHandlerTable(Double totalyears,List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,
-			Double ftaxrate,Double assetval){
+			Double ftaxrate,Double issdssjsm,Double assetval){
 		
 		int start =0;
 		
@@ -74,16 +74,24 @@ public class InvestFlowHandler {
 			if(i>0 && ret3.get(i)>0){
 				start = start+1;
 			}
-			if(start>3 && start<7 && lrtable.get(19).get(i)>0){
+			if(issdssjsm==1){
+			 if(start>3 && start<7 && lrtable.get(19).get(i)>0){
 				ret5.add(lrtable.get(19).get(i)*ftaxrate/200);
 				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/200;
-			}else if(start>=7 && lrtable.get(19).get(i)>0){
+			 }else if(start>=7 && lrtable.get(19).get(i)>0){
 				ret5.add(lrtable.get(19).get(i)*ftaxrate/100);
 				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/100;
-			}else{
+			 }else{
 				ret5.add(0.0);
+			 }
+			}else{
+				if(lrtable.get(19).get(i)>0){
+					ret5.add(lrtable.get(19).get(i)*ftaxrate/100);
+					sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/100;
+				}else{
+					ret5.add(0.0);
+				}
 			}
-			
 			ret6.add(ret3.get(i)-ret5.get(i));
 			
 			if(i==0){

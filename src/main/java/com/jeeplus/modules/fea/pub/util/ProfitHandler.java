@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.subsidy.Fea_incosubsidyVO;
@@ -14,8 +15,9 @@ public class ProfitHandler {
 
 	public static List<List<Double>> getprofittable(List<Double> projectinfo,
 			List<List<Double>> totalcosttable,List<List<Double>> loanrepay,
-			Fea_costinfoVOMapper fea_costinfoVOMapper,FeaProjectB projectvo,
-			Double price,Double ftaxrate,Double shortrate1,
+			BaseMapper baseMapper,FeaProjectB projectvo,
+			Double price,Double ftaxrate,Double issjsm,
+			Double shortrate1,
 			Double gjjrate,Double lrfpje,
 			List<Double> subincome){
 		//利润表
@@ -24,7 +26,7 @@ public class ProfitHandler {
 		
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", " projectcode='B0001' ",
-						 fea_costinfoVOMapper);
+						 baseMapper);
 		List<Double> costrate = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){
 			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
@@ -36,8 +38,12 @@ public class ProfitHandler {
 						}else{
 							m = fcvo.getClass().getMethod("getYear"+(j+1));
 						}
-						Double rated = (Double) m.invoke(fcvo);
-						costrate.add(rated);
+						Object rated = m.invoke(fcvo);
+						if(null!=rated){
+							costrate.add((Double)rated);
+						}else{
+							costrate.add(0.00);
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
@@ -119,6 +125,7 @@ public class ProfitHandler {
 					profit7.add(0.0);
 				}
 				if(profit7.get(i)>0){
+					if(issjsm==1){
 					if(dcount<3){
 						profit8.add(0.0);
 					}else if(miancount<3){
@@ -128,6 +135,9 @@ public class ProfitHandler {
 						profit8.add(profit7.get(i)*ftaxrate/100);
 					}
 					dcount = dcount+1;
+					}else{
+						profit8.add(profit7.get(i)*ftaxrate/100);
+					}
 				}else{
 					profit8.add(0.0);
 				}
@@ -210,10 +220,10 @@ public class ProfitHandler {
 		return occuplst;
 	}
 	
-	public static List<Double> getsubincome(Fea_incosubsidyVOMapper fea_incosubsidyVOMapper,FeaProjectB projectbvo,List<Double> projectinfo){
+	public static List<Double> getsubincome(BaseMapper baseMapper,FeaProjectB projectbvo,List<Double> projectinfo){
 		List<Fea_incosubsidyVO>   fea_incosubsidyvo = (List<Fea_incosubsidyVO>) PubBaseDAO.
 				getMutiParentVO("fea_incosubsidy", "id", " projectcode='"+projectbvo.getProjectCode()+"' ",
-						fea_incosubsidyVOMapper);
+						baseMapper);
 		List<Double> retlst = new ArrayList<Double>();
 		for(int i=0;i<fea_incosubsidyvo.size();i++){
 			if(fea_incosubsidyvo.get(i).getSubsidytype().equals("配套费")){

@@ -8,103 +8,101 @@ import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
-import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
-import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
-import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 
 public class TotalCostHander {
-	
-	
+
+
 	public static List<List<Double>> getTotalcosttable(
 			BaseMapper baseMapper,
 			BaseMapper baseMapper2,
 			BaseMapper baseMapper3,
-			List<Double> projectinfo,Double assetval,Double assetwbval ){
+			List<Double> projectinfo,Double dekuje,List<List<Double>> interestTable,List<List<Double>> zjcktable){
+
+		Double assetval = zjcktable.get(1).get(0)+zjcktable.get(2).get(0)-dekuje;//计算折旧费固定资产价格
+		Double assetwbval = zjcktable.get(1).get(0)-dekuje;//计算维修费-去掉
 		
 		List<List<Double>> totaltable = new ArrayList<List<Double>>();
 		//总成本表
-				//查询成本+基本参数+借款还利利息
-				/**
-				 * 折旧固定资产原值，维修和保险固定资产原值，
-				 *                   折旧年限，残值率，维修费率，
-				 *                   保险费率，工资,福利，供热,泵热费，
-				 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
-				 */
-				List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", baseMapper);
-				List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", baseMapper2);
-				if(null!=fea_capform && fea_capform.size()>0 && null!=productcost && productcost.size()>0){
-					for(Fea_productcostVO pcost : productcost){
-						List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", baseMapper3);
-						List<Double> repairrate = new ArrayList<Double>();
-						for(Fea_productcostBVO bvo : pbvolst){
-							if(bvo.getCosttype().contains("维修费") || bvo.getCosttype().equals("1")){
-								for(int j=0;j<projectinfo.get(1);j++){
-									try {
-										Method m = bvo.getClass().getMethod("getYear"+(j+1));
-										Object rated = m.invoke(bvo);
-										if(null!=rated){
-											repairrate.add((Double)rated);
-										}else{
-											repairrate.add(0.00);
-										}
-									} catch (Exception e) {
-										e.printStackTrace();
-									} 
+		//查询成本+基本参数+借款还利利息
+		/**
+		 * 折旧固定资产原值，维修和保险固定资产原值，
+		 *                   折旧年限，残值率，维修费率，
+		 *                   保险费率，工资,福利，供热,泵热费，
+		 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
+		 */
+		List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", baseMapper);
+		List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", baseMapper2);
+
+		List<Double> repairrate = new ArrayList<Double>();
+		Double insurance = 0.0;
+		Double wageamt = 0.0;
+		Double welfare = 0.0;
+		Double heatdeposit = 0.0;
+		Double wateramt = 0.0;
+
+		if(null!=fea_capform && fea_capform.size()>0 && null!=productcost && productcost.size()>0){
+			for(Fea_productcostVO pcost : productcost){
+				List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", baseMapper3);
+				for(Fea_productcostBVO bvo : pbvolst){
+					if(bvo.getCosttype().contains("维修费") || bvo.getCosttype().equals("1")){
+						for(int j=0;j<projectinfo.get(1);j++){
+							try {
+								Method m = bvo.getClass().getMethod("getYear"+(j+1));
+								Object rated = m.invoke(bvo);
+								if(null!=rated){
+									repairrate.add((Double)rated);
+								}else{
+									repairrate.add(0.00);
 								}
-							}
+							} catch (Exception e) {
+								e.printStackTrace();
+							} 
 						}
-
-						List<Double> paramdoub = new ArrayList<Double>();
-
-						paramdoub.add(assetval);
-						paramdoub.add(assetwbval);
-
-						// 折旧年限，残值率
-						if(null!=fea_capform && fea_capform.size()>0 && null!=fea_capform.get(0)){
-							paramdoub.add(fea_capform.get(0).getUselifefat());
-							paramdoub.add(fea_capform.get(0).getResidualrate());
-						}else{
-							paramdoub.add(0.00);
-							paramdoub.add(0.00);
-						}
-						
-						// * 保险费率，工资,福利，供热,泵热费，
-						if(null!=pcost.getInsurance() && null!=pcost.getPersons() && null!=pcost.getPerwage()){
-						  paramdoub.add(pcost.getInsurance());
-						  Double yearwage = pcost.getPersons()*pcost.getPerwage(); 
-						  paramdoub.add(yearwage);
-						}else{
-							paramdoub.add(0.00);
-							paramdoub.add(0.00);
-						}
-						
-						if(null!=pcost.getWelfare() && null!=pcost.getHeatdeposit()){
-							paramdoub.add(pcost.getWelfare());
-							paramdoub.add(pcost.getHeatdeposit());
-						}else{
-							paramdoub.add(0.00);
-							paramdoub.add(0.00);
-						}
-						if(null!=pcost.getWateramt()){
-						    paramdoub.add(pcost.getWateramt());
-						}else{
-							paramdoub.add(0.00);
-						}
-						
-						// * 第一年的供热月份，总计算年限，摊销原值，摊销年限
-						paramdoub.add(projectinfo.get(0));
-						paramdoub.add(projectinfo.get(1));
-
-						paramdoub.add(0.0);
-						paramdoub.add(0.0);
-						paramdoub.add(0.0);
-
-						totaltable = TotalCostHander.getTotalCost(paramdoub, repairrate);
 					}
 				}
-				return totaltable;
+				if(null!=pcost.getInsurance()) insurance = pcost.getInsurance();
+				if(null!=pcost.getPersons() && null!=pcost.getPerwage()) wageamt = pcost.getPersons()*pcost.getPerwage();
+				if(null!=pcost.getWelfare())  welfare = pcost.getWelfare();
+				if(null!=pcost.getHeatdeposit()) heatdeposit = pcost.getHeatdeposit();
+			}
+		}
+
+		List<Double> paramdoub = new ArrayList<Double>();
+
+		paramdoub.add(assetval);
+		paramdoub.add(assetwbval);
+
+		// 折旧年限，残值率
+		if(null!=fea_capform && fea_capform.size()>0 && null!=fea_capform.get(0)){
+			paramdoub.add(fea_capform.get(0).getUselifefat());
+			paramdoub.add(fea_capform.get(0).getResidualrate());
+		}else{
+			paramdoub.add(0.00);
+			paramdoub.add(0.00);
+		}
+
+		// * 保险费率，工资,福利，供热,泵热费，
+		paramdoub.add(insurance);
+		paramdoub.add(wageamt);
+		paramdoub.add(welfare);
+		paramdoub.add(heatdeposit);
+		paramdoub.add(wateramt);
+
+		// * 第一年的供热月份，总计算年限，摊销原值，摊销年限
+		paramdoub.add(projectinfo.get(0));
+		paramdoub.add(projectinfo.get(1));
+
+		paramdoub.add(0.0);
+		paramdoub.add(0.0);
+		paramdoub.add(0.0);
+
+		totaltable = TotalCostHander.getTotalCost(paramdoub, repairrate,interestTable);
+
+		List<List<Double>> rettable = getallTotalCost(totaltable, projectinfo.get(1));
+
+		return rettable;
 	}
-	
+
 	/**
 	 * 总成本费用表  -  计算再利息表之后
 	 * @param paramdoub：折旧固定资产原值，维修和保险固定资产原值，
@@ -113,7 +111,7 @@ public class TotalCostHander {
 	 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
 	 * @return
 	 */
-	public static List<List<Double>> getTotalCost(List<Double> paramdoub,List<Double> repairrate ){
+	public static List<List<Double>> getTotalCost(List<Double> paramdoub,List<Double> repairrate,List<List<Double>> interesttable ){
 		List<List<Double>> retlistlist = new ArrayList<List<Double>>();
 
 		Double assetVal = paramdoub.get(0);
@@ -144,9 +142,9 @@ public class TotalCostHander {
 		List<Double> txlist = gettx(txval, firstmths, totalcalyears);
 		List<Double> otherlist = gettx(txval, firstmths, totalcalyears);
 		//利息支出  先去计算利息表--再计算这个
-		List<Double> interestlist = gettx(txval, firstmths, totalcalyears);
-//		//泵热费
-//		List<Double> brlist = getheatbrcost( brcost, firstmths, totalcalyears);
+		List<Double> interestlist = getrepaylx(interesttable);
+		//		//泵热费
+		//		List<Double> brlist = getheatbrcost( brcost, firstmths, totalcalyears);
 
 		retlistlist.add(zjlist);
 		retlistlist.add(wxlist);
@@ -159,7 +157,7 @@ public class TotalCostHander {
 
 		return retlistlist;
 	}
-	
+
 	/**
 	 *   retlistlist.add(zjlist);
 		retlistlist.add(wxlist);
@@ -173,43 +171,43 @@ public class TotalCostHander {
 	 * @return
 	 */
 	public static List<List<Double>> getallTotalCost(List<List<Double>> retlst,Double totalcalyears){
-		
+
 		//固定成本
-				List<Double> fixlist = new ArrayList<Double>();
-				for(int i=0;i<=totalcalyears;i++){
-					Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+		List<Double> fixlist = new ArrayList<Double>();
+		for(int i=0;i<=totalcalyears;i++){
+			Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
 					+retlst.get(5).get(i)+retlst.get(6).get(i);
-					fixlist.add(doub);
-				}
+			fixlist.add(doub);
+		}
 
-				//可变成本
-				List<Double> changelist = retlst.get(4);
+		//可变成本
+		List<Double> changelist = retlst.get(4);
 
-				//总成本
-				List<Double> totallist = new ArrayList<Double>();
-				for(int i=0;i<=totalcalyears;i++){
-					Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
-							+retlst.get(4).get(i)+retlst.get(5).get(i)+retlst.get(6).get(i);
-					totallist.add(doub);
-				}
+		//总成本
+		List<Double> totallist = new ArrayList<Double>();
+		for(int i=0;i<=totalcalyears;i++){
+			Double doub = retlst.get(0).get(i)+retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+					+retlst.get(4).get(i)+retlst.get(5).get(i)+retlst.get(6).get(i);
+			totallist.add(doub);
+		}
 
-				//经营成本 = =维修费+工资及福利+保险费+取暖费+泵热费
-				List<Double> salecostlist = new ArrayList<Double>();
-				for(int i=0;i<=totalcalyears;i++){
-					Double doub = retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
-					               +retlst.get(4).get(i);
-					
-					salecostlist.add(doub);
-				}
-				
-				retlst.add(fixlist);
-				retlst.add(changelist);
-				retlst.add(totallist);
-				retlst.add(salecostlist);
-				
+		//经营成本 = =维修费+工资及福利+保险费+取暖费+泵热费
+		List<Double> salecostlist = new ArrayList<Double>();
+		for(int i=0;i<=totalcalyears;i++){
+			Double doub = retlst.get(1).get(i)+retlst.get(2).get(i)+retlst.get(3).get(i)
+					+retlst.get(4).get(i)+retlst.get(7).get(i);
+
+			salecostlist.add(doub);
+		}
+
+		retlst.add(fixlist);
+		retlst.add(changelist);
+		retlst.add(totallist);
+		retlst.add(salecostlist);
+
 		return retlst;
 	}
-	
+
 
 	/**
 	 * 折旧费
@@ -248,12 +246,12 @@ public class TotalCostHander {
 			retList.add(doub1);
 			sumval = sumval+doub1;
 		}
-		
+
 		retList.set(0, sumval);
 
 		return retList;
 	}
-	
+
 	/**
 	 * 维修费
 	 * @param assetVal
@@ -264,8 +262,8 @@ public class TotalCostHander {
 	 */
 	public static List<Double> getRepairsCost(Double assetVal,List<Double> bxrate,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
-		
-		
+
+
 		Double sumval = 0.0;
 		retlist.add(sumval);
 		Double temp = 0.0;
@@ -281,7 +279,7 @@ public class TotalCostHander {
 			sumval = sumval+temp;
 		}
 		retlist.set(0, sumval);
-		
+
 		return retlist;
 	}
 
@@ -295,7 +293,7 @@ public class TotalCostHander {
 	public static List<Double> getBXcost(Double assetVal,Double bxrate,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		Double repval = assetVal*bxrate/1000;
-		
+
 		Double sumval = 0.0;
 		retlist.add(sumval);
 		Double temp = 0.0;
@@ -309,7 +307,7 @@ public class TotalCostHander {
 			sumval = sumval+temp;
 		}
 		retlist.set(0, sumval);
-		
+
 		return retlist;
 	}
 	/**
@@ -324,7 +322,7 @@ public class TotalCostHander {
 	public static List<Double> getWagebenefit(Double wage,Double benefit,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		Double wageval = wage*(1+benefit/100);
-		
+
 		Double sumval = 0.0;
 		retlist.add(sumval);
 		Double temp = 0.0;
@@ -351,10 +349,10 @@ public class TotalCostHander {
 	public static List<Double> getheatbrcost(Double heatcost,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		Double wageval = heatcost;
-		
+
 		Double sumval = 0.0;
 		retlist.add(sumval);
-		
+
 		Double temp = 0.0;
 		for(int i=1;i<=totalcalyears;i++){
 			if(i==1){
@@ -362,11 +360,11 @@ public class TotalCostHander {
 			}else{
 				temp = wageval;
 			}
-			
+
 			retlist.add(temp);
 			sumval = sumval+temp;
 		}
-		
+
 		retlist.set(0, sumval);
 
 		return retlist;
@@ -389,7 +387,7 @@ public class TotalCostHander {
 		return retlist;
 	}
 
-	
+
 	public static List<Double> getrepaylx(List<List<Double>> interesttable){
 		List<Double> retlst = new ArrayList<Double>();
 		for(int i = 0;i<interesttable.get(0).size();i++){

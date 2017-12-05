@@ -6,16 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.jeeplus.core.persistence.BaseMapper;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 
 public class ProjectInfoHander {
 	

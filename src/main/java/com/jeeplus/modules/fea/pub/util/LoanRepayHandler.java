@@ -6,7 +6,10 @@ import java.util.List;
 public class LoanRepayHandler {
 
 	 public static List<List<Double>> getLoanRepayTable(List<List<Double>> zjcktable,List<Double> projectinfo,
-			 Double langrate,Double langyear,Double shortrate){
+			 List<Double> langparam,Double shortrate,List<Double> shortlstori){
+		 
+		    Double langrate =langparam.get(2);
+		    Double langyear = langparam.get(1);
 		 
 		    List<List<Double>> interesttable = new ArrayList<List<Double>>();
 		 
@@ -19,7 +22,7 @@ public class LoanRepayHandler {
 			List<List<Double>> langloanlst = LangLoanHander.getlanghbfx(cqjkje, langrate, langyear, projectinfo.get(0),projectinfo.get(1));
 			//流动贷款
 			List<List<Double>> flowloanlst = FlowLoanHander.getflowhbfx(1, zjcktable.get(12).get(0), shortrate,projectinfo.get(0),projectinfo.get(1));
-			List<List<Double>>  shortlst = ShortLoanHander.getShortLoanList(projectinfo.get(1), shortrate);
+			List<List<Double>>  shortlst = ShortLoanHander.getShortLoanList(projectinfo.get(1), shortrate,shortlstori);
 			for(int i=0;i<langloanlst.size();i++){
 				interesttable.add(langloanlst.get(i));
 			}

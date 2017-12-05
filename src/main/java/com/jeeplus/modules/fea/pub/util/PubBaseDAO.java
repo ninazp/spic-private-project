@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
-import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
 
 public class PubBaseDAO {
 

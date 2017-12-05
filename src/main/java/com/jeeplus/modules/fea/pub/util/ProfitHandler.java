@@ -8,18 +8,19 @@ import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.subsidy.Fea_incosubsidyVO;
-import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
-import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 
 public class ProfitHandler {
 
 	public static List<List<Double>> getprofittable(List<Double> projectinfo,
 			List<List<Double>> totalcosttable,List<List<Double>> loanrepay,
-			BaseMapper baseMapper,FeaProjectB projectvo,
+			BaseMapper baseMapper,BaseMapper baseMapper1,FeaProjectB projectvo,
 			Double price,Double ftaxrate,Double issjsm,
 			Double shortrate1,
-			Double gjjrate,Double lrfpje,
-			List<Double> subincome){
+			Double gjjrate,Double lrfpje){
+		
+		//补贴收入
+		List<Double> subincome = ProfitHandler.getsubincome(baseMapper1, projectvo, projectinfo);
+		
 		//利润表
 		//利润表与利润分配表
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
@@ -131,7 +132,7 @@ public class ProfitHandler {
 				profit14.add(profit12.get(i)-profit13.get(i));
 				profit15.add(0.0);
 				if(profit14.get(i)>0){
-					if(profit14.get(i)>=profit14.get(i)){
+					if(profit14.get(i)>=lrfpje){//可分配利润大于出资金额的10%，只需要分可分配金额就行了
 						profit16.add(lrfpje);
 					}else{
 						profit16.add(profit14.get(i));

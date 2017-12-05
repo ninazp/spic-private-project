@@ -99,7 +99,7 @@ public class FinanceHandler {
 				ret313.add(cctable.get(11).get(i));
 			}
 			ret314.add(0.0);
-			ret315.add(loanrepay.get(11).get(i));
+			ret315.add(loanrepay.get(10).get(i));
 			ret316.add(0.0);
 			
 			ret31.add(ret311.get(i)+ret312.get(i)+ret313.get(i)+ret314.get(i)+ret315.get(i)+ret316.get(i));

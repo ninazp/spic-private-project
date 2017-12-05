@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.pub.util;
 
 import java.io.FileInputStream;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
@@ -10,12 +11,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
+
+import com.jeeplus.common.utils.base.Platforms;
+import com.jeeplus.common.utils.io.FilePathUtil;
 public class ReadExcelCal {
 	public static Double getirrnpvvalue(Double[] flowfinanceVals,
 			Double rate1,Double rate2,
 			String returntype){
 		try {
-			FileInputStream fis = new FileInputStream("/excelt/formulairrnpv.xls");
+			FileInputStream fis = new FileInputStream(FilePathUtil.getJarPath(ReadExcelCal.class) + "formulairrnpv.xls");
 			Workbook wb1=new HSSFWorkbook(fis);
 			Sheet sheet = wb1.getSheetAt(0);
 			

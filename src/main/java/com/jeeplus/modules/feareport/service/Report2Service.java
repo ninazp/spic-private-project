@@ -82,8 +82,12 @@ public class Report2Service extends CrudService<Report2Mapper, Report2> {
 		
 		List<List<Double>> reList = new ArrayList<List<Double>>();
 		
-		for(Double temp : reportList){
+		for(int i=0; i< reportList.size(); i++){
+			Double temp = reportList.get(i);
 			List<Double> tempLi = new ArrayList<Double>();
+			if(i<2){
+				temp = temp*100;
+			}
 			tempLi.add(temp);
 			reList.add(tempLi);
 		}

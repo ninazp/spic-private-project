@@ -84,7 +84,7 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 		
 		for(Double temp : reportList){
 			List<Double> tempLi = new ArrayList<Double>();
-			tempLi.add(temp);
+			tempLi.add(temp*100);
 			reList.add(tempLi);
 		}
 		

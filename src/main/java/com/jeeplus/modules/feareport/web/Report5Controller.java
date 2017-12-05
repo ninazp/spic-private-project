@@ -25,117 +25,117 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.common.utils.DateUtils;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.feareport.entity.Report3;
-import com.jeeplus.modules.feareport.service.Report3Service;
+import com.jeeplus.modules.feareport.entity.Report5;
+import com.jeeplus.modules.feareport.service.Report5Service;
 
 /**
- * 项目资本金现金流量表Controller
+ * 投资计划与资金筹措表Controller
  * @author zp
- * @version 2017-12-03
+ * @version 2017-12-05
  */
 @Controller
-@RequestMapping(value = "${adminPath}/feareport/report3")
-public class Report3Controller extends BaseController {
+@RequestMapping(value = "${adminPath}/feareport/report5")
+public class Report5Controller extends BaseController {
 
 	@Autowired
-	private Report3Service report3Service;
+	private Report5Service report5Service;
 	
 	@ModelAttribute
-	public Report3 get(@RequestParam(required=false) String id) {
-		Report3 entity = null;
+	public Report5 get(@RequestParam(required=false) String id) {
+		Report5 entity = null;
 		if (StringUtils.isNotBlank(id)){
-			entity = report3Service.get(id);
+			entity = report5Service.get(id);
 		}
 		if (entity == null){
-			entity = new Report3();
+			entity = new Report5();
 		}
 		return entity;
 	}
 	
 	/**
-	 * 项目资本金现金流量表列表页面
+	 * 投资计划与资金筹措表列表页面
 	 */
-	@RequiresPermissions("feareport:report3:list")
+	@RequiresPermissions("feareport:report5:list")
 	@RequestMapping(value = {"list", ""})
 	public String list() {
-		return "modules/feareport/report3List";
+		return "modules/feareport/report5List";
 	}
 	
 		/**
-	 * 项目资本金现金流量表列表数据
+	 * 投资计划与资金筹措表列表数据
 	 */
 	@ResponseBody
-	@RequiresPermissions("feareport:report3:list")
+	@RequiresPermissions("feareport:report5:list")
 	@RequestMapping(value = "data")
-	public Map<String, Object> data(Report3 report3, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Report3> page = report3Service.findPage(new Page<Report3>(request, response), report3); 
+	public Map<String, Object> data(Report5 report5, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Report5> page = report5Service.findPage(new Page<Report5>(request, response), report5); 
 		return getBootstrapData(page);
 	}
 
 	/**
-	 * 查看，增加，编辑项目资本金现金流量表表单页面
+	 * 查看，增加，编辑投资计划与资金筹措表表单页面
 	 */
-	@RequiresPermissions(value={"feareport:report3:view","feareport:report3:add","feareport:report3:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:report5:view","feareport:report5:add","feareport:report5:edit"},logical=Logical.OR)
 	@RequestMapping(value = "form")
-	public String form(Report3 report3, Model model) {
-		model.addAttribute("report3", report3);
-		return "modules/feareport/report3Form";
+	public String form(Report5 report5, Model model) {
+		model.addAttribute("report5", report5);
+		return "modules/feareport/report5Form";
 	}
 
 	/**
-	 * 保存项目资本金现金流量表
+	 * 保存投资计划与资金筹措表
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"feareport:report3:add","feareport:report3:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:report5:add","feareport:report5:edit"},logical=Logical.OR)
 	@RequestMapping(value = "save")
-	public AjaxJson save(Report3 report3, Model model, RedirectAttributes redirectAttributes) throws Exception{
+	public AjaxJson save(Report5 report5, Model model, RedirectAttributes redirectAttributes) throws Exception{
 		AjaxJson j = new AjaxJson();
-		if (!beanValidator(model, report3)){
+		if (!beanValidator(model, report5)){
 			j.setSuccess(false);
 			j.setMsg("非法参数！");
 			return j;
 		}
-		report3Service.save(report3);//新建或者编辑保存
+		report5Service.save(report5);//新建或者编辑保存
 		j.setSuccess(true);
-		j.setMsg("保存项目资本金现金流量表成功");
+		j.setMsg("保存投资计划与资金筹措表成功");
 		return j;
 	}
 	
 	/**
-	 * 删除项目资本金现金流量表
+	 * 删除投资计划与资金筹措表
 	 */
 	@ResponseBody
-	@RequiresPermissions("feareport:report3:del")
+	@RequiresPermissions("feareport:report5:del")
 	@RequestMapping(value = "delete")
-	public AjaxJson delete(Report3 report3, RedirectAttributes redirectAttributes) {
+	public AjaxJson delete(Report5 report5, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
-		report3Service.delete(report3);
-		j.setMsg("删除项目资本金现金流量表成功");
+		report5Service.delete(report5);
+		j.setMsg("删除投资计划与资金筹措表成功");
 		return j;
 	}
 	
 	/**
-	 * 批量删除项目资本金现金流量表
+	 * 批量删除投资计划与资金筹措表
 	 */
 	@ResponseBody
-	@RequiresPermissions("feareport:report3:del")
+	@RequiresPermissions("feareport:report5:del")
 	@RequestMapping(value = "deleteAll")
 	public AjaxJson deleteAll(String ids, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		String idArray[] =ids.split(",");
 		for(String id : idArray){
-			report3Service.delete(report3Service.get(id));
+			report5Service.delete(report5Service.get(id));
 		}
-		j.setMsg("删除项目资本金现金流量表成功");
+		j.setMsg("删除投资计划与资金筹措表成功");
 		return j;
 	}
 	
@@ -143,20 +143,20 @@ public class Report3Controller extends BaseController {
 	 * 导出excel文件
 	 */
 	@ResponseBody
-	@RequiresPermissions("feareport:report3:export")
+	@RequiresPermissions("feareport:report5:export")
     @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(Report3 report3, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    public AjaxJson exportFile(Report5 report5, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "项目资本金现金流量表"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<Report3> page = report3Service.findPage(new Page<Report3>(request, response, -1), report3);
-    		new ExportExcel("项目资本金现金流量表", Report3.class).setDataList(page.getList()).write(response, fileName).dispose();
+            String fileName = "投资计划与资金筹措表"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+            Page<Report5> page = report5Service.findPage(new Page<Report5>(request, response, -1), report5);
+    		new ExportExcel("投资计划与资金筹措表", Report5.class).setDataList(page.getList()).write(response, fileName).dispose();
     		j.setSuccess(true);
     		j.setMsg("导出成功！");
     		return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
-			j.setMsg("导出项目资本金现金流量表记录失败！失败信息："+e.getMessage());
+			j.setMsg("导出投资计划与资金筹措表记录失败！失败信息："+e.getMessage());
 		}
 			return j;
     }
@@ -165,7 +165,7 @@ public class Report3Controller extends BaseController {
 	 * 导入Excel数据
 
 	 */
-	@RequiresPermissions("feareport:report3:import")
+	@RequiresPermissions("feareport:report5:import")
     @RequestMapping(value = "import", method=RequestMethod.POST)
     public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
@@ -173,10 +173,10 @@ public class Report3Controller extends BaseController {
 			int failureNum = 0;
 			StringBuilder failureMsg = new StringBuilder();
 			ImportExcel ei = new ImportExcel(file, 1, 0);
-			List<Report3> list = ei.getDataList(Report3.class);
-			for (Report3 report3 : list){
+			List<Report5> list = ei.getDataList(Report5.class);
+			for (Report5 report5 : list){
 				try{
-					report3Service.save(report3);
+					report5Service.save(report5);
 					successNum++;
 				}catch(ConstraintViolationException ex){
 					failureNum++;
@@ -185,45 +185,43 @@ public class Report3Controller extends BaseController {
 				}
 			}
 			if (failureNum>0){
-				failureMsg.insert(0, "，失败 "+failureNum+" 条项目资本金现金流量表记录。");
+				failureMsg.insert(0, "，失败 "+failureNum+" 条投资计划与资金筹措表记录。");
 			}
-			addMessage(redirectAttributes, "已成功导入 "+successNum+" 条项目资本金现金流量表记录"+failureMsg);
+			addMessage(redirectAttributes, "已成功导入 "+successNum+" 条投资计划与资金筹措表记录"+failureMsg);
 		} catch (Exception e) {
-			addMessage(redirectAttributes, "导入项目资本金现金流量表失败！失败信息："+e.getMessage());
+			addMessage(redirectAttributes, "导入投资计划与资金筹措表失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/feareport/report3/?repage";
+		return "redirect:"+Global.getAdminPath()+"/feareport/report5/?repage";
     }
 	
 	/**
-	 * 下载导入项目资本金现金流量表数据模板
+	 * 下载导入投资计划与资金筹措表数据模板
 	 */
-	@RequiresPermissions("feareport:report3:import")
+	@RequiresPermissions("feareport:report5:import")
     @RequestMapping(value = "import/template")
     public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
-            String fileName = "项目资本金现金流量表数据导入模板.xlsx";
-    		List<Report3> list = Lists.newArrayList(); 
-    		new ExportExcel("项目资本金现金流量表数据", Report3.class, 1).setDataList(list).write(response, fileName).dispose();
+            String fileName = "投资计划与资金筹措表数据导入模板.xlsx";
+    		List<Report5> list = Lists.newArrayList(); 
+    		new ExportExcel("投资计划与资金筹措表数据", Report5.class, 1).setDataList(list).write(response, fileName).dispose();
     		return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入模板下载失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/feareport/report3/?repage";
+		return "redirect:"+Global.getAdminPath()+"/feareport/report5/?repage";
     }
 	
 	/**
 	 * 获取报表数据
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"feareport:report3:add","feareport:report3:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:report5:add","feareport:report5:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getReportDatas")
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
 		AjaxJson j = new AjaxJson();
 
-		List<List<Double>> datas = report3Service.getReportDatas(ids);
-		
-		List<List<Double>> datas2 = report3Service.getReportDatas2(datas);
+		List<List<Double>> datas = report5Service.getReportDatas(ids);
 		
 		if(null == datas || datas.size()<1){
 			j.setMsg("没有查询到报表信息");
@@ -231,18 +229,18 @@ public class Report3Controller extends BaseController {
 			return j;
 		}
 		j.setMsg(datas.toString());
-		j.setMsg2(datas2.toString());
 		j.setProjectId(ids);
 		j.setSuccess(true);
 		
 		return j;
+		
 	}
 	
 	/**
 	 * 获取项目数据
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"feareport:report3:add","feareport:report3:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:report5:add","feareport:report5:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getProjectDatas")
 	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
@@ -251,7 +249,7 @@ public class Report3Controller extends BaseController {
 		AjaxJson j = new AjaxJson();
 		List<FeaProjectB> project = new ArrayList<FeaProjectB>();
 		
-		project = report3Service.getProjectDatas();
+		project = report5Service.getProjectDatas();
 		// 倒叙排序去第一条作为默认值返回
 		ids = project.get(0).getId();
 		projectName = project.get(0).getProjectName();

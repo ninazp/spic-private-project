@@ -3,7 +3,7 @@
  */
 package com.jeeplus.modules.feareport.web;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,14 +25,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.feareport.entity.Report2;
 import com.jeeplus.modules.feareport.service.Report2Service;
 
@@ -216,15 +217,51 @@ public class Report2Controller extends BaseController {
 	@ResponseBody
 	@RequiresPermissions(value={"feareport:report2:add","feareport:report2:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getReportDatas")
-	public AjaxJson getReportDatas(String ids, RedirectAttributes redirectAttributes) throws Exception{
+	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
-		List<List<Double>> datas = report2Service.getReportDatas(ids);
 		AjaxJson j = new AjaxJson();
-		LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();
-		body.put("datas", datas);
-		//j.setBody(body);
+
+		List<List<Double>> datas = report2Service.getReportDatas(ids);
+		
+		List<List<Double>> datas2 = report2Service.getReportDatas2(datas);
+		
+		if(null == datas || datas.size()<1){
+			j.setMsg("没有查询到报表信息");
+			j.setSuccess(false);
+			return j;
+		}
 		j.setMsg(datas.toString());
+		j.setMsg2(datas2.toString());	
+		j.setProjectId(ids);
 		j.setSuccess(true);
+		
+		return j;
+		
+	}
+	
+	/**
+	 * 获取项目数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:report2:add","feareport:report2:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getProjectDatas")
+	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		
+		String projectName = "";
+
+		AjaxJson j = new AjaxJson();
+		List<FeaProjectB> project = new ArrayList<FeaProjectB>();
+		
+		project = report2Service.getProjectDatas();
+		// 倒叙排序去第一条作为默认值返回
+		ids = project.get(0).getId();
+		projectName = project.get(0).getProjectName();
+		
+		j.setMsg("");
+		j.setProjectId(ids);
+		j.setProjectName(projectName);
+		j.setSuccess(true);
+		
 		return j;
 	}
 

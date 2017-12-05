@@ -142,17 +142,36 @@
 	
 	<script>
 		var hot;
+		var projectIds = '';
 		$(document).ready(function() {
-				//initreport();
-				testa();
+				init(projectIds);
 		});
 		
-		function testa(){
+		function init(projectIds){
+			if(projectIds.length ==0){
+ 				jp.get("${ctx}/feareport/report4/getProjectDatas?ids=" + projectIds, function (data) {
+ 					if(data.success){
+ 						$("#feaProjectBId").val(data.projectId);
+ 				    	$("#feaProjectBName").val(data.projectName);
+ 				    	execute(data.projectId);
+ 	      	  		}else{
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
+ 	      	  		}
+ 	            })
+ 			}
+ 			else{
+ 				execute(projectIds);
+ 			}
+		}
+		
+		function execute(projectIds){
 			jp.loading();
  
-			jp.get("${ctx}/feareport/report2/getReportDatas?ids=" + "啊啊", function (data) {
+			jp.get("${ctx}/feareport/report2/getReportDatas?ids=" + projectIds, function (data) {
 				var datas = data.msg;
-				initreport(datas);
+				var datas2 = data.msg2;
+				initreport(datas,datas2);
 				if(data.success){
       	  			//jp.success(data.msg);
       	  		}else{
@@ -163,7 +182,7 @@
 		
 		}
 		
-		function initreport(datas){
+		function initreport(datas,datas2){
 		
 /* 		序号	项目
 	
@@ -203,10 +222,18 @@
 		           ["4", "累计所得税前净现金流量"],
 		           ["5", "调整所得税"],
 		           ["6", "所得税后净现金流量（3-5）"],
-		           ["7", "累计所得税后净现金流量"]
+		           ["7", "累计所得税后净现金流量"],
+		           ["计算指标："],
+		           ["项目投资财务内部收益率（%）（所得税前）","","","",""],
+		           ["项目投资财务内部收益率（%）（所得税后）","","","",""],
+		           ["项目投资财务净现值（万元）（所得税前）","","","",""],
+		           ["项目投资财务净现值（万元）（所得税后）","","","",""],
+		           ["项目投资回收期（年）（所得税前）	","","","",""],
+		           ["项目投资回收期（年）（所得税后）","","","",""]
 		    ];
  			//报表数据
 			var array = eval(datas);
+			var array2 = eval(datas2);
 			var colLeg = array[0].length;
 			//计算年份数据 和 时期数据
 			var yearAndPeriodArray = yearAndPeriodDatas(colLeg);
@@ -230,6 +257,18 @@
                     td.style.lineHeight =4;
                     td.style.textAlign = 'right';
             }
+            function col1Renderer(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                    td.style.color = '#000000';
+                    td.style.textAlign = 'left';
+                    //td.style.fontSize= = 50px;
+            }
+            function row20col3Renderer(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                    td.style.color = '#000000';
+                    td.style.textAlign = 'right';
+                    td.innerText = value != null ? fmoney(value ,2) : "0.00";
+            }
             function formatamount(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                     td.style.color = '#000000';
@@ -239,6 +278,8 @@
             Handsontable.renderers.registerRenderer('firstRowRenderer', firstRowRenderer);
             Handsontable.renderers.registerRenderer('SecondRowRenderer', SecondRowRenderer);
             Handsontable.renderers.registerRenderer('ThirdRowRenderer', ThirdRowRenderer);
+            Handsontable.renderers.registerRenderer('col1Renderer', col1Renderer);
+            Handsontable.renderers.registerRenderer('row20col3Renderer', row20col3Renderer);
             Handsontable.renderers.registerRenderer('formatamount', formatamount);
             
             var hotElement = document.getElementById('report');
@@ -249,8 +290,8 @@
 			    //stretchH: 'all',
 			    //width: 1648,
 			    autoWrapRow: true,
-			    height: 500,
-			    maxRows: 22,
+			    height: 650,
+			    maxRows: 50,
 			    //maxCols: 15,
 			    colWidths:colWidthsArray,
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
@@ -266,12 +307,26 @@
 			    	//其他行
 			    	{row:2, col:0, rowspan:2, colspan:1},
 			    	{row:2, col:2, rowspan:2, colspan:1},
-			    	{row:2, col:1, rowspan:2, colspan:1}
+			    	{row:2, col:1, rowspan:2, colspan:1},
+			    	{row:19, col:3, rowspan:1, colspan:31},
+			    	{row:19, col:0, rowspan:1, colspan:2},
+			    	{row:20, col:0, rowspan:1, colspan:2},
+			    	{row:20, col:3, rowspan:1, colspan:31},
+			    	{row:21, col:0, rowspan:1, colspan:2},
+			    	{row:21, col:3, rowspan:1, colspan:31},
+			    	{row:22, col:0, rowspan:1, colspan:2},
+			    	{row:22, col:3, rowspan:1, colspan:31},
+			    	{row:23, col:0, rowspan:1, colspan:2},
+			    	{row:23, col:3, rowspan:1, colspan:31},
+			    	{row:24, col:0, rowspan:1, colspan:2},
+			    	{row:24, col:3, rowspan:1, colspan:31},
+			    	{row:25, col:0, rowspan:1, colspan:2},
+			    	{row:25, col:3, rowspan:1, colspan:31}
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
 			    cells: function(row, col, prop) {//单元格渲染  
-			    	if(row>3 && col>1){
+			    	if(row>3 && row < 19 && col>1){
 			    		this.renderer = formatamount;
 			    	}
 			    	else if(row==1){
@@ -280,12 +335,51 @@
 			    	/* else if(row==2){
 			    		this.renderer = ThirdRowRenderer;
 			    	} */
+			    	else if(row >3 && (col == 0 || col == 1)){
+			    		this.renderer = col1Renderer;
+			    	}
+			    	else if(row >19 && col == 2){
+			    		this.renderer = row20col3Renderer;
+			    	}
 			    	else{
                     	this.renderer = firstRowRenderer;
 			    	}
             	}, 
-            	fixedRowsTop:1,
-            	fixedColumnsLeft:3
+            	fixedRowsTop:4,
+            	fixedColumnsLeft:3,
+            	customBorders: [
+					{row: 19, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
+					{row: 20, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 21, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 22, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 23, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 24, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 25, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 19, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
+					{row: 20, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 21, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 22, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 23, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 24, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 25, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 19, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
+					{row: 20, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 21, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 22, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 23, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 24, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+					{row: 25, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
+				] 
+				/* customBorders: [
+				  {range: {
+				    from: {row: 19, col: 0},
+				    to: {row: 25, col: 33}},
+				    left: {width: 2, color: 'red'},
+				    right: {width: 2, color: 'red'},
+				    top: {width: 2, color: 'red'},
+				    bottom: {width: 2, color: 'red'}
+				  }
+				] */
             	
 			};
 	    	hot = new Handsontable(hotElement, hotSettings);
@@ -312,6 +406,7 @@
 			   */
 			 //填充报表数据
 		     hot.populateFromArray(4, 2, array, 18, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(20, 2, array2, 25, 2, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -330,10 +425,10 @@
 			for (var i = 0; i < colLeg + 2; i++) {
 				switch (i) {
 				case 0:
-					colWidthsArray[i] = 40;
+					colWidthsArray[i] = 50;
 					break;
 				case 1:
-					colWidthsArray[i] = 200;
+					colWidthsArray[i] = 280;
 					break;
 				default:
 					colWidthsArray[i] = 80;
@@ -376,7 +471,9 @@
 			return t.split("").reverse().join("") + "." + r;
 		}
 		
-		
+		function callback(projectIds){
+			init(projectIds);
+		}
 		
 		
 	</script>
@@ -393,8 +490,8 @@
 						<tr>
 							<td class="width-15 active"><label class="pull-right">项目：</label></td>
 							<td class="width-70">
-								<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
-									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
 							</td>
 							<td>
 								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>

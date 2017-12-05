@@ -2,14 +2,14 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>报表管理</title>
+	<title>EVA测算表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="reportOneList.js" %>
+	<%@include file="report10List.js" %>
 	
-	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
+		<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
 <%-- 	<script src="${ctxStatic}/common/js/exportReportUtil.js"></script> --%>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
@@ -150,24 +150,24 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/feareport/reportOne/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/report10/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
  				    	execute(data.projectId);
  	      	  		}else{
- 	      	  			jp.error("获取项目信息失败");
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
  	      	  		}
  	            })
- 			}
-			else{
+ 			}else{
  				execute(projectIds);
  			}
 		}
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/feareport/reportOne/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/feareport/report10/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -184,22 +184,19 @@
 			//给项目参照赋值
 			//固定数据
  			var data = [
-		           ["","","","总成本费用表"],
+		           ["","","","EVA测算表列表"],
 		           ["","","","人民币单位：万元"],
 		           ["序号", "项目", "合计","建设期","运行期"],
 		           [""],
-		           ["1", "折旧费"],
-		           ["2", "维修费"],
-		           ["3", "工资及福利"],
-		           ["4", "保险费"],
-		           ["5", "取暖费"],
-		           ["6", "摊销费"],
-		           ["7", "利息支出"],
-		           ["8", "趸热费"],
-		           ["", "固定成本"],
-		           ["", "可变成本"],
-		           ["", "总成本费用"],
-		           ["", "经营成本"]
+		           ["1","税后净营业利润"],
+					["1.1","净利润"],
+					["1.2","利息支出"],
+					["2","资本成本"],
+					["2.1","所有者权益"],
+					["2.2","负债小计"],
+					["2.3","在建工程"],
+					["3","EVA"],
+					["4","△EVA"]
 		    ];
  			//报表数据
 			var array = eval(datas);
@@ -321,7 +318,7 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 15, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 12, 33, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -340,7 +337,7 @@
 			for (var i = 0; i < colLeg + 2; i++) {
 				switch (i) {
 				case 0:
-					colWidthsArray[i] = 40;
+					colWidthsArray[i] = 45;
 					break;
 				case 1:
 					colWidthsArray[i] = 110;
@@ -391,13 +388,13 @@
 		}
 		
 	</script>
-
+	
 </head>
 <body>
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">总成本费用表</h3>
+				<h3 class="panel-title">EVA测算表列表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>

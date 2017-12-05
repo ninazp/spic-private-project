@@ -2,14 +2,14 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>报表管理</title>
+	<title>利润和利润分配表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="reportOneList.js" %>
+	<%@include file="report7List.js" %>
 	
-	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
+		<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
 <%-- 	<script src="${ctxStatic}/common/js/exportReportUtil.js"></script> --%>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
@@ -150,24 +150,24 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/feareport/reportOne/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/report7/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
  				    	execute(data.projectId);
  	      	  		}else{
- 	      	  			jp.error("获取项目信息失败");
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
  	      	  		}
  	            })
- 			}
-			else{
+ 			}else{
  				execute(projectIds);
  			}
 		}
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/feareport/reportOne/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/feareport/report7/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -183,23 +183,54 @@
 			
 			//给项目参照赋值
 			//固定数据
+			
+			/* ["1","营业收入"],
+["2","营业税金附加"],
+["2.1","城市维护建设税"],
+["2.2","教育费附加"],
+["3","总成本费用"],
+["4","补贴收入（应税）"],
+["5","利润总额（1-2-3+4）"],
+["6","弥补以前年度亏损"],
+["7","应纳税所得额（5-6）"],
+["8","所得税"],
+["9","补贴收入（免税）"],
+["10","净利润（5-8+9）"],
+["11","期初未分配的利润"],
+["12","可供分配的利润（10+11）"],
+["13","提取法定盈余公积金"],
+["14","可供投资者分配的利润（12-13）"],
+["15","提取任意盈余公积金"],
+["16","应付利润"],
+["17","未分配利润（14-15-16）"],
+["18","息税前利润（利润总额+利息支出）"],
+["19","息税折旧摊销前利润"] */
  			var data = [
-		           ["","","","总成本费用表"],
+		           ["","","","利润和利润分配表列表"],
 		           ["","","","人民币单位：万元"],
 		           ["序号", "项目", "合计","建设期","运行期"],
 		           [""],
-		           ["1", "折旧费"],
-		           ["2", "维修费"],
-		           ["3", "工资及福利"],
-		           ["4", "保险费"],
-		           ["5", "取暖费"],
-		           ["6", "摊销费"],
-		           ["7", "利息支出"],
-		           ["8", "趸热费"],
-		           ["", "固定成本"],
-		           ["", "可变成本"],
-		           ["", "总成本费用"],
-		           ["", "经营成本"]
+		           ["1","营业收入"],
+					["2","营业税金附加"],
+					["2.1","城市维护建设税"],
+					["2.2","教育费附加"],
+					["3","总成本费用"],
+					["4","补贴收入（应税）"],
+					["5","利润总额（1-2-3+4）"],
+					["6","弥补以前年度亏损"],
+					["7","应纳税所得额（5-6）"],
+					["8","所得税"],
+					["9","补贴收入（免税）"],
+					["10","净利润（5-8+9）"],
+					["11","期初未分配的利润"],
+					["12","可供分配的利润（10+11）"],
+					["13","提取法定盈余公积金"],
+					["14","可供投资者分配的利润（12-13）"],
+					["15","提取任意盈余公积金"],
+					["16","应付利润"],
+					["17","未分配利润（14-15-16）"],
+					["18","息税前利润（利润总额+利息支出）"],
+					["19","息税折旧摊销前利润"]
 		    ];
  			//报表数据
 			var array = eval(datas);
@@ -254,8 +285,8 @@
 			    //stretchH: 'all',
 			    //width: 1648,
 			    autoWrapRow: true,
-			    height: 500,
-			    maxRows: 22,
+			    height: 650,
+			    maxRows: 50,
 			    //maxCols: 15,
 			    colWidths:colWidthsArray,
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
@@ -321,7 +352,7 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 15, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 24, 33, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -343,7 +374,7 @@
 					colWidthsArray[i] = 40;
 					break;
 				case 1:
-					colWidthsArray[i] = 110;
+					colWidthsArray[i] =250;
 					break;
 				default:
 					colWidthsArray[i] = 80;
@@ -391,13 +422,13 @@
 		}
 		
 	</script>
-
+	
 </head>
 <body>
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">总成本费用表</h3>
+				<h3 class="panel-title">利润和利润分配表列表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>

@@ -2,14 +2,14 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>报表管理</title>
+	<title>资金来源与运用表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="reportOneList.js" %>
+	<%@include file="report8List.js" %>
 	
-	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
+		<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
 <%-- 	<script src="${ctxStatic}/common/js/exportReportUtil.js"></script> --%>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
@@ -150,24 +150,24 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/feareport/reportOne/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/report8/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
  				    	execute(data.projectId);
  	      	  		}else{
- 	      	  			jp.error("获取项目信息失败");
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
  	      	  		}
  	            })
- 			}
-			else{
+ 			}else{
  				execute(projectIds);
  			}
 		}
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/feareport/reportOne/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/feareport/report8/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -183,23 +183,54 @@
 			
 			//给项目参照赋值
 			//固定数据
+			
+			/* ["1 ","资金来源"],
+["1.1","利润总额"],
+["1.2","折旧费"],
+["1.3","摊销费"],
+["1.4","长期借款"],
+["1.5","流动资金借款"],
+["1.6","其他短期借款"],
+["1.7","资本金"],
+["1.8","配套费"],
+["1.9","回收固定资产余值"],
+["1.10 ","回收流动资金"],
+["2 ","资金运用"],
+["2.1","固定资产投资"],
+["2.2","建设期利息"],
+["2.3","流动资金"],
+["2.4","所得税"],
+["2.5","应付利润"],
+["2.6 ","借款本金偿还"],
+["2.7 ","其他"],
+["3 ","盈余资金（1-2）"],
+["4 ","累计盈余资金"] */
  			var data = [
-		           ["","","","总成本费用表"],
+		           ["","","","资金来源与运用表列表"],
 		           ["","","","人民币单位：万元"],
 		           ["序号", "项目", "合计","建设期","运行期"],
 		           [""],
-		           ["1", "折旧费"],
-		           ["2", "维修费"],
-		           ["3", "工资及福利"],
-		           ["4", "保险费"],
-		           ["5", "取暖费"],
-		           ["6", "摊销费"],
-		           ["7", "利息支出"],
-		           ["8", "趸热费"],
-		           ["", "固定成本"],
-		           ["", "可变成本"],
-		           ["", "总成本费用"],
-		           ["", "经营成本"]
+		           ["1 ","资金来源"],
+					["1.1","利润总额"],
+					["1.2","折旧费"],
+					["1.3","摊销费"],
+					["1.4","长期借款"],
+					["1.5","流动资金借款"],
+					["1.6","其他短期借款"],
+					["1.7","资本金"],
+					["1.8","配套费"],
+					["1.9","回收固定资产余值"],
+					["1.10 ","回收流动资金"],
+					["2 ","资金运用"],
+					["2.1","固定资产投资"],
+					["2.2","建设期利息"],
+					["2.3","流动资金"],
+					["2.4","所得税"],
+					["2.5","应付利润"],
+					["2.6 ","借款本金偿还"],
+					["2.7 ","其他"],
+					["3 ","盈余资金（1-2）"],
+					["4 ","累计盈余资金"]
 		    ];
  			//报表数据
 			var array = eval(datas);
@@ -254,8 +285,8 @@
 			    //stretchH: 'all',
 			    //width: 1648,
 			    autoWrapRow: true,
-			    height: 500,
-			    maxRows: 22,
+			    height: 650,
+			    maxRows: 50,
 			    //maxCols: 15,
 			    colWidths:colWidthsArray,
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
@@ -321,7 +352,7 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 15, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 24, 33, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -343,7 +374,7 @@
 					colWidthsArray[i] = 40;
 					break;
 				case 1:
-					colWidthsArray[i] = 110;
+					colWidthsArray[i] = 150;
 					break;
 				default:
 					colWidthsArray[i] = 80;
@@ -391,13 +422,13 @@
 		}
 		
 	</script>
-
+	
 </head>
 <body>
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">总成本费用表</h3>
+				<h3 class="panel-title">资金来源与运用表列表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>

@@ -3,7 +3,6 @@
  */
 package com.jeeplus.modules.feareport.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,41 +18,41 @@ import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.pub.util.CreateReportPubDMO;
-import com.jeeplus.modules.feareport.entity.Report3;
-import com.jeeplus.modules.feareport.mapper.Report3Mapper;
+import com.jeeplus.modules.feareport.entity.Report7;
+import com.jeeplus.modules.feareport.mapper.Report7Mapper;
 
 /**
- * 项目资本金现金流量表Service
+ * 利润和利润分配表Service
  * @author zp
- * @version 2017-12-03
+ * @version 2017-12-05
  */
 @Service
 @Transactional(readOnly = true)
-public class Report3Service extends CrudService<Report3Mapper, Report3> {
+public class Report7Service extends CrudService<Report7Mapper, Report7> {
 	
 	@Autowired
 	private FeaProjectBMapper projectmapper;
 
-	public Report3 get(String id) {
+	public Report7 get(String id) {
 		return super.get(id);
 	}
 	
-	public List<Report3> findList(Report3 report3) {
-		return super.findList(report3);
+	public List<Report7> findList(Report7 report7) {
+		return super.findList(report7);
 	}
 	
-	public Page<Report3> findPage(Page<Report3> page, Report3 report3) {
-		return super.findPage(page, report3);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(Report3 report3) {
-		super.save(report3);
+	public Page<Report7> findPage(Page<Report7> page, Report7 report7) {
+		return super.findPage(page, report7);
 	}
 	
 	@Transactional(readOnly = false)
-	public void delete(Report3 report3) {
-		super.delete(report3);
+	public void save(Report7 report7) {
+		super.save(report7);
+	}
+	
+	@Transactional(readOnly = false)
+	public void delete(Report7 report7) {
+		super.delete(report7);
 	}
 	
 	public List<List<Double>> getReportDatas(String ids){
@@ -68,28 +67,7 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 			 reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		
-		return null != reportmap ? reportmap.get("项目资本金现金流量表") : null;
-	}
-	
-	public List<List<Double>> getReportDatas2(List<List<Double>> capitalTable){
-		List<Double> reportList = new ArrayList<Double>();
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		Object reportbean = wac.getBean("createReportPubDMO");
-		
-		if(null!=reportbean){
-			reportList = ((CreateReportPubDMO)reportbean).getcapital_irrnpv(capitalTable);
-		}
-		
-		List<List<Double>> reList = new ArrayList<List<Double>>();
-		
-		for(Double temp : reportList){
-			List<Double> tempLi = new ArrayList<Double>();
-			tempLi.add(temp);
-			reList.add(tempLi);
-		}
-		
-		//reList.add(reportList);
-		return reList;
+		return null != reportmap ? reportmap.get("利润和利润分配表") : null;
 	}
 	
 	public List<FeaProjectB> getProjectDatas(){

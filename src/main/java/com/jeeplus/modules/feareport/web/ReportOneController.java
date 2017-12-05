@@ -3,7 +3,7 @@
  */
 package com.jeeplus.modules.feareport.web;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,28 +25,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
-import com.jeeplus.common.utils.IdGen;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.BaseMapper;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.service.CrudService;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
-import com.jeeplus.modules.fea.mapper.totaltab.Fea_finansumVOMapper;
-import com.jeeplus.modules.fea.service.project.FeaProjectBService;
-import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
-import com.jeeplus.modules.fea.web.project.FeaProjectBController;
 import com.jeeplus.modules.feareport.entity.ReportOne;
 import com.jeeplus.modules.feareport.service.ReportOneService;
-import com.jeeplus.modules.iim.entity.LayGroup;
-import com.jeeplus.modules.iim.entity.LayGroupUser;
-import com.jeeplus.modules.sys.entity.User;
 
 /**
  * 报表Controller
@@ -230,22 +219,8 @@ public class ReportOneController extends BaseController {
 	@RequestMapping(value = "getReportDatas")
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
-		String projectName = "";
 		AjaxJson j = new AjaxJson();
-		LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();
-		
-		if(null == ids || "".equals(ids)){
-			List<FeaProjectB> project = reportOneService.getProjectDatas();
-			if(null != project && project.size() > 0){
-				ids = project.get(0).getId();
-				projectName = project.get(0).getProjectName();
-			}else{
-				j.setMsg("没有项目信息，无法展示报表");
-				j.setSuccess(false);
-				return j;
-			}
-		}
-		
+
 		List<List<Double>> datas = reportOneService.getReportDatas(ids);
 		
 		if(null == datas || datas.size()<1){
@@ -253,11 +228,36 @@ public class ReportOneController extends BaseController {
 			j.setSuccess(false);
 			return j;
 		}
-		body.put("datas", datas);
 		j.setMsg(datas.toString());
+		j.setProjectId(ids);
+		j.setSuccess(true);
+		
+		return j;
+	}
+	
+	/**
+	 * 获取项目数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:reportOne:add","feareport:reportOne:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getProjectDatas")
+	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		
+		String projectName = "";
+
+		AjaxJson j = new AjaxJson();
+		List<FeaProjectB> project = new ArrayList<FeaProjectB>();
+		
+		project = reportOneService.getProjectDatas();
+		// 倒叙排序去第一条作为默认值返回
+		ids = project.get(0).getId();
+		projectName = project.get(0).getProjectName();
+		
+		j.setMsg("");
 		j.setProjectId(ids);
 		j.setProjectName(projectName);
 		j.setSuccess(true);
+		
 		return j;
 	}
 	

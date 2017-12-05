@@ -22,6 +22,7 @@ public class AjaxJson {
 	private String msg = "操作成功";// 提示信息
 	private String projectId;//项目编号
 	private String projectName;//项目名称
+	private String msg2 = "";
 	private LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();//封装json的map
 	
 	public LinkedHashMap<String, Object> getBody() {
@@ -88,5 +89,15 @@ public class AjaxJson {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
+	public String getMsg2() {
+		return msg2;
+	}
+
+	public void setMsg2(String msg2) {
+		this.msg2 = msg2;
+	}
+	
+	
 	
 }

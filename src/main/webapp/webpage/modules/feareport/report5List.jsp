@@ -2,14 +2,14 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>报表管理</title>
+	<title>投资计划与资金筹措表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="reportOneList.js" %>
+	<%@include file="report5List.js" %>
 	
-	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
+		<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
 <%-- 	<script src="${ctxStatic}/common/js/exportReportUtil.js"></script> --%>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
@@ -150,24 +150,25 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/feareport/reportOne/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/report5/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
  				    	execute(data.projectId);
  	      	  		}else{
- 	      	  			jp.error("获取项目信息失败");
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
  	      	  		}
  	            })
  			}
-			else{
+ 			else{
  				execute(projectIds);
  			}
 		}
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/feareport/reportOne/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/feareport/report5/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -183,23 +184,38 @@
 			
 			//给项目参照赋值
 			//固定数据
+			
+/* 			["1","总投资"],
+["1.1","建设投资"],
+["1.2","建设期利息"],
+["1.3","流动资金"],
+["2","资金筹措"],
+["2.1","资本金（资金筹措）"],
+["2.1.1","建设投资资本金"],
+["2.1.2","流动资金资本金"],
+["2.2","借款"],
+["2.2.1","长期借款"],
+["","长期借款本金"],
+["","建设期利息"],
+["2.2.2","流动资金借款"] */
  			var data = [
-		           ["","","","总成本费用表"],
-		           ["","","","人民币单位：万元"],
-		           ["序号", "项目", "合计","建设期","运行期"],
-		           [""],
-		           ["1", "折旧费"],
-		           ["2", "维修费"],
-		           ["3", "工资及福利"],
-		           ["4", "保险费"],
-		           ["5", "取暖费"],
-		           ["6", "摊销费"],
-		           ["7", "利息支出"],
-		           ["8", "趸热费"],
-		           ["", "固定成本"],
-		           ["", "可变成本"],
-		           ["", "总成本费用"],
-		           ["", "经营成本"]
+		           ["投资计划与资金筹措表列表","","",""],
+		           ["人民币单位：万元","","",""],
+		           ["序号", "项目", "合计",""],
+		           ["","","",""],
+		           ["1","总投资"],
+				   ["1.1","建设投资"],
+				   ["1.2","建设期利息"],
+					["1.3","流动资金"],
+					["2","资金筹措"],
+					["2.1","资本金（资金筹措）"],
+					["2.1.1","建设投资资本金"],
+					["2.1.2","流动资金资本金"],
+					["2.2","借款"],
+					["2.2.1","长期借款"],
+					["","长期借款本金"],
+					["","建设期利息"],
+					["2.2.2","流动资金借款"]
 		    ];
  			//报表数据
 			var array = eval(datas);
@@ -254,7 +270,7 @@
 			    //stretchH: 'all',
 			    //width: 1648,
 			    autoWrapRow: true,
-			    height: 500,
+			    height: 600,
 			    maxRows: 22,
 			    //maxCols: 15,
 			    colWidths:colWidthsArray,
@@ -263,17 +279,16 @@
 			    rowHeaders: true,
 			    mergeCells: [
 			        //第一行
-			    	{row:0, col:3, rowspan:1, colspan:colLeg - 1},
-			    	{row:0, col:0, rowspan:1, colspan:3},
+			    	{row:0, col:0, rowspan:1, colspan:colLeg+2},
 			    	//第二行
-			    	{row:1, col:3, rowspan:1, colspan:colLeg - 1},
-			    	{row:1, col:0, rowspan:1, colspan:3},
+			    	{row:1, col:0, rowspan:1, colspan:colLeg+2},
 			    	//第三行
 			    	//{row:2, col:4, rowspan:1, colspan:10},//冻结的话  合并不生效
 			    	//其他行
 			    	{row:2, col:0, rowspan:2, colspan:1},
-			    	{row:2, col:2, rowspan:2, colspan:1},
-			    	{row:2, col:1, rowspan:2, colspan:1}
+			    	{row:2, col:1, rowspan:2, colspan:1},
+			    	{row:2, col:2, rowspan:2, colspan:1}
+			    	
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
@@ -293,9 +308,7 @@
 			    	else{
                     	this.renderer = firstRowRenderer;
 			    	}
-            	}, 
-            	fixedRowsTop:4,
-            	fixedColumnsLeft:3
+            	}
             	
 			};
 	    	hot = new Handsontable(hotElement, hotSettings);
@@ -321,9 +334,9 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 15, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 16, 3, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 3, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}
@@ -340,13 +353,13 @@
 			for (var i = 0; i < colLeg + 2; i++) {
 				switch (i) {
 				case 0:
-					colWidthsArray[i] = 40;
+					colWidthsArray[i] = 45;
 					break;
 				case 1:
-					colWidthsArray[i] = 110;
+					colWidthsArray[i] = 150;
 					break;
 				default:
-					colWidthsArray[i] = 80;
+					colWidthsArray[i] = 110;
 				}
 			}
 			return colWidthsArray;
@@ -391,13 +404,13 @@
 		}
 		
 	</script>
-
+	
 </head>
 <body>
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">总成本费用表</h3>
+				<h3 class="panel-title">投资计划与资金筹措表列表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>

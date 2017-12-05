@@ -3,39 +3,21 @@
  */
 package com.jeeplus.modules.feareport.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
-import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
-import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
-import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
-import com.jeeplus.modules.fea.pub.util.BalanceHandler;
-import com.jeeplus.modules.fea.pub.util.CapitalHandler;
-import com.jeeplus.modules.fea.pub.util.CapitalSrcHandler;
-import com.jeeplus.modules.fea.pub.util.EVAHandler;
-import com.jeeplus.modules.fea.pub.util.FinanceHandler;
-import com.jeeplus.modules.fea.pub.util.InvestFlowHandler;
-import com.jeeplus.modules.fea.pub.util.LoanRepayHandler;
-import com.jeeplus.modules.fea.pub.util.ProfitHandler;
-import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
-import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
-import com.jeeplus.modules.fea.pub.util.TotalCostHander;
-import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
-import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
+import com.jeeplus.modules.fea.pub.util.CreateReportPubDMO;
 import com.jeeplus.modules.feareport.entity.Report4;
 import com.jeeplus.modules.feareport.mapper.Report4Mapper;
 
@@ -47,6 +29,9 @@ import com.jeeplus.modules.feareport.mapper.Report4Mapper;
 @Service
 @Transactional(readOnly = true)
 public class Report4Service extends CrudService<Report4Mapper, Report4> {
+	
+	@Autowired
+	private FeaProjectBMapper projectmapper;
 	
 	public Report4 get(String id) {
 		return super.get(id);
@@ -71,13 +56,22 @@ public class Report4Service extends CrudService<Report4Mapper, Report4> {
 	}
 	
 	public List<List<Double>> getReportDatas(String ids){
-		Fea_finansumVOService service = new Fea_finansumVOService();
-		Map<String,List<List<Double>>> map = service.getReportDatas(ids);
-		List<List<Double>> retLi = new ArrayList<List<Double>>();
-		if(null != map && map.size()>0){
-			retLi = map.get("财务计划现金流量表");
+		Map<String,List<List<Double>>> reportmap = new HashMap<String,List<List<Double>>>();
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		Object reportbean = wac.getBean("createReportPubDMO");
+		
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("projectid", ids);
+		
+		if(null!=reportbean){
+			 reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
 		}
-		return retLi;
+		
+		return null != reportmap ? reportmap.get("财务计划现金流量表") : null;
+	}
+	
+	public List<FeaProjectB> getProjectDatas(){
+		return projectmapper.findAllList(new FeaProjectB());
 	}
 	
 }

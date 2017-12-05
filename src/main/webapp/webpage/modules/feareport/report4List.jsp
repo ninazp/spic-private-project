@@ -142,15 +142,33 @@
 	</script>
 	<script>
 		var hot;
+		var projectIds = '';
 		$(document).ready(function() {
-				//initreport();
-				testa();
+				init(projectIds);
 		});
 		
-		function testa(){
+		function init(projectIds){
+			if(projectIds.length ==0){
+ 				jp.get("${ctx}/feareport/report4/getProjectDatas?ids=" + projectIds, function (data) {
+ 					if(data.success){
+ 						$("#feaProjectBId").val(data.projectId);
+ 				    	$("#feaProjectBName").val(data.projectName);
+ 				    	execute(data.projectId);
+ 	      	  		}else{
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
+ 	      	  		}
+ 	            })
+ 			}
+ 			else{
+ 				execute(projectIds);
+ 			}
+		}
+		
+		function execute(projectIds){
 			jp.loading();
  
-			jp.get("${ctx}/feareport/report4/getReportDatas?ids=" + "啊啊", function (data) {
+			jp.get("${ctx}/feareport/report4/getReportDatas?ids=" + projectIds, function (data) {
 				var datas = data.msg;
 				initreport(datas);
 				if(data.success){
@@ -269,6 +287,12 @@
                     td.style.lineHeight =4;
                     td.style.textAlign = 'right';
             }
+            function col1Renderer(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                    td.style.color = '#000000';
+                    td.style.textAlign = 'left';
+                    //td.style.fontSize= = 50px;
+            }
             function formatamount(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                     td.style.color = '#000000';
@@ -278,6 +302,7 @@
             Handsontable.renderers.registerRenderer('firstRowRenderer', firstRowRenderer);
             Handsontable.renderers.registerRenderer('SecondRowRenderer', SecondRowRenderer);
             Handsontable.renderers.registerRenderer('ThirdRowRenderer', ThirdRowRenderer);
+            Handsontable.renderers.registerRenderer('col1Renderer', col1Renderer);
             Handsontable.renderers.registerRenderer('formatamount', formatamount);
             
             var hotElement = document.getElementById('report');
@@ -288,7 +313,7 @@
 			    //stretchH: 'all',
 			    //width: 1648,
 			    autoWrapRow: true,
-			    height: 500,
+			    height: 700,
 			    maxRows: 100,
 			    //maxCols: 15,
 			    colWidths:colWidthsArray,
@@ -319,11 +344,14 @@
 			    	/* else if(row==2){
 			    		this.renderer = ThirdRowRenderer;
 			    	} */
+			    	else if(row >3 && (col == 0 || col == 1)){
+			    		this.renderer = col1Renderer;
+			    	}
 			    	else{
                     	this.renderer = firstRowRenderer;
 			    	}
             	}, 
-            	fixedRowsTop:1,
+            	fixedRowsTop:4,
             	fixedColumnsLeft:3
             	
 			};
@@ -372,7 +400,7 @@
 					colWidthsArray[i] = 40;
 					break;
 				case 1:
-					colWidthsArray[i] = 150;
+					colWidthsArray[i] = 200;
 					break;
 				default:
 					colWidthsArray[i] = 80;
@@ -415,7 +443,9 @@
 			return t.split("").reverse().join("") + "." + r;
 		}
 		
-		
+		function callback(projectIds){
+			init(projectIds);
+		}
 		
 		
 	</script>
@@ -433,8 +463,8 @@
 						<tr>
 							<td class="width-15 active"><label class="pull-right">项目：</label></td>
 							<td class="width-70">
-								<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
-									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
 							</td>
 							<td>
 								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>

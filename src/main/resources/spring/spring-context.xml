@@ -25,6 +25,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<bean id="createReportPubDMO" class="com.jeeplus.modules.fea.pub.util.CreateReportPubDMO"></bean>
+	
  	<!-- MyBatis begin -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>

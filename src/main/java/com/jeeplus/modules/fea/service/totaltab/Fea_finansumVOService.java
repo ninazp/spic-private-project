@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.core.persistence.Page;
@@ -81,28 +83,17 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 
 	@Transactional(readOnly = false)
 	public void delete(Fea_finansumVO fea_finansumVO) {
-		Map<String,BaseMapper> maper = new HashMap<String, BaseMapper>();
-		maper.put("projectmapper", projectmapper);
-		maper.put("fea_fundssrcVOMapper", fea_fundssrcVOMapper);
-		maper.put("fea_fundssrcTVOMapper", fea_fundssrcTVOMapper);
-		maper.put("fea_investdisVOMapper", fea_investdisVOMapper);
-		maper.put("fea_investdisBVOMapper", fea_investdisBVOMapper);
-		maper.put("fea_productcostVOmapper", fea_productcostVOmapper);
-		maper.put("fea_productcostBVOmapper", fea_productcostBVOmapper);
-		maper.put("fea_capformVOMapper", fea_capformVOMapper);
-		maper.put("fea_costinfoVOMapper", fea_costinfoVOMapper);
-		maper.put("fea_incosubsidyVOMapper", fea_incosubsidyVOMapper);
-		maper.put("fea_incomesetVOMapper", fea_incomesetVOMapper);
-		maper.put("fea_costfecfVOMapper", fea_costfecfVOMapper);
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		Object reportbean = wac.getBean("createReportPubDMO");
 		
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("projectid", "dc940aa030b04f9ab32e543574cc847d");
-		Map<String,List<List<Double>>> reporttable = CreateReportPubDMO.getallreporttable(maper, param);
 		
-		List<Double> investirrnpv = CreateReportPubDMO.getinvest_irrnpv(reporttable.get("项目投资现金流量表"));
-		List<Double> capitalirrnpv =  CreateReportPubDMO.getcapital_irrnpv(reporttable.get("项目资本金现金流量表"));
+		if(null!=reportbean){
+			 Map<String,List<List<Double>>> reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
+			 System.out.println(reportmap+"");
+		}
 		
-		System.out.println(investirrnpv+""+capitalirrnpv);
 	}
 	
 	@Transactional(readOnly = false)

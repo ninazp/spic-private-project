@@ -5,13 +5,72 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
+import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
+import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
+import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
+import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 
 public class CreateReportPubDMO {
-
-   public static Map<String,List<List<Double>>> getallreporttable(Map<String,BaseMapper> maper,Map<String,Object> parammap){
+	@Autowired
+	private FeaProjectBMapper projectmapper;
+	@Autowired
+	private Fea_fundssrcVOMapper fea_fundssrcVOMapper;
+	@Autowired
+	private Fea_fundssrcTVOMapper fea_fundssrcTVOMapper;
+	@Autowired
+	private Fea_investdisVOMapper fea_investdisVOMapper;
+	@Autowired
+	private Fea_investdisBVOMapper fea_investdisBVOMapper;
+	@Autowired
+	private Fea_productcostVOMapper fea_productcostVOmapper;
+	@Autowired
+	private Fea_productcostBVOMapper fea_productcostBVOmapper;
+	@Autowired
+	private Fea_capformVOMapper fea_capformVOMapper;
+	@Autowired
+	private Fea_costinfoVOMapper fea_costinfoVOMapper;
+	@Autowired
+	private Fea_incosubsidyVOMapper fea_incosubsidyVOMapper;
+	@Autowired
+	private Fea_incomesetVOMapper fea_incomesetVOMapper;
+	
+	@Autowired
+	private Fea_costfecfVOMapper fea_costfecfVOMapper;
+	
+	public Map<String,List<List<Double>>> getallreportnostatic(Map<String,Object> param){
+		Map<String,BaseMapper> maper = new HashMap<String, BaseMapper>();
+		maper.put("projectmapper", projectmapper);
+		maper.put("fea_fundssrcVOMapper", fea_fundssrcVOMapper);
+		maper.put("fea_fundssrcTVOMapper", fea_fundssrcTVOMapper);
+		maper.put("fea_investdisVOMapper", fea_investdisVOMapper);
+		maper.put("fea_investdisBVOMapper", fea_investdisBVOMapper);
+		maper.put("fea_productcostVOmapper", fea_productcostVOmapper);
+		maper.put("fea_productcostBVOmapper", fea_productcostBVOmapper);
+		maper.put("fea_capformVOMapper", fea_capformVOMapper);
+		maper.put("fea_costinfoVOMapper", fea_costinfoVOMapper);
+		maper.put("fea_incosubsidyVOMapper", fea_incosubsidyVOMapper);
+		maper.put("fea_incomesetVOMapper", fea_incomesetVOMapper);
+		maper.put("fea_costfecfVOMapper", fea_costfecfVOMapper);
+		
+		Map<String,List<List<Double>>> reporttable = CreateReportPubDMO.getallreporttable(maper, param);
+		
+		return reporttable;
+	}
+	
+     public static Map<String,List<List<Double>>> getallreporttable(Map<String,BaseMapper> maper,Map<String,Object> parammap){
 	   
 	   Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
 	     if(null==parammap || (!parammap.containsKey("projectid"))){
@@ -126,7 +185,7 @@ public class CreateReportPubDMO {
        return retmap;
 	}
    
-   public static List<Double> getcapital_irrnpv(List<List<Double>> capitalTable){
+   public List<Double> getcapital_irrnpv(List<List<Double>> capitalTable){
        List<Double> retlst = new ArrayList<Double>();
 	   Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 		0.07, 0.06, "3");
@@ -138,7 +197,7 @@ public class CreateReportPubDMO {
       return retlst;
    }
    
-   public static List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){
+   public List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){
        List<Double> retlst = new ArrayList<Double>();
 	   Double doub3 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
 		0.07, 0.06, "3");

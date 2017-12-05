@@ -60,9 +60,6 @@ public class ReportOneController extends BaseController {
 	@Autowired
 	private ReportOneService reportOneService;
 	
-	@Autowired
-	private FeaProjectBService feaProjectBService;
-	
 	@ModelAttribute
 	public ReportOne get(@RequestParam(required=false) String id) {
 		ReportOne entity = null;

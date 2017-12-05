@@ -218,7 +218,7 @@ public class Report3Controller extends BaseController {
 	@RequestMapping(value = "getReportDatas")
 	public AjaxJson getReportDatas(String ids, RedirectAttributes redirectAttributes) throws Exception{
 		
-		List<List<Double>> datas = report3Service.getReportDatas();
+		List<List<Double>> datas = report3Service.getReportDatas(ids);
 		AjaxJson j = new AjaxJson();
 		LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();
 		body.put("datas", datas);

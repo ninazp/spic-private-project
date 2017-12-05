@@ -22,6 +22,7 @@ public class FinanceShortHandler {
 							){
 						shortamt = Math.abs(financedoub)/(1-(shortrate/100));
 						shortamt = shortamt+((Math.abs(financedoub)/(1-(shortrate/100)))+financedoub)/(1-(shortrate/100));
+						shortamt = shortamt/0.75;
 						start2++;
 					}else if(start2<1){
 						shortamt = shortamt + (flowmnysum.get(i-1)+retlst.get(i-1))/(1-(shortrate/100));

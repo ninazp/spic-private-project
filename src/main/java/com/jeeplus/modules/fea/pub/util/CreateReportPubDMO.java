@@ -175,6 +175,8 @@ public class CreateReportPubDMO {
 		retmap.put("项目资本金现金流量表",capitalTable ); retmap.put("资金来源与运用表",capitalsrcTable );retmap.put("资产负债表",balancetable ); 
 		retmap.put("EVA测算表", eVAHandlerTable); 
 
+		
+	      getinvest_irrnpv(investHandlerTable);
 
 		return retmap;
 	}

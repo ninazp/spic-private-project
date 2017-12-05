@@ -119,7 +119,7 @@
 				
 				</li>
 			
-				<li class="dropdown color-picker">
+				<!-- <li class="dropdown color-picker">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						<span><i class="fa fa-circle"></i></span>
 					</a>
@@ -163,7 +163,7 @@
 							</table>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				
 				
 				<li>

@@ -6,7 +6,91 @@
 <html>
 
 	<head>
-	<meta name="decorator" content="ani"/>
+	<style>
+		*{margin: 0;padding: 0;}
+		#container {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+		}
+		#output {
+			width: 100%;
+			height: 100%;
+		}
+		.color{
+			width: 120px;
+			height: 20px;
+			margin: 0 auto;
+			position: fixed;
+			left: 50%;
+			margin-left: -60px;
+			bottom: 20px;
+		}
+		.color li{
+			float: left;
+			margin: 0 5px;
+			width: 20px;
+			height: 20px;
+			background: #ccc;
+			box-shadow: 0 0 4px #FFF;
+			list-style: none;
+			cursor: pointer;
+		}
+		.color li:nth-child(1){
+			background: #002c4a;
+		}
+		.color li:nth-child(2){
+			background: #35ac03;
+		}
+		.color li:nth-child(3){
+			background: #ac0908;
+		}
+		.color li:nth-child(4){
+			background: #18bbff;
+		}
+		.login-page1 {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  overflow: auto;
+		  text-align: center;
+		  padding: 3em;
+		}
+		.login-page1 h1 {
+		  font-weight: 300;
+		}
+		.login-page1 h1 small {
+		}
+		.login-page1 .form-group {
+		  padding: 8px 0;
+		}
+		.login-page1 .form-content {
+		  padding: 40px 0;
+		}
+	</style>
+	<script src="${ctxStatic}/common/js/login-background-jquery.js"></script>
+	<script src="${ctxStatic}/common/js/login-background-vector.js"></script>
+	<script>
+		$(function(){
+			// 初始化 传入dom id
+			var victor = new Victor("container", "output");
+			var theme = [
+					["#002c4a", "#005584"],
+					["#35ac03", "#3f4303"],
+					["#ac0908", "#cd5726"],
+					["#18bbff", "#00486b"]
+				]
+			$(".color li").each(function(index, val) {
+				var color = theme[index];
+				 $(this).mouseover(function(){
+					victor(color).set();
+				 })
+			});
+		});
+	</script>
+		<meta name="decorator" content="ani"/>
 		<title>${fns:getConfig('productName')} 登录</title>
 		<script>
 			if (window.top !== window.self) {
@@ -40,9 +124,8 @@
 
 	
 	<body>
-		
-
-		<div class="login-page">
+		<div id="container"><div id="output"></div></div>
+		<div class="login-page1">
 		<div class="row">
 			<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
 				<img class="img-circleSP" src="${ctxStatic}/common/images/logo.png" class="user-avatar"/>
@@ -63,56 +146,10 @@
 							<sys:validateCode name="validateCode" inputCssStyle="margin-bottom:5px;" buttonCssStyle="color:white"/>
 						</div>
 						</c:if>
-							<ul class="pull-right btn btn-info btn-circle" style="background-color:white;height:45px;width:46px">	
-								<li class="dropdown color-picker" >
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-										<span><i class="fa fa-circle"></i></span>
-									</a>
-									<ul class="dropdown-menu pull-right animated fadeIn" role="menu">
-										<li class="padder-h-xs">
-											<table class="table color-swatches-table text-center no-m-b">
-												<tr>
-													<td class="text-center colorr">
-														<a href="#" data-theme="blue" class="theme-picker">
-															<i class="fa fa-circle blue-base"></i>
-														</a>
-													</td>
-													<td class="text-center colorr">
-														<a href="#" data-theme="green" class="theme-picker">
-															<i class="fa fa-circle green-base"></i>
-														</a>
-													</td>
-													<td class="text-center colorr">
-														<a href="#" data-theme="red" class="theme-picker">
-															<i class="fa fa-circle red-base"></i>
-														</a>
-													</td>
-												</tr>
-												<tr>
-													<td class="text-center colorr">
-														<a href="#" data-theme="purple" class="theme-picker">
-															<i class="fa fa-circle purple-base"></i>
-														</a>
-													</td>
-													<td class="text-center color">
-														<a href="#" data-theme="midnight-blue" class="theme-picker">
-															<i class="fa fa-circle midnight-blue-base"></i>
-														</a>
-													</td>
-													<td class="text-center colorr">
-														<a href="#" data-theme="lynch" class="theme-picker">
-															<i class="fa fa-circle lynch-base"></i>
-														</a>
-													</td>
-												</tr>
-											</table>
-										</li>
-									</ul>
-								</li>
-						</ul>
+							
 						<label class="inline">
-								<input  type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''} class="ace" />
-								<span class="lbl"> 记住我</span>
+								<%-- <input  type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''} class="ace" />
+								<span class="lbl"> 记住我</span> --%>
 						</label>
 					</div>
 					<input type="submit" class="btn btn-white btn-outline btn-lg btn-rounded progress-login"  value="登录">

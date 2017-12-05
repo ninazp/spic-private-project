@@ -9451,7 +9451,7 @@ body {
 	 transition: all .5s;
 }
 
-/*锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷呖锟斤拷锟斤拷锟� 锟竭匡拷直锟斤拷应锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟侥尺达拷*/  
+/*閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷峰憱閿熸枻鎷烽敓鏂ゆ嫹閿燂拷 閿熺鍖℃嫹鐩撮敓鏂ゆ嫹搴旈敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熶茎灏鸿揪鎷�*/  
 .menu::-webkit-scrollbar-track {
 	   width: 0px;
 	   text-decoration: none;
@@ -9468,13 +9468,13 @@ body {
 		background-color: transparent;
 }
 .menu{
-  scrollbar-3dlight-color:#D4D0C8; /*- 最外左 -*/
-  scrollbar-highlight-color:#fff; /*- 左二 -*/
-  scrollbar-face-color:#E4E4E4; /*- 面子 -*/
-  scrollbar-arrow-color:#666; /*- 箭头 -*/
-  scrollbar-shadow-color:#808080; /*- 右二 -*/
-  scrollbar-darkshadow-color:#D7DCE0; /*- 右一 -*/
-  scrollbar-base-color:#D7DCE0; /*- 基色 -*/
-  scrollbar-track-color:#;/*- 滑道 -*/
+  scrollbar-3dlight-color:#D4D0C8; /*- 鏈�澶栧乏 -*/
+  scrollbar-highlight-color:#fff; /*- 宸︿簩 -*/
+  scrollbar-face-color:#E4E4E4; /*- 闈㈠瓙 -*/
+  scrollbar-arrow-color:#666; /*- 绠ご -*/
+  scrollbar-shadow-color:#808080; /*- 鍙充簩 -*/
+  scrollbar-darkshadow-color:#D7DCE0; /*- 鍙充竴 -*/
+  scrollbar-base-color:#D7DCE0; /*- 鍩鸿壊 -*/
+  scrollbar-track-color:#;/*- 婊戦亾 -*/
 }
 /*# sourceMappingURL=app-blue.css.map */

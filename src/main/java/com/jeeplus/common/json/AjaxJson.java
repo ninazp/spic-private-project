@@ -20,6 +20,8 @@ public class AjaxJson {
 	private boolean success = true;// 是否成功
 	private String errorCode = "-1";//错误代码
 	private String msg = "操作成功";// 提示信息
+	private String projectId;//项目编号
+	private String projectName;//项目名称
 	private LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();//封装json的map
 	
 	public LinkedHashMap<String, Object> getBody() {
@@ -70,4 +72,21 @@ public class AjaxJson {
 	public String getErrorCode() {
 		return errorCode;
 	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
 }

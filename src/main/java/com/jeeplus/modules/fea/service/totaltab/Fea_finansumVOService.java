@@ -105,4 +105,27 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 		System.out.println(investirrnpv+""+capitalirrnpv);
 	}
 	
+	@Transactional(readOnly = false)
+	public Map<String,List<List<Double>>> getReportDatas(String projectid){
+		Map<String,BaseMapper> maper = new HashMap<String, BaseMapper>();
+		maper.put("projectmapper", projectmapper);
+		maper.put("fea_fundssrcVOMapper", fea_fundssrcVOMapper);
+		maper.put("fea_fundssrcTVOMapper", fea_fundssrcTVOMapper);
+		maper.put("fea_investdisVOMapper", fea_investdisVOMapper);
+		maper.put("fea_investdisBVOMapper", fea_investdisBVOMapper);
+		maper.put("fea_productcostVOmapper", fea_productcostVOmapper);
+		maper.put("fea_productcostBVOmapper", fea_productcostBVOmapper);
+		maper.put("fea_capformVOMapper", fea_capformVOMapper);
+		maper.put("fea_costinfoVOMapper", fea_costinfoVOMapper);
+		maper.put("fea_incosubsidyVOMapper", fea_incosubsidyVOMapper);
+		maper.put("fea_incomesetVOMapper", fea_incomesetVOMapper);
+		maper.put("fea_costfecfVOMapper", fea_costfecfVOMapper);
+		
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("projectid", projectid);
+		Map<String,List<List<Double>>> reporttable = CreateReportPubDMO.getallreporttable(maper, param);
+		
+		return reporttable;
+	}
+	
 }

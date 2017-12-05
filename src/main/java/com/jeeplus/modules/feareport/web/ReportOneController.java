@@ -36,9 +36,12 @@ import com.jeeplus.core.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
 import com.jeeplus.modules.fea.mapper.totaltab.Fea_finansumVOMapper;
+import com.jeeplus.modules.fea.service.project.FeaProjectBService;
 import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
+import com.jeeplus.modules.fea.web.project.FeaProjectBController;
 import com.jeeplus.modules.feareport.entity.ReportOne;
 import com.jeeplus.modules.feareport.service.ReportOneService;
 import com.jeeplus.modules.iim.entity.LayGroup;
@@ -56,6 +59,9 @@ public class ReportOneController extends BaseController {
 
 	@Autowired
 	private ReportOneService reportOneService;
+	
+	@Autowired
+	private FeaProjectBService feaProjectBService;
 	
 	@ModelAttribute
 	public ReportOne get(@RequestParam(required=false) String id) {
@@ -225,16 +231,39 @@ public class ReportOneController extends BaseController {
 	@ResponseBody
 	@RequiresPermissions(value={"feareport:reportOne:add","feareport:reportOne:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getReportDatas")
-	public AjaxJson getReportDatas(String ids, RedirectAttributes redirectAttributes) throws Exception{
+	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
-		List<List<Double>> datas = reportOneService.gettest();
+		String projectName = "";
 		AjaxJson j = new AjaxJson();
 		LinkedHashMap<String, Object> body = new LinkedHashMap<String, Object>();
+		
+		if(null == ids || "".equals(ids)){
+			List<FeaProjectB> project = reportOneService.getProjectDatas();
+			if(null != project && project.size() > 0){
+				ids = project.get(0).getId();
+				projectName = project.get(0).getProjectName();
+			}else{
+				j.setMsg("没有项目信息，无法展示报表");
+				j.setSuccess(false);
+				return j;
+			}
+		}
+		
+		List<List<Double>> datas = reportOneService.getReportDatas(ids);
+		
+		if(null == datas || datas.size()<1){
+			j.setMsg("没有查询到报表信息");
+			j.setSuccess(false);
+			return j;
+		}
 		body.put("datas", datas);
-		//j.setBody(body);
 		j.setMsg(datas.toString());
+		j.setProjectId(ids);
+		j.setProjectName(projectName);
 		j.setSuccess(true);
 		return j;
 	}
+	
+
 
 }

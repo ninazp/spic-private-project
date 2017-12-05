@@ -78,6 +78,16 @@ public class FeaProjectBController extends BaseController {
 		Page<FeaProjectB> page = feaProjectBService.findPage(new Page<FeaProjectB>(request, response), feaProjectB); 
 		return getBootstrapData(page);
 	}
+	
+	/**
+	 * 项目（子表）列表数据
+	 */
+	@ResponseBody
+	@RequiresPermissions("fea:project:feaProjectB:list")
+	@RequestMapping(value = "dataAll")
+	public List<FeaProjectB> dataAll(FeaProjectB feaProjectB, HttpServletRequest request, HttpServletResponse response, Model model) {
+		return feaProjectBService.findList(feaProjectB);
+	}
 
 	/**
 	 * 查看，增加，编辑项目（子表）表单页面

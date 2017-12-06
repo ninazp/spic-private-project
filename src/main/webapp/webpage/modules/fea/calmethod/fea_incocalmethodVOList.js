@@ -93,7 +93,7 @@ $(document).ready(function() {
 		        }
 		       
 		    }
-			,{
+			/*,{
 		        field: 'projectcode',
 		        title: '项目编码',
 		        sortable: true
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'calmethod',
 		        title: '计算方式',
@@ -204,7 +204,7 @@ $(document).ready(function() {
   }
   
   function add(){
-	  jp.openDialog('新增测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form",'800px', '500px', $('#fea_incocalmethodVOTable'));
+	  jp.openDialog('新增测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form",'1500px', '650px', $('#fea_incocalmethodVOTable'));
   }
   
   function edit(id){//没有权限时，不显示确定按钮
@@ -212,10 +212,10 @@ $(document).ready(function() {
 			id = getIdSelections();
 		}
 	   <shiro:hasPermission name="fea:calmethod:fea_incocalmethodVO:edit">
-	  jp.openDialog('编辑测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form?id=" + id,'800px', '500px', $('#fea_incocalmethodVOTable'));
+	  jp.openDialog('编辑测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form?id=" + id,'1200px', '650px', $('#fea_incocalmethodVOTable'));
 	   </shiro:hasPermission>
 	  <shiro:lacksPermission name="fea:calmethod:fea_incocalmethodVO:edit">
-	  jp.openDialogView('查看测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form?id=" + id,'800px', '500px', $('#fea_incocalmethodVOTable'));
+	  jp.openDialogView('查看测算方式', "${ctx}/fea/calmethod/fea_incocalmethodVO/form?id=" + id,'1200px', '650px', $('#fea_incocalmethodVOTable'));
 	  </shiro:lacksPermission>
   }
   

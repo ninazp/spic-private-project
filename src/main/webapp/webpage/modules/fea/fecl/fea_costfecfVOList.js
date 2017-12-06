@@ -89,7 +89,7 @@ $(document).ready(function() {
 		        }
 		       
 		    }
-			,{
+			/*,{
 		        field: 'projectcode',
 		        title: '项目编码',
 		        sortable: true
@@ -100,7 +100,7 @@ $(document).ready(function() {
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'circularate',
 		        title: '短期借款利率（%）',

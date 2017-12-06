@@ -76,7 +76,7 @@ $(document).ready(function() {
 		        checkbox: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'feaProjectB.projectName',
 		        title: '项目',
 		        sortable: true
@@ -88,7 +88,7 @@ $(document).ready(function() {
 		            }
 		        }
 		       
-		    }
+		    }*/
 			,{
 		        field: 'heatarea',
 		        title: '供热面积',

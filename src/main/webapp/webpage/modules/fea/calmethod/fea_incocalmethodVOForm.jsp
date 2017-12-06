@@ -93,35 +93,33 @@
 		   <tbody>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目：</label></td>
-					<td class="width-35">
+					<td class="width-15">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_incocalmethodVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_incocalmethodVO.feaProjectB.projectName}"
 							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+					</td>
+					<td class="width-15 active"><label class="pull-right">计算方式：</label></td>
+					<td class="width-15">
+						<form:input path="calmethod" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">目标值（%）：</label></td>
+					<td class="width-15">
+						<form:input path="targetval" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<%-- <tr>
+					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-35">
+						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
 					<td class="width-35">
 						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">计算方式：</label></td>
-					<td class="width-35">
-						<form:input path="calmethod" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">目标收益选择：</label></td>
 					<td class="width-35">
 						<form:input path="incometype" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">目标值（%）：</label></td>
-					<td class="width-35">
-						<form:input path="targetval" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
+				</tr> --%>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">
@@ -132,25 +130,26 @@
                 </li>
             </ul>
             <div class="tab-content">
-				<div id="tab-1" class="tab-pane fade in  active">
+				<div id="tab-1" class="tab-pane fade in  active pre-scrollable" style="height:2000px">
 			<a class="btn btn-white btn-sm" onclick="addRow('#fea_incocalmethodBVOList', fea_incocalmethodBVORowIdx, fea_incocalmethodBVOTpl);fea_incocalmethodBVORowIdx = fea_incocalmethodBVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
-			<table class="table table-striped table-bordered table-condensed">
+			<table style="width:1500px;" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>项目类别</th>
-						<th>单位</th>
-						<th>2017</th>
-						<th>2018</th>
-						<th>2019</th>
-						<th>2020</th>
-						<th>2021</th>
-						<th>2022</th>
-						<th>2023</th>
-						<th>2024</th>
-						<th>2025</th>
-						<th>2026</th>
 						<th width="10">&nbsp;</th>
+						<th width="50">项目类别</th>
+						<th width="50">单位</th>
+						<th width="50">2017</th>
+						<th width="50">2018</th>
+						<th width="50">2019</th>
+						<th width="50">2020</th>
+						<th width="50">2021</th>
+						<th width="50">2022</th>
+						<th width="50">2023</th>
+						<th width="50">2024</th>
+						<th width="50">2025</th>
+						<th width="50">2026</th>
+						
 					</tr>
 				</thead>
 				<tbody id="fea_incocalmethodBVOList">
@@ -161,6 +160,10 @@
 					<td class="hide">
 						<input id="fea_incocalmethodBVOList{{idx}}_id" name="fea_incocalmethodBVOList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
 						<input id="fea_incocalmethodBVOList{{idx}}_delFlag" name="fea_incocalmethodBVOList[{{idx}}].delFlag" type="hidden" value="0"/>
+					</td>
+
+					<td class="text-center" width="10">
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_incocalmethodBVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
 					
 					<td>
@@ -222,9 +225,7 @@
 						<input id="fea_incocalmethodBVOList{{idx}}_year26" name="fea_incocalmethodBVOList[{{idx}}].year26" type="text" value="{{row.year26}}"    class="form-control "/>
 					</td>
 					
-					<td class="text-center" width="10">
-						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_incocalmethodBVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
-					</td>
+					
 				</tr>//-->
 			</script>
 			<script type="text/javascript">
@@ -238,25 +239,26 @@
 				});
 			</script>
 			</div>
-				<div id="tab-2" class="tab-pane fade">
+				<div id="tab-2" class="tab-pane fade pre-scrollable" style="height:2000px">
 			<a class="btn btn-white btn-sm" onclick="addRow('#fea_incocalmethodTVOList', fea_incocalmethodTVORowIdx, fea_incocalmethodTVOTpl);fea_incocalmethodTVORowIdx = fea_incocalmethodTVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
-			<table class="table table-striped table-bordered table-condensed">
+			<table style="width:1500px;" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>项目类别</th>
-						<th>单位</th>
-						<th>2017</th>
-						<th>2018</th>
-						<th>2019</th>
-						<th>2020</th>
-						<th>2021</th>
-						<th>2022</th>
-						<th>2023</th>
-						<th>2024</th>
-						<th>2025</th>
-						<th>2026</th>
 						<th width="10">&nbsp;</th>
+						<th width="50">项目类别</th>
+						<th width="50">单位</th>
+						<th width="50">2017</th>
+						<th width="50">2018</th>
+						<th width="50">2019</th>
+						<th width="50">2020</th>
+						<th width="50">2021</th>
+						<th width="50">2022</th>
+						<th width="50">2023</th>
+						<th width="50">2024</th>
+						<th width="50">2025</th>
+						<th width="50">2026</th>
+						
 					</tr>
 				</thead>
 				<tbody id="fea_incocalmethodTVOList">
@@ -267,6 +269,10 @@
 					<td class="hide">
 						<input id="fea_incocalmethodTVOList{{idx}}_id" name="fea_incocalmethodTVOList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
 						<input id="fea_incocalmethodTVOList{{idx}}_delFlag" name="fea_incocalmethodTVOList[{{idx}}].delFlag" type="hidden" value="0"/>
+					</td>
+
+					<td class="text-center" width="10">
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_incocalmethodTVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
 					
 					<td>
@@ -328,9 +334,6 @@
 						<input id="fea_incocalmethodTVOList{{idx}}_year26" name="fea_incocalmethodTVOList[{{idx}}].year26" type="text" value="{{row.year26}}"    class="form-control "/>
 					</td>
 					
-					<td class="text-center" width="10">
-						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_incocalmethodTVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
-					</td>
 				</tr>//-->
 			</script>
 			<script type="text/javascript">

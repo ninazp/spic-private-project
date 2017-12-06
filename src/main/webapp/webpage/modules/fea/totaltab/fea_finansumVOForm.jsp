@@ -55,21 +55,21 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<%-- <td class="width-15 active"><label class="pull-right">项目：</label></td>
 					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_finansumVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_finansumVO.feaProjectB.projectName}"
 							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
-					</td>
+					</td> --%>
 					<td class="width-15 active"><label class="pull-right">供热面积：</label></td>
 					<td class="width-35">
 						<form:input path="heatarea" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">常规年供热面积：</label></td>
 					<td class="width-35">
 						<form:input path="cgheatarea" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">总投资：</label></td>
 					<td class="width-35">
 						<form:input path="investtotal" htmlEscape="false"    class="form-control "/>

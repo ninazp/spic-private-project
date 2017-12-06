@@ -274,7 +274,7 @@ $(document).ready(function() {
     	var fea_productcostVOChild1RowIdx = 0, fea_productcostVOChild1Tpl = $("#fea_productcostVOChild1Tpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
 		var data1 =  fea_productcostVO.fea_productcostBVOList;
 		for (var i=0; i<data1.length; i++){
-			addRow('#fea_productcostVOChild-'+row.id+'-1-List', fea_productcostVOChild1RowIdx, fea_productcostVOChild1Tpl, data1[i]);
+			addRow('#fea_productcostVOChild-'+row.id+'-1-List', fea_productcostVOChild1RowIdx, fea_productcostVOChild1Tpl, data1[i],fea_productcostVO.feaProjectB.id,row.id);
 			fea_productcostVOChild1RowIdx = fea_productcostVOChild1RowIdx + 1;
 		}
 				
@@ -284,11 +284,70 @@ $(document).ready(function() {
         return html;
     }
   
-	function addRow(list, idx, tpl, row){
+	function addRow(list, idx, tpl, row, projectId, rowId){
 		$(list).append(Mustache.render(tpl, {
 			idx: idx, delBtn: true, row: row
 		}));
+		
+		hideCol(projectId,rowId);
+		
 	}
+	
+	function hideCol(projectId, rowId){
+		//jp.loading();
+		jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+			if(data.success){
+			    var countyears = data.body.feaProjectB.countyears;//建设期
+			    var len = $('thead  tr th').length;
+			    if(isNull(countyears) && isNull(len) && len > countyears + 2){
+			    	var startHidecol = countyears + 2;  //2：多余列2个
+			    	
+			    	for(var i = 0;i<len;i++){
+			    		if(i>=startHidecol){
+			    			$("#tab-"+rowId+"-1").find('th:eq('+i+')').addClass("hide");
+							$("#fea_productcostVOChild-"+rowId+"-1-List").find('td:eq('+i+')').addClass("hide");
+			    		}
+			    	}
+			    }
+  	  		}else{
+  	  			jp.error(data.msg);
+  	  		}
+        })
+		//jp.close();
+		
+	//var len = $('thead  tr th').length;
+	/* $("#listTheadtr").find('th:eq(7)').addClass("hide");
+	$("#fea_productcostBVOList tr").find('td:eq(6)').addClass("hide"); */
+	}
+	
+	function isNull(data){ 
+		return (data == "" || data == undefined || data == null) ? false : true; 
+	}
+	
+	function obj2string(o){ 
+		 var r=[]; 
+		 if(typeof o=="string"){ 
+		 return "\""+o.replace(/([\'\"\\])/g,"\\$1").replace(/(\n)/g,"\\n").replace(/(\r)/g,"\\r").replace(/(\t)/g,"\\t")+"\""; 
+		 } 
+		 if(typeof o=="object"){ 
+		 if(!o.sort){ 
+		  for(var i in o){ 
+		  r.push(i+":"+obj2string(o[i])); 
+		  } 
+		  if(!!document.all&&!/^\n?function\s*toString\(\)\s*\{\n?\s*\[native code\]\n?\s*\}\n?\s*$/.test(o.toString)){ 
+		  r.push("toString:"+o.toString.toString()); 
+		  } 
+		  r="{"+r.join()+"}"; 
+		 }else{ 
+		  for(var i=0;i<o.length;i++){ 
+		  r.push(obj2string(o[i])) 
+		  } 
+		  r="["+r.join()+"]"; 
+		 } 
+		 return r; 
+		 } 
+		 return o.toString(); 
+		}	
 			
 </script>
 <script type="text/template" id="fea_productcostVOChildrenTpl">//<!--

@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.project;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.project.FeaProjectBService;
 
@@ -224,7 +222,7 @@ public class FeaProjectBController extends BaseController {
 	/**
 	 * 获取项目数据byID
 	 */
-/*	@ResponseBody
+	@ResponseBody
 	@RequiresPermissions(value={"fea:project:feaProjectB:add","fea:project:feaProjectB:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getProjectById")
 	public AjaxJson getProjectById(String id, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
@@ -234,14 +232,12 @@ public class FeaProjectBController extends BaseController {
 		if(null != id){
 			feaProjectB = feaProjectBService.get(id);
 		}
-
 		AjaxJson j = new AjaxJson();
-		LinkedHashMap<K, V>
-		j.setBody(body);
+		j.put("feaProjectB", feaProjectB);
 		j.setMsg("");
 		j.setSuccess(true);
 		
 		return j;
-	}*/
+	}
 
 }

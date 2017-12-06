@@ -5,6 +5,10 @@
 	<title>生成成本管理</title>
 	<meta name="decorator" content="ani"/>
 	<script type="text/javascript">
+		/**定义一些全局参数*/
+		var projectId = '';
+	
+	
 		var validateForm;
 		var $table; // 父页面table表格id
 		var $topIndex;//弹出窗口的 index
@@ -406,10 +410,63 @@
 					hideCol();
 				});
 				function hideCol(){
+					//jp.loading();
+					var projectId = $("#feaProjectBId").val();
+					
+					jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+						if(data.success){
+						    var countyears = data.body.feaProjectB.countyears;//建设期
+						    var len = $('thead  tr th').length;
+						    if(isNull(countyears) && isNull(len) && len > countyears + 4){
+						    	var startHidecol = countyears + 4;  //4：隐藏列4个
+						    	for(var i = 0;i<len;i++){
+						    		if(i>=startHidecol){
+						    			$("#listTheadtr").find('th:eq('+i+')').addClass("hide");
+										$("#fea_productcostBVOList tr").find('td:eq('+i+')').addClass("hide");
+						    		}
+						    	}
+						    }
+		      	  		}else{
+		      	  			jp.error(data.msg);
+		      	  		}
+		            })
+					//jp.close();
+					
 				//var len = $('thead  tr th').length;
 				/* $("#listTheadtr").find('th:eq(7)').addClass("hide");
 				$("#fea_productcostBVOList tr").find('td:eq(6)').addClass("hide"); */
 				}
+				
+				function isNull(data){ 
+					return (data == "" || data == undefined || data == null) ? false : true; 
+				}
+				
+				
+				function obj2string(o){ 
+					 var r=[]; 
+					 if(typeof o=="string"){ 
+					 return "\""+o.replace(/([\'\"\\])/g,"\\$1").replace(/(\n)/g,"\\n").replace(/(\r)/g,"\\r").replace(/(\t)/g,"\\t")+"\""; 
+					 } 
+					 if(typeof o=="object"){ 
+					 if(!o.sort){ 
+					  for(var i in o){ 
+					  r.push(i+":"+obj2string(o[i])); 
+					  } 
+					  if(!!document.all&&!/^\n?function\s*toString\(\)\s*\{\n?\s*\[native code\]\n?\s*\}\n?\s*$/.test(o.toString)){ 
+					  r.push("toString:"+o.toString.toString()); 
+					  } 
+					  r="{"+r.join()+"}"; 
+					 }else{ 
+					  for(var i=0;i<o.length;i++){ 
+					  r.push(obj2string(o[i])) 
+					  } 
+					  r="["+r.join()+"]"; 
+					 } 
+					 return r; 
+					 } 
+					 return o.toString(); 
+					}	
+				
 			</script>
 			</div>
 		</div>

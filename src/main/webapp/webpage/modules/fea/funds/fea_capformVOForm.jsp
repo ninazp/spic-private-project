@@ -55,55 +55,64 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
 					<td class="width-35">
-						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_capformVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_capformVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">固定资产形成比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="fixassetprop" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<%-- <tr>
+					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-35">
+						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-35">
+						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr> --%>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
 					<td class="width-35">
 						<form:input path="uselifefat" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">残值率（%）：</label></td>
 					<td class="width-35">
 						<form:input path="residualrate" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">无形资产形成比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="intangibleprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
 					<td class="width-35">
 						<form:input path="usefullitb" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">其他资产形成比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="otherprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
 					<td class="width-35">
 						<form:input path="uselifeother" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
-				</tr>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

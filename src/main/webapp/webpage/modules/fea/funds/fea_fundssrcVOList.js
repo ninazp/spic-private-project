@@ -80,7 +80,7 @@ $(document).ready(function() {
 		        checkbox: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'projectCode',
 		        title: '项目编码',
 		        sortable: true
@@ -88,13 +88,21 @@ $(document).ready(function() {
 		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		         }
 		       
-		    }
+		    }*/
 			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		         }
+		    }
+			/*,{
 		        field: 'projectName',
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'investtotal',
 		        title: '投资总额',
@@ -221,18 +229,28 @@ $(document).ready(function() {
   }
   
   function add(){
-	  jp.openDialog('新增资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form",'800px', '500px', $('#fea_fundssrcVOTable'));
+	  jp.openDialog('新增资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form",'1500px', '800px', $('#fea_fundssrcVOTable'));
   }
   
   function edit(id){//没有权限时，不显示确定按钮
+//	  alert('浏览器当前窗口可视区域高度:'+$(window).height()); //浏览器当前窗口可视区域高度 
+//	  alert('浏览器当前窗口文档的高度 :'+$(document).height()); //浏览器当前窗口文档的高度 
+//	  alert('浏览器当前窗口文档body的高度 :'+$(document.body).height());//浏览器当前窗口文档body的高度 
+//	  alert($(document.body).outerHeight(true));//浏览器当前窗口文档body的总高度 包括border padding margin 
+//	  alert($(window).width()); //浏览器当前窗口可视区域宽度 
+//	  alert($(document).width());//浏览器当前窗口文档对象宽度 
+//	  alert($(document.body).width());//浏览器当前窗口文档body的高度 
+//	  alert($(document.body).outerWidth(true));//浏览器当前窗口文档body的总宽度 包括border padding margin 
+	  var width = $(document).width();
+	  var height = $(document).height();
   	  if(id == undefined){
 			id = getIdSelections();
 		}
 	   <shiro:hasPermission name="fea:funds:fea_fundssrcVO:edit">
-	  jp.openDialog('编辑资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form?id=" + id,'800px', '500px', $('#fea_fundssrcVOTable'));
+	  jp.openDialog('编辑资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form?id=" + id, '1500px' , '800px', $('#fea_fundssrcVOTable'));
 	   </shiro:hasPermission>
 	  <shiro:lacksPermission name="fea:funds:fea_fundssrcVO:edit">
-	  jp.openDialogView('查看资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form?id=" + id,'800px', '500px', $('#fea_fundssrcVOTable'));
+	  jp.openDialogView('查看资金来源', "${ctx}/fea/funds/fea_fundssrcVO/form?id=" + id,'1500px', '800px', $('#fea_fundssrcVOTable'));
 	  </shiro:lacksPermission>
   }
   

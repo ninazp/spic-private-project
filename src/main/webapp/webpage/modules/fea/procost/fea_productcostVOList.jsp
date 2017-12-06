@@ -37,7 +37,7 @@
 	<!-- 工具栏 -->
 	<div id="toolbar">
 			<shiro:hasPermission name="fea:procost:fea_productcostVO:add">
-				<a id="add" class="btn btn-primary" href="${ctx}/fea/procost/fea_productcostVO/form" title="生成成本"><i class="glyphicon glyphicon-plus"></i> 新建</a>
+				<a id="add" class="btn btn-primary" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新建</a>
 			</shiro:hasPermission>
 			<shiro:hasPermission name="fea:procost:fea_productcostVO:edit">
 			    <button id="edit" class="btn btn-success" disabled onclick="edit()">

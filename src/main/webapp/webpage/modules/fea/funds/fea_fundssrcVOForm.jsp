@@ -21,6 +21,7 @@
 		}
 
 		$(document).ready(function() {
+
 			validateForm = $("#inputForm").validate({
 				submitHandler: function(form){
 					jp.post("${ctx}/fea/funds/fea_fundssrcVO/save",$('#inputForm').serialize(),function(data){
@@ -91,21 +92,30 @@
 		<sys:message content="${message}"/>
 		<table class="table table-bordered">
 		   <tbody>
-				<tr>
+				<%-- <tr>
 					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
 					<td class="width-35">
 						<form:input path="projectCode" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectName" htmlEscape="false"    class="form-control "/>
+						<td class="width-35">
+							<form:input path="projectName" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
+				
+				 --%>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<td class="width-35">
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_fundssrcVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_fundssrcVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+					</td>
 					<td class="width-15 active"><label class="pull-right">投资总额：</label></td>
 					<td class="width-35">
 						<form:input path="investtotal" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">增值税抵扣：</label></td>
 					<td class="width-35">
 						<form:select path="isdeductvtax" class="form-control ">
@@ -113,35 +123,31 @@
 							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 						</form:select>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
 					<td class="width-35">
 						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金比例(%)：</label></td>
 					<td class="width-35">
 						<form:input path="capitalprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金额度：</label></td>
 					<td class="width-35">
 						<form:input path="capitalamt" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">借款比例(%)：</label></td>
 					<td class="width-35">
 						<form:input path="loanprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">借款金额：</label></td>
 					<td class="width-35">
 						<form:input path="loanamt" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">
@@ -154,7 +160,7 @@
             <div class="tab-content">
 				<div id="tab-1" class="tab-pane fade in  active">
 			<a class="btn btn-white btn-sm" onclick="addRow('#fea_fundssrcBVOList', fea_fundssrcBVORowIdx, fea_fundssrcBVOTpl);fea_fundssrcBVORowIdx = fea_fundssrcBVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
-			<table class="table table-striped table-bordered table-condensed">
+			<table id="table2" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="hide"></th>
@@ -216,25 +222,25 @@
 				});
 			</script>
 			</div>
-				<div id="tab-2" class="tab-pane fade">
+				<div id="tab-2" class="tab-pane fade pre-scrollable" style="height:1000px">
 			<a class="btn btn-white btn-sm" onclick="addRow('#fea_fundssrcTVOList', fea_fundssrcTVORowIdx, fea_fundssrcTVOTpl);fea_fundssrcTVORowIdx = fea_fundssrcTVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
-			<table class="table table-striped table-bordered table-condensed">
+			<table style="width:1600px;" class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="hide"></th>
-						<th>借款方</th>
-						<th>币种</th>
-						<th>汇率</th>
-						<th>比例</th>
-						<th>借款金额</th>
-						<th>计息次数（年）</th>
-						<th>本金利率（%）</th>
-						<th>利息利率（%）</th>
-						<th>还款方式</th>
-						<th>还款期</th>
-						<th>承诺费率（%）</th>
-						<th>宽限期</th>
 						<th width="10">&nbsp;</th>
+						<th width="250">借款方</th>
+						<th width="70">币种</th>
+						<th width="70">汇率</th>
+						<th width="70">比例</th>
+						<th width="100">借款金额</th>
+						<th width="100">计息次数（年）</th>
+						<th width="100">本金利率（%）</th>
+						<th width="100">利息利率（%）</th>
+						<th width="100">还款方式</th>
+						<th width="70">还款期</th>
+						<th width="100">承诺费率（%）</th>
+						<th width="70">宽限期</th>
 					</tr>
 				</thead>
 				<tbody id="fea_fundssrcTVOList">
@@ -245,6 +251,10 @@
 					<td class="hide">
 						<input id="fea_fundssrcTVOList{{idx}}_id" name="fea_fundssrcTVOList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
 						<input id="fea_fundssrcTVOList{{idx}}_delFlag" name="fea_fundssrcTVOList[{{idx}}].delFlag" type="hidden" value="0"/>
+					</td>
+
+					<td class="text-center" width="10">
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_fundssrcTVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
 					
 					<td>
@@ -309,10 +319,6 @@
 					
 					<td>
 						<input id="fea_fundssrcTVOList{{idx}}_graceperiod" name="fea_fundssrcTVOList[{{idx}}].graceperiod" type="text" value="{{row.graceperiod}}"    class="form-control "/>
-					</td>
-					
-					<td class="text-center" width="10">
-						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_fundssrcTVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
 				</tr>//-->
 			</script>

@@ -22,7 +22,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
 /**
  * 资金来源Service
  * @author jw
- * @version 2017-12-02
+ * @version 2017-12-06
  */
 @Service
 @Transactional(readOnly = true)
@@ -57,10 +57,10 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 			}
 			if (Fea_fundssrcBVO.DEL_FLAG_NORMAL.equals(fea_fundssrcBVO.getDelFlag())){
 				if (StringUtils.isBlank(fea_fundssrcBVO.getId())){
-					fea_fundssrcBVO.setFea_fundssrc(fea_fundssrcVO);
 					fea_fundssrcBVO.preInsert();
 					fea_fundssrcBVOMapper.insert(fea_fundssrcBVO);
 				}else{
+					fea_fundssrcBVO.setFea_fundssrc(fea_fundssrcVO);
 					fea_fundssrcBVO.preUpdate();
 					fea_fundssrcBVOMapper.update(fea_fundssrcBVO);
 				}
@@ -74,10 +74,10 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 			}
 			if (Fea_fundssrcTVO.DEL_FLAG_NORMAL.equals(fea_fundssrcTVO.getDelFlag())){
 				if (StringUtils.isBlank(fea_fundssrcTVO.getId())){
-					fea_fundssrcTVO.setFea_fundssrc(fea_fundssrcVO);
 					fea_fundssrcTVO.preInsert();
 					fea_fundssrcTVOMapper.insert(fea_fundssrcTVO);
 				}else{
+					fea_fundssrcTVO.setFea_fundssrc(fea_fundssrcVO);
 					fea_fundssrcTVO.preUpdate();
 					fea_fundssrcTVOMapper.update(fea_fundssrcTVO);
 				}

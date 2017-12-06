@@ -23,9 +23,14 @@
 	<div id="collapseTwo" class="accordion-body collapse">
 		<div class="accordion-inner">
 			<form:form id="searchForm" modelAttribute="fea_fundssrcVO" class="form form-horizontal well clearfix">
-			 <div class="col-xs-12 col-sm-6 col-md-4">
+			 <%-- <div class="col-xs-12 col-sm-6 col-md-4">
 				<label class="label-item single-overflow pull-left" title="项目编码：">项目编码：</label>
 				<form:input path="projectCode" htmlEscape="false" maxlength="64"  class=" form-control"/>
+			</div> --%>
+			 <div class="col-xs-12 col-sm-6 col-md-4">
+				<label class="label-item single-overflow pull-left" title="项目：">项目：</label>
+										<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_fundssrcVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_fundssrcVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 			</div>
 		 <div class="col-xs-12 col-sm-6 col-md-4">
 			<div style="margin-top:26px">

@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.fea.entity.funds;
 
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.sys.entity.Office;
 import java.util.List;
 import com.google.common.collect.Lists;
@@ -13,12 +14,13 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资金来源Entity
  * @author jw
- * @version 2017-12-02
+ * @version 2017-12-06
  */
 public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectCode;		// 项目编码
+	private FeaProjectB feaProjectB;		// 项目
 	private String projectName;		// 项目名称
 	private Double investtotal;		// 投资总额
 	private String isdeductvtax;		// 增值税抵扣
@@ -50,7 +52,16 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.projectCode = projectCode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=7)
+	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=7)
+	public FeaProjectB getFeaProjectB() {
+		return feaProjectB;
+	}
+
+	public void setFeaProjectB(FeaProjectB feaProjectB) {
+		this.feaProjectB = feaProjectB;
+	}
+	
+	@ExcelField(title="项目名称", align=2, sort=8)
 	public String getProjectName() {
 		return projectName;
 	}
@@ -59,7 +70,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.projectName = projectName;
 	}
 	
-	@ExcelField(title="投资总额", align=2, sort=8)
+	@ExcelField(title="投资总额", align=2, sort=9)
 	public Double getInvesttotal() {
 		return investtotal;
 	}
@@ -68,7 +79,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.investtotal = investtotal;
 	}
 	
-	@ExcelField(title="增值税抵扣", dictType="yes_no", align=2, sort=9)
+	@ExcelField(title="增值税抵扣", dictType="yes_no", align=2, sort=10)
 	public String getIsdeductvtax() {
 		return isdeductvtax;
 	}
@@ -77,7 +88,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.isdeductvtax = isdeductvtax;
 	}
 	
-	@ExcelField(title="可抵扣税金", align=2, sort=10)
+	@ExcelField(title="可抵扣税金", align=2, sort=11)
 	public Double getDeductvtax() {
 		return deductvtax;
 	}
@@ -86,7 +97,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.deductvtax = deductvtax;
 	}
 	
-	@ExcelField(title="资本金比例(%)", align=2, sort=11)
+	@ExcelField(title="资本金比例(%)", align=2, sort=12)
 	public Double getCapitalprop() {
 		return capitalprop;
 	}
@@ -95,7 +106,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.capitalprop = capitalprop;
 	}
 	
-	@ExcelField(title="资本金额度", align=2, sort=12)
+	@ExcelField(title="资本金额度", align=2, sort=13)
 	public Double getCapitalamt() {
 		return capitalamt;
 	}
@@ -104,7 +115,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.capitalamt = capitalamt;
 	}
 	
-	@ExcelField(title="借款比例(%)", align=2, sort=13)
+	@ExcelField(title="借款比例(%)", align=2, sort=14)
 	public Double getLoanprop() {
 		return loanprop;
 	}
@@ -113,7 +124,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.loanprop = loanprop;
 	}
 	
-	@ExcelField(title="借款金额", align=2, sort=14)
+	@ExcelField(title="借款金额", align=2, sort=15)
 	public Double getLoanamt() {
 		return loanamt;
 	}
@@ -122,7 +133,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.loanamt = loanamt;
 	}
 	
-	@ExcelField(title="注资循环", dictType="yes_no", align=2, sort=15)
+	@ExcelField(title="注资循环", dictType="yes_no", align=2, sort=16)
 	public String getIscapitalcy() {
 		return iscapitalcy;
 	}
@@ -131,7 +142,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.iscapitalcy = iscapitalcy;
 	}
 	
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=17)
 	public Office getOffice() {
 		return office;
 	}
@@ -140,7 +151,7 @@ public class Fea_fundssrcVO extends DataEntity<Fea_fundssrcVO> {
 		this.office = office;
 	}
 	
-	@ExcelField(title="公司", align=2, sort=17)
+	@ExcelField(title="公司", align=2, sort=18)
 	public String getCorp() {
 		return corp;
 	}

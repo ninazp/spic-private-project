@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
 /**
  * 资产形成Service
  * @author jw
- * @version 2017-11-18
+ * @version 2017-12-06
  */
 @Service
 @Transactional(readOnly = true)

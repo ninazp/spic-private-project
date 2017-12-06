@@ -81,12 +81,22 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+		            if(value == null){
+		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+		            }else{
+		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		            }
+		        }
+		       
+		    }
+			/*,{
 		        field: 'projectcode',
 		        title: '项目编码',
 		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		         }
 		       
 		    }
 			,{
@@ -94,7 +104,7 @@ $(document).ready(function() {
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'year',
 		        title: '年度',
@@ -218,7 +228,7 @@ $(document).ready(function() {
   }
   
   function add(){
-	  jp.openDialog('新增投资分配', "${ctx}/fea/funds/fea_investdisVO/form",'800px', '500px', $('#fea_investdisVOTable'));
+	  jp.openDialog('新增投资分配', "${ctx}/fea/funds/fea_investdisVO/form",'1000px', '600px', $('#fea_investdisVOTable'));
   }
   
   function edit(id){//没有权限时，不显示确定按钮
@@ -226,10 +236,10 @@ $(document).ready(function() {
 			id = getIdSelections();
 		}
 	   <shiro:hasPermission name="fea:funds:fea_investdisVO:edit">
-	  jp.openDialog('编辑投资分配', "${ctx}/fea/funds/fea_investdisVO/form?id=" + id,'800px', '500px', $('#fea_investdisVOTable'));
+	  jp.openDialog('编辑投资分配', "${ctx}/fea/funds/fea_investdisVO/form?id=" + id,'1000px', '600px', $('#fea_investdisVOTable'));
 	   </shiro:hasPermission>
 	  <shiro:lacksPermission name="fea:funds:fea_investdisVO:edit">
-	  jp.openDialogView('查看投资分配', "${ctx}/fea/funds/fea_investdisVO/form?id=" + id,'800px', '500px', $('#fea_investdisVOTable'));
+	  jp.openDialogView('查看投资分配', "${ctx}/fea/funds/fea_investdisVO/form?id=" + id,'1000px', '600px', $('#fea_investdisVOTable'));
 	  </shiro:lacksPermission>
   }
   

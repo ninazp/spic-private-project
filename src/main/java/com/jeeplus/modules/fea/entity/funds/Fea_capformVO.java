@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.fea.entity.funds;
 
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 
 import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
@@ -10,11 +11,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 资产形成Entity
  * @author jw
- * @version 2017-11-18
+ * @version 2017-12-06
  */
 public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 	
 	private static final long serialVersionUID = 1L;
+	private FeaProjectB feaProjectB;		// 项目
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private Double fixassetprop;		// 固定资产形成比例（%）
@@ -33,7 +35,16 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目编码", align=2, sort=1)
+	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=1)
+	public FeaProjectB getFeaProjectB() {
+		return feaProjectB;
+	}
+
+	public void setFeaProjectB(FeaProjectB feaProjectB) {
+		this.feaProjectB = feaProjectB;
+	}
+	
+	@ExcelField(title="项目编码", align=2, sort=2)
 	public String getProjectcode() {
 		return projectcode;
 	}
@@ -42,7 +53,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.projectcode = projectcode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=2)
+	@ExcelField(title="项目名称", align=2, sort=3)
 	public String getProjectname() {
 		return projectname;
 	}
@@ -51,7 +62,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="固定资产形成比例（%）", align=2, sort=3)
+	@ExcelField(title="固定资产形成比例（%）", align=2, sort=4)
 	public Double getFixassetprop() {
 		return fixassetprop;
 	}
@@ -60,7 +71,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.fixassetprop = fixassetprop;
 	}
 	
-	@ExcelField(title="折旧年限（%）", align=2, sort=4)
+	@ExcelField(title="折旧年限（%）", align=2, sort=5)
 	public Double getUselifefat() {
 		return uselifefat;
 	}
@@ -69,7 +80,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.uselifefat = uselifefat;
 	}
 	
-	@ExcelField(title="残值率（%）", align=2, sort=5)
+	@ExcelField(title="残值率（%）", align=2, sort=6)
 	public Double getResidualrate() {
 		return residualrate;
 	}
@@ -78,7 +89,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.residualrate = residualrate;
 	}
 	
-	@ExcelField(title="无形资产形成比例（%）", align=2, sort=6)
+	@ExcelField(title="无形资产形成比例（%）", align=2, sort=7)
 	public Double getIntangibleprop() {
 		return intangibleprop;
 	}
@@ -87,7 +98,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.intangibleprop = intangibleprop;
 	}
 	
-	@ExcelField(title="折旧年限（%）", align=2, sort=7)
+	@ExcelField(title="折旧年限（%）", align=2, sort=8)
 	public Double getUsefullitb() {
 		return usefullitb;
 	}
@@ -96,7 +107,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.usefullitb = usefullitb;
 	}
 	
-	@ExcelField(title="其他资产形成比例（%）", align=2, sort=8)
+	@ExcelField(title="其他资产形成比例（%）", align=2, sort=9)
 	public Double getOtherprop() {
 		return otherprop;
 	}
@@ -105,7 +116,7 @@ public class Fea_capformVO extends DataEntity<Fea_capformVO> {
 		this.otherprop = otherprop;
 	}
 	
-	@ExcelField(title="折旧年限（%）", align=2, sort=9)
+	@ExcelField(title="折旧年限（%）", align=2, sort=10)
 	public Double getUselifeother() {
 		return uselifeother;
 	}

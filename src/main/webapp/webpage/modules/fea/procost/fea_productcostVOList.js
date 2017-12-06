@@ -56,7 +56,7 @@ $(document).ready(function() {
                contextMenu: '#context-menu',
                onContextMenuItem: function(row, $el){
                    if($el.data("item") == "edit"){
-                   	window.location = "${ctx}/fea/procost/fea_productcostVO/form?id=" + row.id;
+                   	edit(row.id);
                    } else if($el.data("item") == "delete"){
                         jp.confirm('确认要删除该生成成本记录吗？', function(){
                        	jp.loading();
@@ -81,12 +81,22 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+		            if(value == null){
+		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+		            }else{
+		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		            }
+		        }
+		       
+		    }
+			/*,{
 		        field: 'projectcode',
 		        title: '项目编码',
 		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='${ctx}/fea/procost/fea_productcostVO/form?id="+row.id+"'>"+value+"</a>";
-		         }
 		       
 		    }
 			,{
@@ -94,7 +104,7 @@ $(document).ready(function() {
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'persons',
 		        title: '定员（人）',
@@ -234,8 +244,21 @@ $(document).ready(function() {
           	   
 		})
   }
-  function edit(){
-	  window.location = "${ctx}/fea/procost/fea_productcostVO/form?id=" + getIdSelections();
+  
+  function add(){
+	  jp.openDialog('新增生成成本', "${ctx}/fea/procost/fea_productcostVO/form",'1500px', '750px', $('#fea_productcostVOTable'));
+  }
+  
+  function edit(id){//没有权限时，不显示确定按钮
+  	  if(id == undefined){
+			id = getIdSelections();
+		}
+	   <shiro:hasPermission name="fea:procost:fea_productcostVO:edit">
+	  jp.openDialog('编辑生成成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
+	   </shiro:hasPermission>
+	  <shiro:lacksPermission name="fea:procost:fea_productcostVO:edit">
+	  jp.openDialogView('查看生成成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
+	  </shiro:lacksPermission>
   }
   
   

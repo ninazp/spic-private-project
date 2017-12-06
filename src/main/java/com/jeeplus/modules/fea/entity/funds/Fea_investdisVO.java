@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.fea.entity.funds;
 
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import java.util.List;
 import com.google.common.collect.Lists;
 
@@ -12,11 +13,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 投资分配Entity
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-06
  */
 public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	
 	private static final long serialVersionUID = 1L;
+	private FeaProjectB feaProjectB;		// 项目
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private String year;		// 年度
@@ -35,7 +37,16 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目编码", align=2, sort=1)
+	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=1)
+	public FeaProjectB getFeaProjectB() {
+		return feaProjectB;
+	}
+
+	public void setFeaProjectB(FeaProjectB feaProjectB) {
+		this.feaProjectB = feaProjectB;
+	}
+	
+	@ExcelField(title="项目编码", align=2, sort=2)
 	public String getProjectcode() {
 		return projectcode;
 	}
@@ -44,7 +55,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.projectcode = projectcode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=2)
+	@ExcelField(title="项目名称", align=2, sort=3)
 	public String getProjectname() {
 		return projectname;
 	}
@@ -53,7 +64,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="年度", align=2, sort=3)
+	@ExcelField(title="年度", align=2, sort=4)
 	public String getYear() {
 		return year;
 	}
@@ -62,7 +73,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.year = year;
 	}
 	
-	@ExcelField(title="投资比例", align=2, sort=4)
+	@ExcelField(title="投资比例", align=2, sort=5)
 	public Double getInvestprop() {
 		return investprop;
 	}
@@ -71,7 +82,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.investprop = investprop;
 	}
 	
-	@ExcelField(title="投资额度", align=2, sort=5)
+	@ExcelField(title="投资额度", align=2, sort=6)
 	public Double getInvestamt() {
 		return investamt;
 	}
@@ -80,7 +91,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.investamt = investamt;
 	}
 	
-	@ExcelField(title="可抵扣税金", align=2, sort=6)
+	@ExcelField(title="可抵扣税金", align=2, sort=7)
 	public Double getDeductvtax() {
 		return deductvtax;
 	}
@@ -89,7 +100,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.deductvtax = deductvtax;
 	}
 	
-	@ExcelField(title="注资方合计", align=2, sort=7)
+	@ExcelField(title="注资方合计", align=2, sort=8)
 	public Double getCappropsum() {
 		return cappropsum;
 	}
@@ -98,7 +109,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.cappropsum = cappropsum;
 	}
 	
-	@ExcelField(title="融资合计", align=2, sort=8)
+	@ExcelField(title="融资合计", align=2, sort=9)
 	public Double getLoanpropsum() {
 		return loanpropsum;
 	}

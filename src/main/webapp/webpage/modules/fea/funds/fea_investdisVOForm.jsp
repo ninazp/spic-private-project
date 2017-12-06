@@ -92,53 +92,57 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
 					<td class="width-35">
-						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_investdisVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_investdisVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">年度：</label></td>
 					<td class="width-35">
 						<form:input path="year" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<%-- <tr>
+					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-35">
+						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-35">
+						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr> --%>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
 						<form:input path="investprop" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35">
 						<form:input path="investamt" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
 					<td class="width-35">
 						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
 					<td class="width-35">
 						<form:input path="cappropsum" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35">
 						<form:input path="loanpropsum" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">

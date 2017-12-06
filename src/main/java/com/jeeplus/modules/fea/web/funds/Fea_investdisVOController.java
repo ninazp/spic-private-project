@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.fea.web.funds;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ import com.jeeplus.modules.fea.service.funds.Fea_investdisVOService;
 /**
  * 投资分配Controller
  * @author jw
- * @version 2017-11-28
+ * @version 2017-12-06
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/funds/fea_investdisVO")

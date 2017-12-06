@@ -4,6 +4,7 @@
     
 	<sql id="fea_investdisVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.projectcode AS "projectcode",
 		a.projectname AS "projectname",
 		a.year AS "year",
@@ -17,11 +18,14 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_investdisVOJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -74,6 +78,7 @@
 	<insert id="insert">
 		INSERT INTO fea_investdis(
 			id,
+			project_id,
 			projectcode,
 			projectname,
 			year,
@@ -90,6 +95,7 @@
 			del_flag
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{projectcode},
 			#{projectname},
 			#{year},
@@ -109,6 +115,7 @@
 	
 	<update id="update">
 		UPDATE fea_investdis SET 	
+			project_id = #{feaProjectB.id},
 			projectcode = #{projectcode},
 			projectname = #{projectname},
 			year = #{year},

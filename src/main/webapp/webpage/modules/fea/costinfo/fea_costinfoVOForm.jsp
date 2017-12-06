@@ -55,193 +55,196 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
 					<td class="width-35">
-						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_costinfoVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_costinfoVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">产品种类：</label></td>
 					<td class="width-35">
 						<form:input path="costype" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-35">
+						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
+					<td class="width-35">
+						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">单位：</label></td>
 					<td class="width-35">
 						<form:input path="unit" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">产品税（%）：</label></td>
 					<td class="width-35">
 						<form:input path="productrate" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第1年：</label></td>
 					<td class="width-35">
 						<form:input path="year" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第2年：</label></td>
 					<td class="width-35">
 						<form:input path="year2" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第3年：</label></td>
 					<td class="width-35">
 						<form:input path="year3" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第4年：</label></td>
 					<td class="width-35">
 						<form:input path="year4" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第5年：</label></td>
 					<td class="width-35">
 						<form:input path="year5" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第6年：</label></td>
 					<td class="width-35">
 						<form:input path="year6" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第7年：</label></td>
 					<td class="width-35">
 						<form:input path="year7" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第8年：</label></td>
 					<td class="width-35">
 						<form:input path="year8" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第9年：</label></td>
 					<td class="width-35">
 						<form:input path="year9" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第10年：</label></td>
 					<td class="width-35">
 						<form:input path="year10" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第11年：</label></td>
 					<td class="width-35">
 						<form:input path="year11" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第12年：</label></td>
 					<td class="width-35">
 						<form:input path="year12" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第13年：</label></td>
 					<td class="width-35">
 						<form:input path="year13" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第14年：</label></td>
 					<td class="width-35">
 						<form:input path="year14" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第15年：</label></td>
 					<td class="width-35">
 						<form:input path="year15" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第16年：</label></td>
 					<td class="width-35">
 						<form:input path="year16" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第17年：</label></td>
 					<td class="width-35">
 						<form:input path="year17" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第18年：</label></td>
 					<td class="width-35">
 						<form:input path="year18" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第19年：</label></td>
 					<td class="width-35">
 						<form:input path="year19" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第20年：</label></td>
 					<td class="width-35">
 						<form:input path="year20" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第21年：</label></td>
 					<td class="width-35">
 						<form:input path="year21" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第22年：</label></td>
 					<td class="width-35">
 						<form:input path="year22" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第23年：</label></td>
 					<td class="width-35">
 						<form:input path="year23" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第24年：</label></td>
 					<td class="width-35">
 						<form:input path="year24" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第25年：</label></td>
 					<td class="width-35">
 						<form:input path="year25" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第26年：</label></td>
 					<td class="width-35">
 						<form:input path="year26" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第27年：</label></td>
 					<td class="width-35">
 						<form:input path="year27" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第28年：</label></td>
 					<td class="width-35">
 						<form:input path="year28" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第29年：</label></td>
 					<td class="width-35">
 						<form:input path="year29" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第30年：</label></td>
 					<td class="width-35">
 						<form:input path="year30" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">第31年：</label></td>
 					<td class="width-35">
 						<form:input path="year31" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">第32年：</label></td>
 					<td class="width-35">
 						<form:input path="year32" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 	</form:form>

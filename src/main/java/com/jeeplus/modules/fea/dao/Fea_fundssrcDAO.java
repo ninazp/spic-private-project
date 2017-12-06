@@ -127,7 +127,7 @@ public class Fea_fundssrcDAO {
 				basemapper5.insert(bvo);
 			}
 
-			for(int i=0;i<fea_fundssrcVO.getFea_fundssrcBVOList().size();i++){
+			for(int i=0;i<fea_fundssrcVO.getFea_fundssrcTVOList().size();i++){
 				Fea_fundssrcTVO ftvo = fea_fundssrcVO.getFea_fundssrcTVOList().get(i);
 				Fea_investdisBVO bvo = new Fea_investdisBVO();
 				bvo.setId(PubUtil.getid(1));
@@ -135,7 +135,7 @@ public class Fea_fundssrcDAO {
 				bvo.setCreateDate(new Date());
 				bvo.setFea_investdis(vo);
 				bvo.setZjname(ftvo.getLoantyp());
-				bvo.setInvesttype("1");;		// 资金方类别
+				bvo.setInvesttype("2");;		// 资金方类别
 				bvo.setInvestprop(ftvo.getLoanamt()/fea_fundssrcVO.getInvesttotal());;		// 当期比例（%）
 				bvo.setInvestamt(ftvo.getLoanamt());;		// 资金金额
 				bvo.setJsamt(ftvo.getLoanamt()-flowloanamt);		// 用于建设金额

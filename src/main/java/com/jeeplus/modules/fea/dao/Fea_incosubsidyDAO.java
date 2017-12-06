@@ -18,23 +18,27 @@ public class Fea_incosubsidyDAO {
 		vo.setId(PubUtil.getid(1));
 		vo.setCreateBy(UserUtils.getUser());
 		vo.setCreateDate(new Date());
-		
+
 		vo.setSubsidytype("配套费");
 		vo.setUnitname("万元");;		// 单位
 		vo.setIspaytax("1");		// 是否纳税
-		
+
 		if(null!=projectvo.getCountyears() && projectvo.getCountyears()>0){
-		   for(int i=0;i<projectvo.getCountyears();i++){
+			for(int i=0;i<projectvo.getCountyears();i++){
 				try {
 					Method m = vo.getClass().getMethod("setYear"+(i+1),Double.class);
-					m.invoke(vo, 0.00);
+					if(i==1){
+						m.invoke(vo, 668.00);
+					}else{
+						m.invoke(vo, 0.00);
+					}
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
-		   }
+			}
 		}
-		
+
 		basemapper.insert(vo);
 	}
-	
+
 }

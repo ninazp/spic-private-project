@@ -59,6 +59,8 @@ public class CreateReportPubDMO {
 	public Map<String,List<List<Double>>> getallreporttable(Map<String,Object> parammap){
 
 		Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
+		
+		try{
 		if(null==parammap || (!parammap.containsKey("projectid"))){
 			return null;
 		}
@@ -122,6 +124,12 @@ public class CreateReportPubDMO {
 				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
 				shortloanrate, incomeset.get(2), zjcktable.get(5).get(0)*incomeset.get(2)/100);
 		
+		//利息表备付率和偿付率
+		List<List<Double>> RcrDscrtable = LoanRcrDscrHandler.getRcrDscrtable(lrfinaltable, interestFinaltable);
+		
+		interestFinaltable.add(RcrDscrtable.get(0));
+		interestFinaltable.add(RcrDscrtable.get(1));
+		
 		//5---财务计划现金流量表
 		List<List<Double>> financeplanfinaltable = FinanceHandler.getFinanceTable(projectinfo.get(1),
 				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable);
@@ -150,7 +158,34 @@ public class CreateReportPubDMO {
 		//10 -- EVA测算表
 		List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrtable, totalcostltable, balancetable);
 
-
+		
+		List<List<Double>> table1 = PubUtilHandler.getRoundingTable(zjcktable);
+		List<List<Double>> table2 = PubUtilHandler.getRoundingTable(totalcostfinaltable);
+		List<List<Double>> table3 = PubUtilHandler.getRoundingTable(interestFinaltable);
+		List<List<Double>> table4 = PubUtilHandler.getRoundingTable(lrfinaltable);
+		List<List<Double>> table5 = PubUtilHandler.getRoundingTable(financeplanfinaltable);
+		List<List<Double>> table6 = PubUtilHandler.getRoundingTable(investHandlerTable);
+		List<List<Double>> table7 = PubUtilHandler.getRoundingTable(capitalTable);
+		List<List<Double>> table8 = PubUtilHandler.getRoundingTable(capitalsrcTable);
+		List<List<Double>> table9 = PubUtilHandler.getRoundingTable(balancetable);
+		List<List<Double>> table10 = PubUtilHandler.getRoundingTable(eVAHandlerTable);
+		
+		retmap.put("投资计划与资金筹措表", table1); retmap.put("总成本费用表", table2); 
+		retmap.put("借款还本付息计划表",table3 ); retmap.put("利润和利润分配表",table4 ); 
+		retmap.put("财务计划现金流量表", table5);retmap.put("项目投资现金流量表", table6);
+		retmap.put("项目资本金现金流量表",table7 ); retmap.put("资金来源与运用表",table8 );
+		retmap.put("资产负债表",table9 ); retmap.put("EVA测算表", table10); 
+		
+		}catch(Exception e){
+			e.getMessage();
+			List<List<Double>> temp = new ArrayList<List<Double>>();
+			retmap.put("投资计划与资金筹措表", temp); retmap.put("总成本费用表",temp ); 
+			retmap.put("借款还本付息计划表", temp); 
+			retmap.put("利润和利润分配表",temp ); retmap.put("财务计划现金流量表", temp);
+			retmap.put("项目投资现金流量表",temp );
+			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
+			retmap.put("EVA测算表", temp); 
+		}
 //		//       
 //		       WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
 //		       WriteExcelCal.getexcel("totalcostltable.xls",totalcostltable);
@@ -167,25 +202,20 @@ public class CreateReportPubDMO {
 //		       WriteExcelCal.getexcel("balancetable.xls",balancetable);
 //		       WriteExcelCal.getexcel("eVAHandlerTable.xls",eVAHandlerTable);
 
-		retmap.put("投资计划与资金筹措表", zjcktable); retmap.put("总成本费用表",totalcostfinaltable ); 
-		retmap.put("借款还本付息计划表", interestFinaltable); 
-		retmap.put("利润和利润分配表",lrfinaltable ); retmap.put("财务计划现金流量表", financeplanfinaltable);
-		retmap.put("项目投资现金流量表",investHandlerTable );
-		retmap.put("项目资本金现金流量表",capitalTable ); retmap.put("资金来源与运用表",capitalsrcTable );retmap.put("资产负债表",balancetable ); 
-		retmap.put("EVA测算表", eVAHandlerTable); 
-
-		
-	      getinvest_irrnpv(investHandlerTable);
-
 		return retmap;
 	}
 
 	public List<Double> getcapital_irrnpv(List<List<Double>> capitalTable){
 		List<Double> retlst = new ArrayList<Double>();
+		
+		try{
 		Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 				0.07, 0.06, "3");
 		retlst.add(doub3);  
 
+		}catch(Exception e){
+			e.getMessage();
+		}
 		//       StringBuffer retrunstr = new StringBuffer("计算指标：\n");
 		//       retrunstr.append("资本金财务内部收益率（%）: "+retlst.get(0));
 
@@ -194,6 +224,8 @@ public class CreateReportPubDMO {
 
 	public List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){
 		List<Double> retlst = new ArrayList<Double>();
+		
+		try{
 		Double doub3 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
 				0.07, 0.06, "3");
 		Double doub1 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
@@ -207,7 +239,9 @@ public class CreateReportPubDMO {
 		retlst.add(doub3);  retlst.add(doub4);
 		retlst.add(doub1);  retlst.add(doub2); 
 		retlst.add(retunperiod);  retlst.add(retunperiod2);
-
+		}catch(Exception e){
+			e.getMessage();
+		}
 		//       StringBuffer retrunstr = new StringBuffer("计算指标：\n");
 		//       retrunstr.append("项目投资财务内部收益率（%）（所得税前）: "+retlst.get(0));
 		//       retrunstr.append("项目投资财务内部收益率（%）（所得税后）: "+retlst.get(1));

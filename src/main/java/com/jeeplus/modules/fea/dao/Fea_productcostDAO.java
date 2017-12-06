@@ -48,7 +48,15 @@ public class Fea_productcostDAO {
 			   for(int i=0;i<projectvo.getCountyears();i++){
 					try {
 						Method m = bvo.getClass().getMethod("setYear"+(i+1),Double.class);
-						m.invoke(bvo, 0.00);
+						if(i<3){
+						   m.invoke(bvo, 0.00);
+						}else if(i==3){
+							m.invoke(bvo, 0.20);
+						}else if(i>3 && i<7){
+							m.invoke(bvo, 0.40);
+						}else{
+							m.invoke(bvo, 0.60);
+						}
 					} catch(Exception e) {
 						e.printStackTrace();
 					}

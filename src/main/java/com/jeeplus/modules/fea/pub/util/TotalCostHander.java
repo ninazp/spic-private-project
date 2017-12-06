@@ -45,7 +45,7 @@ public class TotalCostHander {
 			for(Fea_productcostVO pcost : productcost){
 				List<Fea_productcostBVO>   pbvolst = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", " pkproductcost='"+pcost.getId()+"' ", baseMapper3);
 				for(Fea_productcostBVO bvo : pbvolst){
-					if(bvo.getCosttype().contains("维修费") || bvo.getCosttype().equals("1")){
+					if(bvo.getCosttype().contains("维修") || bvo.getCosttype().equals("1")){
 						for(int j=0;j<projectinfo.get(1);j++){
 							try {
 								Method m = bvo.getClass().getMethod("getYear"+(j+1));

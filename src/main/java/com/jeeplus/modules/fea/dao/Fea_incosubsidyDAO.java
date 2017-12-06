@@ -21,12 +21,12 @@ public class Fea_incosubsidyDAO {
 		
 		vo.setSubsidytype("配套费");
 		vo.setUnitname("万元");;		// 单位
-		vo.setIspaytax("2");		// 是否纳税
+		vo.setIspaytax("1");		// 是否纳税
 		
 		if(null!=projectvo.getCountyears() && projectvo.getCountyears()>0){
 		   for(int i=0;i<projectvo.getCountyears();i++){
 				try {
-					Method m = vo.getClass().getMethod("setYear"+(i+1));
+					Method m = vo.getClass().getMethod("setYear"+(i+1),Double.class);
 					m.invoke(vo, 0.00);
 				} catch(Exception e) {
 					e.printStackTrace();

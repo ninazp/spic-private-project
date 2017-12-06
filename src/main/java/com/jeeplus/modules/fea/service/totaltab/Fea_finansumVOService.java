@@ -55,7 +55,7 @@ public class Fea_finansumVOService extends CrudService<Fea_finansumVOMapper, Fea
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		Object reportbean = wac.getBean("pubutil");
 		
-		FeaProjectB bvo = feaProjectBMapper.get("960c372bab4747cda81ac2e2cab8896f");
+		FeaProjectB bvo = feaProjectBMapper.get("eabe8fe7c9f04e7a940d5fa84c760ffb");
 		
 		((PubUtil)reportbean).setdefaultData(bvo);
 		

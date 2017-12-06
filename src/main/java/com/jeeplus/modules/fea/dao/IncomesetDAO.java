@@ -23,10 +23,10 @@ public class IncomesetDAO {
 		vo.setSurtax(5.00);;		// 教育费附加费率（%）
 		vo.setLegalaccfund(10.00);;		// 法定盈余公积金比例（%）
 		vo.setAccfund(0.00);;		// 任意盈余公积金比例（%）
-		vo.setIsaccfundwsd("1");		// 公积金提取不超过资本金的50%
+		vo.setIsaccfundwsd("0");		// 公积金提取不超过资本金的50%
 		vo.setYflrprop(10.00);;		// 应付利润比例（%）
-		vo.setIsvtaxjzjt("1");;		// 增值税即征即退50%
-		vo.setIssdssjsm("1");;		// 所得税三免三减半
+		vo.setIsvtaxjzjt("0");;		// 增值税即征即退50%
+		vo.setIssdssjsm("0");;		// 所得税三免三减半
 		vo.setCapinvesttype("等比例投入");;		// 资本金投入方式
 		vo.setCapinvestprop(20.00);;		// 资本金比例（%）
 		vo.setCapinvestrate(7.00);;		// 资本金基准收益率（%）

@@ -71,7 +71,7 @@ public class PubUtil {
 		Fea_costfecfVO ecfvo = Fea_costfecfDAO.insertFea_costfecf(fea_costfecfVOMapper, projectvo);
 		//资产形成
 		Fea_capformDAO.insertFea_capform(fea_capformVOMapper, projectvo);
-		//产品种类
+		//产品种类 -- 带年份
 		Fea_costinfoDAO.insertFea_costinfo(fea_costinfoVOMapper, projectvo);
 		Fea_fundssrcVO fsrvo = Fea_fundssrcDAO.insertFea_fundssrc(fea_fundssrcVOMapper,fea_fundssrcBVOMapper, fea_fundssrcTVOMapper, projectvo);
 		Double flowloanamt = ecfvo.getFlowamt()*ecfvo.getFlowloanprop()/100;

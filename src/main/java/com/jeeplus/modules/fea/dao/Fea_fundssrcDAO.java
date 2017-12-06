@@ -31,13 +31,13 @@ public class Fea_fundssrcDAO {
 		vo.setCreateDate(new Date());
 
 		vo.setInvesttotal(2228.16);;		// 投资总额
-		vo.setIsdeductvtax("1");;		// 增值税抵扣
+		vo.setIsdeductvtax("0");;		// 增值税抵扣
 		vo.setDeductvtax(93.79);;		// 可抵扣税金
 		vo.setCapitalprop(20.00);;		// 资本金比例(%)
 		vo.setCapitalamt(2228.16*0.2);;		// 资本金额度
 		vo.setLoanprop(80.00);;		// 借款比例(%)
 		vo.setLoanamt(2228.16*0.8);;		// 借款金额
-		vo.setIscapitalcy("2");;		// 注资循环
+		vo.setIscapitalcy("1");;		// 注资循环
 
 
 		Fea_fundssrcBVO bvo = new Fea_fundssrcBVO();

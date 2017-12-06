@@ -26,10 +26,10 @@ public class Fea_costinfoDAO {
 		   for(int i=0;i<projectvo.getCountyears();i++){
 				try {
 					if(i==0){
-					   Method m = vo.getClass().getMethod("setYear"+(i));
+					   Method m = vo.getClass().getMethod("setYear",Double.class);
 					   m.invoke(vo, 0.00);
 					}else{
-						 Method m = vo.getClass().getMethod("setYear"+(i+1));
+						 Method m = vo.getClass().getMethod("setYear"+(i+1),Double.class);
 						   m.invoke(vo, 0.00);
 					}
 				} catch(Exception e) {

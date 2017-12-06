@@ -302,12 +302,18 @@ $(document).ready(function() {
 			    if(isNull(countyears) && isNull(len) && len > countyears + 2){
 			    	var startHidecol = countyears + 2;  //2：多余列2个
 			    	
-			    	for(var i = 0;i<len;i++){
-			    		if(i>=startHidecol){
-			    			$("#tab-"+rowId+"-1").find('th:eq('+i+')').addClass("hide");
-							$("#fea_productcostVOChild-"+rowId+"-1-List").find('td:eq('+i+')').addClass("hide");
-			    		}
+			    	for(var i = startHidecol;i<len;i++){
+		    			$("#tab-"+rowId+"-1").find('th:eq('+i+')').addClass("hide");
+							//$("#fea_productcostVOChild-"+rowId+"-1-List").find('td:eq('+i+')').addClass("hide");
 			    	}
+			    	var trLength = $("#fea_productcostVOChild-"+rowId+"-1-List tr").length;
+	    			for(var j=0;j<trLength;j++){
+	    				var tr = $("#fea_productcostVOChild-"+rowId+"-1-List tr").eq(j);
+    					var tdLength = tr.find("td").length;
+    					for(var f=startHidecol;f<tdLength;f++){
+							tr.find('td:eq('+f+')').addClass("hide");
+	    				}
+	    			}
 			    }
   	  		}else{
   	  			jp.error(data.msg);

@@ -419,11 +419,9 @@
 						    var len = $('thead  tr th').length;
 						    if(isNull(countyears) && isNull(len) && len > countyears + 4){
 						    	var startHidecol = countyears + 4;  //4：隐藏列4个
-						    	for(var i = 0;i<len;i++){
-						    		if(i>=startHidecol){
+						    	for(var i = startHidecol;i<len;i++){
 						    			$("#listTheadtr").find('th:eq('+i+')').addClass("hide");
 										$("#fea_productcostBVOList tr").find('td:eq('+i+')').addClass("hide");
-						    		}
 						    	}
 						    }
 		      	  		}else{

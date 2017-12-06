@@ -4,6 +4,7 @@
     
 	<sql id="fea_incosubsidyVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -46,11 +47,14 @@
 		a.year29 AS "year29",
 		a.year30 AS "year30",
 		a.year31 AS "year31",
-		a.year32 AS "year32"
+		a.year32 AS "year32",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_incosubsidyVOJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -103,6 +107,7 @@
 	<insert id="insert">
 		INSERT INTO fea_incosubsidy(
 			id,
+			project_id,
 			create_by,
 			create_date,
 			update_by,
@@ -148,6 +153,7 @@
 			year32
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -196,6 +202,7 @@
 	
 	<update id="update">
 		UPDATE fea_incosubsidy SET 	
+			project_id = #{feaProjectB.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},

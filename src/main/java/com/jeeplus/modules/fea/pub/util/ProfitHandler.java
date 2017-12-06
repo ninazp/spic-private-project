@@ -25,7 +25,7 @@ public class ProfitHandler {
 		//利润表与利润分配表
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
 		
-		List<Double> productrate = getproduct(projectinfo, baseMapper);
+		List<Double> productrate = getproductlst(projectinfo, baseMapper,projectvo);
 
 		List<Double> profit1 = ProfitHandler.getincome(productrate, projectinfo.get(3),price, projectinfo.get(1));
 		List<Double> profit2 = ProfitHandler.gettax(0.0, projectinfo.get(1));
@@ -171,9 +171,9 @@ public class ProfitHandler {
 		return profittable;
 	}
 	
-	public static List<Double> getproduct(List<Double> projectinfo,BaseMapper basemaper){
+	public static List<Double> getproductlst(List<Double> projectinfo,BaseMapper basemaper,FeaProjectB projectvo){
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
-				getMutiParentVO("fea_costinfo", "id", " projectcode='B0001' ",
+				getMutiParentVO("fea_costinfo", "id", " project_id ='"+projectvo.getId()+"' ",
 						basemaper);
 		List<Double> costrate = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){

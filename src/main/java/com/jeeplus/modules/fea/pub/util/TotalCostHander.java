@@ -16,6 +16,7 @@ public class TotalCostHander {
 			BaseMapper baseMapper,
 			BaseMapper baseMapper2,
 			BaseMapper baseMapper3,
+			String projectid,
 			List<Double> projectinfo,Double dekuje,List<List<Double>> interestTable,List<List<Double>> zjcktable){
 
 		Double assetval = zjcktable.get(1).get(0)+zjcktable.get(2).get(0)-dekuje;//计算折旧费固定资产价格
@@ -30,8 +31,8 @@ public class TotalCostHander {
 		 *                   保险费率，工资,福利，供热,泵热费，
 		 *                   第一年的供热月份，总计算年限，摊销原值，摊销年限
 		 */
-		List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " projectcode='B0001' ", baseMapper);
-		List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " projectcode='B0001' ", baseMapper2);
+		List<Fea_capformVO>   fea_capform = (List<Fea_capformVO>) PubBaseDAO.getMutiParentVO("fea_capform", "id", " project_id='"+projectid+"' ", baseMapper);
+		List<Fea_productcostVO>   productcost = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", " project_id='"+projectid+"' ", baseMapper2);
 
 		List<Double> repairrate = new ArrayList<Double>();
 		Double insurance = 0.0;

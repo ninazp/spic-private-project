@@ -26,6 +26,7 @@
 	</context:component-scan>
 	
 	<bean id="createReportPubDMO" class="com.jeeplus.modules.fea.pub.util.CreateReportPubDMO"></bean>
+	<bean id="pubutil" class="com.jeeplus.modules.fea.dao.PubUtil"></bean>
 	
  	<!-- MyBatis begin -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

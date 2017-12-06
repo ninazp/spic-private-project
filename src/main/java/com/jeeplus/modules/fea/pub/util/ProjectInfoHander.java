@@ -40,7 +40,7 @@ public class ProjectInfoHander {
 		List<Double> retlst = new ArrayList<Double>();
 		//查询资金来源
 		List<Fea_fundssrcVO>   distrvolst = (List<Fea_fundssrcVO>) PubBaseDAO.
-				getMutiParentVO("fea_fundssrc", "id", " projectcode='"+projectvo.getProjectCode()+"' ", baseMapper);
+				getMutiParentVO("fea_fundssrc", "id", " project_id='"+projectvo.getId()+"' ", baseMapper);
 		if(null!=distrvolst && distrvolst.size()>0){
 			for(Fea_fundssrcVO fvo : distrvolst){
 				deductval = deductval+((null==fvo.getDeductvtax())?0.00:fvo.getDeductvtax());
@@ -81,7 +81,7 @@ public class ProjectInfoHander {
 		
 		//查询资金来源
 		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
-				getMutiParentVO("fea_investdis", "id", " projectcode='B0001' ", baseMapper);
+				getMutiParentVO("fea_investdis", "id", " project_id='"+projectvo.getId()+"' ", baseMapper);
 		if(null!=distrvolst && distrvolst.size()>0){
 			for(Fea_investdisVO fvo : distrvolst){
 				List<Fea_investdisBVO>   distriblst = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", " pkinvestdis='"+fvo.getId()+"' ", baseMapperb);

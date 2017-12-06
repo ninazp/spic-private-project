@@ -75,8 +75,7 @@ public class CreateReportPubDMO {
 			retlst.add(Double.valueOf(volst.get(0).getIssdssjsm()));//所得税三减三免
 
 		 */
-		String wheresql = " (projectcode='"+projectvo.getProjectCode()+
-				"' or projectcode='"+projectvo.getId()+"')";
+		String wheresql = "project_id='"+projectvo.getId()+"'";
 		List<Double> incomeset = PubBaseDAO.getFea_incomeset("fea_incomeset", "id", wheresql, fea_incomesetVOMapper);
 
 		/**
@@ -100,7 +99,7 @@ public class CreateReportPubDMO {
 		List<List<Double>> interestTable = LoanRepayHandler.getLoanRepayTable(zjcktable, projectinfo, fundssrcparam, shortloanrate,null);
 
 		List<List<Double>> totalcostltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
-				fea_productcostBVOmapper, projectinfo,deductval,interestTable,zjcktable);
+				fea_productcostBVOmapper, projectvo.getId(),projectinfo,deductval,interestTable,zjcktable);
 
 		List<List<Double>> lrtable =  ProfitHandler.getprofittable(projectinfo, totalcostltable, interestTable, 
 				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
@@ -117,7 +116,7 @@ public class CreateReportPubDMO {
 
 		//2  -- 总成本费用表
 		List<List<Double>> totalcostfinaltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
-				fea_productcostBVOmapper, projectinfo,deductval,interestFinaltable,zjcktable);
+				fea_productcostBVOmapper,projectvo.getId(), projectinfo,deductval,interestFinaltable,zjcktable);
 		//3	
 		List<List<Double>> lrfinaltable =  ProfitHandler.getprofittable(projectinfo, totalcostfinaltable, interestFinaltable, 
 				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),

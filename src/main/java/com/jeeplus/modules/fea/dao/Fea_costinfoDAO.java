@@ -26,11 +26,19 @@ public class Fea_costinfoDAO {
 		   for(int i=0;i<projectvo.getCountyears();i++){
 				try {
 					if(i==0){
-					   Method m = vo.getClass().getMethod("setYear"+(i));
+					   Method m = vo.getClass().getMethod("setYear",Double.class);
 					   m.invoke(vo, 0.00);
 					}else{
-						 Method m = vo.getClass().getMethod("setYear"+(i+1));
-						   m.invoke(vo, 0.00);
+						 Method m = vo.getClass().getMethod("setYear"+(i+1),Double.class);
+						 if(i==1){
+							 m.invoke(vo, 60.00);
+						 }else if(i==2){
+							 m.invoke(vo, 70.00);
+						 }else if(i==3){
+							 m.invoke(vo, 80.00);
+						 }else{
+							 m.invoke(vo, 85.00);
+						 }
 					}
 				} catch(Exception e) {
 					e.printStackTrace();

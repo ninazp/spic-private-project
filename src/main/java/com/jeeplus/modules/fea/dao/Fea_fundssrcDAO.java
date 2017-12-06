@@ -31,13 +31,13 @@ public class Fea_fundssrcDAO {
 		vo.setCreateDate(new Date());
 
 		vo.setInvesttotal(2228.16);;		// 投资总额
-		vo.setIsdeductvtax("1");;		// 增值税抵扣
+		vo.setIsdeductvtax("0");;		// 增值税抵扣
 		vo.setDeductvtax(93.79);;		// 可抵扣税金
 		vo.setCapitalprop(20.00);;		// 资本金比例(%)
 		vo.setCapitalamt(2228.16*0.2);;		// 资本金额度
 		vo.setLoanprop(80.00);;		// 借款比例(%)
 		vo.setLoanamt(2228.16*0.8);;		// 借款金额
-		vo.setIscapitalcy("2");;		// 注资循环
+		vo.setIscapitalcy("1");;		// 注资循环
 
 
 		Fea_fundssrcBVO bvo = new Fea_fundssrcBVO();
@@ -127,7 +127,7 @@ public class Fea_fundssrcDAO {
 				basemapper5.insert(bvo);
 			}
 
-			for(int i=0;i<fea_fundssrcVO.getFea_fundssrcBVOList().size();i++){
+			for(int i=0;i<fea_fundssrcVO.getFea_fundssrcTVOList().size();i++){
 				Fea_fundssrcTVO ftvo = fea_fundssrcVO.getFea_fundssrcTVOList().get(i);
 				Fea_investdisBVO bvo = new Fea_investdisBVO();
 				bvo.setId(PubUtil.getid(1));
@@ -135,7 +135,7 @@ public class Fea_fundssrcDAO {
 				bvo.setCreateDate(new Date());
 				bvo.setFea_investdis(vo);
 				bvo.setZjname(ftvo.getLoantyp());
-				bvo.setInvesttype("1");;		// 资金方类别
+				bvo.setInvesttype("2");;		// 资金方类别
 				bvo.setInvestprop(ftvo.getLoanamt()/fea_fundssrcVO.getInvesttotal());;		// 当期比例（%）
 				bvo.setInvestamt(ftvo.getLoanamt());;		// 资金金额
 				bvo.setJsamt(ftvo.getLoanamt()-flowloanamt);		// 用于建设金额

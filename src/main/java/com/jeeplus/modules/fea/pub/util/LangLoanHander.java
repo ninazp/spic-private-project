@@ -98,7 +98,7 @@ public static List<List<Double>> getyhlxs(int year,Double langamt,Double loanrat
 			
 			lxsum = lxsum+dlx;
 			bjlxsum = bjlxsum+dlx+returnbj.get(i+1);
-		}else{
+		}else if(i<(returnnum+1)){
 			beginbanlance.add(endbanlance.get(i));
 			Double dlx = (endbanlance.get(i))*loanrate/100;
 			currentlx.add(dlx);
@@ -106,6 +106,11 @@ public static List<List<Double>> getyhlxs(int year,Double langamt,Double loanrat
 			endbanlance.add(endbanlance.get(i)-returnbj.get(i+1));
 			lxsum = lxsum+dlx;
 			bjlxsum = bjlxsum+dlx+returnbj.get(i+1);
+		}else{
+			beginbanlance.add(0.00);
+			currentlx.add(0.00);
+			bjlx.add(0.00);
+            endbanlance.add(0.00);
 		}
 	}
 	bjlx.set(0, bjlxsum);

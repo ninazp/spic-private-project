@@ -188,7 +188,7 @@ public class ProfitHandler {
 						}
 						Object rated = m.invoke(fcvo);
 						if(null!=rated){
-							costrate.add((Double)rated);
+							costrate.add(((Double)rated)/100);
 						}else{
 							costrate.add(0.00);
 						}

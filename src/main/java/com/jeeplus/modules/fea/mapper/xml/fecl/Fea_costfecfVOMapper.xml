@@ -4,6 +4,7 @@
     
 	<sql id="fea_costfecfVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -15,11 +16,14 @@
 		a.flowamt AS "flowamt",
 		a.flowloanprop AS "flowloanprop",
 		a.flowcaprate AS "flowcaprate",
-		a.remarks AS "remarks"
+		a.remarks AS "remarks",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_costfecfVOJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -72,6 +76,7 @@
 	<insert id="insert">
 		INSERT INTO fea_costfecf(
 			id,
+			project_id,
 			create_by,
 			create_date,
 			update_by,
@@ -86,6 +91,7 @@
 			remarks
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -103,6 +109,7 @@
 	
 	<update id="update">
 		UPDATE fea_costfecf SET 	
+			project_id = #{feaProjectB.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			projectcode = #{projectcode},

@@ -92,33 +92,36 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<td class="width-35">
+						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_incocalmethodVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_incocalmethodVO.feaProjectB.projectName}"
+							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+					</td>
 					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
 					<td class="width-35">
 						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">计算方式：</label></td>
 					<td class="width-35">
 						<form:input path="calmethod" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">目标收益选择：</label></td>
 					<td class="width-35">
 						<form:input path="incometype" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">目标值（%）：</label></td>
 					<td class="width-35">
 						<form:input path="targetval" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 		<div class="tabs-container">

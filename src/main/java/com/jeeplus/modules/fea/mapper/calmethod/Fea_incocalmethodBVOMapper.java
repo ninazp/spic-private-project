@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.calmethod.Fea_incocalmethodBVO;
 /**
  * 测算方式价格子表MAPPER接口
  * @author jw
- * @version 2017-11-08
+ * @version 2017-12-06
  */
 @MyBatisMapper
 public interface Fea_incocalmethodBVOMapper extends BaseMapper<Fea_incocalmethodBVO> {

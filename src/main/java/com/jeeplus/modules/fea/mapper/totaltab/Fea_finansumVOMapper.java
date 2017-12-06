@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
 /**
  * 财务指标汇总表MAPPER接口
  * @author jw
- * @version 2017-11-22
+ * @version 2017-12-06
  */
 @MyBatisMapper
 public interface Fea_finansumVOMapper extends BaseMapper<Fea_finansumVO> {

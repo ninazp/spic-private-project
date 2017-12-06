@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.fea.web.project;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -218,5 +220,28 @@ public class FeaProjectBController extends BaseController {
 		}
 		return "redirect:"+Global.getAdminPath()+"/fea/project/feaProjectB/?repage";
     }
+	
+	/**
+	 * 获取项目数据byID
+	 */
+/*	@ResponseBody
+	@RequiresPermissions(value={"fea:project:feaProjectB:add","fea:project:feaProjectB:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getProjectById")
+	public AjaxJson getProjectById(String id, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		
+		FeaProjectB feaProjectB = new FeaProjectB();
+		
+		if(null != id){
+			feaProjectB = feaProjectBService.get(id);
+		}
+
+		AjaxJson j = new AjaxJson();
+		LinkedHashMap<K, V>
+		j.setBody(body);
+		j.setMsg("");
+		j.setSuccess(true);
+		
+		return j;
+	}*/
 
 }

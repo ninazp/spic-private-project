@@ -81,12 +81,22 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+		            if(value == null){
+		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+		            }else{
+		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		            }
+		        }
+		       
+		    }
+			,{
 		        field: 'projectcode',
 		        title: '项目编码',
 		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		         }
 		       
 		    }
 			,{

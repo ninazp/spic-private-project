@@ -67,6 +67,7 @@
 					 format: "YYYY-MM-DD HH:mm:ss"
 			    });
 			});
+			hideCol();
 		}
 		function delRow(obj, prefix){
 			var id = $(prefix+"_id");
@@ -168,7 +169,7 @@
 			<a class="btn btn-white btn-sm" onclick="addRow('#fea_productcostBVOList', fea_productcostBVORowIdx, fea_productcostBVOTpl);fea_productcostBVORowIdx = fea_productcostBVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
 			<table style="width:2500px;" class="table table-striped table-bordered table-condensed">
 				<thead>
-					<tr>
+					<tr id="listTheadtr">
 						<th class="hide"></th>
 						<th width="10">&nbsp;</th>
 						<th width="150">成本种类</th>
@@ -402,7 +403,13 @@
 						addRow('#fea_productcostBVOList', fea_productcostBVORowIdx, fea_productcostBVOTpl, data[i]);
 						fea_productcostBVORowIdx = fea_productcostBVORowIdx + 1;
 					}
+					hideCol();
 				});
+				function hideCol(){
+				//var len = $('thead  tr th').length;
+				/* $("#listTheadtr").find('th:eq(7)').addClass("hide");
+				$("#fea_productcostBVOList tr").find('td:eq(6)').addClass("hide"); */
+				}
 			</script>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 补贴收入Entity
  * @author jw
- * @version 2017-12-03
+ * @version 2017-12-06
  */
 public class Fea_incosubsidyVO extends DataEntity<Fea_incosubsidyVO> {
 	

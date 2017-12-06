@@ -4,6 +4,7 @@
     
 	<sql id="fea_incomesetVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -27,11 +28,14 @@
 		a.capinvestrate AS "capinvestrate",
 		a.industrysqrate AS "industrysqrate",
 		a.industryshrate AS "industryshrate",
-		a.capcostrate AS "capcostrate"
+		a.capcostrate AS "capcostrate",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_incomesetVOJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -84,6 +88,7 @@
 	<insert id="insert">
 		INSERT INTO fea_incomeset(
 			id,
+			project_id,
 			create_by,
 			create_date,
 			update_by,
@@ -110,6 +115,7 @@
 			capcostrate
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -139,6 +145,7 @@
 	
 	<update id="update">
 		UPDATE fea_incomeset SET 	
+			project_id = #{feaProjectB.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			projectcode = #{projectcode},

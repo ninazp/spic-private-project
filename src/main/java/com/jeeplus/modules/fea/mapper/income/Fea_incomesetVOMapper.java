@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
 /**
  * 基本参数MAPPER接口
  * @author jw
- * @version 2017-11-18
+ * @version 2017-12-06
  */
 @MyBatisMapper
 public interface Fea_incomesetVOMapper extends BaseMapper<Fea_incomesetVO> {

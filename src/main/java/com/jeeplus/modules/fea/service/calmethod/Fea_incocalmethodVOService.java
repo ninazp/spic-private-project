@@ -22,7 +22,7 @@ import com.jeeplus.modules.fea.mapper.calmethod.Fea_incocalmethodTVOMapper;
 /**
  * 测算方式Service
  * @author jw
- * @version 2017-11-08
+ * @version 2017-12-06
  */
 @Service
 @Transactional(readOnly = true)

@@ -142,7 +142,7 @@
 			year23 = #{year23},
 			year24 = #{year24},
 			year25 = #{year25},
-			year26 = #{year26},
+			year26 = #{year26}
 		WHERE id = #{id}
 	</update>
 	

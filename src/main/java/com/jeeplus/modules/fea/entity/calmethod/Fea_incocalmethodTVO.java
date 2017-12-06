@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 测算方式分利比Entity
  * @author jw
- * @version 2017-11-08
+ * @version 2017-12-06
  */
 public class Fea_incocalmethodTVO extends DataEntity<Fea_incocalmethodTVO> {
 	

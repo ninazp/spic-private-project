@@ -4,6 +4,7 @@
     
 	<sql id="fea_finansumVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -12,11 +13,14 @@
 		a.del_flag AS "delFlag",
 		a.heatarea AS "heatarea",
 		a.cgheatarea AS "cgheatarea",
-		a.investtotal AS "investtotal"
+		a.investtotal AS "investtotal",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_finansumVOJoins">
 		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
 	</sql>
 	
     
@@ -69,6 +73,7 @@
 	<insert id="insert">
 		INSERT INTO fea_finansum(
 			id,
+			project_id,
 			create_by,
 			create_date,
 			update_by,
@@ -80,6 +85,7 @@
 			investtotal
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -94,6 +100,7 @@
 	
 	<update id="update">
 		UPDATE fea_finansum SET 	
+			project_id = #{feaProjectB.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},

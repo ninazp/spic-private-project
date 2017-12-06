@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.fea.entity.calmethod;
 
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import java.util.List;
 import com.google.common.collect.Lists;
 
@@ -12,11 +13,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 测算方式Entity
  * @author jw
- * @version 2017-11-08
+ * @version 2017-12-06
  */
 public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 	
 	private static final long serialVersionUID = 1L;
+	private FeaProjectB feaProjectB;		// 项目
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private String calmethod;		// 计算方式
@@ -33,7 +35,16 @@ public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目编码", align=2, sort=7)
+	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=1)
+	public FeaProjectB getFeaProjectB() {
+		return feaProjectB;
+	}
+
+	public void setFeaProjectB(FeaProjectB feaProjectB) {
+		this.feaProjectB = feaProjectB;
+	}
+	
+	@ExcelField(title="项目编码", align=2, sort=8)
 	public String getProjectcode() {
 		return projectcode;
 	}
@@ -42,7 +53,7 @@ public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 		this.projectcode = projectcode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=8)
+	@ExcelField(title="项目名称", align=2, sort=9)
 	public String getProjectname() {
 		return projectname;
 	}
@@ -51,7 +62,7 @@ public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="计算方式", align=2, sort=9)
+	@ExcelField(title="计算方式", align=2, sort=10)
 	public String getCalmethod() {
 		return calmethod;
 	}
@@ -60,7 +71,7 @@ public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 		this.calmethod = calmethod;
 	}
 	
-	@ExcelField(title="目标收益选择", align=2, sort=10)
+	@ExcelField(title="目标收益选择", align=2, sort=11)
 	public String getIncometype() {
 		return incometype;
 	}
@@ -69,7 +80,7 @@ public class Fea_incocalmethodVO extends DataEntity<Fea_incocalmethodVO> {
 		this.incometype = incometype;
 	}
 	
-	@ExcelField(title="目标值（%）", align=2, sort=11)
+	@ExcelField(title="目标值（%）", align=2, sort=12)
 	public Double getTargetval() {
 		return targetval;
 	}

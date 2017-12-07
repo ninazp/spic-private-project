@@ -1,6 +1,7 @@
 package com.jeeplus.modules.fea.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -99,8 +100,10 @@ public class Fea_fundssrcDAO {
 			vo.setId(PubUtil.getid(1));
 			vo.setCreateBy(UserUtils.getUser());	
 			vo.setCreateDate(new Date());
-
-			vo.setYear(startdate.getYear()+"");;		// 年度
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(startdate);
+			int year = cal.get(Calendar.YEAR);
+			vo.setYear(year+"");;		// 年度
 			vo.setInvestprop(100.00);;		// 投资比例
 			vo.setInvestamt(fea_fundssrcVO.getInvesttotal());;		// 投资额度
 			vo.setDeductvtax(fea_fundssrcVO.getDeductvtax());;		// 可抵扣税金
@@ -196,5 +199,4 @@ public class Fea_fundssrcDAO {
 			}
 		}
 	}
-
 }

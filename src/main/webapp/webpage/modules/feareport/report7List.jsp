@@ -180,7 +180,7 @@
 		}
 		
 		function initreport(datas){
-			
+			$('#report').empty();
 			//给项目参照赋值
 			//固定数据
 			
@@ -352,9 +352,9 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 24, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 24, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}

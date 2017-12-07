@@ -183,7 +183,7 @@
 		}
 		
 		function initreport(datas,datas2){
-		
+			$('#report').empty();
 /* 		序号	项目
 	
 1	现金流入
@@ -301,9 +301,9 @@
 			    	{row:2, col:2, rowspan:2, colspan:1},
 			    	{row:2, col:1, rowspan:2, colspan:1},
 			    	{row:17, col:0, rowspan:1, colspan:2},
-			    	{row:17, col:3, rowspan:1, colspan:31},
+			    	{row:17, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:18, col:0, rowspan:1, colspan:2},
-			    	{row:18, col:3, rowspan:1, colspan:31}
+			    	{row:18, col:3, rowspan:1, colspan:colLeg-1}
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
@@ -363,10 +363,10 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 16, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 16, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     hot.populateFromArray(18, 2, array2, 18, 2, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}

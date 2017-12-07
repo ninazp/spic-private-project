@@ -158,6 +158,9 @@
 				</form>
 			</div>			
 		</div>
+		<div class="">
+	         <img alt="image" style="width:100%;opacity:1"class="" src="${ctxStatic}/common/images/home_background.png">
+	    </div>
 	</div>
 	
 	<script>

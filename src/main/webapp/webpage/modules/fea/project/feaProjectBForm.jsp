@@ -76,7 +76,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">供暖面积（万平米）:</label></td>
 					<td class="width-35">
-						<form:input path="heatArea" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatArea" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">类型：</label></td>
 					<td class="width-35">

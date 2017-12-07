@@ -183,7 +183,7 @@
 		}
 		
 		function initreport(datas,datas2){
-		
+			$('#report').empty();
 /* 		序号	项目
 	
 1	现金流入
@@ -308,20 +308,20 @@
 			    	{row:2, col:0, rowspan:2, colspan:1},
 			    	{row:2, col:2, rowspan:2, colspan:1},
 			    	{row:2, col:1, rowspan:2, colspan:1},
-			    	{row:19, col:3, rowspan:1, colspan:31},
+			    	{row:19, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:19, col:0, rowspan:1, colspan:2},
 			    	{row:20, col:0, rowspan:1, colspan:2},
-			    	{row:20, col:3, rowspan:1, colspan:31},
+			    	{row:20, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:21, col:0, rowspan:1, colspan:2},
-			    	{row:21, col:3, rowspan:1, colspan:31},
+			    	{row:21, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:22, col:0, rowspan:1, colspan:2},
-			    	{row:22, col:3, rowspan:1, colspan:31},
+			    	{row:22, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:23, col:0, rowspan:1, colspan:2},
-			    	{row:23, col:3, rowspan:1, colspan:31},
+			    	{row:23, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:24, col:0, rowspan:1, colspan:2},
-			    	{row:24, col:3, rowspan:1, colspan:31},
+			    	{row:24, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:25, col:0, rowspan:1, colspan:2},
-			    	{row:25, col:3, rowspan:1, colspan:31}
+			    	{row:25, col:3, rowspan:1, colspan:colLeg-1}
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
@@ -405,10 +405,10 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 18, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 18, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     hot.populateFromArray(20, 2, array2, 25, 2, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}

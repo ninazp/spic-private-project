@@ -180,9 +180,9 @@
 		}
 		
 		function initreport(datas){
-			
 			//给项目参照赋值
 			//固定数据
+			$('#report').empty();
  			var data = [
 		           ["","","","总成本费用表"],
 		           ["","","","人民币单位：万元"],
@@ -321,9 +321,9 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 2, array, 15, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 2, array, 15, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, 33, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}

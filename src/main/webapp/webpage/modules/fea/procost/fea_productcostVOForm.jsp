@@ -71,7 +71,8 @@
 					 format: "YYYY-MM-DD HH:mm:ss"
 			    });
 			});
-			hideCol();
+			hideCol(list, idx, tpl, row);
+			inputEvent(list, idx, tpl, row);
 		}
 		function delRow(obj, prefix){
 			var id = $(prefix+"_id");
@@ -407,9 +408,10 @@
 						addRow('#fea_productcostBVOList', fea_productcostBVORowIdx, fea_productcostBVOTpl, data[i]);
 						fea_productcostBVORowIdx = fea_productcostBVORowIdx + 1;
 					}
-					hideCol();
+					//hideCol();//隐藏列
+					//inputEvent();//input绑定事件
 				});
-				function hideCol(){
+				function hideCol(list, idx, tpl, row){
 					//jp.loading();
 					var projectId = $("#feaProjectBId").val();
 					
@@ -420,8 +422,8 @@
 						    if(isNull(countyears) && isNull(len) && len > countyears + 4){
 						    	var startHidecol = countyears + 4;  //4：隐藏列4个
 						    	for(var i = startHidecol;i<len;i++){
-						    			$("#listTheadtr").find('th:eq('+i+')').addClass("hide");
-										$("#fea_productcostBVOList tr").find('td:eq('+i+')').addClass("hide");
+					    			$("#listTheadtr").find('th:eq('+i+')').addClass("hide");
+									$("#fea_productcostBVOList tr").find('td:eq('+i+')').addClass("hide");
 						    	}
 						    }
 		      	  		}else{
@@ -429,41 +431,39 @@
 		      	  		}
 		            })
 					//jp.close();
+				}
+				
+				function inputEvent(list, idx, tpl, row){
+					var inputList = $(list+idx).find("input");
 					
-				//var len = $('thead  tr th').length;
-				/* $("#listTheadtr").find('th:eq(7)').addClass("hide");
-				$("#fea_productcostBVOList tr").find('td:eq(6)').addClass("hide"); */
+					$(list+idx).find("input").each(function(){
+						$(this).bind('keypress',function(event){//键盘事件
+							var isChange = false;
+				            if(event.keyCode == "13")
+				            {
+				            	for(var i=4;i<inputList.length;i++){
+				            		if(inputList.get(i).id == $(this).attr("id")){
+				            			isChange = true;
+				            		}
+				            		if(isChange){
+				            			inputList.get(i).value = $(this).val();
+				            		}
+				            	}
+				            }
+				        });
+				        $(this).blur(function(){//失去焦点
+							var isChange = false;
+			            	for(var i=4;i<inputList.length;i++){
+			            		if(inputList.get(i).id == $(this).attr("id")){
+			            			isChange = true;
+			            		}
+			            		if(isChange){
+			            			inputList.get(i).value = $(this).val();
+			            		}
+			            	}
+						});
+					});
 				}
-				
-				function isNull(data){ 
-					return (data == "" || data == undefined || data == null) ? false : true; 
-				}
-				
-				
-				function obj2string(o){ 
-					 var r=[]; 
-					 if(typeof o=="string"){ 
-					 return "\""+o.replace(/([\'\"\\])/g,"\\$1").replace(/(\n)/g,"\\n").replace(/(\r)/g,"\\r").replace(/(\t)/g,"\\t")+"\""; 
-					 } 
-					 if(typeof o=="object"){ 
-					 if(!o.sort){ 
-					  for(var i in o){ 
-					  r.push(i+":"+obj2string(o[i])); 
-					  } 
-					  if(!!document.all&&!/^\n?function\s*toString\(\)\s*\{\n?\s*\[native code\]\n?\s*\}\n?\s*$/.test(o.toString)){ 
-					  r.push("toString:"+o.toString.toString()); 
-					  } 
-					  r="{"+r.join()+"}"; 
-					 }else{ 
-					  for(var i=0;i<o.length;i++){ 
-					  r.push(obj2string(o[i])) 
-					  } 
-					  r="["+r.join()+"]"; 
-					 } 
-					 return r; 
-					 } 
-					 return o.toString(); 
-					}	
 				
 			</script>
 			</div>

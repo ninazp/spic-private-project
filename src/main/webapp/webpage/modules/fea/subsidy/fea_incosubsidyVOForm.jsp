@@ -45,8 +45,6 @@
 					}
 				}
 			});
-			hideCol();
-			inputEvent();
 		});
 	</script>
 </head>

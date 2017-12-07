@@ -27,32 +27,36 @@ public class FeaProjectBService extends CrudService<FeaProjectBMapper, FeaProjec
 	public FeaProjectB get(String id) {
 		return super.get(id);
 	}
-	
+
 	public List<FeaProjectB> findList(FeaProjectB feaProjectB) {
 		return super.findList(feaProjectB);
 	}
-	
+
 	public Page<FeaProjectB> findPage(Page<FeaProjectB> page, FeaProjectB feaProjectB) {
 		return super.findPage(page, feaProjectB);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void save(FeaProjectB feaProjectB) {
-        boolean isnew = false;
+		boolean isnew = false;
 		if(feaProjectB.getIsNewRecord()){
 			isnew = true;
 		}
 		super.save(feaProjectB);
-		
+
 		if(isnew){
 			Object reportbean = SpringContextHolder.getBean("pubutil");
 			((PubUtil)reportbean).setdefaultData(feaProjectB);
 		}
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void delete(FeaProjectB feaProjectB) {
+		if(null!=feaProjectB && feaProjectB.getId()!=null){
+			Object reportbean = SpringContextHolder.getBean("pubutil");
+			((PubUtil)reportbean).deleteALLdata(feaProjectB);
+		}
 		super.delete(feaProjectB);
 	}
-	
+
 }

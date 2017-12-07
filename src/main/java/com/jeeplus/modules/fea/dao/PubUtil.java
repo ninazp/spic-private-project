@@ -1,11 +1,16 @@
 package com.jeeplus.modules.fea.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
@@ -19,6 +24,7 @@ import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
+import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 
 public class PubUtil {
 
@@ -46,7 +52,7 @@ public class PubUtil {
 	private Fea_incomesetVOMapper fea_incomesetVOMapper;
 	@Autowired
 	private Fea_costfecfVOMapper fea_costfecfVOMapper;
-	
+
 	public static String getid(int number){
 		if(number < 1){ 
 			return null; 
@@ -59,7 +65,7 @@ public class PubUtil {
 		} 
 		return rtstr.toString(); 
 	}
-	
+
 	public void setdefaultData(FeaProjectB projectvo){
 		//基本参数
 		IncomesetDAO.insertIncome(fea_incomesetVOMapper, projectvo);
@@ -78,5 +84,51 @@ public class PubUtil {
 		Double flowzyamt = ecfvo.getFlowamt() - flowloanamt;
 		Fea_fundssrcDAO.insertFea_investdis(fsrvo, fea_investdisVOMapper, fea_investdisBVOMapper,
 				projectvo, flowloanamt, flowzyamt);
+	}
+
+	public void deleteALLdata(FeaProjectB projectvo){
+
+		String wheresql = "pkfundssrc in ( select c.id from fea_fundssrc c where c.project_id='"+projectvo.getId()+"')";
+		List<Fea_fundssrcBVO> bvolist = (List<Fea_fundssrcBVO>) PubBaseDAO.getMutiParentVO("fea_fundssrc_b", "id", wheresql, fea_fundssrcBVOMapper);
+		List<Fea_fundssrcTVO> tvolist = (List<Fea_fundssrcTVO>) PubBaseDAO.getMutiParentVO("fea_fundssrc_t", "id", wheresql, fea_fundssrcTVOMapper);
+		if(null!=bvolist){
+			for(Fea_fundssrcBVO bvo : bvolist){
+				fea_fundssrcBVOMapper.delete(bvo);
+			}
+		}
+		if(null!=tvolist){
+			for(Fea_fundssrcTVO tvo : tvolist){
+				fea_fundssrcTVOMapper.delete(tvo);
+			}
+		}
+		fea_fundssrcVOMapper.execDeleteSql("delete from fea_fundssrc where project_id='"+projectvo.getId()+"'");
+
+
+		String wheresql1 = "pkinvestdis in ( select c.id from fea_investdis c where c.project_id='"+projectvo.getId()+"')";
+		List<Fea_investdisBVO> ibvolist = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", wheresql1, fea_investdisBVOMapper);
+
+		if(null!=bvolist){
+			for(Fea_investdisBVO ibvo : ibvolist){
+				fea_investdisBVOMapper.delete(ibvo);
+			}
+		}
+		fea_investdisVOMapper.execDeleteSql("delete from fea_investdis where project_id='"+projectvo.getId()+"'");
+
+		String wheresql2 = "pkproductcost in ( select c.id from fea_productcost c where c.project_id='"+projectvo.getId()+"')";
+		List<Fea_productcostBVO> pbvolist = (List<Fea_productcostBVO>) PubBaseDAO.getMutiParentVO("fea_productcostb", "id", wheresql2, fea_productcostBVOmapper);
+
+		if(null!=bvolist){
+			for(Fea_productcostBVO pbvo : pbvolist){
+				fea_productcostBVOmapper.delete(pbvo);
+			}
+		}
+		fea_productcostVOmapper.execDeleteSql("delete from fea_productcost where project_id='"+projectvo.getId()+"'");;
+		fea_capformVOMapper.execDeleteSql("delete from fea_capform where project_id='"+projectvo.getId()+"'");;
+		fea_costinfoVOMapper.execDeleteSql("delete from fea_costinfo where project_id='"+projectvo.getId()+"'");;
+		fea_incosubsidyVOMapper.execDeleteSql("delete from fea_incosubsidy where project_id='"+projectvo.getId()+"'");;
+		fea_incomesetVOMapper.execDeleteSql("delete from fea_incomeset where project_id='"+projectvo.getId()+"'");;
+		fea_costfecfVOMapper.execDeleteSql("delete from fea_costfecf where project_id='"+projectvo.getId()+"'");;
+
+
 	}
 }

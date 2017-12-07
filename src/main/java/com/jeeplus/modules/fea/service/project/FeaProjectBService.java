@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 
+import com.jeeplus.common.utils.SpringContextHolder;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.dao.PubUtil;
@@ -46,8 +45,7 @@ public class FeaProjectBService extends CrudService<FeaProjectBMapper, FeaProjec
 		super.save(feaProjectB);
 		
 		if(isnew){
-			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-			Object reportbean = wac.getBean("pubutil");
+			Object reportbean = SpringContextHolder.getBean("pubutil");
 			((PubUtil)reportbean).setdefaultData(feaProjectB);
 		}
 	}

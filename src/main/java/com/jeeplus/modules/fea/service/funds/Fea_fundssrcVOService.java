@@ -9,15 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
-import com.jeeplus.common.utils.StringUtils;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
+import com.jeeplus.modules.fea.dao.Fea_fundssrcDAO;
+import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcBVO;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcBVOMapper;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcBVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
+import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
+import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 
 /**
  * 资金来源Service
@@ -32,22 +41,31 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 	private Fea_fundssrcBVOMapper fea_fundssrcBVOMapper;
 	@Autowired
 	private Fea_fundssrcTVOMapper fea_fundssrcTVOMapper;
-	
+	@Autowired
+	private Fea_investdisVOMapper basemapper4;
+	@Autowired
+	private Fea_investdisBVOMapper basemapper5;
+	@Autowired
+	private FeaProjectBMapper basemapper2;
+	@Autowired 
+	private Fea_costfecfVOMapper fea_costfecfVOMapper;
+
+
 	public Fea_fundssrcVO get(String id) {
 		Fea_fundssrcVO fea_fundssrcVO = super.get(id);
 		fea_fundssrcVO.setFea_fundssrcBVOList(fea_fundssrcBVOMapper.findList(new Fea_fundssrcBVO(fea_fundssrcVO)));
 		fea_fundssrcVO.setFea_fundssrcTVOList(fea_fundssrcTVOMapper.findList(new Fea_fundssrcTVO(fea_fundssrcVO)));
 		return fea_fundssrcVO;
 	}
-	
+
 	public List<Fea_fundssrcVO> findList(Fea_fundssrcVO fea_fundssrcVO) {
 		return super.findList(fea_fundssrcVO);
 	}
-	
+
 	public Page<Fea_fundssrcVO> findPage(Page<Fea_fundssrcVO> page, Fea_fundssrcVO fea_fundssrcVO) {
 		return super.findPage(page, fea_fundssrcVO);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void save(Fea_fundssrcVO fea_fundssrcVO) {
 		super.save(fea_fundssrcVO);
@@ -85,13 +103,34 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 				fea_fundssrcTVOMapper.delete(fea_fundssrcTVO);
 			}
 		}
+		FeaProjectB projectvo = basemapper2.get(fea_fundssrcVO.getFeaProjectB().getId());
+
+		List<Fea_costfecfVO> fea_costfecfvos = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", 
+				"project_id='"+fea_fundssrcVO.getFeaProjectB().getId()+"'", fea_costfecfVOMapper);
+
+		Double flowloanamt = 0.00;
+		Double flowcapamt = 0.00;
+
+		if(null!=fea_costfecfvos && fea_costfecfvos.size()>0){
+			for(int i=0;i<fea_costfecfvos.size();i++){
+				flowloanamt = flowloanamt+fea_costfecfvos.get(i).getFlowamt()*fea_costfecfvos.get(i).getFlowloanprop()/100;
+				flowcapamt =flowcapamt+fea_costfecfvos.get(i).getFlowamt() - flowloanamt;
+			}
+		}
+		basemapper4.execDeleteSql("delete from fea_investdis s where s.project_id='"+fea_fundssrcVO.getFeaProjectB().getId()+"'");
+		basemapper5.execDeleteSql("delete from fea_investdis_b b where b.pkinvestdis='"+fea_fundssrcVO.getId()+"'");
+
+		Fea_fundssrcDAO.insertFea_investdis(fea_fundssrcVO,
+				basemapper4, basemapper5,
+				projectvo,
+				flowloanamt, flowcapamt);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void delete(Fea_fundssrcVO fea_fundssrcVO) {
 		super.delete(fea_fundssrcVO);
 		fea_fundssrcBVOMapper.delete(new Fea_fundssrcBVO(fea_fundssrcVO));
 		fea_fundssrcTVOMapper.delete(new Fea_fundssrcTVO(fea_fundssrcVO));
 	}
-	
+
 }

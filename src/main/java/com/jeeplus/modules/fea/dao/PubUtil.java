@@ -79,5 +79,4 @@ public class PubUtil {
 		Fea_fundssrcDAO.insertFea_investdis(fsrvo, fea_investdisVOMapper, fea_investdisBVOMapper,
 				projectvo, flowloanamt, flowzyamt);
 	}
-	
 }

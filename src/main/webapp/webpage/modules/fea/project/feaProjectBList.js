@@ -76,7 +76,7 @@ $(document).ready(function() {
 		        checkbox: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'projectCode',
 		        title: '项目编号',
 		        sortable: true
@@ -84,12 +84,14 @@ $(document).ready(function() {
 		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		         }
 		       
-		    }
+		    }*/
 			,{
 		        field: 'projectName',
 		        title: '项目名称',
 		        sortable: true
-		       
+		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		         }
 		    }
 			,{
 		        field: 'heatArea',

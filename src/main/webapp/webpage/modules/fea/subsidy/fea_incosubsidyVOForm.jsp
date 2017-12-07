@@ -4,6 +4,7 @@
 <head>
 	<title>补贴收入管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
@@ -44,7 +45,8 @@
 					}
 				}
 			});
-			
+			hideCol();
+			inputEvent();
 		});
 	</script>
 </head>
@@ -251,6 +253,79 @@
 				</tr>
 		 	</tbody>
 		</table>
+		<script type="text/javascript">
+				
+				function hideCol(){
+					//jp.loading();
+					var projectId = $("#feaProjectBId").val();
+					
+					jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+						if(data.success){
+						    var countyears = data.body.feaProjectB.countyears;//计算期
+						    var alltd = $('tbody tr td');
+						    var len = alltd.length;
+						    if(isNull(countyears) && isNull(len)){
+						    	var startHidecol = countyears*2 + 8;  //8：前四个固定字段 *2（每隔字段两个td）
+					    		alltd.each(function(index,element){
+					    			if(index >= startHidecol){
+					    				$(this).addClass("hide");
+					    			}
+					    		});
+						    }
+		      	  		}else{
+		      	  			jp.error(data.msg);
+		      	  		}
+		            });
+					//jp.close();
+				}
+				
+				function inputEvent(){
+					var allinput = $('tbody input');
+					var projectId = $("#feaProjectBId").val();
+					jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+						if(data.success){
+						    var countyears = data.body.feaProjectB.countyears;//计算期
+						    allinput.each(function(index,element){
+								if(index < 4){
+									return true;
+								}
+								$(this).bind('keypress',function(event){//键盘事件
+						            if(event.keyCode == "13")
+						            {	
+						            	var changeValue = '';
+						            	allinput.each(function(index,element){
+						            		if(index>countyears+3){
+						            			return true;
+						            		}
+						            		if(event.delegateTarget === this){
+						            			changeValue = $(this).val();
+						            		}
+						            		if(isNull(changeValue)){
+						            			element.value = changeValue;
+						            		}
+						            	});
+						            }
+						        });
+						        $(this).blur(function(event){//失去焦点
+									var changeValue = '';
+					            	allinput.each(function(index,element){
+					            		if(index>countyears+3){
+					            			//alert(index + '-' +countyears);
+					            			return true;
+					            		}
+					            		if(event.delegateTarget === this){
+					            			changeValue = $(this).val();
+					            		}
+					            		if(isNull(changeValue)){
+					            			element.value = changeValue;
+					            		}
+					            	});
+								});
+							});
+						}
+					});
+				}
+			</script>
 	</form:form>
 </body>
 </html>

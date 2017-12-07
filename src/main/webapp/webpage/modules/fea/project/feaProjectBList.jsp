@@ -15,7 +15,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">项目（子表）列表</h3>
+		<h3 class="panel-title">项目列表</h3>
 	</div>
 	<div class="panel-body">
 		<div class="row">

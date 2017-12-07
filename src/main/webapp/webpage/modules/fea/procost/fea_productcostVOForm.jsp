@@ -4,6 +4,7 @@
 <head>
 	<title>生成成本管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		/**定义一些全局参数*/
 		var projectId = '';

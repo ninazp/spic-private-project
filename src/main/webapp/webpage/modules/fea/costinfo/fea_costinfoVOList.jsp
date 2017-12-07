@@ -8,6 +8,7 @@
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="fea_costinfoVOList.js" %>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 </head>
 <body>
 	<div class="wrapper wrapper-content">

@@ -4,6 +4,9 @@
 package com.jeeplus.modules.fea.entity.project;
 
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jeeplus.modules.sys.entity.Office;
 
@@ -43,7 +46,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	public FeaProjectB(FeaProject kind){
 		this.kind = kind;
 	}
-
+	
 	@ExcelField(title="项目编号", align=2, sort=7)
 	public String getProjectCode() {
 		return projectCode;
@@ -52,7 +55,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
 	}
-	
+	@NotNull(message="项目名称")
 	@ExcelField(title="项目名称", align=2, sort=8)
 	public String getProjectName() {
 		return projectName;

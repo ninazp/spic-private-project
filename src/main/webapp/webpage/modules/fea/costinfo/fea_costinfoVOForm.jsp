@@ -64,7 +64,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">产品种类：</label></td>
 					<td class="width-35">
-						<form:input path="costype" htmlEscape="false"    class="form-control "/>
+						<form:input path="costype" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<%-- <tr>
@@ -80,7 +80,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">单位：</label></td>
 					<td class="width-35">
-						<form:input path="unit" htmlEscape="false"    class="form-control "/>
+						<form:input path="unit" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">产品税（%）：</label></td>
 					<td class="width-35">

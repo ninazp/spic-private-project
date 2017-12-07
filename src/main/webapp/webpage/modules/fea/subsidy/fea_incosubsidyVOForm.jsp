@@ -64,7 +64,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">补贴类型：</label></td>
 					<td class="width-35">
-						<form:input path="subsidytype" htmlEscape="false"    class="form-control "/>
+						<form:input path="subsidytype" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<%-- <tr>
@@ -81,7 +81,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">单位：</label></td>
 					<td class="width-35">
-						<form:input path="unitname" htmlEscape="false"    class="form-control "/>
+						<form:input path="unitname" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">是否纳税：</label></td>
 					<td class="width-35">

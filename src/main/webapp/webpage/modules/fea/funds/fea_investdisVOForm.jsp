@@ -100,7 +100,7 @@
 					
 					<td class="width-15 active"><label class="pull-right">年度：</label></td>
 					<td class="width-35">
-						<form:input path="year" htmlEscape="false"    class="form-control "/>
+						<form:input path="year" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<%-- <tr>
@@ -120,7 +120,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35">
-						<form:input path="investamt" htmlEscape="false"    class="form-control "/>
+						<form:input path="investamt" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -130,13 +130,13 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
 					<td class="width-35">
-						<form:input path="cappropsum" htmlEscape="false"    class="form-control "/>
+						<form:input path="cappropsum" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35">
-						<form:input path="loanpropsum" htmlEscape="false"    class="form-control "/>
+						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">

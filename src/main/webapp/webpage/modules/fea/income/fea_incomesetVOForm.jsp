@@ -78,7 +78,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">所得税税率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="incomerate" htmlEscape="false"    class="form-control "/>
+						<form:input path="incomerate" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">城市维护建设税率（%）：</label></td>
 					<td class="width-35">
@@ -92,7 +92,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">法定盈余公积金比例（%）：</label></td>
 					<td class="width-35">
-						<form:input path="legalaccfund" htmlEscape="false"    class="form-control "/>
+						<form:input path="legalaccfund" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -111,7 +111,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">应付利润比例（%）：</label></td>
 					<td class="width-35">
-						<form:input path="yflrprop" htmlEscape="false"    class="form-control "/>
+						<form:input path="yflrprop" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">增值税即征即退50%：</label></td>
 					<td class="width-35">
@@ -141,17 +141,17 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">资本金基准收益率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="capinvestrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="capinvestrate" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">行业基准收益率（所得税前）（%）：</label></td>
 					<td class="width-35">
-						<form:input path="industrysqrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="industrysqrate" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">行业基准收益率（所得税后）（%）：</label></td>
 					<td class="width-35">
-						<form:input path="industryshrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="industryshrate" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>

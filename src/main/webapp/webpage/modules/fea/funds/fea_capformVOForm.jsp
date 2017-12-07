@@ -62,7 +62,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">固定资产形成比例（%）：</label></td>
 					<td class="width-35">
-						<form:input path="fixassetprop" htmlEscape="false"    class="form-control "/>
+						<form:input path="fixassetprop" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<%-- <tr>
@@ -78,11 +78,11 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
 					<td class="width-35">
-						<form:input path="uselifefat" htmlEscape="false"    class="form-control "/>
+						<form:input path="uselifefat" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">残值率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="residualrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="residualrate" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>

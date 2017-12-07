@@ -106,11 +106,11 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">定员（人）：</label></td>
 					<td class="width-15">
-						<form:input path="persons" htmlEscape="false"    class="form-control "/>
+						<form:input path="persons" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">年人均工资：</label></td>
 					<td class="width-15">
-						<form:input path="perwage" htmlEscape="false"    class="form-control "/>
+						<form:input path="perwage" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<%-- <tr>
@@ -126,7 +126,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">福利费系数（%）：</label></td>
 					<td class="width-15">
-						<form:input path="welfare" htmlEscape="false"    class="form-control "/>
+						<form:input path="welfare" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">材料费：</label></td>
 					<td class="width-15">
@@ -134,7 +134,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">保险费率（‰）：</label></td>
 					<td class="width-15">
-						<form:input path="insurance" htmlEscape="false"    class="form-control "/>
+						<form:input path="insurance" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -144,7 +144,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">供暖费：</label></td>
 					<td class="width-15">
-						<form:input path="heatdeposit" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatdeposit" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">无形资产摊销（年）：</label></td>
 					<td class="width-15">

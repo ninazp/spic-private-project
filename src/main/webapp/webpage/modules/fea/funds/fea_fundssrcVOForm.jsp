@@ -4,6 +4,7 @@
 <head>
 	<title>资金来源管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
@@ -45,7 +46,7 @@
 					}
 				}
 			});
-			
+			HeaderInputEditEnding();
 		});
 		
 		function addRow(list, idx, tpl, row){
@@ -112,7 +113,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">投资总额：</label></td>
 					<td class="width-35">
-						<form:input path="investtotal" htmlEscape="false"    class="form-control "/>
+						<form:input path="investtotal" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -131,21 +132,21 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金比例(%)：</label></td>
 					<td class="width-35">
-						<form:input path="capitalprop" htmlEscape="false"    class="form-control "/>
+						<form:input path="capitalprop" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">资本金额度：</label></td>
 					<td class="width-35">
-						<form:input path="capitalamt" htmlEscape="false"    class="form-control "/>
+						<form:input path="capitalamt" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">借款比例(%)：</label></td>
 					<td class="width-35">
-						<form:input path="loanprop" htmlEscape="false"    class="form-control "/>
+						<form:input path="loanprop" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">借款金额：</label></td>
 					<td class="width-35">
-						<form:input path="loanamt" htmlEscape="false"    class="form-control "/>
+						<form:input path="loanamt" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 		 	</tbody>
@@ -331,6 +332,40 @@
 						fea_fundssrcTVORowIdx = fea_fundssrcTVORowIdx + 1;
 					}
 				});
+				/*表头编辑后事件*/
+				function HeaderInputEditEnding(){
+					
+					$("#investtotal").blur(function(event){
+						var investtotal = $("#investtotal").val();//投资总额
+						var capitalprop = $("#capitalprop").val();//资本金比例
+						var loanprop = $("#loanprop").val();//借款比例
+						if(isNull(investtotal) && isNull(capitalprop)){
+							var value = investtotal * capitalprop /100;
+							$("#capitalamt").val(value.toFixed(2));
+						}
+						if(isNull(investtotal) && isNull(loanprop)){
+							var value = investtotal * loanprop /100;
+							$("#loanamt").val(value.toFixed(2));
+						}
+					});
+					$("#capitalprop").blur(function(event){
+						var investtotal = $("#investtotal").val();//投资总额
+						var capitalprop = $("#capitalprop").val();//资本金比例
+						if(isNull(investtotal) && isNull(capitalprop)){
+							
+							var value = investtotal * capitalprop /100;
+							$("#capitalamt").val(value.toFixed(2));
+						}
+					});
+					$("#loanprop").blur(function(event){
+						var investtotal = $("#investtotal").val();//投资总额
+						var loanprop = $("#loanprop").val();//借款比例
+						if(isNull(investtotal) && isNull(loanprop)){
+							var value = investtotal * loanprop / 100;
+							$("#loanamt").val(value.toFixed(2));
+						}
+					});
+				}
 			</script>
 			</div>
 		</div>

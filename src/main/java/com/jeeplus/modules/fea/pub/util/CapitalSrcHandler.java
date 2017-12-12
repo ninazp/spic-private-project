@@ -86,7 +86,7 @@ public class CapitalSrcHandler {
 			
 			ret3.add(ret1.get(i)-ret2.get(i));
 			
-			if(i==0){
+			if(i==0 || Math.abs(ret3.get(i)+ret4.get(i-1))<0.01){
 				ret4.add(0.0);
 			}else if(i==1){
 				ret4.add(ret3.get(i));

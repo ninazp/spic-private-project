@@ -49,7 +49,7 @@ public class EVAHandler {
 			}else if(i==1){
 				ret4.add(ret3.get(i));
 			}else{
-				ret4.add(ret3.get(i)-ret4.get(i-1));
+				ret4.add(ret3.get(i)-ret3.get(i-1));
 			}
 		}
 		

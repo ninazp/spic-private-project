@@ -135,28 +135,28 @@ public class CreateReportPubDMO {
 				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable);
 
 		//6---项目投资现金流量表 
-		List<List<Double>> investHandlerTable = InvestFlowHandler.getInvestHandlerTable(projectinfo.get(1), lrtable,
-				totalcostltable, zjcktable, interestTable, incomeset.get(0),incomeset.get(6) , assetval);
+		List<List<Double>> investHandlerTable = InvestFlowHandler.getInvestHandlerTable(projectinfo.get(1), lrfinaltable,
+				totalcostfinaltable, zjcktable, interestFinaltable, incomeset.get(0),incomeset.get(6) , assetval);
 
 		//7--项目资本金现金流量表
 		List<List<Double>> capitalTable = CapitalHandler.getCapitalTable(
 				projectinfo.get(1), 
-				lrtable, totalcostltable, zjcktable, interestTable,assetval);
+				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
 
 		//8--资金来源与运用表
 		List<List<Double>> capitalsrcTable = CapitalSrcHandler.getCapitalSrcTable(
-				projectinfo.get(1),lrtable, totalcostltable, zjcktable, interestTable,assetval);
+				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
 
 
 		//9--资产负债表
 		List<List<Double>> balancetable = BalanceHandler.getBalanceTable(
-				projectinfo.get(1),lrtable, totalcostltable, zjcktable, interestTable,
+				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,
 				capitalsrcTable,
 				assetval
 				,deductval);
 
 		//10 -- EVA测算表
-		List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrtable, totalcostltable, balancetable);
+		List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrfinaltable, totalcostfinaltable, balancetable);
 
 		
 		List<List<Double>> table1 = PubUtilHandler.getRoundingTable(zjcktable);
@@ -230,12 +230,14 @@ public class CreateReportPubDMO {
 				0.07, 0.06, "3");
 		Double doub1 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(10).toArray(new Double[0]),
 				0.07, 0.06, "1");
-		Double retunperiod =  ReadExcelCal.getreturnperiod(investHandlerTable.get(11).toArray(new Double[0]));
+		Double retunperiod =  ReadExcelCal.getreturnperiod(investHandlerTable.get(10).toArray(new Double[10]),
+				investHandlerTable.get(11).toArray(new Double[0]));
 		Double doub4 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
 				0.07, 0.06, "4");
 		Double doub2 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
 				0.07, 0.06, "2");
-		Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(14).toArray(new Double[0]));
+		Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(10).toArray(new Double[13]),
+				investHandlerTable.get(14).toArray(new Double[0]));
 		retlst.add(doub3);  retlst.add(doub4);
 		retlst.add(doub1);  retlst.add(doub2); 
 		retlst.add(retunperiod);  retlst.add(retunperiod2);

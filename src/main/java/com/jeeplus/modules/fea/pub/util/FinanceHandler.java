@@ -96,7 +96,7 @@ public class FinanceHandler {
 			}else{
 				ret311.add(cctable.get(5).get(i));
 				ret312.add(cctable.get(10).get(i));
-				ret313.add(cctable.get(11).get(i));
+				ret313.add(cctable.get(12).get(i));
 			}
 			ret314.add(0.0);
 			ret315.add(loanrepay.get(10).get(i));

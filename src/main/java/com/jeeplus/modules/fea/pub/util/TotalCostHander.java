@@ -272,7 +272,6 @@ public class TotalCostHander {
 			Double repval = assetVal*bxrate.get(i-1)/100;
 			if(i==1){
 				temp = repval*(firstmths/12);
-				retlist.add(temp);
 			}else{
 				temp = repval;
 			}

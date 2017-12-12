@@ -56,15 +56,15 @@ public class ReadExcelCal {
 		return 0.0;
 	}
 	
-	public static Double getreturnperiod(Double[] flowmoney){
+	public static Double getreturnperiod(Double [] flowmny, Double[] sumflowmoney){
 		int num = 0;
-		for(int i = 1 ;i<flowmoney.length;i++){
-			if(flowmoney[i]>0 && num==0){
+		for(int i = 1 ;i<sumflowmoney.length;i++){
+			if(sumflowmoney[i]>0 && num==0){
 				num = i;
 			}
 		}
 		if(num>=1){
-		  Double val = num-1+(Math.abs(flowmoney[num-1])/flowmoney[num]);
+		  Double val = num-1+(Math.abs(sumflowmoney[num-1])/flowmny[num]);
 		  return val;
 		}
 		

@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 /**
  * 分配组成MAPPER接口
  * @author jw
- * @version 2017-12-06
+ * @version 2017-12-19
  */
 @MyBatisMapper
 public interface Fea_investdisBVOMapper extends BaseMapper<Fea_investdisBVO> {

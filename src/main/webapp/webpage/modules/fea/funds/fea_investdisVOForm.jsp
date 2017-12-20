@@ -114,6 +114,14 @@
 					</td>
 				</tr> --%>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">建筑面积：</label></td>
+					<td class="width-35">
+						<form:input path="heatarea" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
 						<form:input path="investprop" htmlEscape="false"    class="form-control "/>

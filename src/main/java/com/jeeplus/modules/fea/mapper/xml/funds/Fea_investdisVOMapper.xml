@@ -19,13 +19,19 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
+		a.heatarea AS "heatarea",
+		a.dept AS "office.id",
+		a.pk_corp AS "pk_corp",
 				
-		feaProjectB.project_name AS "feaProjectB.projectName"
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+		office.name AS "office.name"
 	</sql>
 	
 	<sql id="fea_investdisVOJoins">
 		
 		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
 	</sql>
 	
     
@@ -92,7 +98,10 @@
 			update_by,
 			update_date,
 			remarks,
-			del_flag
+			del_flag,
+			heatarea,
+			dept,
+			pk_corp
 		) VALUES (
 			#{id},
 			#{feaProjectB.id},
@@ -109,7 +118,10 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
-			#{delFlag}
+			#{delFlag},
+			#{heatarea},
+			#{office.id},
+			#{pk_corp}
 		)
 	</insert>
 	
@@ -126,7 +138,10 @@
 			loanpropsum = #{loanpropsum},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			heatarea = #{heatarea},
+			dept = #{office.id},
+			pk_corp = #{pk_corp}
 		WHERE id = #{id}
 	</update>
 	

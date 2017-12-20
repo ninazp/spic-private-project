@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 分配组成Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2017-12-19
  */
 public class Fea_investdisBVO extends DataEntity<Fea_investdisBVO> {
 	

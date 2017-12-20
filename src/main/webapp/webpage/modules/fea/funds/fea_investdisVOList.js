@@ -106,6 +106,12 @@ $(document).ready(function() {
 		       
 		    }*/
 			,{
+		        field: 'heatarea',
+		        title: '建筑面积',
+		        sortable: true
+		       
+		    }
+			,{
 		        field: 'year',
 		        title: '年度',
 		        sortable: true

@@ -4,6 +4,7 @@
 package com.jeeplus.modules.fea.entity.funds;
 
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.sys.entity.Office;
 import java.util.List;
 import com.google.common.collect.Lists;
 
@@ -13,7 +14,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 投资分配Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2017-12-19
  */
 public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	
@@ -27,6 +28,9 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	private Double deductvtax;		// 可抵扣税金
 	private Double cappropsum;		// 注资方合计
 	private Double loanpropsum;		// 融资合计
+	private Double heatarea;		// 建筑面积
+	private Office office;		// 部门
+	private String pk_corp;		// 公司
 	private List<Fea_investdisBVO> fea_investdisBVOList = Lists.newArrayList();		// 子表列表
 	
 	public Fea_investdisVO() {
@@ -116,6 +120,33 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 
 	public void setLoanpropsum(Double loanpropsum) {
 		this.loanpropsum = loanpropsum;
+	}
+	
+	@ExcelField(title="建筑面积", align=2, sort=16)
+	public Double getHeatarea() {
+		return heatarea;
+	}
+
+	public void setHeatarea(Double heatarea) {
+		this.heatarea = heatarea;
+	}
+	
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=17)
+	public Office getOffice() {
+		return office;
+	}
+
+	public void setOffice(Office office) {
+		this.office = office;
+	}
+	
+	@ExcelField(title="公司", align=2, sort=18)
+	public String getPk_corp() {
+		return pk_corp;
+	}
+
+	public void setPk_corp(String pk_corp) {
+		this.pk_corp = pk_corp;
 	}
 	
 	public List<Fea_investdisBVO> getFea_investdisBVOList() {

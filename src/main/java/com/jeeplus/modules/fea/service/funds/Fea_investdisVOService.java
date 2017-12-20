@@ -20,7 +20,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
 /**
  * 投资分配Service
  * @author jw
- * @version 2017-12-06
+ * @version 2017-12-19
  */
 @Service
 @Transactional(readOnly = true)

@@ -12,7 +12,7 @@ import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
 
 /**
- * 投资分配Entity
+ * 投资分配Entity 
  * @author jw
  * @version 2017-12-19
  */

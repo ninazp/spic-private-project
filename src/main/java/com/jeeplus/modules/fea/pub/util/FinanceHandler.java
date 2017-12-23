@@ -105,7 +105,7 @@ public class FinanceHandler {
 			ret31.add(ret311.get(i)+ret312.get(i)+ret313.get(i)+ret314.get(i)+ret315.get(i)+ret316.get(i));
 			
 			ret321.add(costtable.get(6).get(i));
-			ret322.add(loanrepay.get(3).get(i)+loanrepay.get(11).get(i));
+			ret322.add(loanrepay.get(3).get(i)+loanrepay.get(9).get(i)+loanrepay.get(11).get(i));
 			ret323.add(lrtable.get(17).get(i));
 			ret324.add(0.0);
 			ret32.add(ret321.get(i)+ret322.get(i)+ret323.get(i)+ret324.get(i));

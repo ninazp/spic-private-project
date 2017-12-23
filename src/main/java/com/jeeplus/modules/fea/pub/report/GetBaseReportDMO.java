@@ -44,7 +44,7 @@ public class GetBaseReportDMO {
 		//2  -- 总成本费用表
 		totalcostfinaltable = TotalCostHander.getTotalcosttable(parammap, interesttable, zjcktable);
 		//3	
-		lrfinaltable = ProfitHandler.getprofittable(zjcktable, costtable, interesttable, parammap);
+		lrfinaltable = ProfitHandler.getprofittable(zjcktable, totalcostfinaltable, interesttable, parammap);
 		//利息表备付率和偿付率
 		List<List<Double>> RcrDscrtable = LoanRcrDscrHandler.getRcrDscrtable(lrfinaltable, interesttable);
 		

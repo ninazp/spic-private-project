@@ -104,7 +104,7 @@ public class createReportPubDMO {
 			//9--资产负债表
 			List<List<Double>> balancetable = BalanceHandler.getBalanceTable(
 					lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,
-					capitalsrcTable,parammap);
+					financeplanfinaltable,parammap);
 
 			//10 -- EVA测算表
 			List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(lrfinaltable, totalcostfinaltable, balancetable);

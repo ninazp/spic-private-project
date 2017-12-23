@@ -20,7 +20,7 @@ public class BalanceHandler {
 	 */
 	public static List<List<Double>> getBalanceTable(List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
-			,List<List<Double>> capsrttable,Map<String,Object> parammap){
+			,List<List<Double>> financeplanfinaltable,Map<String,Object> parammap){
 		
 		Map<Integer,Double> dkjemap = (Map<Integer, Double>) parammap.get("dkje");
 		Map<Integer,Double> assetvalmap = TotalCostHander.getjsamt(cctable, dkjemap);
@@ -82,7 +82,7 @@ public class BalanceHandler {
 		Double gjjamt = 0.0;
 		Double assetlost = 0.0;
 		for(int i=1;i<lrtable.get(0).size();i++){
-			ret111.add(capsrttable.get(20).get(i));
+			ret111.add(financeplanfinaltable.get(33).get(i));
 			if(i<cctable.get(3).size()){
 				flowasset = flowasset+cctable.get(3).get(i);
 			}
@@ -136,7 +136,7 @@ public class BalanceHandler {
 			
 			ret3.add(ret1.get(i-1)-ret2.get(i-1));
 			
-			ret4.add(ret24.get(i-1)/ret1.get(i-1));
+			ret4.add((ret24.get(i-1)/ret1.get(i-1))*100);
 			
 		}
 		

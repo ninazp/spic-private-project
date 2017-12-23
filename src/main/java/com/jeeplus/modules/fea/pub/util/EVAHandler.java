@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EVAHandler {
-	public static List<List<Double>> getEVAHandlerTable(Double totalyears,List<List<Double>> lrtable,
+	public static List<List<Double>> getEVAHandlerTable(List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> balancetable){
 
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
@@ -25,7 +25,7 @@ public class EVAHandler {
 		Double syzqyamt = 0.0;
 		Double fzsumamt = 0.0;
 		Double zjgcamt = 0.0;
-		for(int i=0;i<=totalyears;i++){
+		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(11).get(i));
 			ret12.add(costtable.get(6).get(i));
 			ret1.add(ret11.get(i)+ret12.get(i));

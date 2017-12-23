@@ -17,7 +17,7 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
-import com.jeeplus.modules.fea.pub.util.CreateReportPubDMO;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 import com.jeeplus.modules.feareport.entity.Report5;
 import com.jeeplus.modules.feareport.mapper.Report5Mapper;
 
@@ -64,7 +64,7 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 		param.put("projectid", ids);
 		
 		if(null!=reportbean){
-			 reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
+			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		
 		return null != reportmap ? reportmap.get("投资计划与资金筹措表") : null;

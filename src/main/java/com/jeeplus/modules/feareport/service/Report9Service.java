@@ -17,7 +17,7 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
-import com.jeeplus.modules.fea.pub.util.CreateReportPubDMO;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 import com.jeeplus.modules.feareport.entity.Report9;
 import com.jeeplus.modules.feareport.mapper.Report9Mapper;
 
@@ -64,7 +64,7 @@ public class Report9Service extends CrudService<Report9Mapper, Report9> {
 		param.put("projectid", ids);
 		
 		if(null!=reportbean){
-			 reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
+			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		
 		return null != reportmap ? reportmap.get("资产负债表") : null;

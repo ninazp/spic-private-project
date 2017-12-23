@@ -18,7 +18,7 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
-import com.jeeplus.modules.fea.pub.util.CreateReportPubDMO;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 import com.jeeplus.modules.feareport.entity.Report3;
 import com.jeeplus.modules.feareport.mapper.Report3Mapper;
 
@@ -65,7 +65,7 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 		param.put("projectid", ids);
 		
 		if(null!=reportbean){
-			 reportmap = ((CreateReportPubDMO)reportbean).getallreportnostatic(param);
+			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		
 		return null != reportmap ? reportmap.get("项目资本金现金流量表") : null;
@@ -77,7 +77,7 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 		Object reportbean = wac.getBean("createReportPubDMO");
 		
 		if(null!=reportbean){
-			reportList = ((CreateReportPubDMO)reportbean).getcapital_irrnpv(capitalTable);
+			reportList = ((createReportPubDMO)reportbean).getcapital_irrnpv(capitalTable);
 		}
 		
 		List<List<Double>> reList = new ArrayList<List<Double>>();

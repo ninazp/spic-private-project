@@ -25,7 +25,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<bean id="createReportPubDMO" class="com.jeeplus.modules.fea.pub.util.CreateReportPubDMO"></bean>
+	<bean id="createReportPubDMO" class="com.jeeplus.modules.fea.pub.report.createReportPubDMO"></bean>
 	<bean id="pubutil" class="com.jeeplus.modules.fea.dao.PubUtil"></bean>
 	
  	<!-- MyBatis begin -->

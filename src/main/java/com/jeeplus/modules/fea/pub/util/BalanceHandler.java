@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.pub.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BalanceHandler {
 
@@ -17,10 +18,39 @@ public class BalanceHandler {
 	 * @param dicudoub
 	 * @return
 	 */
-	public static List<List<Double>> getBalanceTable(Double totalyears,List<List<Double>> lrtable,
+	public static List<List<Double>> getBalanceTable(List<List<Double>> lrtable,
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
-			,List<List<Double>> capsrttable,Double assetval,Double dicudoub){
-
+			,List<List<Double>> capsrttable,Map<String,Object> parammap){
+		
+		Map<Integer,Double> dkjemap = (Map<Integer, Double>) parammap.get("dkje");
+		Map<Integer,Double> assetvalmap = TotalCostHander.getjsamt(cctable, dkjemap);
+		List<Double> assetvallist = new ArrayList<Double>();
+		for(Integer key : assetvalmap.keySet()){
+			for(int i=0;i<key;i++){
+				assetvallist.add(0.00);
+			}
+			for(int i=0;i<lrtable.get(0).size();i++){
+				if(assetvallist.size()<=lrtable.get(0).size()){
+				    assetvallist.add(assetvalmap.get(key));
+				}else{
+					assetvallist.set(i,assetvallist.get(i)+assetvalmap.get(key));
+				}
+			}
+		}
+		
+		List<Double> dkjelist = new ArrayList<Double>();
+		for(Integer key : dkjemap.keySet()){
+			for(int i=0;i<key;i++){
+				dkjelist.add(0.00);
+			}
+			for(int i=0;i<lrtable.get(0).size();i++){
+				if(dkjelist.size()<=lrtable.get(0).size()){
+					dkjelist.add(dkjemap.get(key));
+				}else{
+					dkjelist.set(i,dkjelist.get(i)+assetvalmap.get(key));
+				}
+			}
+		}
 
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
 
@@ -51,7 +81,7 @@ public class BalanceHandler {
 		Double capamt = 0.0;
 		Double gjjamt = 0.0;
 		Double assetlost = 0.0;
-		for(int i=1;i<=totalyears;i++){
+		for(int i=1;i<lrtable.get(0).size();i++){
 			ret111.add(capsrttable.get(20).get(i));
 			if(i<cctable.get(3).size()){
 				flowasset = flowasset+cctable.get(3).get(i);
@@ -70,8 +100,8 @@ public class BalanceHandler {
 				ret15.add(0.0);
 			}else{
 				assetlost = assetlost+costtable.get(0).get(i);
-				ret13.add(assetval-assetlost);
-				ret15.add(dicudoub);
+				ret13.add(assetvallist.get(i)-assetlost);
+				ret15.add(dkjelist.get(i));
 			}
 			
 			ret14.add(0.0);
@@ -80,13 +110,13 @@ public class BalanceHandler {
 			
 			ret211.add(loanrepay.get(10).get(i));
 			ret212.add(0.0);
-			if(i<totalyears){
+			if(i<lrtable.get(0).size()-1){
 				ret22.add(loanrepay.get(1).get(i+1));
 			}else{
 				ret22.add(0.0);
 			}
 			ret21.add(ret211.get(i-1)+ret212.get(i-1));
-			ret23.add(loanrepay.get(7).get(i));
+			ret23.add(loanrepay.get(7).get(i)-loanrepay.get(9).get(i));
 			
 			ret24.add(ret21.get(i-1)+ret22.get(i-1)+ret23.get(i-1));
 			

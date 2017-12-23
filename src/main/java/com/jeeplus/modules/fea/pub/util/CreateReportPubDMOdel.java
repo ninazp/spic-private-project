@@ -22,7 +22,7 @@ import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 
-public class CreateReportPubDMO {
+public class CreateReportPubDMOdel {
 	@Autowired
 	private FeaProjectBMapper projectmapper;
 	@Autowired
@@ -68,7 +68,7 @@ public class CreateReportPubDMO {
 		List<Double> projectinfo = ProjectInfoHander.getprojectinfo(projectvo);
 		/**
 		 *   -- 基本参数节点
-		 * retlst.add(volst.get(0).getIncomerate());//所得税税率
+		 *  retlst.add(volst.get(0).getIncomerate());//所得税税率
 			retlst.add(volst.get(0).getLegalaccfund());//法定盈余公积金比率
 			retlst.add(volst.get(0).getYflrprop());//应付利润比率
 			retlst.add(volst.get(0).getCapinvestrate());//资本金基准收益率
@@ -94,88 +94,90 @@ public class CreateReportPubDMO {
 		if(null!=Fea_costfecfVOlst && Fea_costfecfVOlst.size()>0){
 			shortloanrate =(null==Fea_costfecfVOlst.get(0).getCircularate())?0.00:Fea_costfecfVOlst.get(0).getCircularate();
 		}
+		
 		//1 -- 投资计划与资金筹措表
-		List<List<Double>> zjcktable = ProjectInfoHander.getzjcctable(fea_investdisVOMapper, fea_investdisBVOMapper, projectvo);
+		List<List<Double>> zjcktable = ProjectInfoHander.getzjcctable(fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,null);
 		Double assetval = zjcktable.get(1).get(0)+zjcktable.get(2).get(0)-deductval;//计算折旧费固定资产价格
+//
+//		List<List<Double>> interestTable = new ArrayList<List<Double>>();
+////				LoanRepayHandler.getLoanRepayTable(zjcktable, projectinfo, fundssrcparam, shortloanrate,null);
+//
+//		List<List<Double>> totalcostltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
+//				fea_productcostBVOmapper, projectvo.getId(),projectinfo,deductval,interestTable,zjcktable);
+//
+//		List<List<Double>> lrtable =  ProfitHandler.getprofittable(projectinfo, totalcostltable, interestTable, 
+//				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
+//				shortloanrate, incomeset.get(2), zjcktable.get(5).get(0)*incomeset.get(2)/100);
+//
+//		List<List<Double>> financeplantable = FinanceHandler.getFinanceTable(projectinfo.get(1),
+//				lrtable, totalcostltable, zjcktable, interestTable);
+//
+//		List<Double> shortlst = FinanceShortHandler.getFinanceTable(financeplantable, shortloanrate);
+//
+//		//4 -- 借款还本付息计划表
+//		List<List<Double>> interestFinaltable = new ArrayList<List<Double>>();
+////				LoanRepayHandler.getLoanRepayTable(zjcktable, projectinfo, fundssrcparam, shortloanrate,shortlst);
+//
+//		//2  -- 总成本费用表
+//		List<List<Double>> totalcostfinaltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
+//				fea_productcostBVOmapper,projectvo.getId(), projectinfo,deductval,interestFinaltable,zjcktable);
+//		//3	
+//		List<List<Double>> lrfinaltable =  ProfitHandler.getprofittable(projectinfo, totalcostfinaltable, interestFinaltable, 
+//				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
+//				shortloanrate, incomeset.get(2), zjcktable.get(5).get(0)*incomeset.get(2)/100);
+//		
+//		//利息表备付率和偿付率
+//		List<List<Double>> RcrDscrtable = LoanRcrDscrHandler.getRcrDscrtable(lrfinaltable, interestFinaltable);
+//		
+//		interestFinaltable.add(RcrDscrtable.get(0));
+//		interestFinaltable.add(RcrDscrtable.get(1));
+//		
+//		//5---财务计划现金流量表
+//		List<List<Double>> financeplanfinaltable = FinanceHandler.getFinanceTable(projectinfo.get(1),
+//				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable);
+//
+//		//6---项目投资现金流量表 
+//		List<List<Double>> investHandlerTable = InvestFlowHandler.getInvestHandlerTable(projectinfo.get(1), lrfinaltable,
+//				totalcostfinaltable, zjcktable, interestFinaltable, incomeset.get(0),incomeset.get(6) , assetval);
+//
+//		//7--项目资本金现金流量表
+//		List<List<Double>> capitalTable = CapitalHandler.getCapitalTable(
+//				projectinfo.get(1), 
+//				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
+//
+//		//8--资金来源与运用表
+//		List<List<Double>> capitalsrcTable = CapitalSrcHandler.getCapitalSrcTable(
+//				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
+//
+//
+//		//9--资产负债表
+//		List<List<Double>> balancetable = BalanceHandler.getBalanceTable(
+//				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,
+//				capitalsrcTable,
+//				assetval
+//				,deductval);
+//
+//		//10 -- EVA测算表
+//		List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrfinaltable, totalcostfinaltable, balancetable);
 
-		List<List<Double>> interestTable = LoanRepayHandler.getLoanRepayTable(zjcktable, projectinfo, fundssrcparam, shortloanrate,null);
-
-		List<List<Double>> totalcostltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
-				fea_productcostBVOmapper, projectvo.getId(),projectinfo,deductval,interestTable,zjcktable);
-
-		List<List<Double>> lrtable =  ProfitHandler.getprofittable(projectinfo, totalcostltable, interestTable, 
-				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
-				shortloanrate, incomeset.get(2), zjcktable.get(5).get(0)*incomeset.get(2)/100);
-
-		List<List<Double>> financeplantable = FinanceHandler.getFinanceTable(projectinfo.get(1),
-				lrtable, totalcostltable, zjcktable, interestTable);
-
-		List<Double> shortlst = FinanceShortHandler.getFinanceTable(financeplantable, shortloanrate);
-
-		//4 -- 借款还本付息计划表
-		List<List<Double>> interestFinaltable =
-				LoanRepayHandler.getLoanRepayTable(zjcktable, projectinfo, fundssrcparam, shortloanrate,shortlst);
-
-		//2  -- 总成本费用表
-		List<List<Double>> totalcostfinaltable = TotalCostHander.getTotalcosttable(fea_capformVOMapper, fea_productcostVOmapper,
-				fea_productcostBVOmapper,projectvo.getId(), projectinfo,deductval,interestFinaltable,zjcktable);
-		//3	
-		List<List<Double>> lrfinaltable =  ProfitHandler.getprofittable(projectinfo, totalcostfinaltable, interestFinaltable, 
-				fea_costinfoVOMapper, fea_incosubsidyVOMapper,projectvo, 14.0, incomeset.get(0), incomeset.get(6),
-				shortloanrate, incomeset.get(2), zjcktable.get(5).get(0)*incomeset.get(2)/100);
 		
-		//利息表备付率和偿付率
-		List<List<Double>> RcrDscrtable = LoanRcrDscrHandler.getRcrDscrtable(lrfinaltable, interestFinaltable);
+//		List<List<Double>> table1 = PubUtilHandler.getRoundingTable(zjcktable);
+//		List<List<Double>> table2 = PubUtilHandler.getRoundingTable(totalcostfinaltable);
+//		List<List<Double>> table3 = PubUtilHandler.getRoundingTable(interestFinaltable);
+//		List<List<Double>> table4 = PubUtilHandler.getRoundingTable(lrfinaltable);
+//		List<List<Double>> table5 = PubUtilHandler.getRoundingTable(financeplanfinaltable);
+//		List<List<Double>> table6 = PubUtilHandler.getRoundingTable(investHandlerTable);
+//		List<List<Double>> table7 = PubUtilHandler.getRoundingTable(capitalTable);
+//		List<List<Double>> table8 = PubUtilHandler.getRoundingTable(capitalsrcTable);
+//		List<List<Double>> table9 = PubUtilHandler.getRoundingTable(balancetable);
+//		List<List<Double>> table10 = PubUtilHandler.getRoundingTable(eVAHandlerTable);
 		
-		interestFinaltable.add(RcrDscrtable.get(0));
-		interestFinaltable.add(RcrDscrtable.get(1));
-		
-		//5---财务计划现金流量表
-		List<List<Double>> financeplanfinaltable = FinanceHandler.getFinanceTable(projectinfo.get(1),
-				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable);
-
-		//6---项目投资现金流量表 
-		List<List<Double>> investHandlerTable = InvestFlowHandler.getInvestHandlerTable(projectinfo.get(1), lrfinaltable,
-				totalcostfinaltable, zjcktable, interestFinaltable, incomeset.get(0),incomeset.get(6) , assetval);
-
-		//7--项目资本金现金流量表
-		List<List<Double>> capitalTable = CapitalHandler.getCapitalTable(
-				projectinfo.get(1), 
-				lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
-
-		//8--资金来源与运用表
-		List<List<Double>> capitalsrcTable = CapitalSrcHandler.getCapitalSrcTable(
-				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,assetval);
-
-
-		//9--资产负债表
-		List<List<Double>> balancetable = BalanceHandler.getBalanceTable(
-				projectinfo.get(1),lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,
-				capitalsrcTable,
-				assetval
-				,deductval);
-
-		//10 -- EVA测算表
-		List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(projectinfo.get(1), lrfinaltable, totalcostfinaltable, balancetable);
-
-		
-		List<List<Double>> table1 = PubUtilHandler.getRoundingTable(zjcktable);
-		List<List<Double>> table2 = PubUtilHandler.getRoundingTable(totalcostfinaltable);
-		List<List<Double>> table3 = PubUtilHandler.getRoundingTable(interestFinaltable);
-		List<List<Double>> table4 = PubUtilHandler.getRoundingTable(lrfinaltable);
-		List<List<Double>> table5 = PubUtilHandler.getRoundingTable(financeplanfinaltable);
-		List<List<Double>> table6 = PubUtilHandler.getRoundingTable(investHandlerTable);
-		List<List<Double>> table7 = PubUtilHandler.getRoundingTable(capitalTable);
-		List<List<Double>> table8 = PubUtilHandler.getRoundingTable(capitalsrcTable);
-		List<List<Double>> table9 = PubUtilHandler.getRoundingTable(balancetable);
-		List<List<Double>> table10 = PubUtilHandler.getRoundingTable(eVAHandlerTable);
-		
-		retmap.put("投资计划与资金筹措表", table1); retmap.put("总成本费用表", table2); 
-		retmap.put("借款还本付息计划表",table3 ); retmap.put("利润和利润分配表",table4 ); 
-		retmap.put("财务计划现金流量表", table5);retmap.put("项目投资现金流量表", table6);
-		retmap.put("项目资本金现金流量表",table7 ); retmap.put("资金来源与运用表",table8 );
-		retmap.put("资产负债表",table9 ); retmap.put("EVA测算表", table10); 
-		
+//		retmap.put("投资计划与资金筹措表", table1); retmap.put("总成本费用表", table2); 
+//		retmap.put("借款还本付息计划表",table3 ); retmap.put("利润和利润分配表",table4 ); 
+//		retmap.put("财务计划现金流量表", table5);retmap.put("项目投资现金流量表", table6);
+//		retmap.put("项目资本金现金流量表",table7 ); retmap.put("资金来源与运用表",table8 );
+//		retmap.put("资产负债表",table9 ); retmap.put("EVA测算表", table10); 
+//		
 		}catch(Exception e){
 			e.getMessage();
 			List<List<Double>> temp = new ArrayList<List<Double>>();

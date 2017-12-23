@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.pub.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CapitalSrcHandler {
 
@@ -14,10 +15,13 @@ public class CapitalSrcHandler {
 	 * @param loanrepay
 	 * @return
 	 */
-	public static List<List<Double>> getCapitalSrcTable(Double totalyears,List<List<Double>> lrtable,
-			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,Double assetval
-			){
+	public static List<List<Double>> getCapitalSrcTable(List<List<Double>> lrtable,
+			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,
+			Map<String,Object> parammmap
+		){
 
+		Double dkjeamt =(Double) parammmap.get("dkjeamt");
+		
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
 
 		List<Double> ret14 = new ArrayList<Double>();//
@@ -42,7 +46,7 @@ public class CapitalSrcHandler {
 		List<Double> ret3 = new ArrayList<Double>();//合计
 		List<Double> ret4 = new ArrayList<Double>();//合计
 
-		for(int i=0;i<=totalyears;i++){
+		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(6).get(i));//利润总额
 			ret12.add(costtable.get(0).get(i));//折旧费
 			ret13.add(costtable.get(5).get(i));//摊销费
@@ -56,9 +60,9 @@ public class CapitalSrcHandler {
 			}
 			ret18.add(lrtable.get(10).get(i));
 			
-			if(i==0 || i==totalyears){
+			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret10.add(cctable.get(3).get(0));
-				ret19.add(assetval - costtable.get(0).get(0));
+				ret19.add(cctable.get(1).get(0)+cctable.get(2).get(0)- dkjeamt - costtable.get(0).get(0));
 			}else{
 				ret10.add(0.0);
 				ret19.add(0.0);

@@ -1,44 +1,39 @@
 package com.jeeplus.modules.fea.pub.util;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jeeplus.core.persistence.BaseMapper;
-import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
-import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.fea.entity.subsidy.Fea_incosubsidyVO;
+import java.util.Map;
 
 public class ProfitHandler {
 
-	public static List<List<Double>> getprofittable(List<Double> projectinfo,
+	@SuppressWarnings("unchecked")
+	public static List<List<Double>> getprofittable(List<List<Double>> zjcktable,
 			List<List<Double>> totalcosttable,List<List<Double>> loanrepay,
-			BaseMapper baseMapper,BaseMapper baseMapper1,FeaProjectB projectvo,
-			Double price,Double ftaxrate,Double issjsm,
-			Double shortrate1,
-			Double gjjrate,Double lrfpje){
+			Map<String,Object> parammap){
 		
 		//补贴收入
-		List<Double> subincome = ProfitHandler.getsubincome(baseMapper1, projectvo, projectinfo);
+		List<Double> subincome = (List<Double>) parammap.get("income");
+		Double countyear = (Double) parammap.get("countyear");
+		Double incomerate = (Double) parammap.get("incomerate");//所得税税率
+		Double legalaccfund = (Double) parammap.get("legalaccfund");//法定盈余公积金比率
+		Double yflrprop = (Double) parammap.get("yflrprop");//应付利润比率
+		String issdssjsm = (String) parammap.get("issdssjsm");
 		
-		//利润表
 		//利润表与利润分配表
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
-		
-		List<Double> productrate = getproductlst(projectinfo, baseMapper,projectvo);
 
-		List<Double> profit1 = ProfitHandler.getincome(productrate, projectinfo.get(3),price, projectinfo.get(1));
-		List<Double> profit2 = ProfitHandler.gettax(0.0, projectinfo.get(1));
-		List<Double> profit21 = ProfitHandler.gettax(0.0, projectinfo.get(1));
-		List<Double> profit22 = ProfitHandler.gettax(0.0, projectinfo.get(1));
-		List<Double> profit4 = ProfitHandler.gettax(0.0, projectinfo.get(1));//补贴含税
+		List<Double> profit1 = getproductincome(parammap);
+		List<Double> profit2 = gettax(0.0,countyear);
+		List<Double> profit21 = gettax(0.0, countyear);
+		List<Double> profit22 = gettax(0.0, countyear);
+		List<Double> profit4 = gettax(0.0, countyear);//补贴收入
 		
 		List<Double> profit3 = new ArrayList<Double>();//总成本费用
 		List<Double> profit5 = new ArrayList<Double>();
 		List<Double> profit6 = new ArrayList<Double>();;
 		List<Double> profit7 = new ArrayList<Double>();
 		List<Double> profit8 = new ArrayList<Double>();
-		List<Double> profit9 = subincome;//补贴收入
+		List<Double> profit9 = subincome;//补贴含税
 		List<Double> profit10 = new ArrayList<Double>();
 		List<Double> profit11 = new ArrayList<Double>();
 		List<Double> profit12 = new ArrayList<Double>();
@@ -50,6 +45,7 @@ public class ProfitHandler {
 		List<Double> profit18 = new ArrayList<Double>();
 		List<Double> profit19 = new ArrayList<Double>();
 		
+		Double zjckamt = 0.00;
 		int miancount = 0;
 		int dcount = 0;
 		List<Double> profit5bak = new ArrayList<Double>();
@@ -101,18 +97,18 @@ public class ProfitHandler {
 					profit7.add(0.0);
 				}
 				if(profit7.get(i)>0){
-					if(issjsm==1){
+					if(issdssjsm.equals("1")){
 					if(dcount<3){
 						profit8.add(0.0);
 					}else if(miancount<3){
-						profit8.add(profit7.get(i)*ftaxrate/200);
+						profit8.add(profit7.get(i)*incomerate/200);
 						miancount++;
 					}else{
-						profit8.add(profit7.get(i)*ftaxrate/100);
+						profit8.add(profit7.get(i)*incomerate/100);
 					}
 					dcount = dcount+1;
 					}else{
-						profit8.add(profit7.get(i)*ftaxrate/100);
+						profit8.add(profit7.get(i)*incomerate/100);
 					}
 				}else{
 					profit8.add(0.0);
@@ -125,15 +121,23 @@ public class ProfitHandler {
 				}
 				profit12.add(profit10.get(i)+profit11.get(i));
 				if(profit10.get(i)>0){//法定公积金
-				  profit13.add(profit10.get(i)*gjjrate/100);
+				  profit13.add(profit10.get(i)*legalaccfund/100);
 				}else{
 					profit13.add(0.0);
 				}
 				profit14.add(profit12.get(i)-profit13.get(i));
 				profit15.add(0.0);
 				if(profit14.get(i)>0){
-					if(profit14.get(i)>=lrfpje){//可分配利润大于出资金额的10%，只需要分可分配金额就行了
-						profit16.add(lrfpje);
+					if(i<zjcktable.get(5).size()){
+					 for(int j=i;j<zjcktable.get(5).size();j++){
+						zjckamt = zjckamt + zjcktable.get(5).get(j);
+					 }
+					}else{
+						zjckamt = zjcktable.get(5).get(0);
+					}
+					Double yflramt = zjckamt*yflrprop/100;
+					if(profit14.get(i)>=yflramt){//可分配利润大于出资金额的10%，只需要分可分配金额就行了
+						profit16.add(yflramt);
 					}else{
 						profit16.add(profit14.get(i));
 					}
@@ -171,48 +175,34 @@ public class ProfitHandler {
 		return profittable;
 	}
 	
-	public static List<Double> getproductlst(List<Double> projectinfo,BaseMapper basemaper,FeaProjectB projectvo){
-		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
-				getMutiParentVO("fea_costinfo", "id", " project_id ='"+projectvo.getId()+"' ",
-						basemaper);
-		List<Double> costrate = new ArrayList<Double>();	
-		for(Fea_costinfoVO fcvo : fea_costinfovo){
-			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
-				for(int j=0;j<projectinfo.get(1);j++){
-					try {
-						Method m ;
-						if(j==0){
-							m = fcvo.getClass().getMethod("getYear");
-						}else{
-							m = fcvo.getClass().getMethod("getYear"+(j+1));
-						}
-						Object rated = m.invoke(fcvo);
-						if(null!=rated){
-							costrate.add(((Double)rated)/100);
-						}else{
-							costrate.add(0.00);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					} 
+	
+
+	@SuppressWarnings("unchecked")
+	public static List<Double> getproductincome(Map<String,Object> parammap){
+		List<Double> retlist = new ArrayList<Double>();
+		Map<Integer,Double> heatareamap = (Map<Integer, Double>) parammap.get("heatarea");
+		List<Double> occupancylst = (List<Double>) parammap.get("occupancy");
+		Double price = (Double) parammap.get("price");
+		Double countyear = (Double) parammap.get("countyear");
+		retlist.add(0.0);
+		for(Integer key : heatareamap.keySet()){
+			if(retlist.size()==1){
+				for(int i=0;i<key-1;i++){
+					retlist.add(0.00);
 				}
 			}
+			for(int i=key;i<=countyear;i++){
+				Double repval = heatareamap.get(key)*price*occupancylst.get(i-key);
+				if(retlist.size()-1<countyear){
+				   retlist.add(repval);
+				}else{
+					retlist.set(i, retlist.get(i)+repval);
+				}
+				retlist.set(0, retlist.get(0)+repval);
+			}
 		}
+		return retlist;
 		
-		return costrate;
-	}
-
-	public static List<Double> getincome(List<Double> occuprate,Double heararea,Double price,Double totalyears){
-		List<Double> occuplst = new ArrayList<Double>();
-		occuplst.add(0.0);
-		Double sumdoub = 0.0;
-		for(int i=0;i<totalyears;i++){
-			Double amtdoub = heararea*price*occuprate.get(i);
-			occuplst.add(amtdoub);
-			sumdoub = sumdoub+amtdoub;
-		}
-		occuplst.set(0, sumdoub);
-		return occuplst;
 	}
 
 	public static List<Double> gettax(Double taxrate,Double totalyears){
@@ -227,33 +217,5 @@ public class ProfitHandler {
 		return occuplst;
 	}
 	
-	public static List<Double> getsubincome(BaseMapper baseMapper,FeaProjectB projectbvo,List<Double> projectinfo){
-		List<Fea_incosubsidyVO>   fea_incosubsidyvo = (List<Fea_incosubsidyVO>) PubBaseDAO.
-				getMutiParentVO("fea_incosubsidy", "id", " projectcode='"+projectbvo.getProjectCode()+"' ",
-						baseMapper);
-		List<Double> retlst = new ArrayList<Double>();
-		for(int i=0;i<fea_incosubsidyvo.size();i++){
-			if(fea_incosubsidyvo.get(i).getSubsidytype().equals("配套费")){
-				Double sums = 0.0;
-				retlst.add(0.0);
-				for(int j=0;j<projectinfo.get(1);j++){
-					try {
-						Method m ;
-						m = fea_incosubsidyvo.get(i).getClass().getMethod("getYear"+(j+1));
-						Object rated = m.invoke(fea_incosubsidyvo.get(i));
-						if(rated!=null && rated.toString().length()>0){
-							retlst.add(new Double(rated.toString()));
-							sums = sums+new Double(rated.toString());
-						}else{
-							retlst.add(0.0);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					} 
-				}
-				retlst.set(0, sums);
-			}
-		}
-		return retlst;
-	}
+	
 }

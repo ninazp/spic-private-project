@@ -63,7 +63,7 @@ public class FinanceHandler {
 		for(int i=0;i<=totalyears;i++){
 			ret111.add(lrtable.get(0).get(i));
 			ret112.add(0.0);
-			ret113.add(lrtable.get(5).get(i));
+			ret113.add(0.00);
 			ret114.add(0.0);
 			ret11.add(lrtable.get(0).get(i)+lrtable.get(5).get(i));
 			

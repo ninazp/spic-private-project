@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.pub.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CapitalHandler {
 
@@ -15,9 +16,12 @@ public class CapitalHandler {
 	 * @return
 	 */
 
-	public static List<List<Double>> getCapitalTable(Double totalyears,List<List<Double>> lrtable,
-			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
-		 ,Double assetval){
+	public static List<List<Double>> getCapitalTable(List<List<Double>> lrtable,
+			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,
+			Map<String,Object> parammmap
+			){
+
+		Double dkjeamt =(Double) parammmap.get("dkjeamt");
 
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
 
@@ -35,13 +39,13 @@ public class CapitalHandler {
 		List<Double> ret2 = new ArrayList<Double>();//合计
 		List<Double> ret3 = new ArrayList<Double>();//合计
 
-		for(int i=0;i<=totalyears;i++){
+		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(0).get(i));//营业收入
 			ret12.add(lrtable.get(10).get(i));
 			
-			if(i==0 || i==totalyears){
+			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret14.add(cctable.get(3).get(0));
-				ret13.add(assetval-costtable.get(0).get(0));
+				ret13.add(cctable.get(1).get(0)+cctable.get(2).get(0)-dkjeamt-costtable.get(0).get(0));
 			}else{
 				ret13.add(0.0);
 				ret14.add(0.0);

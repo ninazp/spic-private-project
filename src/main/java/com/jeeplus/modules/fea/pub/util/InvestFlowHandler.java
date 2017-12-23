@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.pub.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class InvestFlowHandler {
 
@@ -15,9 +16,12 @@ public class InvestFlowHandler {
 	 * @return
 	 */
 	
-	public static List<List<Double>> getInvestHandlerTable(Double totalyears,List<List<Double>> lrtable,
-			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay,
-			Double ftaxrate,Double issdssjsm,Double assetval){
+	public static List<List<Double>> getInvestHandlerTable(List<List<Double>> lrtable,
+			List<List<Double>> costtable,List<List<Double>> zjcktable,List<List<Double>> loanrepay,
+			Map<String,Object> parammap){
+		
+		Double ftaxrate = (Double) parammap.get("incomerate");//所得税税率
+		String issdssjsm = (String) parammap.get("issdssjsm");
 		
 		int start =0;
 		
@@ -40,24 +44,24 @@ public class InvestFlowHandler {
 		List<Double> ret7 = new ArrayList<Double>();//合计
 		Double sum5 = 0.0;
 		
-		for(int i=0;i<=totalyears;i++){
+		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(0).get(i));
 			ret12.add(lrtable.get(10).get(i));
 			
-			if(i==0 || i==totalyears){
-				ret14.add(cctable.get(3).get(0));
-				ret13.add(assetval-costtable.get(0).get(0));
+			if(i==0 || i==lrtable.get(0).size()){
+				ret14.add(zjcktable.get(3).get(0));
+				ret13.add(zjcktable.get(1).get(0)+zjcktable.get(2).get(0)-costtable.get(0).get(0));
 			}else{
 				ret13.add(0.0);
 				ret14.add(0.0);
 			}
 			ret1.add(ret11.get(i)+ret12.get(i)+ret13.get(i)+ret14.get(i));
-			if(i>=cctable.get(1).size()){
+			if(i>=zjcktable.get(1).size()){
 				ret21.add(0.0);
 				ret22.add(0.0);
 			}else{
-			   ret21.add(cctable.get(1).get(i));
-			   ret22.add(cctable.get(3).get(i));
+			   ret21.add(zjcktable.get(1).get(i));
+			   ret22.add(zjcktable.get(3).get(i));
 			}
 			ret23.add(costtable.get(11).get(i));
 			ret24.add(lrtable.get(1).get(i));
@@ -74,7 +78,7 @@ public class InvestFlowHandler {
 			if(i>0 && ret3.get(i)>0){
 				start = start+1;
 			}
-			if(issdssjsm==1){
+			if(issdssjsm.equals("1") || issdssjsm.equals("Y")){
 			 if(start>3 && start<7 && lrtable.get(19).get(i)>0){
 				ret5.add(lrtable.get(19).get(i)*ftaxrate/200);
 				sum5 = sum5+lrtable.get(19).get(i)*ftaxrate/200;

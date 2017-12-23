@@ -67,13 +67,11 @@ public class PubBaseDAO {
 	}
 	
   public static List<Double> getLoanrateyears(String table , String id,String wheresql,BaseMapper basemapper){
-		
 		List<Double> retlst = new ArrayList<Double>();
 		List<Fea_incomesetVO> volst = (List<Fea_incomesetVO>) getMutiParentVO(table, id, wheresql, basemapper);
 		if(null!=volst && volst.size()>0){
 			
 		}
-		
 		return retlst;
   }
 	

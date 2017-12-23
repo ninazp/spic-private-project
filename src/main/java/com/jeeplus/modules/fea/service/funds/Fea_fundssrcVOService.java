@@ -122,7 +122,7 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 		Fea_fundssrcDAO.insertFea_investdis(fea_fundssrcVO,
 				basemapper4, basemapper5,
 				projectvo,
-				flowloanamt, flowcapamt);
+				flowloanamt, flowcapamt,0.00);
 	}
 
 	@Transactional(readOnly = false)

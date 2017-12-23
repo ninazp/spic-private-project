@@ -88,7 +88,7 @@ public class Fea_fundssrcDAO {
 			Fea_investdisVOMapper basemapper4,
 			Fea_investdisBVOMapper basemapper5,
 			FeaProjectB projectvo,
-			Double flowloanamt,Double flowcapamt){
+			Double flowloanamt,Double flowcapamt,Double heatarea){
 
 		Date startdate = projectvo.getStartupDate();
 		Double stupmths = projectvo.getConstructPeriod();
@@ -97,6 +97,7 @@ public class Fea_fundssrcDAO {
 
 			Fea_investdisVO vo = new Fea_investdisVO();
 			vo.setFeaProjectB(projectvo);
+			vo.setHeatarea(heatarea);
 			vo.setId(PubUtil.getid(1));
 			vo.setCreateBy(UserUtils.getUser());	
 			vo.setCreateDate(new Date());

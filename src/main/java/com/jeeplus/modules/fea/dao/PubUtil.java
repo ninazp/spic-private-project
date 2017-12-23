@@ -83,7 +83,7 @@ public class PubUtil {
 		Double flowloanamt = ecfvo.getFlowamt()*ecfvo.getFlowloanprop()/100;
 		Double flowzyamt = ecfvo.getFlowamt() - flowloanamt;
 		Fea_fundssrcDAO.insertFea_investdis(fsrvo, fea_investdisVOMapper, fea_investdisBVOMapper,
-				projectvo, flowloanamt, flowzyamt);
+				projectvo, flowloanamt, flowzyamt,projectvo.getHeatArea());
 	}
 
 	public void deleteALLdata(FeaProjectB projectvo){

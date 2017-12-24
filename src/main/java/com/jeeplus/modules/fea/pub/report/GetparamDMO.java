@@ -58,7 +58,12 @@ public class GetparamDMO {
 		retmap.put("countyear", countyear);
 		retmap.put("currentproductmonth", currentproductmonth);
 		retmap.put("startyear", startyearini);
-		retmap.put("price", 14.00);//供热单价
+		if(projectvo.getPrice()!=null){
+			retmap.put("price", projectvo.getPrice());//供热单价
+		}else{
+			retmap.put("price", 14.00);//供热单价
+		}
+		
 
 		//资金来源retlst.add(tvo.getInterestcount());// 计息次数（年）
 //		retlst.add(tvo.getPrincipalrate());// 本金利率（%）

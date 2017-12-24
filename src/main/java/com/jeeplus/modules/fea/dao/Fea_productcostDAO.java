@@ -63,8 +63,35 @@ public class Fea_productcostDAO {
 			   }
 			}
 		
+		Fea_productcostBVO bvo2 = getbvo("人员数量","个",2.00,projectvo.getCountyears());
+		bvo2.setFea_productcost(vo);
+		Fea_productcostBVO bvo3 = getbvo("供热费用","万元",32.15,projectvo.getCountyears());
+		bvo3.setFea_productcost(vo);
 		
 		basemapper1.insert(vo);
 		basemapper2.insert(bvo);
+		basemapper2.insert(bvo2);
+		basemapper2.insert(bvo3);
 	}
+	
+	public static Fea_productcostBVO getbvo(String costtype,String unit,Double val,Double countyear){
+		Fea_productcostBVO bvo = new Fea_productcostBVO();
+		bvo.setId(PubUtil.getid(1));
+		bvo.setCreateBy(UserUtils.getUser());	
+		bvo.setCreateDate(new Date());
+		
+		bvo.setCosttype(costtype);		// 成本种类
+		bvo.setCostunit(unit);
+		for(int i=0;i<countyear;i++){
+					try {
+						Method m = bvo.getClass().getMethod("setYear"+(i+1),Double.class);
+						m.invoke(bvo, val);
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+			   }
+		
+		return bvo;
+	}
+	
 }

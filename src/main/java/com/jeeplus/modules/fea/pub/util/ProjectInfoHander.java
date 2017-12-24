@@ -104,7 +104,7 @@ public class ProjectInfoHander {
 				maxindex = investindex;
 			}
 		}
-		for(int i=1;i<maxindex;i++){
+		for(int i=1;i<=maxindex;i++){
 			r1.add(0.0);r11.add(0.0);r12.add(0.00);
 			r13.add(0.00);r2.add(0.00);r21.add(0.00);
 			r211.add(0.00);r212.add(0.00);r22.add(0.00);
@@ -123,12 +123,6 @@ public class ProjectInfoHander {
 					for(Fea_investdisBVO bvo : distriblst){
 						//资金筹备
 						if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("1")){
-							
-							r1.add(0.0);r11.add(0.0);r12.add(0.00);
-							r13.add(0.00);r2.add(0.00);r21.add(0.00);
-							r211.add(0.00);r212.add(0.00);r22.add(0.00);
-							r221.add(0.00);r2211.add(0.00);r2212.add(0.00);
-							r222.add(0.00);
 							
 							r211.set(investindex,(null==bvo.getJsamt())?0.00:bvo.getJsamt());
 							r212.set(investindex,(null==bvo.getLdamt())?0.00:bvo.getLdamt());

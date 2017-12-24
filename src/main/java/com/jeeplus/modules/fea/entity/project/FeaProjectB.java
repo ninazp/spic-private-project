@@ -4,9 +4,6 @@
 package com.jeeplus.modules.fea.entity.project;
 
 import java.util.Date;
-
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jeeplus.modules.sys.entity.Office;
 
@@ -16,17 +13,18 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 项目（子表）Entity
  * @author zp
- * @version 2017-12-02
+ * @version 2017-12-24
  */
 public class FeaProjectB extends DataEntity<FeaProjectB> {
 	
 	private static final long serialVersionUID = 1L;
 	private String projectCode;		// 项目编号
 	private String projectName;		// 项目名称
-	private Double heatArea;		// 供暖面积
-	private FeaProject kind;		// 类型 父类
 	private String address;		// 项目地址
+	private FeaProject kind;		// 类型 父类
+	private Double heatArea;		// 供暖面积
 	private Double heatDays;		// 供暖天数
+	private Double price;		// 供暖单价
 	private Date projectStart;		// 项目起始日期
 	private Date startupDate;		// 开工日期
 	private Double constructPeriod;		// 建设期(月)
@@ -46,7 +44,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	public FeaProjectB(FeaProject kind){
 		this.kind = kind;
 	}
-	
+
 	@ExcelField(title="项目编号", align=2, sort=7)
 	public String getProjectCode() {
 		return projectCode;
@@ -55,7 +53,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
 	}
-	@NotNull(message="项目名称")
+	
 	@ExcelField(title="项目名称", align=2, sort=8)
 	public String getProjectName() {
 		return projectName;
@@ -65,13 +63,13 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.projectName = projectName;
 	}
 	
-	@ExcelField(title="供暖面积", align=2, sort=9)
-	public Double getHeatArea() {
-		return heatArea;
+	@ExcelField(title="项目地址", align=2, sort=9)
+	public String getAddress() {
+		return address;
 	}
 
-	public void setHeatArea(Double heatArea) {
-		this.heatArea = heatArea;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	public FeaProject getKind() {
@@ -82,13 +80,13 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.kind = kind;
 	}
 	
-	@ExcelField(title="项目地址", align=2, sort=11)
-	public String getAddress() {
-		return address;
+	@ExcelField(title="供暖面积", align=2, sort=11)
+	public Double getHeatArea() {
+		return heatArea;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setHeatArea(Double heatArea) {
+		this.heatArea = heatArea;
 	}
 	
 	@ExcelField(title="供暖天数", align=2, sort=12)
@@ -100,8 +98,17 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.heatDays = heatDays;
 	}
 	
+	@ExcelField(title="供暖单价", align=2, sort=13)
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@ExcelField(title="项目起始日期", align=2, sort=13)
+	@ExcelField(title="项目起始日期", align=2, sort=14)
 	public Date getProjectStart() {
 		return projectStart;
 	}
@@ -111,7 +118,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@ExcelField(title="开工日期", align=2, sort=14)
+	@ExcelField(title="开工日期", align=2, sort=15)
 	public Date getStartupDate() {
 		return startupDate;
 	}
@@ -120,7 +127,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.startupDate = startupDate;
 	}
 	
-	@ExcelField(title="建设期(月)", align=2, sort=15)
+	@ExcelField(title="建设期(月)", align=2, sort=16)
 	public Double getConstructPeriod() {
 		return constructPeriod;
 	}
@@ -130,7 +137,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@ExcelField(title="投产日期", align=2, sort=16)
+	@ExcelField(title="投产日期", align=2, sort=17)
 	public Date getProductDate() {
 		return productDate;
 	}
@@ -139,7 +146,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.productDate = productDate;
 	}
 	
-	@ExcelField(title="计算期（年）", align=2, sort=17)
+	@ExcelField(title="计算期（年）", align=2, sort=18)
 	public Double getCountyears() {
 		return countyears;
 	}
@@ -148,7 +155,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.countyears = countyears;
 	}
 	
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=18)
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=19)
 	public Office getOffice() {
 		return office;
 	}
@@ -157,7 +164,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.office = office;
 	}
 	
-	@ExcelField(title="公司", align=2, sort=19)
+	@ExcelField(title="公司", align=2, sort=20)
 	public String getPkCorp() {
 		return pkCorp;
 	}

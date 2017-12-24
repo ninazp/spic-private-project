@@ -12,10 +12,11 @@
 		a.del_flag AS "delFlag",
 		a.project_code AS "projectCode",
 		a.project_name AS "projectName",
-		a.heat_area AS "heatArea",
-		a.kind AS "kind.id",
 		a.address AS "address",
+		a.kind AS "kind.id",
+		a.heat_area AS "heatArea",
 		a.heat_days AS "heatDays",
+		a.price AS "price",
 		a.project_start AS "projectStart",
 		a.startup_date AS "startupDate",
 		a.construct_period AS "constructPeriod",
@@ -79,7 +80,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.create_date DESC
+				ORDER BY a.create_date ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -98,7 +99,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.create_date DESC
+				ORDER BY a.create_date ASC
 			</otherwise>
 		</choose>
 	</select>
@@ -114,10 +115,11 @@
 			del_flag,
 			project_code,
 			project_name,
-			heat_area,
-			kind,
 			address,
+			kind,
+			heat_area,
 			heat_days,
+			price,
 			project_start,
 			startup_date,
 			construct_period,
@@ -135,10 +137,11 @@
 			#{delFlag},
 			#{projectCode},
 			#{projectName},
-			#{heatArea},
-			#{kind.id},
 			#{address},
+			#{kind.id},
+			#{heatArea},
 			#{heatDays},
+			#{price},
 			#{projectStart},
 			#{startupDate},
 			#{constructPeriod},
@@ -156,10 +159,11 @@
 			remarks = #{remarks},
 			project_code = #{projectCode},
 			project_name = #{projectName},
-			heat_area = #{heatArea},
-			kind = #{kind.id},
 			address = #{address},
+			kind = #{kind.id},
+			heat_area = #{heatArea},
 			heat_days = #{heatDays},
+			price = #{price},
 			project_start = #{projectStart},
 			startup_date = #{startupDate},
 			construct_period = #{constructPeriod},

@@ -95,7 +95,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'heatArea',
-		        title: '供暖面积',
+		        title: '供暖面积(万平米)',
 		        sortable: true
 		       
 		    }
@@ -114,6 +114,12 @@ $(document).ready(function() {
 			,{
 		        field: 'heatDays',
 		        title: '供暖天数',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'price',
+		        title: '供暖单价(元/平米)',
 		        sortable: true
 		       
 		    }

@@ -10,10 +10,16 @@ public class FinanceShortHandler {
 		List<Double> flowmnysum = financeTable.get(33);
 		List<Double> retlst = new ArrayList<Double>();
 		retlst.add(0.00);
+		Double lastamt = 0.00;
 		for(int i=1;i<flowmnysum.size();i++){//0经营活动净现金流量13 投资活动净现金流量  19 筹资活动净现金流量
 			Double financedoub = flowmnysum.get(i);
 			if(financedoub<0){
-				Double shortamt = Math.abs(financedoub)*(1+3*(shortrate/100));
+				Double shortamt = Math.abs(financedoub)/(1-(shortrate/100));
+				
+				shortamt = shortamt + lastamt/(1-(shortrate/100));
+				
+				lastamt = shortamt - Math.abs(financedoub);
+				
 //				if(retlst.get(i-1)>0 && start>2){
 //					if(financeTable.get(32).get(i)+financeTable.get(30).get(i)<0 
 //							&& financeTable.get(30).get(i)>0 && start2<2

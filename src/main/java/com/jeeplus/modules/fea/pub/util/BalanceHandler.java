@@ -26,11 +26,13 @@ public class BalanceHandler {
 		Map<Integer,Double> assetvalmap = TotalCostHander.getjsamt(cctable, dkjemap);
 		List<Double> assetvallist = new ArrayList<Double>();
 		for(Integer key : assetvalmap.keySet()){
-			for(int i=0;i<key;i++){
+			if(assetvallist.size()<lrtable.get(0).size()){
+			  for(int i=0;i<=key;i++){
 				assetvallist.add(0.00);
+			  }
 			}
-			for(int i=0;i<lrtable.get(0).size();i++){
-				if(assetvallist.size()<=lrtable.get(0).size()){
+			for(int i=key+1;i<lrtable.get(0).size();i++){
+				if(assetvallist.size()<lrtable.get(0).size()){
 				    assetvallist.add(assetvalmap.get(key));
 				}else{
 					assetvallist.set(i,assetvallist.get(i)+assetvalmap.get(key));
@@ -40,14 +42,18 @@ public class BalanceHandler {
 		
 		List<Double> dkjelist = new ArrayList<Double>();
 		for(Integer key : dkjemap.keySet()){
-			for(int i=0;i<key;i++){
-				dkjelist.add(0.00);
-			}
-			for(int i=0;i<lrtable.get(0).size();i++){
-				if(dkjelist.size()<=lrtable.get(0).size()){
+			   for(int i=0;i<key+1;i++){
+				   if(dkjelist.size()<lrtable.get(0).size()){
+				         dkjelist.add(0.00);
+				   }else{
+					     dkjelist.set(i, dkjelist.get(i));
+				   }
+			   }
+			for(int i=key+1;i<lrtable.get(0).size();i++){
+				if(dkjelist.size()<lrtable.get(0).size()){
 					dkjelist.add(dkjemap.get(key));
 				}else{
-					dkjelist.set(i,dkjelist.get(i)+assetvalmap.get(key));
+					dkjelist.set(i,dkjelist.get(i)+dkjemap.get(key));
 				}
 			}
 		}
@@ -90,7 +96,7 @@ public class BalanceHandler {
 			
 			ret11.add(ret111.get(i-1)+ret112.get(i-1));
 			if(i<cctable.get(1).size()){
-			   ret12.add(cctable.get(1).get(i)+cctable.get(2).get(i));
+				ret12.add(cctable.get(1).get(i)+cctable.get(2).get(i));
 			}else{
 				ret12.add(0.0);
 			}

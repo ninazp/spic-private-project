@@ -55,15 +55,15 @@ public class LoanRepayHandler {
 					r23.add(flowtemplst.get(2).get(j));
 					
 				}else{
-					r11.add(r11.get(j)+langtemplst.get(0).get(j));
-					r12.add(r12.get(j)+langtemplst.get(1).get(j));
-					r121.add(r121.get(j)+langtemplst.get(2).get(j));
-					r122.add(r122.get(j)+langtemplst.get(3).get(j));
-					r13.add(r13.get(j)+langtemplst.get(4).get(j));
+					r11.set(j,r11.get(j)+langtemplst.get(0).get(j));
+					r12.set(j,r12.get(j)+langtemplst.get(1).get(j));
+					r121.set(j,r121.get(j)+langtemplst.get(2).get(j));
+					r122.set(j,r122.get(j)+langtemplst.get(3).get(j));
+					r13.set(j,r13.get(j)+langtemplst.get(4).get(j));
 					
-					r21.add(r21.get(j)+flowtemplst.get(0).get(j));
-					r22.add(r22.get(j)+flowtemplst.get(1).get(j));
-					r23.add(r23.get(j)+flowtemplst.get(2).get(j));
+					r21.set(j,r21.get(j)+flowtemplst.get(0).get(j));
+					r22.set(j,r22.get(j)+flowtemplst.get(1).get(j));
+					r23.set(j,r23.get(j)+flowtemplst.get(2).get(j));
 				}
 			}
 		}

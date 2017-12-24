@@ -64,19 +64,19 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-15 active"><label class="pull-right">项目编号：</label></td>
+					<td class="width-35">
+						<form:input path="projectCode" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>项目名称：</label></td>
 					<td class="width-35">
 						<form:input path="projectName" htmlEscape="false"    class="form-control required"/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">项目编号：</label></td>
-					<td class="width-35">
-						<form:input path="projectCode" htmlEscape="false"    class="form-control required"/>
-					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">供暖面积（万平米）:</label></td>
+					<td class="width-15 active"><label class="pull-right">项目地址：</label></td>
 					<td class="width-35">
-						<form:input path="heatArea" htmlEscape="false"    class="form-control required"/>
+						<form:input path="address" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">类型：</label></td>
 					<td class="width-35">
@@ -85,16 +85,20 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目地址：</label></td>
+					<td class="width-15 active"><label class="pull-right">供暖面积(万平米)：</label></td>
 					<td class="width-35">
-						<form:input path="address" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatArea" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">供暖天数：</label></td>
 					<td class="width-35">
-						<form:input path="heatDays" htmlEscape="false"    class="form-control required"/>
+						<form:input path="heatDays" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">供暖单价(元/平米)：</label></td>
+					<td class="width-35">
+						<form:input path="price" htmlEscape="false"    class="form-control "/>
+					</td>
 					<td class="width-15 active"><label class="pull-right">项目起始日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
@@ -106,46 +110,50 @@
 			                </div>
 			            </p>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">开工日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
 							<div class='input-group form_datetime' id='startupDate'>
-			                    <input type='text'  name="startupDate" class="form-control required"  value="<fmt:formatDate value="${feaProjectB.startupDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
+			                    <input type='text'  name="startupDate" class="form-control"  value="<fmt:formatDate value="${feaProjectB.startupDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
 			                </div>
 			            </p>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">建设期(月)：</label></td>
 					<td class="width-35">
-						<form:input path="constructPeriod" htmlEscape="false"    class="form-control required"/>
+						<form:input path="constructPeriod" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">投产日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
 							<div class='input-group form_datetime' id='productDate'>
-			                    <input type='text'  name="productDate" class="form-control "  value="<fmt:formatDate value="${feaProjectB.productDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
+			                    <input type='text'  name="productDate" class="form-control"  value="<fmt:formatDate value="${feaProjectB.productDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
 			                </div>
 			            </p>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">计算期（年）：</label></td>
 					<td class="width-35">
-						<form:input path="countyears" htmlEscape="false"    class="form-control required"/>
+						<form:input path="countyears" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">部门：</label></td>
 					<td class="width-35">
 						<sys:treeselect id="office" name="office.id" value="${feaProjectB.office.id}" labelName="office.name" labelValue="${feaProjectB.office.name}"
 							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
 					</td>
-				</tr>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

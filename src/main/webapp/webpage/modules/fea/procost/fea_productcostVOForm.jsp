@@ -132,7 +132,7 @@
 					<td class="width-15">
 						<form:input path="material" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">保险费率（‰）：</label></td>
+					<td class="width-15 active"><label class="pull-right">保险费率（%）：</label></td>
 					<td class="width-15">
 						<form:input path="insurance" htmlEscape="false"    class="form-control required"/>
 					</td>

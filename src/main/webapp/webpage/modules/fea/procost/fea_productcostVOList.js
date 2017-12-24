@@ -131,7 +131,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'insurance',
-		        title: '保险费率（‰）',
+		        title: '保险费率（%）',
 		        sortable: true
 		       
 		    }

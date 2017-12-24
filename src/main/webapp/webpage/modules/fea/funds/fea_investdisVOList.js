@@ -91,8 +91,13 @@ $(document).ready(function() {
 		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		            }
 		        }
-		       
 		    }
+			/*,{
+		        field: 'fea_fundssrc_investtotal',
+		        title: '资金来源-总资金',
+		        sortable: true
+		       
+		    }*/
 			/*,{
 		        field: 'projectcode',
 		        title: '项目编码',

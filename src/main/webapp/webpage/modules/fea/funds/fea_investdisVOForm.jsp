@@ -4,6 +4,7 @@
 <head>
 	<title>投资分配管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
@@ -45,6 +46,8 @@
 				}
 			});
 			
+			HeaderInputEditEnding();
+			windowLoadEnding();
 		});
 		
 		function addRow(list, idx, tpl, row){
@@ -124,11 +127,11 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
-						<form:input path="investprop" htmlEscape="false"    class="form-control "/>
+						<form:input path="investprop" htmlEscape="false"    class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35">
-						<form:input path="investamt" htmlEscape="false"    class="form-control required"/>
+						<form:input path="investamt" htmlEscape="false"    class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
 					</td>
 				</tr>
 				<tr>
@@ -138,13 +141,13 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
 					<td class="width-35">
-						<form:input path="cappropsum" htmlEscape="false"    class="form-control required"/>
+						<form:input path="cappropsum" htmlEscape="false"    class="form-control required" />
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35">
-						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required"/>
+						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required" />
 					</td>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
@@ -190,7 +193,7 @@
 					
 					
 					<td>
-						<select id="fea_investdisBVOList{{idx}}_investtype" name="fea_investdisBVOList[{{idx}}].investtype" data-value="{{row.investtype}}" class="form-control m-b  ">
+						<select id="fea_investdisBVOList{{idx}}_investtype" name="fea_investdisBVOList[{{idx}}].investtype" data-value="{{row.investtype}}" class="form-control m-b  required">
 							<option value=""></option>
 							<c:forEach items="${fns:getDictList('distrtype')}" var="dict">
 								<option value="${dict.value}">${dict.label}</option>
@@ -200,12 +203,12 @@
 					
 					
 					<td>
-						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control "/>
+						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control " onChange="investpropChange(fea_investdisBVOList{{idx}}_investprop,fea_investdisBVOList{{idx}}_investamt)"/>
 					</td>
 					
 					
 					<td>
-						<input id="fea_investdisBVOList{{idx}}_investamt" name="fea_investdisBVOList[{{idx}}].investamt" type="text" value="{{row.investamt}}"    class="form-control "/>
+						<input id="fea_investdisBVOList{{idx}}_investamt" name="fea_investdisBVOList[{{idx}}].investamt" type="text" value="{{row.investamt}}"    class="form-control " onChange="investamtChange()" />
 					</td>
 					
 					
@@ -232,6 +235,97 @@
 						fea_investdisBVORowIdx = fea_investdisBVORowIdx + 1;
 					}
 				});
+			</script>
+			<script type="text/javascript">
+			
+				var investtotal_pub;
+				
+				function HeaderInputEditEnding(){
+					$("#investprop").blur(function(event){
+						var investprop = $("#investprop").val();//投资比例
+						if(!isNull(investprop)) {
+							return;
+						}
+						
+						var projectId = $("#feaProjectBId").val();
+						if(!isNull(projectId)){
+							jp.info("请先选择一个项目，再录入比例");
+						}
+						
+						if(!isNull(investtotal_pub)){
+							jp.error("获取项目投资总额为空");
+							return;
+						}
+						$("#investamt").val((investtotal_pub * investprop / 100).toFixed(2));
+						investpropChange(null,null);
+					});
+				}
+				
+				function windowLoadEnding(){
+					var projectId = $("#feaProjectBId").val();
+					if(!isNull(projectId))return;
+					jp.get("${ctx}/fea/funds/fea_fundssrcVO/getFea_fundssrcVOByProjectId?projectId=" + projectId, function (data) {
+	 					if(data.success){
+	 						var investtotal = data.body.Fea_fundssrcVO.investtotal;//投资总金额
+	 						var investprop = $("#investprop").val();//投资比例
+							if(!isNull(investtotal)){return;}
+							investtotal_pub = investtotal;
+							$("#investamt").val((investtotal_pub * investprop / 100).toFixed(2));
+							$("#investamt").attr("title","总投资额："+investtotal);
+							$(function () { $("[data-toggle='tooltip']").tooltip(); });
+	 	      	  		}else{
+	 	      	  			jp.error("获取项目投资总额失败");
+	 	      	  		}
+	 	            })
+				}
+				
+				function investamtChange(){
+					
+					var investamt1_total = 0;//投资金额
+					var investamt2_total = 0;//融资金额
+					$("#fea_investdisBVOList").find("tr").each(function(index,element){
+					
+						var investtype = $(element).find('select[id$=_investtype]').val();
+						if(isNull(investtype) && investtype == 1){
+							investamt1_total = investamt1_total + Number($(element).find('input[id$=_investamt]').val());
+						}
+						if(isNull(investtype) && investtype == 2){
+							investamt2_total = investamt2_total + Number($(element).find('input[id$=_investamt]').val());
+						}
+					});
+					if(investamt1_total != 0){
+						debugger;
+						$("#cappropsum").val(investamt1_total.toFixed(2));
+					}
+					if(investamt2_total != 0){
+						$("#loanpropsum").val(investamt2_total.toFixed(2));
+					}
+				}
+				
+				function investpropChange(investpropDom, investamtDom){
+					var investamt = $("#investamt").val();
+					
+					if(isNull(investpropDom) && isNull(investamtDom)){//逐条算
+						investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);
+					}else{//全算一遍
+						
+						$("#fea_investdisBVOList").find("tr").each(function(index,element){
+							investpropDom = $(element).find('input[id$=_investprop]');
+							investamtDom = $(element).find('input[id$=_investamt]');
+							debugger;
+							investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);
+						});
+					}
+					investamtChange();
+				}
+				
+				function tableChange(prop,amt){
+				//fea_investdisBVOList
+					var capitalamt = $("#capitalamt").val();
+					amt.value=($("#capitalamt").val() * prop.value /100).toFixed(2);
+				}
+				
+				
 			</script>
 			</div>
 		</div>

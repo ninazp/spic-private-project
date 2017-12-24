@@ -24,13 +24,14 @@
 		a.pk_corp AS "pk_corp",
 				
 		feaProjectB.project_name AS "feaProjectB.projectName",
-				
+		fea_fundssrcVO.investtotal AS "fea_fundssrc_investtotal",
 		office.name AS "office.name"
 	</sql>
 	
 	<sql id="fea_investdisVOJoins">
 		
 		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN fea_fundssrc fea_fundssrcVO ON fea_fundssrcVO.project_id = a.project_id
 		LEFT JOIN sys_office office ON office.id = a.dept
 	</sql>
 	

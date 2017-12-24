@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.funds;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.service.funds.Fea_fundssrcVOService;
 
@@ -218,6 +216,21 @@ public class Fea_fundssrcVOController extends BaseController {
 		}
 		return "redirect:"+Global.getAdminPath()+"/fea/funds/fea_fundssrcVO/?repage";
     }
+	
+	/**
+	 * 根据项目ID获取投资来源信息
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"fea:funds:fea_fundssrcVO:view","fea:funds:fea_fundssrcVO:add","fea:funds:fea_fundssrcVO:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getFea_fundssrcVOByProjectId")
+	public AjaxJson getFea_fundssrcVOByProjectId(String projectId, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		Fea_fundssrcVO fea_fundssrcVO = fea_fundssrcVOService.getFea_fundssrcVOByProjectId(projectId);
+		j.put("Fea_fundssrcVO", fea_fundssrcVO);
+		j.setMsg("");
+		j.setSuccess(true);
+		return j;
+	}
 	
 
 }

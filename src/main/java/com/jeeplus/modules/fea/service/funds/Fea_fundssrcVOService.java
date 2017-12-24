@@ -122,7 +122,7 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 		Fea_fundssrcDAO.insertFea_investdis(fea_fundssrcVO,
 				basemapper4, basemapper5,
 				projectvo,
-				flowloanamt, flowcapamt);
+				flowloanamt, flowcapamt,0.00);
 	}
 
 	@Transactional(readOnly = false)
@@ -130,6 +130,11 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 		super.delete(fea_fundssrcVO);
 		fea_fundssrcBVOMapper.delete(new Fea_fundssrcBVO(fea_fundssrcVO));
 		fea_fundssrcTVOMapper.delete(new Fea_fundssrcTVO(fea_fundssrcVO));
+	}
+	
+	public Fea_fundssrcVO getFea_fundssrcVOByProjectId(String projectId){
+		Fea_fundssrcVO fea_fundssrcVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_fundssrcVO;
 	}
 
 }

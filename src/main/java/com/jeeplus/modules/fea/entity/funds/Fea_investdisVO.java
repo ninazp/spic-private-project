@@ -3,13 +3,13 @@
  */
 package com.jeeplus.modules.fea.entity.funds;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import com.jeeplus.common.utils.excel.annotation.ExcelField;
+import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.sys.entity.Office;
-import java.util.List;
-import com.google.common.collect.Lists;
-
-import com.jeeplus.core.persistence.DataEntity;
-import com.jeeplus.common.utils.excel.annotation.ExcelField;
 
 /**
  * 投资分配Entity 
@@ -20,6 +20,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	
 	private static final long serialVersionUID = 1L;
 	private FeaProjectB feaProjectB;		// 项目
+	private Double fea_fundssrc_investtotal;		// 资金来源-总资金
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private String year;		// 年度
@@ -50,6 +51,15 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.feaProjectB = feaProjectB;
 	}
 	
+	@ExcelField(title="资金来源-总资金", align=2, sort=2)
+	public Double getFea_fundssrc_investtotal() {
+		return fea_fundssrc_investtotal;
+	}
+
+	public void setFea_fundssrc_investtotal(Double fea_fundssrc_investtotal) {
+		this.fea_fundssrc_investtotal = fea_fundssrc_investtotal;
+	}
+
 	@ExcelField(title="项目编码", align=2, sort=2)
 	public String getProjectcode() {
 		return projectcode;

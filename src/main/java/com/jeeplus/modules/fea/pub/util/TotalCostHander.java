@@ -159,27 +159,21 @@ public class TotalCostHander {
 			}
 			for(int i=key;i<=totalcalyears;i++){
 				Double doub1 =0.0;
-				if(i==1){
+				if(i==key){
 					doub1 = yearval*(firstmths/12);
-				}else if(i<Math.min(depyears,totalcalyears)+1){
+				}else if(i<Math.min(depyears+key,totalcalyears)){
 					doub1 = yearval;
-				}else if(i==Math.min(depyears,totalcalyears)+1){
-					if(depyears<totalcalyears){
+				}else if(i==Math.min(depyears+key,totalcalyears)){
+					if((depyears+key)<totalcalyears){
 						doub1 = yearval-yearval*(firstmths/12);
 					}else{
 						doub1 = yearval;
 					}
-				}else if(i>Math.min(depyears, totalcalyears)+1){
-					if(depyears<totalcalyears){
-						doub1 = 0.0;
-					}else{
-						doub1 = yearval;
-					}
 				}
-				if(i<retList.size()-1){
-					retList.set(i, retList.get(i)+doub1);
-				}else{
+				if(retList.size()<(totalcalyears+1)){
 					retList.add(doub1);
+				}else{
+					retList.set(i, retList.get(i)+doub1);
 				}
 				
 				retList.set(0, retList.get(0)+doub1);
@@ -268,7 +262,6 @@ public class TotalCostHander {
 					retlist.add(0.00);
 				}
 			}
-			
 			for(int i=key;i<=totalcalyears;i++){
 				Double bxval = assetnolxmap.get(key)*bxrate/100;
 				Double amt = 0.00;
@@ -300,16 +293,20 @@ public class TotalCostHander {
 	public static List<Double> getWagebenefit(List<Double> person,Double perwage,Double benefit,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		retlist.add(0.00);
+		Double personnum = 0.00;
 		for(int i=1;i<=totalcalyears;i++){
-			Double wage = person.get(i-1)*perwage*(1+benefit/100);
+			
 			Double amt = 0.00;
-			if(i==1){
-				amt = wage*(firstmths/12);
+			if(personnum!=person.get(i-1)){
+				Double wage1 = (person.get(i-1)-personnum)*perwage*(1+benefit)/100;
+				Double wage = personnum*perwage*(1+benefit/100);
+				amt = wage1+wage;
 			}else{
-				amt = wage;
+				amt = person.get(i-1)*perwage*(1+benefit/100);
 			}
 			retlist.add(amt);
 			retlist.set(0, retlist.get(0)+amt);
+			personnum = person.get(i-1);
 		}
 		return retlist;
 	}

@@ -53,7 +53,8 @@ public class ProfitHandler {
 			if(i==0){
 			  profit3.add(0.0);profit5.add(0.0);profit6.add(0.0);profit7.add(0.0);
 			  profit8.add(0.0);profit10.add(0.0);profit11.add(0.0);profit12.add(0.0);
-			  profit13.add(0.0);profit14.add(0.0);profit15.add(0.0);profit16.add(0.0);profit17.add(0.0);
+			  profit13.add(0.0);profit14.add(0.0);profit15.add(0.0);
+			  profit16.add(0.0);profit17.add(0.0);
 			  profit18.add(0.0);profit19.add(0.0);profit5bak.add(0.0);
 			}else{
 				profit3.add(totalcosttable.get(10).get(i));//总成本费用

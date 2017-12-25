@@ -13,7 +13,7 @@
 		if (validateForm.form()) {
 			$table = table;
 			$topIndex = index;
-			jp.loading();
+			//jp.loading();
 			$("#inputForm").submit();
 			return true;
 		}
@@ -24,6 +24,28 @@
 	$(document).ready(function() {
 	
 		validateForm = $("#inputForm").validate({
+			rules: {
+				"feaProjectB.projectName" : {
+				
+						remote:{  
+		                    type:"POST",  
+		                    url:"${ctx}/fea/funds/fea_fundssrcVO/checkProject",
+		                    data:{
+		                    	fea_fundssrcVO : $('#inputForm').serialize(),
+		                    	oldProjectID : encodeURIComponent('${fea_fundssrcVO.feaProjectB.id}'),
+		                        newProjectID : function(){
+		                         	return $("#feaProjectBId").val(); 
+		                         }  
+		                    }  
+		                }
+						/* remote: "${ctx}/fea/funds/fea_fundssrcVO/checkProject?fea_fundssrcVO=" + $('#inputForm').serialize() + 
+						"&newProjectID=" + $("#feaProjectBId").val() $("#${id}Id") */
+						
+					}
+			},
+			messages: {
+				"feaProjectB.projectName" : {remote: "该项目已被占用，不能重复创建"}
+			},
 			submitHandler : function(form) {
 				jp.post("${ctx}/fea/funds/fea_fundssrcVO/save", $('#inputForm').serialize(), function(data) {
 					if (data.success) {
@@ -32,6 +54,7 @@
 						jp.close($topIndex); //关闭dialog
 
 					} else {
+						debugger;
 						jp.error(data.msg);
 					}
 				})
@@ -42,6 +65,7 @@
 				if (element.is(":checkbox") || element.is(":radio") || element.parent().is(".input-append")) {
 					error.appendTo(element.parent().parent());
 				} else {
+					debugger;
 					error.insertAfter(element);
 				}
 			}
@@ -137,7 +161,9 @@
 				 --%>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目：</label></td>
-					<td class="width-35"><sys:gridselect
+					<td class="width-35">
+						<input id="oldProjectID" name="oldProjectID" type="hidden" value="${fea_fundssrcVO.feaProjectB.id}">
+						<sys:gridselect
 							url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB"
 							name="feaProjectB.id" value="${fea_fundssrcVO.feaProjectB.id}"
 							labelName="feaProjectB.projectName"

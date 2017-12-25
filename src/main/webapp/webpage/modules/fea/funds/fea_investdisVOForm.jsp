@@ -50,6 +50,17 @@
 			windowLoadEnding();
 		});
 		
+		jQuery.validator.addMethod("checkTableInvestprop",function(value,element){       
+	  		var cappropCount = 0;
+	  		$("#fea_investdisBVOList").find('input[id$=_investprop]').each(function(index,element){
+	  			cappropCount = cappropCount + parseInt(element.value);
+	  		});
+	  		if(cappropCount > 100){
+	  			return false;
+	  		}
+	        return true;
+	    } ,  "比例合计不能超过100");   
+		
 		function addRow(list, idx, tpl, row){
 			$(list).append(Mustache.render(tpl, {
 				idx: idx, delBtn: true, row: row
@@ -127,7 +138,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
-						<form:input path="investprop" htmlEscape="false"    class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
+						<form:input path="investprop" htmlEscape="false"    class="form-control required " max="100" data-toggle="tooltip" data-placement="top" title=""/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35">
@@ -203,7 +214,7 @@
 					
 					
 					<td>
-						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control " onChange="investpropChange(fea_investdisBVOList{{idx}}_investprop,fea_investdisBVOList{{idx}}_investamt)"/>
+						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control required checkTableInvestprop" max="100" onChange="investpropChange(fea_investdisBVOList{{idx}}_investprop,fea_investdisBVOList{{idx}}_investamt)"/>
 					</td>
 					
 					
@@ -238,7 +249,7 @@
 			</script>
 			<script type="text/javascript">
 			
-				var investtotal_pub;
+				var investtotal_pub;//总投资额
 				
 				function HeaderInputEditEnding(){
 					$("#investprop").blur(function(event){
@@ -294,7 +305,6 @@
 						}
 					});
 					if(investamt1_total != 0){
-						debugger;
 						$("#cappropsum").val(investamt1_total.toFixed(2));
 					}
 					if(investamt2_total != 0){
@@ -312,8 +322,7 @@
 						$("#fea_investdisBVOList").find("tr").each(function(index,element){
 							investpropDom = $(element).find('input[id$=_investprop]');
 							investamtDom = $(element).find('input[id$=_investamt]');
-							debugger;
-							investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);
+							investamtDom.val((investamt * investpropDom.val() /100).toFixed(2));
 						});
 					}
 					investamtChange();

@@ -116,8 +116,8 @@ public class Fea_fundssrcVOService extends CrudService<Fea_fundssrcVOMapper, Fea
 				flowcapamt =flowcapamt+fea_costfecfvos.get(i).getFlowamt() - flowloanamt;
 			}
 		}
-		basemapper4.execDeleteSql("delete from fea_investdis s where s.project_id='"+fea_fundssrcVO.getFeaProjectB().getId()+"'");
-		basemapper5.execDeleteSql("delete from fea_investdis_b b where b.pkinvestdis='"+fea_fundssrcVO.getId()+"'");
+		basemapper4.execDeleteSql("delete from fea_investdis where project_id='"+fea_fundssrcVO.getFeaProjectB().getId()+"'");
+		basemapper5.execDeleteSql("delete from fea_investdis_b where pkinvestdis='"+fea_fundssrcVO.getId()+"'");
 
 		Fea_fundssrcDAO.insertFea_investdis(fea_fundssrcVO,
 				basemapper4, basemapper5,

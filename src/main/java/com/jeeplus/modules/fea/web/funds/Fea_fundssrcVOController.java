@@ -232,5 +232,17 @@ public class Fea_fundssrcVOController extends BaseController {
 		return j;
 	}
 	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:funds:fea_fundssrcVO:add","fea:funds:fea_fundssrcVO:edit"},logical=Logical.OR)
+	@RequestMapping(value = "checkProject", method=RequestMethod.POST)
+	public String checkProject(Fea_fundssrcVO fea_fundssrcVO, String oldProjectID, String newProjectID) {
+		if (null !=  newProjectID && newProjectID.equals(oldProjectID)) {
+			return "true";
+		} else if (null != newProjectID && fea_fundssrcVOService.getFea_fundssrcVOByProjectId(newProjectID) == null) {
+			return "true";
+		}
+		return "false";
+	}
+	
 
 }

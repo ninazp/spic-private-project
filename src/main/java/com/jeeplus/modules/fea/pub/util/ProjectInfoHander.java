@@ -134,8 +134,17 @@ public class ProjectInfoHander {
 						}else if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("2")){
 							r2211.set(investindex, (null==bvo.getJsamt())?0.00:bvo.getJsamt());
 							Double principalrate = Double.valueOf(parammap.get("principalrate").toString());
+							
+							Object consperiod = parammap.get("constructPeriod");
+							
 							Double jslxamt = r2211.get(investindex)*principalrate/200;
-							r2212.set(investindex, 20.65);//建设期利息
+							
+							if(null!=consperiod){
+								Double consperiodufd = (Double) consperiod;
+								jslxamt = jslxamt*consperiodufd/12;
+							}
+							
+							r2212.set(investindex, jslxamt);//建设期利息
 							r221.set(investindex, r2211.get(investindex)+r2212.get(investindex));
 							r222.set(investindex, (null==bvo.getLdamt())?0:bvo.getLdamt());
 							r22.set(investindex, r221.get(investindex)+r222.get(investindex));

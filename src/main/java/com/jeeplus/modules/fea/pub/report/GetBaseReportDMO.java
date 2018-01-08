@@ -12,7 +12,6 @@ import com.jeeplus.modules.fea.pub.util.LoanRepayHandler;
 import com.jeeplus.modules.fea.pub.util.ProfitHandler;
 import com.jeeplus.modules.fea.pub.util.ShortLoanHander;
 import com.jeeplus.modules.fea.pub.util.TotalCostHander;
-import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class GetBaseReportDMO {
 
@@ -35,13 +34,6 @@ public class GetBaseReportDMO {
 		List<List<Double>> costtable = TotalCostHander.getTotalcosttable(parammap, interesttable, zjcktable);
 		List<List<Double>> lrtable = ProfitHandler.getprofittable(zjcktable, costtable, interesttable, parammap);
 		List<List<Double>> financeplan = FinanceHandler.getFinanceTable(countyear, lrtable, costtable, zjcktable, interesttable);
-
-		WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
-		WriteExcelCal.getexcel("interesttable.xls",interesttable);
-		WriteExcelCal.getexcel("costtable.xls",costtable);
-		WriteExcelCal.getexcel("lrtable.xls",lrtable);
-		WriteExcelCal.getexcel("financeplan.xls",financeplan);
-
 
 		List<Double> shortlst = FinanceShortHandler.getFinanceTable(financeplan, shortloanrate);
 		List<List<Double>> retlst = ShortLoanHander.getShortLoanList(countyear, shortloanrate, shortlst);

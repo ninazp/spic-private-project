@@ -3,114 +3,59 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <!-- _login_page_ --><!--登录超时标记 勿删-->
 <!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 
-	<head>
-	<style>
-		*{margin: 0;padding: 0;}
-		#container {
-			position: absolute;
-			height: 100%;
-			width: 100%;
-		}
-		#output {
-			width: 100%;
-			height: 100%;
-		}
-		.color{
-			width: 120px;
-			height: 20px;
-			margin: 0 auto;
-			position: fixed;
-			left: 50%;
-			margin-left: -60px;
-			bottom: 20px;
-		}
-		.color li{
-			float: left;
-			margin: 0 5px;
-			width: 20px;
-			height: 20px;
-			background: #ccc;
-			box-shadow: 0 0 4px #FFF;
-			list-style: none;
-			cursor: pointer;
-		}
-		.color li:nth-child(1){
-			background: #002c4a;
-		}
-		.color li:nth-child(2){
-			background: #35ac03;
-		}
-		.color li:nth-child(3){
-			background: #ac0908;
-		}
-		.color li:nth-child(4){
-			background: #18bbff;
-		}
-		.login-page1 {
-		  position: absolute;
-		  top: 0;
-		  left: 0;
-		  right: 0;
-		  bottom: 0;
-		  overflow: auto;
-		  text-align: center;
-		  padding: 3em;
-		}
-		.login-page1 h1 {
-		  font-weight: 300;
-		}
-		.login-page1 h1 small {
-		}
-		.login-page1 .form-group {
-		  padding: 8px 0;
-		}
-		.login-page1 .form-content {
-		  padding: 40px 0;
-		}
-	</style>
-	<script src="${ctxStatic}/common/js/login-background-jquery.js"></script>
-	<script src="${ctxStatic}/common/js/login-background-vector.js"></script>
-	<script>
-		$(function(){
-			// 初始化 传入dom id
-			var victor = new Victor("container", "output");
-			var theme = [
-					["#002c4a", "#005584"],
-					["#35ac03", "#3f4303"],
-					["#ac0908", "#cd5726"],
-					["#18bbff", "#00486b"]
-				]
-			$(".color li").each(function(index, val) {
-				var color = theme[index];
-				 $(this).mouseover(function(){
-					victor(color).set();
-				 })
-			});
-		});
-	</script>
-		<meta name="decorator" content="ani"/>
-		<title>${fns:getConfig('productName')} 登录</title>
+    <head>
+
+        <meta charset="utf-8">
+        <!-- <meta name="decorator" content="ani"/> -->
+        		
+        <!-- Javascript -->
+        <script src="${ctxStatic}/common/js/login_js/jquery-1.8.2.min.js"></script>
+        <script src="${ctxStatic}/common/js/login_js/jquery.validate.js"></script>
+        <script src="${ctxStatic}/common/js/login_js/supersized.3.2.7.min.js"></script>
+        <script src="${ctxStatic}/common/js/login_js/scripts.js"></script>
+        
 		<script>
 			if (window.top !== window.self) {
 				window.top.location = window.location;
 			}
 		</script>
-		<script type="text/javascript">
+		
+        <title>国家电投集团中央研究院</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="${ctxStatic}/common/css/login_css/reset.css">
+        <link rel="stylesheet" href="${ctxStatic}/common/css/login_css/supersized.css">
+        <link rel="stylesheet" href="${ctxStatic}/common/css/login_css/style.css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <script type="text/javascript">
 				$(document).ready(function() {
 					$("#loginForm").validate({
 						rules: {
-							validateCode: {remote: "${pageContext.request.contextPath}/servlet/validateCodeServlet"}
+							//validateCode: {remote: "${pageContext.request.contextPath}/servlet/validateCodeServlet"}
+							username: {
+						        required: true
+						    }
 						},
 						messages: {
-							username: {required: "请填写用户名."},password: {required: "请填写密码."},
-							validateCode: {remote: "验证码不正确.", required: "请填写验证码."}
+							username: {
+						        required: "请输入用户名"
+						    }
+							//validateCode: {remote: "验证码不正确.", required: "请填写验证码."}
 						},
-						errorLabelContainer: "#messageBox",
 						errorPlacement: function(error, element) {
+							debugger;
 							error.appendTo($("#loginError").parent());
-						} 
+						}
 					});
 				});
 				// 如果在框架或在对话框中，则弹出提示并跳转到首页
@@ -119,95 +64,65 @@
 					top.location = "${ctx}";
 				}
 		</script>
-	
-	</head>
+    </head>
 
-	
-	<body>
-		<div id="container"><div id="output"></div></div>
-		<div class="login-page1">
-		<div class="row">
-			<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
-				<img class="img-circleSP" src="${ctxStatic}/common/images/logo.png" class="user-avatar"/>
-				<h1></h1>
-				<sys:message content="${message}" showType="1"/>
-				<form id="loginForm" role="form" action="${ctx}/login" method="post">
-					<div class="form-content">
-						<div class="form-group">
-							<input type="text" id="username" name="username" class="form-control input-underline input-lg required" placeholder="用户名">
-						</div>
+    <body>
 
-						<div class="form-group">
-							<input type="password" id="password" name="password" class="form-control input-underline input-lg required" placeholder="密码">
-						</div>
-						<c:if test="${isValidateCodeLogin}">
-						<div class="form-group  text-muted">
-								<label class="inline"><font color="white">验证码:</font></label>
-							<sys:validateCode name="validateCode" inputCssStyle="margin-bottom:5px;" buttonCssStyle="color:white"/>
-						</div>
-						</c:if>
-							
-						<label class="inline">
-								<%-- <input  type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''} class="ace" />
-								<span class="lbl"> 记住我</span> --%>
-						</label>
+        <div class="page-container">
+            <h1 id = "errorMsg"></h1>
+            <img src="${ctxStatic}/common/images/login_2.png"/>
+            <sys:message2 content="${message}" showType="1"/>
+            <form id="loginForm" role="form" action="${ctx}/login" method="post">
+            	<div class="form-group">
+                	<input type="text" id="username" name="username" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                	<input type="password" id="password" name="password" placeholder="密码">
+                </div>
+                <c:if test="${isValidateCodeLogin}">
+					<div class="form-group  text-muted">
+						<label class="inline"><font color="white">验证码:</font></label>
+						<sys:validateCode name="validateCode" inputCssStyle="margin-bottom:5px;" buttonCssStyle="color:white"/>
 					</div>
-					<input type="submit" class="btn btn-white btn-outline btn-lg btn-rounded progress-login"  value="登录">
-					
-					<%-- <a href="${ctx}/sys/register" class="btn btn-white btn-outsline btn-lg btn-rounded progress-login">注册</a> --%>
-				</form>
-			</div>			
-		</div>
-		<div class="">
-	         <img alt="image" style="width:100%;opacity:1"class="" src="${ctxStatic}/common/images/home_background.png">
-	    </div>
-	</div>
-	
-	<script>
+				</c:if>
+				<div class="form-group">
+                	<button type="submit">登    录</button>
+                </div>
+                
+            </form>
+        </div>
+        <script type="text/javascript">
+        	jQuery(function($){
+			    $.supersized({
+			    	
+			        // Functionality
+			        slide_interval     : 4000,    // Length between transitions
+			        transition         : 1,    // 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+			        transition_speed   : 1000,    // Speed of transition
+			        performance        : 1,    // 0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
+			
+			        // Size & Position
+			        min_width          : 0,    // Min width allowed (in pixels)
+			        min_height         : 0,    // Min height allowed (in pixels)
+			        vertical_center    : 1,    // Vertically center background
+			        horizontal_center  : 1,    // Horizontally center background
+			        fit_always         : 0,    // Image will never exceed browser width or height (Ignores min. dimensions)
+			        fit_portrait       : 1,    // Portrait images will not exceed browser height
+			        fit_landscape      : 0,    // Landscape images will not exceed browser width
+			
+			        // Components
+			        slide_links        : 'blank',    // Individual links for each slide (Options: false, 'num', 'name', 'blank')
+			        slides             : [    // Slideshow Images
+			                                 {image : '${ctxStatic}/common/images/login_backgrounds/1-1.jpg'},
+			                                 {image : '${ctxStatic}/common/images/login_backgrounds/2-2.jpg'},
+			                                 {image : '${ctxStatic}/common/images/login_backgrounds/3-3.jpg'}
+			                       ]
+			
+			    });
+			
+			});
+        </script>
 
-		
-$(function(){
-		$('.theme-picker').click(function() {
-			changeTheme($(this).attr('data-theme'));
-		}); 	
-	
-});
+    </body>
 
-function changeTheme(theme) {
-	$('<link>')
-	.appendTo('head')
-	.attr({type : 'text/css', rel : 'stylesheet'})
-	.attr('href', '${ctxStatic}/common/css/app-'+theme+'.css');
-	//$.get('api/change-theme?theme='+theme);
-	 $.get('${pageContext.request.contextPath}/theme/'+theme+'?url='+window.top.location.href,function(result){  });
-}
-</script>
-<style>
-.img-circleSP {
-	margin-left:0px;
-}
-li.color-picker i {
-    font-size: 24px;
-    line-height: 30px;
-}
-.red-base {
-    color: #D24D57;
-}
-.blue-base {
-    color: #3CA2E0;
-}
-.green-base {
-    color: #27ae60;
-}
-.purple-base {
-    color: #957BBD;
-}
-.midnight-blue-base {
-    color: #2c3e50;
-}
-.lynch-base {
-    color: #6C7A89;
-}
-</style>
-</body>
 </html>

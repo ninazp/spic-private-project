@@ -35,7 +35,7 @@
 			</form> -->
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
-					<img  class="img-circleSp" src="${ctxStatic}/common/images/zdt_03.png" class="user-avatar" height="50" width="280" />
+					<img  class="img-circleSp" src="${ctxStatic}/common/images/login_1.png" class="user-avatar" height="50" width="280" />
 				</li>
 				<li class="dropdown">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

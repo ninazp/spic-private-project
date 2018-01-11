@@ -54,6 +54,7 @@ public class GetparamDMO {
 		 calendar.setTime(startupdate);
 		 int startyearini = calendar.get(Calendar.YEAR);
 		
+		retmap.put("constructPeriod", consperiod);
 		retmap.put("project_id", projectvo.getId());
 		retmap.put("countyear", countyear);
 		retmap.put("currentproductmonth", currentproductmonth);

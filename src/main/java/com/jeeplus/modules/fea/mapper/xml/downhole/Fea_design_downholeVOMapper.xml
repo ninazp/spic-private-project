@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.downhole.Fea_design_downholeVOMapper">
+    
+	<sql id="fea_design_downholeVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.project_id AS "feaProjectB.id",
+		a.holeheight AS "holeheight",
+		a.flowcount AS "flowcount",
+		a.outheat AS "outheat",
+		a.waterlevel AS "waterlevel",
+		a.hgpbac AS "hgpbac",
+		a.hgpbbh AS "hgpbbh",
+		a.dept AS "office.id",
+		a.remarks AS "remarks",
+				
+				
+				
+				
+				
+				
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="fea_design_downholeVOJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_design_downholeVO" >
+		SELECT 
+			<include refid="fea_design_downholeVOColumns"/>
+		FROM fea_design_downhole a
+		<include refid="fea_design_downholeVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_design_downholeVO" >
+		SELECT 
+			<include refid="fea_design_downholeVOColumns"/>
+		FROM fea_design_downhole a
+		<include refid="fea_design_downholeVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_design_downholeVO" >
+		SELECT 
+			<include refid="fea_design_downholeVOColumns"/>
+		FROM fea_design_downhole a
+		<include refid="fea_design_downholeVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_design_downhole(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			project_id,
+			holeheight,
+			flowcount,
+			outheat,
+			waterlevel,
+			hgpbac,
+			hgpbbh,
+			dept,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{feaProjectB.id},
+			#{holeheight},
+			#{flowcount},
+			#{outheat},
+			#{waterlevel},
+			#{hgpbac},
+			#{hgpbbh},
+			#{office.id},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_design_downhole SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			project_id = #{feaProjectB.id},
+			holeheight = #{holeheight},
+			flowcount = #{flowcount},
+			outheat = #{outheat},
+			waterlevel = #{waterlevel},
+			hgpbac = #{hgpbac},
+			hgpbbh = #{hgpbbh},
+			dept = #{office.id},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_design_downhole
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_design_downhole SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_design_downholeVO" statementType="STATEMENT">
+		select * FROM fea_design_downhole  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

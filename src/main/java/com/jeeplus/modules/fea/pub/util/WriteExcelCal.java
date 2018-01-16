@@ -62,4 +62,57 @@ public class WriteExcelCal {
 			e.printStackTrace();  
 		}  
 	}  
+	
+	public void exportExcelrstr(String title, 
+			List<List<String>> dataset, OutputStream out)  
+	{  
+		// 声明一个工作薄  
+		HSSFWorkbook workbook = new HSSFWorkbook();  
+		// 生成一个表格  
+		HSSFSheet sheet = workbook.createSheet(title);  
+		HSSFRow row = sheet.createRow(0); 
+		// 遍历集合数据，产生数据行  
+		for(int i=-1;i< dataset.size();i++)
+		{  
+			if(i==-1){
+			 HSSFRow row1 = sheet.createRow(i+1);  
+			 for (int m = 0; m < dataset.get(0).size(); m++)  
+			 {  
+				HSSFCell cell = row1.createCell(m);  
+				cell.setCellValue(dataset.get(i+1).get(m));
+			 }  
+			}else{
+				 HSSFRow row1 = sheet.createRow(i);  
+				 for (int m = 0; m < dataset.get(0).size(); m++)  
+				 {  
+					HSSFCell cell = row1.createCell(m);  
+					cell.setCellValue(dataset.get(i).get(m));
+				 }  
+			}
+		}
+		try  
+		{  
+			workbook.write(out);  
+		}  
+		catch (IOException e)  
+		{  
+			e.printStackTrace();  
+		}  
+	}  
+	
+	public static void getexcelstr(String excelname,List<List<String>> dataset)  
+	{  
+		WriteExcelCal ex = new WriteExcelCal();
+		try  
+		{  
+			OutputStream out2 = new FileOutputStream("E://"+excelname);  
+			ex.exportExcelrstr(excelname,dataset, out2);
+			out2.close();  
+		} catch (FileNotFoundException e) {  
+			e.printStackTrace();  
+		} catch (IOException e) {  
+			e.printStackTrace();  
+		}  
+	}  
+	
 }

@@ -27,6 +27,7 @@
 	
 	<bean id="createReportPubDMO" class="com.jeeplus.modules.fea.pub.report.createReportPubDMO"></bean>
 	<bean id="pubutil" class="com.jeeplus.modules.fea.dao.PubUtil"></bean>
+	<bean id="pubDesignCal" class="com.jeeplus.modules.fea.designcal.PubDesignCal"></bean>
 	
  	<!-- MyBatis begin -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper">
+    
+	<sql id="fea_design_heattransVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a. project_id AS "feaProjectB.id",
+		a.price AS "price",
+		a.lowarea AS "lowarea",
+		a.higharea AS "higharea",
+		a.dept AS "office.id",
+		a.remarks AS "remarks",
+				
+				
+				
+				
+				
+				
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="fea_design_heattransVOJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a. project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_design_heattransVO" >
+		SELECT 
+			<include refid="fea_design_heattransVOColumns"/>
+		FROM fea_design_heattrans a
+		<include refid="fea_design_heattransVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_design_heattransVO" >
+		SELECT 
+			<include refid="fea_design_heattransVOColumns"/>
+		FROM fea_design_heattrans a
+		<include refid="fea_design_heattransVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_design_heattransVO" >
+		SELECT 
+			<include refid="fea_design_heattransVOColumns"/>
+		FROM fea_design_heattrans a
+		<include refid="fea_design_heattransVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_design_heattrans(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			 project_id,
+			price,
+			lowarea,
+			higharea,
+			dept,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{feaProjectB.id},
+			#{price},
+			#{lowarea},
+			#{higharea},
+			#{office.id},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_design_heattrans SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			 project_id = #{feaProjectB.id},
+			price = #{price},
+			lowarea = #{lowarea},
+			higharea = #{higharea},
+			dept = #{office.id},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_design_heattrans
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_design_heattrans SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_design_heattransVO" statementType="STATEMENT">
+		select * FROM fea_design_heattrans  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

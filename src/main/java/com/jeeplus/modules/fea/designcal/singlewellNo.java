@@ -6,6 +6,7 @@ import java.util.List;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
+import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class singlewellNo {
 
@@ -265,10 +266,10 @@ public class singlewellNo {
 
 		List<String> col3 = new ArrayList<String>();
 		col3.add("汽水分离器");
-		col2.add("");
-		col2.add(""+Nk);
-		col2.add(""+0.5*Nk);
-		col2.add("");
+		col3.add(" ");
+		col3.add(" "+Nk);
+		col3.add(" "+0.5*Nk);
+		col3.add(" ");
 
 		List<String> col4 = new ArrayList<String>();
 		col4.add("过滤器");
@@ -297,9 +298,9 @@ public class singlewellNo {
 		col7.add("热泵机组");
 		String col7str = "制热量 "+Qr2+" kW;\n "+ "电功率 "+Pr2 ;
 		col7.add(col7str);
-		col7.add(""+jznum);
-		col7.add(""+jznum*Cr2);
-		col7.add(" ");
+		col7.add(""+jznum*Nk);
+		col7.add(""+jznum*Nk*Cr2);
+		col7.add(" 0 ");
 
 		List<String> col8= new ArrayList<String>();
 		col8.add("循环水泵");
@@ -338,6 +339,7 @@ public class singlewellNo {
 		rettable1.add(col7);rettable1.add(col8);
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
 		
+	    WriteExcelCal.getexcelstr("rettable1.xls",rettable1);
 		
 	}
 }

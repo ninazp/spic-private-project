@@ -285,24 +285,24 @@ public class singlewellyes {
 		
 		List<String> col2 = new ArrayList<String>();
 		col2.add("旋流除砂器");
-		col2.add("");
+		col2.add(" ");
 		col2.add(""+Nk);
 		col2.add(""+5*Nk);
-		col2.add("");
+		col2.add(" ");
 		
 		List<String> col3 = new ArrayList<String>();
 		col3.add("汽水分离器");
-		col2.add("");
-		col2.add(""+Nk);
-		col2.add(""+0.5*Nk);
-		col2.add("");
+		col3.add(" ");
+		col3.add(" "+Nk);
+		col3.add(" "+0.5*Nk);
+		col3.add(" ");
 		
 		List<String> col4 = new ArrayList<String>();
 		col4.add("过滤器");
-		col4.add("");
+		col4.add(" ");
 		col4.add(""+Nk);
 		col4.add(""+0.5*Nk);
-		col4.add("");
+		col4.add(" ");
 		
 		List<String> col5 = new ArrayList<String>();
 		col5.add("板式换热器");

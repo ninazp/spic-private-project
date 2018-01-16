@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper">
+    
+	<sql id="fea_design_resultVOColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.resulttype AS "resulttype",
+		a.project_id AS "feaProjectB.id",
+		a.year1 AS "year1",
+		a.year2 AS "year2",
+		a.year3 AS "year3",
+		a.year4 AS "year4",
+		a.year5 AS "year5",
+		a.year6 AS "year6",
+		a.year7 AS "year7",
+		a.year8 AS "year8",
+		a.year9 AS "year9",
+		a.year10 AS "year10",
+		a.year11 AS "year11",
+		a.year12 AS "year12",
+		a.year13 AS "year13",
+		a.year14 AS "year14",
+		a.year15 AS "year15",
+		a.year16 AS "year16",
+		a.year17 AS "year17",
+		a.year18 AS "year18",
+		a.year19 AS "year19",
+		a.year20 AS "year20",
+		a.year21 AS "year21",
+		a.year22 AS "year22",
+		a.year23 AS "year23",
+		a.year24 AS "year24",
+		a.year25 AS "year25",
+		a.year26 AS "year26",
+		a.year27 AS "year27",
+		a.year28 AS "year28",
+		a.year29 AS "year29",
+		a.year30 AS "year30",
+		a.year31 AS "year31",
+		a.year32 AS "year32",
+		a.year33 AS "year33",
+		a.year34 AS "year34",
+		a.year35 AS "year35",
+		a.dept AS "office.id",
+				
+				
+				
+				
+				
+				
+				
+				
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="fea_design_resultVOJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
+	</sql>
+	
+    
+	<select id="get" resultType="Fea_design_resultVO" >
+		SELECT 
+			<include refid="fea_design_resultVOColumns"/>
+		FROM fea_design_result a
+		<include refid="fea_design_resultVOJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fea_design_resultVO" >
+		SELECT 
+			<include refid="fea_design_resultVOColumns"/>
+		FROM fea_design_result a
+		<include refid="fea_design_resultVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fea_design_resultVO" >
+		SELECT 
+			<include refid="fea_design_resultVOColumns"/>
+		FROM fea_design_result a
+		<include refid="fea_design_resultVOJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_design_result(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			resulttype,
+			project_id,
+			year1,
+			year2,
+			year3,
+			year4,
+			year5,
+			year6,
+			year7,
+			year8,
+			year9,
+			year10,
+			year11,
+			year12,
+			year13,
+			year14,
+			year15,
+			year16,
+			year17,
+			year18,
+			year19,
+			year20,
+			year21,
+			year22,
+			year23,
+			year24,
+			year25,
+			year26,
+			year27,
+			year28,
+			year29,
+			year30,
+			year31,
+			year32,
+			year33,
+			year34,
+			year35,
+			dept
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{resulttype},
+			#{feaProjectB.id},
+			#{year1},
+			#{year2},
+			#{year3},
+			#{year4},
+			#{year5},
+			#{year6},
+			#{year7},
+			#{year8},
+			#{year9},
+			#{year10},
+			#{year11},
+			#{year12},
+			#{year13},
+			#{year14},
+			#{year15},
+			#{year16},
+			#{year17},
+			#{year18},
+			#{year19},
+			#{year20},
+			#{year21},
+			#{year22},
+			#{year23},
+			#{year24},
+			#{year25},
+			#{year26},
+			#{year27},
+			#{year28},
+			#{year29},
+			#{year30},
+			#{year31},
+			#{year32},
+			#{year33},
+			#{year34},
+			#{year35},
+			#{office.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_design_result SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			resulttype = #{resulttype},
+			project_id = #{feaProjectB.id},
+			year1 = #{year1},
+			year2 = #{year2},
+			year3 = #{year3},
+			year4 = #{year4},
+			year5 = #{year5},
+			year6 = #{year6},
+			year7 = #{year7},
+			year8 = #{year8},
+			year9 = #{year9},
+			year10 = #{year10},
+			year11 = #{year11},
+			year12 = #{year12},
+			year13 = #{year13},
+			year14 = #{year14},
+			year15 = #{year15},
+			year16 = #{year16},
+			year17 = #{year17},
+			year18 = #{year18},
+			year19 = #{year19},
+			year20 = #{year20},
+			year21 = #{year21},
+			year22 = #{year22},
+			year23 = #{year23},
+			year24 = #{year24},
+			year25 = #{year25},
+			year26 = #{year26},
+			year27 = #{year27},
+			year28 = #{year28},
+			year29 = #{year29},
+			year30 = #{year30},
+			year31 = #{year31},
+			year32 = #{year32},
+			year33 = #{year33},
+			year34 = #{year34},
+			year35 = #{year35},
+			dept = #{office.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_design_result
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_design_result SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Fea_design_resultVO" statementType="STATEMENT">
+		select * FROM fea_design_result  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

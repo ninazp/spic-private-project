@@ -24,30 +24,12 @@ public class singlewellNo {
 		Double T = fea_design_heatVO.getDayheathours();
 		Double Hj = fea_design_heatVO.getBuildheight();
 
-		//		private Double holeheight;		// 井深（米）
-		//		private Double flowcount;		// 流量（立方米/小时）
-		//		private Double outheat;		// 出口温度（摄氏度）
-		//		private Double waterlevel;		// 动水位（米）
-		//		private Double hgpbac;		// 回灌配比a采
-		//		private Double hgpbbh;		// 回灌配比b回
-
 		Double  H = fea_design_downholeVO.getHoleheight();
 		Double m  =fea_design_downholeVO.getFlowcount();
 		Double  t1 =fea_design_downholeVO.getOutheat();
 		Double  hd =fea_design_downholeVO.getWaterlevel();
 		Double  a =fea_design_downholeVO.getHgpbac();
 		Double  b =fea_design_downholeVO.getHgpbbh();
-
-		//		private Double oneoutheat;		// 一级一次侧出口温度（摄氏度）
-		//		private Double twooutheat;		// 二次侧供水温度（摄氏度）
-		//		private Double twobackheat;		// 二次侧回水温度（摄氏度）
-		//		private Double twozfoutheat;		// 二级二次蒸发器侧供水温度（摄氏度）
-		//		private Double twozfbacktheat;		// 二级二次蒸发器侧回水温度（摄氏度）
-		//		private Double backhgheat;		// 回灌水温度（摄氏度）
-		//		private Double sumheatefficient;		// 综合热效率
-		//		private Double loadrate;		// 负荷率
-		//		private Double pumprate;		// 热泵效率
-
 
 		Double  t2 = fea_design_transferVO.getOneoutheat();
 		Double  tg = fea_design_transferVO.getTwooutheat();
@@ -229,11 +211,12 @@ public class singlewellNo {
 			if(A*rate <= Nk*A1 ){
 				yearpowdoub = A*rate*W1*D*T*gmaq/(Nk*A1);
 				downwaterdoub = A*rate*m*D*T/A1;
+				powfeeunitdoub = yearpowdoub*E1/A1;	
 			}else{
 				yearpowdoub = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
-				downwaterdoub = Nk*m*D*T/A1;
+				downwaterdoub = Nk*m*D*T;
+				powfeeunitdoub = yearpowdoub*E1/(A1*rate);	
 			}
-			powfeeunitdoub = yearpowdoub*D*T*E1/A1;	
 			costunitdoub = powfeeunitdoub;
 			yearunitdoub = powfeeunitdoub*A*rate/10000;
 
@@ -244,6 +227,15 @@ public class singlewellNo {
 			yearunit.add(yearunitdoub);
 
 		}
+		
+		List<List<Double>> costinfolst = new ArrayList<List<Double>>();
+		costinfolst.add(yearpow);
+		costinfolst.add(downwater);
+		costinfolst.add(powfeeunit);
+		costinfolst.add(costunit);
+		costinfolst.add(yearunit);
+		
+		 WriteExcelCal.getexcel("运行费用.xls", costinfolst);
 
 		//*********分区为 是*********//
 		//表1 地热供暖项目设备清单1  地热供暖项目设备清单

@@ -55,14 +55,14 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">结果类别：</label></td>
-					<td class="width-35">
-						<form:input path="resulttype" htmlEscape="false"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_resultVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_resultVO.feaProjectB.projectName}"
 							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+					</td>
+					<td class="width-15 active"><label class="pull-right">结果类别：</label></td>
+					<td class="width-35">
+						<form:input path="resulttype" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>

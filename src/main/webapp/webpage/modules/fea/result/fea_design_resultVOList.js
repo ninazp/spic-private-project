@@ -76,6 +76,12 @@ $(document).ready(function() {
 		        checkbox: true
 		       
 		    }
+             ,{
+   		        field: 'feaProjectB.projectName',
+   		        title: '项目名称',
+   		        sortable: true
+   		       
+   		    }
 			,{
 		        field: 'resulttype',
 		        title: '结果类别',
@@ -83,12 +89,6 @@ $(document).ready(function() {
 		        ,formatter:function(value, row , index){
 		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		         }
-		       
-		    }
-			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
 		       
 		    }
 			,{
@@ -399,7 +399,7 @@ $(document).ready(function() {
 	   var value="${analysisEarnings.feaProjectB.id}" ;
 	   var labelName="feaProjectB.projectName" ;
 	   var labelValue="${analysisEarnings.feaProjectB.projectName}";
-	   var title="请要进行计算的项目" ;
+	   var title="选择项目" ;
 	   var cssClass="form-control required" ;
 	   var fieldLabels="项目名称" ;
 	   var fieldKeys="projectName" ;

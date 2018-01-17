@@ -78,7 +78,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'feaProjectB.projectName',
-		        title: '项目',
+		        title: '项目名称',
 		        sortable: true
 		        ,formatter:function(value, row , index){
  			    if(value == null){

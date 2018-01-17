@@ -8,6 +8,7 @@
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
 		a.project_id AS "feaProjectB.id",
 		a.oneoutheat AS "oneoutheat",
@@ -20,7 +21,7 @@
 		a.loadrate AS "loadrate",
 		a.pumprate AS "pumprate",
 		a.dept AS "office.id",
-		a.remarks AS "remarks",
+				
 				
 				
 				
@@ -101,6 +102,7 @@
 			create_date,
 			update_by,
 			update_date,
+			remarks,
 			del_flag,
 			project_id,
 			oneoutheat,
@@ -112,14 +114,14 @@
 			sumheatefficient,
 			loadrate,
 			pumprate,
-			dept,
-			remarks
+			dept
 		) VALUES (
 			#{id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
+			#{remarks},
 			#{delFlag},
 			#{feaProjectB.id},
 			#{oneoutheat},
@@ -131,8 +133,7 @@
 			#{sumheatefficient},
 			#{loadrate},
 			#{pumprate},
-			#{office.id},
-			#{remarks}
+			#{office.id}
 		)
 	</insert>
 	
@@ -140,6 +141,7 @@
 		UPDATE fea_design_transfer SET 	
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
+			remarks = #{remarks},
 			project_id = #{feaProjectB.id},
 			oneoutheat = #{oneoutheat},
 			twooutheat = #{twooutheat},
@@ -150,8 +152,7 @@
 			sumheatefficient = #{sumheatefficient},
 			loadrate = #{loadrate},
 			pumprate = #{pumprate},
-			dept = #{office.id},
-			remarks = #{remarks}
+			dept = #{office.id}
 		WHERE id = #{id}
 	</update>
 	

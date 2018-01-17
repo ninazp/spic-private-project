@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
 /**
  * 基本参数Service
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 @Service
 @Transactional(readOnly = true)

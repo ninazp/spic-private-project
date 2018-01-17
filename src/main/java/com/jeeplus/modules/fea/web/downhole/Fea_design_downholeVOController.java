@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.downhole.Fea_design_downholeVOService;
 /**
  * 井下参数Controller
  * @author jw
- * @version 2018-01-13
+ * @version 2018-01-17
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/downhole/fea_design_downholeVO")

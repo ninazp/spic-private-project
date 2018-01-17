@@ -55,10 +55,10 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_downholeVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_downholeVO.feaProjectB.projectName}"
-							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
 					<td class="width-15 active"><label class="pull-right">井深（米）：</label></td>
 					<td class="width-35">

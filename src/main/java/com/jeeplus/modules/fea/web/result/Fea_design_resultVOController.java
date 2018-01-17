@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.result.Fea_design_resultVOService;
 /**
  * 方案运行费用结果表Controller
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/result/fea_design_resultVO")

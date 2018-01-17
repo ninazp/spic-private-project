@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class singlewellNo {
 
-	public  static void calsinglewellyes(Fea_design_heatVO  fea_design_heatVO,
+	public  static void calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
 			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
 			List<List<Double>> pricech,
@@ -275,7 +275,7 @@ public class singlewellNo {
 		col4.add("过滤器");
 		col4.add("");
 		col4.add(""+Nk);
-		col4.add(""+0.5*Nk);
+		col4.add(""+4*Nk);
 		col4.add("");
 
 		List<String> col5 = new ArrayList<String>();

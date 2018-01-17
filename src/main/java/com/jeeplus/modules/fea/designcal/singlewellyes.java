@@ -301,7 +301,7 @@ public class singlewellyes {
 		col4.add("过滤器");
 		col4.add(" ");
 		col4.add(""+Nk);
-		col4.add(""+0.5*Nk);
+		col4.add(""+4*Nk);
 		col4.add(" ");
 		
 		List<String> col5 = new ArrayList<String>();

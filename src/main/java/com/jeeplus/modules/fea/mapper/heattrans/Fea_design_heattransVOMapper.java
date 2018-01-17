@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.heattrans.Fea_design_heattransVO;
 /**
  * 换热器价格MAPPER接口
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 @MyBatisMapper
 public interface Fea_design_heattransVOMapper extends BaseMapper<Fea_design_heattransVO> {

@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.heatben.Fea_design_heatbenVO;
 /**
  * 热泵价格MAPPER接口
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 @MyBatisMapper
 public interface Fea_design_heatbenVOMapper extends BaseMapper<Fea_design_heatbenVO> {

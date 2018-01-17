@@ -12,12 +12,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 井下参数Entity
  * @author jw
- * @version 2018-01-13
+ * @version 2018-01-17
  */
 public class Fea_design_downholeVO extends DataEntity<Fea_design_downholeVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private FeaProjectB feaProjectB;		// 项目
+	private FeaProjectB feaProjectB;		// 项目名称
 	private Double holeheight;		// 井深（米）
 	private Double flowcount;		// 流量（立方米/小时）
 	private Double outheat;		// 出口温度（摄氏度）
@@ -34,7 +34,7 @@ public class Fea_design_downholeVO extends DataEntity<Fea_design_downholeVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=6)
+	@ExcelField(title="项目名称", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=6)
 	public FeaProjectB getFeaProjectB() {
 		return feaProjectB;
 	}

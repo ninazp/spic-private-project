@@ -44,7 +44,6 @@ public class PubDesignCal {
 	@Autowired
 	private FeaProjectBMapper projectBMapper;
 	
-
 	@SuppressWarnings("unchecked")
 	public void calprocess(FeaProjectB projectvo){
 		
@@ -74,7 +73,7 @@ public class PubDesignCal {
 		List<List<Double>> heatpumpprice = getheatpumpprice(heatbenVO);
 		
 		if(null!=heatVO && null!=downholeVO && null!=transferVO){
-			singlewellNo.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
+			singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
 					transferVO.get(0), pricech, heatpumpprice, fea_costinfo);
 		}
 		

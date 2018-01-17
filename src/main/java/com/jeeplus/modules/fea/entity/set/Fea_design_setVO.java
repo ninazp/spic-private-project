@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 基本参数Entity
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	

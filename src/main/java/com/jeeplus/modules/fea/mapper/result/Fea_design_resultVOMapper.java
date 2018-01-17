@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 /**
  * 方案运行费用结果表MAPPER接口
  * @author jw
- * @version 2018-01-16
+ * @version 2018-01-17
  */
 @MyBatisMapper
 public interface Fea_design_resultVOMapper extends BaseMapper<Fea_design_resultVO> {

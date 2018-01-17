@@ -12,12 +12,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 供热参数Entity
  * @author jw
- * @version 2018-01-13
+ * @version 2018-01-17
  */
 public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private FeaProjectB feaProjectB;		// 项目
+	private FeaProjectB feaProjectB;		// 项目名称
 	private Double heatload;		// 热负荷指标（瓦/平方米）
 	private Double heatarea;		// 供热面积（平方米）
 	private Double powerfee;		// 电费（元/度）
@@ -35,7 +35,7 @@ public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=6)
+	@ExcelField(title="项目名称", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=6)
 	public FeaProjectB getFeaProjectB() {
 		return feaProjectB;
 	}

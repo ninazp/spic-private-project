@@ -58,7 +58,7 @@
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_setVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_setVO.feaProjectB.projectName}"
-							 title="选择项目名称" cssClass="form-control required" fieldLabels="projectName" fieldKeys="项目名称" searchLabels="projectName" searchKeys="项目名称" ></sys:gridselect>
+							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
 					<td class="width-15 active"><label class="pull-right">水下深度（米）：</label></td>
 					<td class="width-35">

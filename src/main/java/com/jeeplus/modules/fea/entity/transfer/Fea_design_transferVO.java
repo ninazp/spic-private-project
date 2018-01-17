@@ -12,12 +12,12 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 换热参数Entity
  * @author jw
- * @version 2018-01-13
+ * @version 2018-01-17
  */
 public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private FeaProjectB feaProjectB;		// 项目
+	private FeaProjectB feaProjectB;		// 项目名称
 	private Double oneoutheat;		// 一级一次侧出口温度（摄氏度）
 	private Double twooutheat;		// 二次侧供水温度（摄氏度）
 	private Double twobackheat;		// 二次侧回水温度（摄氏度）
@@ -37,7 +37,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		super(id);
 	}
 
-	@ExcelField(title="项目", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=6)
+	@ExcelField(title="项目名称", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=7)
 	public FeaProjectB getFeaProjectB() {
 		return feaProjectB;
 	}
@@ -46,7 +46,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.feaProjectB = feaProjectB;
 	}
 	
-	@ExcelField(title="一级一次侧出口温度（摄氏度）", align=2, sort=7)
+	@ExcelField(title="一级一次侧出口温度（摄氏度）", align=2, sort=8)
 	public Double getOneoutheat() {
 		return oneoutheat;
 	}
@@ -55,7 +55,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.oneoutheat = oneoutheat;
 	}
 	
-	@ExcelField(title="二次侧供水温度（摄氏度）", align=2, sort=8)
+	@ExcelField(title="二次侧供水温度（摄氏度）", align=2, sort=9)
 	public Double getTwooutheat() {
 		return twooutheat;
 	}
@@ -64,7 +64,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.twooutheat = twooutheat;
 	}
 	
-	@ExcelField(title="二次侧回水温度（摄氏度）", align=2, sort=9)
+	@ExcelField(title="二次侧回水温度（摄氏度）", align=2, sort=10)
 	public Double getTwobackheat() {
 		return twobackheat;
 	}
@@ -73,7 +73,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.twobackheat = twobackheat;
 	}
 	
-	@ExcelField(title="二级二次蒸发器侧供水温度（摄氏度）", align=2, sort=10)
+	@ExcelField(title="二级二次蒸发器侧供水温度（摄氏度）", align=2, sort=11)
 	public Double getTwozfoutheat() {
 		return twozfoutheat;
 	}
@@ -82,7 +82,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.twozfoutheat = twozfoutheat;
 	}
 	
-	@ExcelField(title="二级二次蒸发器侧回水温度（摄氏度）", align=2, sort=11)
+	@ExcelField(title="二级二次蒸发器侧回水温度（摄氏度）", align=2, sort=12)
 	public Double getTwozfbacktheat() {
 		return twozfbacktheat;
 	}
@@ -91,7 +91,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.twozfbacktheat = twozfbacktheat;
 	}
 	
-	@ExcelField(title="回灌水温度（摄氏度）", align=2, sort=12)
+	@ExcelField(title="回灌水温度（摄氏度）", align=2, sort=13)
 	public Double getBackhgheat() {
 		return backhgheat;
 	}
@@ -100,7 +100,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.backhgheat = backhgheat;
 	}
 	
-	@ExcelField(title="综合热效率", align=2, sort=13)
+	@ExcelField(title="综合热效率", align=2, sort=14)
 	public Double getSumheatefficient() {
 		return sumheatefficient;
 	}
@@ -109,7 +109,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.sumheatefficient = sumheatefficient;
 	}
 	
-	@ExcelField(title="负荷率", align=2, sort=14)
+	@ExcelField(title="负荷率", align=2, sort=15)
 	public Double getLoadrate() {
 		return loadrate;
 	}
@@ -118,7 +118,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.loadrate = loadrate;
 	}
 	
-	@ExcelField(title="热泵效率", align=2, sort=15)
+	@ExcelField(title="热泵效率", align=2, sort=16)
 	public Double getPumprate() {
 		return pumprate;
 	}
@@ -127,7 +127,7 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.pumprate = pumprate;
 	}
 	
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=17)
 	public Office getOffice() {
 		return office;
 	}

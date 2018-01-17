@@ -322,6 +322,7 @@ $(document).ready(function() {
                 'check-all.bs.table uncheck-all.bs.table', function () {
             $('#remove').prop('disabled', ! $('#fea_design_resultVOTable').bootstrapTable('getSelections').length);
             $('#edit').prop('disabled', $('#fea_design_resultVOTable').bootstrapTable('getSelections').length!=1);
+            $('#calculation').prop('disabled', $('#fea_design_resultVOTable').bootstrapTable('getSelections').length!=1);
         });
 		  
 		$("#btnImport").click(function(){
@@ -389,6 +390,72 @@ $(document).ready(function() {
    function add(){
 	  jp.openDialog('新增方案运行费用结果表', "${ctx}/fea/result/fea_design_resultVO/form",'800px', '500px', $('#fea_design_resultVOTable'));
   }
+   
+   function calculation(){
+	   
+	   var url="${ctx}/fea/project/feaProjectB/data";
+	   var id="feaProjectB" ;
+	   var name="feaProjectB.id" ;
+	   var value="${analysisEarnings.feaProjectB.id}" ;
+	   var labelName="feaProjectB.projectName" ;
+	   var labelValue="${analysisEarnings.feaProjectB.projectName}";
+	   var title="请要进行计算的项目" ;
+	   var cssClass="form-control required" ;
+	   var fieldLabels="项目名称" ;
+	   var fieldKeys="projectName" ;
+	   var searchLabels="项目名称" ;
+       var searchKeys="projectName" ;
+	   
+	   top.layer.open({
+		    type: 2,  
+		    area: ['800px', '500px'],
+		    title:title,
+		    auto:true,
+		    name:'friend',
+		    content: "${ctx}/tag/gridselect?url="+encodeURIComponent(url)
+		    		+"&fieldLabels="+encodeURIComponent(fieldLabels)
+		    		+"&fieldKeys="+encodeURIComponent(fieldKeys)
+		    		+"&searchLabels="+encodeURIComponent(searchLabels)
+		    		+"&searchKeys="+encodeURIComponent(searchKeys)
+		    		+"&isMultiSelected="+false,
+		    btn: ['确定', '关闭'],
+		    yes: function(index, layero){
+		    	 var iframeWin = layero.find('iframe')[0].contentWindow; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+		    	 var items = iframeWin.getSelections();
+		    	 if(items == ""){
+			    	jp.warning("必须选择一条数据!");
+			    	return;
+		    	 }
+		    	 if(items.length > 1){
+		    		 jp.warning("只能选择一条数据!");
+				    	return;
+		    	 }
+		    	 var ids = [];
+		    	 var names = [];
+		    	 for(var i=0; i<items.length; i++){
+		    		 var item = items[i];
+		    		 ids.push(item.id);
+		    		 names.push(item${fn:substring(labelName, fns:lastIndexOf(labelName, '.'), fn:length(labelName))})
+		    	 }
+		    	 
+		    	 jp.post("${ctx}/fea/result/fea_design_resultVO/calculation?projectId=" + ids[0],null,function(data){
+					if(data.success){
+						debugger;
+		           	$('#fea_design_resultVOTable').bootstrapTable('refresh');
+		           	jp.success(data.msg);
+		           	top.layer.close(index);//关闭对话框。
+		           }else{
+			  			jp.error(data.msg);
+		           }
+				})
+			  },
+			  cancel: function(index){ 
+		       }
+		});
+	   
+	   
+	   
+   }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){
 			id = getIdSelections();

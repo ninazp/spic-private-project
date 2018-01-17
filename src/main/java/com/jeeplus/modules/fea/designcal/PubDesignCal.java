@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jeeplus.core.persistence.BaseMapper;
@@ -25,8 +27,9 @@ import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
 import com.jeeplus.modules.fea.mapper.transfer.Fea_design_transferVOMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 
-public class PubDesignCal {
+public class PubDesignCal extends Exception{
 	
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private Fea_design_heatVOMapper	heatVOMapper;
 	@Autowired
@@ -45,8 +48,7 @@ public class PubDesignCal {
 	private FeaProjectBMapper projectBMapper;
 	
 	@SuppressWarnings("unchecked")
-	public void calprocess(FeaProjectB projectvo){
-		
+	public void calprocess(FeaProjectB projectvo) throws Exception{
 		List<Fea_design_heatVO>  heatVO = (List<Fea_design_heatVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_heat", "id", " project_id='"+projectvo.getId()+"' ", heatVOMapper);
 		
@@ -76,9 +78,6 @@ public class PubDesignCal {
 			singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
 					transferVO.get(0), pricech, heatpumpprice, fea_costinfo);
 		}
-		
-		
-		
 	}
 	private List<List<Double>> getheatpumpprice(List<Fea_design_heatbenVO> heatbenVO){
 		List<List<Double>> heatpumpprice = new ArrayList<List<Double>>();

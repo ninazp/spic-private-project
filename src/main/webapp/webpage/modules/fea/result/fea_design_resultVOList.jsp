@@ -36,8 +36,13 @@
 	
 	<!-- 工具栏 -->
 	<div id="toolbar">
-			<shiro:hasPermission name="fea:result:fea_design_resultVO:add">
+			<%-- <shiro:hasPermission name="fea:result:fea_design_resultVO:add">
 				<a id="add" class="btn btn-primary" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新建</a>
+			</shiro:hasPermission> --%>
+			<shiro:hasPermission name="fea:result:fea_design_resultVO:add">
+				<button id="calculation" class="btn btn-primary" disabled onclick="calculation()">
+	            	<i class="glyphicon glyphicon-plus"></i> 计算
+	        	</button>
 			</shiro:hasPermission>
 			<shiro:hasPermission name="fea:result:fea_design_resultVO:edit">
 			    <button id="edit" class="btn btn-success" disabled onclick="edit()">
@@ -49,7 +54,7 @@
 	            	<i class="glyphicon glyphicon-remove"></i> 删除
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:result:fea_design_resultVO:import">
+			<%-- <shiro:hasPermission name="fea:result:fea_design_resultVO:import">
 				<button id="btnImport" class="btn btn-info"><i class="fa fa-folder-open-o"></i> 导入</button>
 				<div id="importBox" class="hide">
 						<form id="importForm" action="${ctx}/fea/result/fea_design_resultVO/import" method="post" enctype="multipart/form-data"
@@ -59,7 +64,7 @@
 							
 						</form>
 				</div>
-			</shiro:hasPermission>
+			</shiro:hasPermission> --%>
 	        	<a class="accordion-toggle btn btn-default" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
 					<i class="fa fa-search"></i> 检索
 				</a>

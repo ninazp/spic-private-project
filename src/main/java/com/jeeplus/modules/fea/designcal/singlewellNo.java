@@ -1,12 +1,17 @@
 package com.jeeplus.modules.fea.designcal;
 
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jeeplus.core.service.ServiceException;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
+import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
-import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
+import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 
 public class singlewellNo {
 
@@ -15,7 +20,7 @@ public class singlewellNo {
 			Fea_design_transferVO fea_design_transferVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
-			List<Double> heatrate){
+			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
 
 		Double q = fea_design_heatVO.getHeatload();
 		Double A = fea_design_heatVO.getHeatarea();
@@ -202,6 +207,26 @@ public class singlewellNo {
 		List<Double> powfeeunit = new ArrayList<Double>();//单位面积电费
 		List<Double> costunit = new ArrayList<Double>();//单位面积运行成本
 		List<Double> yearunit = new ArrayList<Double>();//第i年运行成本
+		
+		Fea_design_resultVO result1 = new Fea_design_resultVO();
+		Fea_design_resultVO result2 = new Fea_design_resultVO();
+		Fea_design_resultVO result3 = new Fea_design_resultVO();
+		Fea_design_resultVO result4 = new Fea_design_resultVO();
+		Fea_design_resultVO result5 = new Fea_design_resultVO();
+		
+		result1.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result2.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result3.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result4.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result5.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		
+		result1.setResulttype("入住率");
+		result2.setResulttype("供暖面积（平方米）");
+		result3.setResulttype("地下水用量（立方米/年）");
+		result4.setResulttype("单位面积电费（元/平方米）");
+		result5.setResulttype("运行成本（万元/年）");
+		
+		int i = 1;
 		for(Double rate : heatrate){
 			Double yearpowdoub = 0.00;
 			Double downwaterdoub = 0.00;
@@ -226,7 +251,40 @@ public class singlewellNo {
 			costunit.add(costunitdoub);
 			yearunit.add(yearunitdoub);
 
+			try {
+				
+				Method m1 = result1.getClass().getMethod("setyear"+(i+1), Double.class);
+				m1.invoke(result1, rate);
+				
+				Method m2 = result2.getClass().getMethod("setyear"+(i+1), Double.class);
+				BigDecimal   d1 = new BigDecimal(downwaterdoub);
+				Double d11 = d1.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m2.invoke(result2,d11);
+				
+				Method m3 = result3.getClass().getMethod("setyear"+(i+1), Double.class);
+				BigDecimal   d3 = new BigDecimal(powfeeunitdoub);
+				Double d31 = d3.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m3.invoke(result3, d31);
+				
+				
+				Method m4 = result4.getClass().getMethod("setyear"+(i+1), Double.class);
+				BigDecimal   d4 = new BigDecimal(costunitdoub);
+				Double d41 = d4.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m4.invoke(result4, d41);
+				
+				Method m5 = result5.getClass().getMethod("setyear"+(i+1), Double.class);
+				BigDecimal   d5 = new BigDecimal(yearunitdoub);
+				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m4.invoke(result4, d41);
+				m5.invoke(result5, d51);
+				
+			} catch (Exception e) {
+				throw new ServiceException(e);
+			}
 		}
+		resultVOMapper.execDeleteSql("delete from fea_design_result t where t.project_id='"+fea_design_heatVO.getFeaProjectB().getId()+"'");
+		resultVOMapper.insert(result1);resultVOMapper.insert(result2);resultVOMapper.insert(result3);
+		resultVOMapper.insert(result4);resultVOMapper.insert(result5);
 		
 		List<List<Double>> costinfolst = new ArrayList<List<Double>>();
 		costinfolst.add(yearpow);
@@ -235,8 +293,6 @@ public class singlewellNo {
 		costinfolst.add(costunit);
 		costinfolst.add(yearunit);
 		
-		 WriteExcelCal.getexcel("运行费用.xls", costinfolst);
-
 		//*********分区为 是*********//
 		//表1 地热供暖项目设备清单1  地热供暖项目设备清单
 		List<List<String>> rettable1 = new ArrayList<List<String>>();
@@ -331,7 +387,7 @@ public class singlewellNo {
 		rettable1.add(col7);rettable1.add(col8);
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
 		
-	    WriteExcelCal.getexcelstr("rettable1.xls",rettable1);
+	    
 		
 	}
 }

@@ -35,7 +35,6 @@ import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.designcal.PubDesignCal;
-import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.service.project.FeaProjectBService;
 import com.jeeplus.modules.fea.service.result.Fea_design_resultVOService;
@@ -225,12 +224,10 @@ public class Fea_design_resultVOController extends BaseController {
 	public AjaxJson calculation(String projectId, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-			FeaProjectB feaProjectB = feaProjectBService.get(projectId);
-			
 			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 			PubDesignCal pubDesignCal = (PubDesignCal) wac.getBean("pubDesignCal");
 			
-			pubDesignCal.calprocess(feaProjectB);
+			pubDesignCal.calprocess(projectId);
 		} catch (Exception e) {
 			j.setSuccess(false);
 			j.setMsg("执行计算错误："+e.getMessage());

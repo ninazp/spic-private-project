@@ -250,11 +250,11 @@ public class singlewellNo {
 			if(A*rate <= Nk*A1 ){
 				yearpow = A*rate*W1*D*T*gmaq/(Nk*A1);
 				downwater = A*rate*m*D*T/A1;
-				powfeeunit = yearpow*D*T*E1/A1;	
+				powfeeunit = yearpow*E1/A1;	
 			}else{
 				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
 				downwater = Nk*m*D*T;
-				powfeeunit = yearpow*D*T*E1/(A1*rate);	
+				powfeeunit = yearpow*E1/(A1*rate);	
 			}
 			costunit = powfeeunit;
 			yearunit = powfeeunit*A*rate/10000;

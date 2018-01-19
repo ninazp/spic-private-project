@@ -274,7 +274,7 @@ public class singlewellyes {
 				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
 				downwater = Nk*m*D*T/A1;
 			}
-			powfeeunit = yearpow*D*T*E1/A1;	
+			powfeeunit = yearpow*E1/A1;	
 			costunit = powfeeunit;
 			yearunit = powfeeunit*A*rate/10000;
 

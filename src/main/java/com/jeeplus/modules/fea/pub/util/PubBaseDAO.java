@@ -16,7 +16,7 @@ public class PubBaseDAO {
 	 * @param basemapper
 	 * @return
 	 */
-	public static List<?> getMutiParentVO(String table , String id,String wheresql,BaseMapper basemapper){
+	public static List<?> getMutiParentVO(String table , String id,String wheresql,BaseMapper basemapper ){
 		
 		List<Object> objlst = new ArrayList<Object>();
 		
@@ -32,6 +32,24 @@ public class PubBaseDAO {
 		}
 		return objlst;
 	}
+	
+	public static List<?> getMutiParentVOByorder(String table , String id,String wheresql,String ordercol,BaseMapper basemapper ){
+		
+		List<Object> objlst = new ArrayList<Object>();
+		
+		List<Object>  idlst = basemapper.execSelectSql(" select  "+id+" from "+table+" where "+wheresql+ " order by  "+ordercol);
+		
+		if(null!=idlst && idlst.size()>0){
+		    for(Object obj :idlst){
+		    	if(null!=obj){
+		    		Object objvo = basemapper.get(obj.toString());
+		    		if(null!=objvo) objlst.add(objvo);
+		    	}
+		    }
+		}
+		return objlst;
+	}
+	
 	
 	public static List<Double> getFea_incomeset(String table , String id,String wheresql,BaseMapper basemapper){
 		

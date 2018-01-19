@@ -314,10 +314,11 @@ public class singlewellNo {
 
 		List<String> col1 = new ArrayList<String>();
 		col1.add("地热井潜水泵");
-		String col1str = "流量 "+m+" m³/h;\n "+ "扬程  "+hq+" m;\n " + "电机功率 "+Pq+" kW ";
+		String col1str = "流量 "+getDouble2float(m)+" m³/h;\n "+ "扬程  "+
+				getDouble2float(hq)+" m;\n " + "电机功率 "+getDouble2float(Pq)+" kW ";
 		col1.add(col1str);
 		col1.add(""+2*Nk);
-		col1.add(Cq+"");
+		col1.add(getDouble2float(Cq)+"");
 		col1.add(Nk+"用"+Nk+"备");
 
 		List<String> col2 = new ArrayList<String>();
@@ -343,34 +344,37 @@ public class singlewellNo {
 
 		List<String> col5 = new ArrayList<String>();
 		col5.add("板式换热器");
-		String col5str = "换热量 "+Qh1+" kW;\n "+ "换热面积  "+Ah1+" m2;\n " + "设计压力 "+1.6+"Mpa ";
+		String col5str = "换热量 "+getDouble2float(Qh1)+" kW;\n "+ "换热面积  "
+		  +getDouble2float(Ah1)+" m2;\n " + "设计压力 "+1.6+"Mpa ";
 		col5.add(col5str);
 		col5.add(""+Nh1);
-		col5.add(""+Ch1*Nh1);
+		col5.add(""+getDouble2float(Ch1*Nh1));
 		col5.add("一级换热、钛板温度：110℃ ; \n "+"各承担70%负荷");
 
 		List<String> col6 = new ArrayList<String>();
 		col6.add("板式换热器");
-		String col6str = "换热量 "+Qh2+" kW;\n "+ "换热面积  "+Ah2+" m2;\n " + "设计压力 "+1.6+"Mpa ";
+		String col6str = "换热量 "+getDouble2float(Qh2)+" kW;\n "+ "换热面积  "+
+				getDouble2float(Ah2)+" m2;\n " + "设计压力 "+1.6+"Mpa ";
 		col6.add(col6str);
 		col6.add(""+Nh2);
-		col6.add(""+Ch2*Nh2);
+		col6.add(""+getDouble2float(Ch2*Nh2));
 		col6.add("二级换热、钛板温度：110℃ ; \n "+"各承担70%负荷");
 
 		List<String> col7= new ArrayList<String>();
 		col7.add("热泵机组");
-		String col7str = "制热量 "+Qr2+" kW;\n "+ "电功率 "+Pr2 ;
+		String col7str = "制热量 "+getDouble2float(Qr2)+" kW;\n "+ "电功率 "+getDouble2float(Pr2) ;
 		col7.add(col7str);
 		col7.add(""+jznum*Nk);
-		col7.add(""+jznum*Nk*Cr2);
+		col7.add(""+getDouble2float(jznum*Nk*Cr2));
 		col7.add(" 0 ");
 
 		List<String> col8= new ArrayList<String>();
 		col8.add("循环水泵");
-		String col8str = "流量"+(M1)+" m³/h;\n  扬程"+hx1+" m;\n "+ "功率 "+Px1+"kw;" ;
+		String col8str = "流量"+getDouble2float(M1)+" m³/h;\n  扬程"+getDouble2float(hx1)
+		 +" m;\n "+ "功率 "+getDouble2float(Px1)+"kw;" ;
 		col8.add(col8str);
 		col8.add(""+2*Nk);
-		col8.add(""+Cx1+Cxb1);
+		col8.add(""+getDouble2float(2*Nk*Cx1+Nk*Cxb1));
 		col8.add(" 高区"+Nk+"用"+Nk+"备变频 ");
 
 		List<String> col10= new ArrayList<String>();
@@ -378,7 +382,7 @@ public class singlewellNo {
 		String col10str = "流量"+(M3)+" m³/h;\n  扬程"+hx3+" m;\n "+ "功率 "+Px3+"kw;" ;
 		col10.add(col10str);
 		col10.add(""+2*Nk);
-		col10.add(""+Cx3+Cxb3);
+		col10.add(""+getDouble2float(2*Nk*Cx3+Nk*Cxb3));
 		col10.add("热泵冷凝器 "+Nk+"用"+Nk+"备变频 ");
 
 		List<String> col11= new ArrayList<String>();
@@ -386,7 +390,7 @@ public class singlewellNo {
 		String col11str = "流量"+(M2)+" m³/h;\n  扬程"+hx2+" m;功率 "+Px2+"kW";
 		col11.add(col11str);
 		col11.add(""+2*Nk);
-		col11.add(""+Cx2);
+		col11.add(""+getDouble2float(2*Nk*Cx2));
 		col11.add(" 热泵蒸发器 "+Nk+"用"+Nk+"备变频 ");
 
 		List<String> col12= new ArrayList<String>();
@@ -394,7 +398,7 @@ public class singlewellNo {
 		String col12str = "流量"+(0.03*(M1+M3))+" m³/h;\n  扬程"+hb1+" m;功率 "+Pb1+"kW";
 		col12.add(col12str);
 		col12.add(""+2*Nk);
-		col12.add(""+Cb1);
+		col12.add(""+getDouble2float(2*Nk*Cb1));
 		col12.add(""+Nk+"用"+Nk+"备变频 ");
 		
 		rettable1.add(col1);rettable1.add(col2);rettable1.add(col3);
@@ -403,4 +407,12 @@ public class singlewellNo {
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
 		
 	}
+	
+	public static Double getDouble2float(Double m){
+		BigDecimal  bm = new BigDecimal(m);
+		Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
+		
+		return bm1;
+	}
+	
 }

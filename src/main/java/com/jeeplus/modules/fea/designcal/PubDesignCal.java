@@ -62,8 +62,8 @@ public class PubDesignCal extends Exception{
 		List<Fea_design_transferVO>  transferVO = (List<Fea_design_transferVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_transfer", "id", " project_id='"+projectvo.getId()+"' ", transferVOMapper);
 		
-		List<Fea_design_heatbenVO>   heatbenVO = (List<Fea_design_heatbenVO>) PubBaseDAO.
-				getMutiParentVO("fea_design_heatben", "id", " project_id='"+projectvo.getId()+"' ", heatbenVOMapper);
+		List<Fea_design_heatbenVO>   heatbenVO = (List<Fea_design_heatbenVO>) PubBaseDAO.getMutiParentVOByorder
+				("fea_design_heatben", "id", " project_id='"+projectvo.getId()+"' ", "qr2"  ,heatbenVOMapper);
 		
 		List<Fea_design_heattransVO>   heattransVO = (List<Fea_design_heattransVO>) PubBaseDAO.
 				getMutiParentVO("Fea_design_heattrans", "id", " project_id='"+projectvo.getId()+"' ", heattransVOMapper);
@@ -127,6 +127,7 @@ public class PubDesignCal extends Exception{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	private List<Double> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", wheresql,

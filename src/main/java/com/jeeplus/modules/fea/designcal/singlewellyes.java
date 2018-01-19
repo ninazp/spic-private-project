@@ -1,11 +1,18 @@
 package com.jeeplus.modules.fea.designcal;
 
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jeeplus.core.service.ServiceException;
+import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
+import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
+import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 
 public class singlewellyes {
 
@@ -14,7 +21,7 @@ public class singlewellyes {
 			Fea_design_transferVO fea_design_transferVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
-			List<Double> heatrate){
+			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
 
 		Double q = fea_design_heatVO.getHeatload();
 		Double A = fea_design_heatVO.getHeatarea();
@@ -22,14 +29,7 @@ public class singlewellyes {
 		Double D = fea_design_heatVO.getHeatdays();
 		Double T = fea_design_heatVO.getDayheathours();
 		Double Hj = fea_design_heatVO.getBuildheight();
-		String isarea = fea_design_heatVO.getAreaselect();
 
-		//		private Double holeheight;		// 井深（米）
-		//		private Double flowcount;		// 流量（立方米/小时）
-		//		private Double outheat;		// 出口温度（摄氏度）
-		//		private Double waterlevel;		// 动水位（米）
-		//		private Double hgpbac;		// 回灌配比a采
-		//		private Double hgpbbh;		// 回灌配比b回
 
 		Double  H = fea_design_downholeVO.getHoleheight();
 		Double m  =fea_design_downholeVO.getFlowcount();
@@ -37,17 +37,6 @@ public class singlewellyes {
 		Double  hd =fea_design_downholeVO.getWaterlevel();
 		Double  a =fea_design_downholeVO.getHgpbac();
 		Double  b =fea_design_downholeVO.getHgpbbh();
-
-		//		private Double oneoutheat;		// 一级一次侧出口温度（摄氏度）
-		//		private Double twooutheat;		// 二次侧供水温度（摄氏度）
-		//		private Double twobackheat;		// 二次侧回水温度（摄氏度）
-		//		private Double twozfoutheat;		// 二级二次蒸发器侧供水温度（摄氏度）
-		//		private Double twozfbacktheat;		// 二级二次蒸发器侧回水温度（摄氏度）
-		//		private Double backhgheat;		// 回灌水温度（摄氏度）
-		//		private Double sumheatefficient;		// 综合热效率
-		//		private Double loadrate;		// 负荷率
-		//		private Double pumprate;		// 热泵效率
-
 
 		Double  t2 = fea_design_transferVO.getOneoutheat();
 		Double  tg = fea_design_transferVO.getTwooutheat();
@@ -240,36 +229,96 @@ public class singlewellyes {
 		Double Wb2 = rou*0.03*M3*hb2*1.15*9.8/(3600*0.75*1000);
 
 		Double W2 = Wr2+Wx2+Wx3+Wb2;
+		
+		List<Double> res1 = new ArrayList<Double>();//入住率
+		List<Double> res2 = new ArrayList<Double>();//供暖面积（平方米）
+		List<Double> res3 = new ArrayList<Double>();//地下水用量（立方米/年）
+		List<Double> res4 = new ArrayList<Double>();//单位面积电费（元/平方米）
+		List<Double> res5 = new ArrayList<Double>();//第i年运行成本
+		
+		Fea_design_resultVO result1 = new Fea_design_resultVO();
+		Fea_design_resultVO result2 = new Fea_design_resultVO();
+		Fea_design_resultVO result3 = new Fea_design_resultVO();
+		Fea_design_resultVO result4 = new Fea_design_resultVO();
+		Fea_design_resultVO result5 = new Fea_design_resultVO();
+		
+		result1.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result2.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result3.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result4.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		result5.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		
+		result1.setId(PubUtil.getid(1));
+		result2.setId(PubUtil.getid(1));
+		result3.setId(PubUtil.getid(1));
+		result4.setId(PubUtil.getid(1));
+		result5.setId(PubUtil.getid(1));
+		
+		result1.setResulttype("入住率");
+		result2.setResulttype("供暖面积（平方米）");
+		result3.setResulttype("地下水用量（立方米/年）");
+		result4.setResulttype("单位面积电费（元/平方米）");
+		result5.setResulttype("运行成本（万元/年）");
 
-		List<Double> yearpow = new ArrayList<Double>();//全年运行能耗
-		List<Double> downwater = new ArrayList<Double>();//地下水用量
-		List<Double> powfeeunit = new ArrayList<Double>();//单位面积电费
-		List<Double> costunit = new ArrayList<Double>();//单位面积运行成本
-		List<Double> yearunit = new ArrayList<Double>();//第i年运行成本
+		int i=1;
 		for(Double rate : heatrate){
-			Double yearpowdoub = 0.00;
-			Double downwaterdoub = 0.00;
-			Double powfeeunitdoub = 0.00;
-			Double costunitdoub = 0.00;
-			Double yearunitdoub = 0.00;
+			Double yearpow = 0.00;
+			Double downwater = 0.00;
+			Double powfeeunit = 0.00;
+			Double costunit = 0.00;
+			Double yearunit = 0.00;
 			if(A*rate <= Nk*A1 ){
-				yearpowdoub = A*rate*W1*D*T*gmaq/(Nk*A1);
-				downwaterdoub = A*rate*m*D*T/A1;
+				yearpow = A*rate*W1*D*T*gmaq/(Nk*A1);
+				downwater = A*rate*m*D*T/A1;
 			}else{
-				yearpowdoub = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
-				downwaterdoub = Nk*m*D*T/A1;
+				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
+				downwater = Nk*m*D*T/A1;
 			}
-			powfeeunitdoub = yearpowdoub*D*T*E1/A1;	
-			costunitdoub = powfeeunitdoub;
-			yearunitdoub = powfeeunitdoub*A*rate/10000;
+			powfeeunit = yearpow*D*T*E1/A1;	
+			costunit = powfeeunit;
+			yearunit = powfeeunit*A*rate/10000;
 
-			yearpow.add(yearpowdoub);
-			downwater.add(downwaterdoub); 
-			powfeeunit.add(powfeeunitdoub);
-			costunit.add(costunitdoub);
-			yearunit.add(yearunitdoub);
-
+			res1.add(rate);
+			res2.add(A*rate); 
+			res3.add(downwater);
+			res4.add(costunit);
+			res5.add(yearunit);
+			
+			try {
+				Method m1 = result1.getClass().getMethod("setYear"+(i), Double.class);
+				m1.invoke(result1, rate);
+				
+				Method m2 = result2.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d1 = new BigDecimal(A*rate);
+				Double d11 = d1.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m2.invoke(result2,d11);
+				
+				Method m3 = result3.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d3 = new BigDecimal(downwater);
+				Double d31 = d3.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m3.invoke(result3, d31);
+				
+				
+				Method m4 = result4.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d4 = new BigDecimal(costunit);
+				Double d41 = d4.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m4.invoke(result4, d41);
+				
+				Method m5 = result5.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d5 = new BigDecimal(yearunit);
+				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				m4.invoke(result4, d41);
+				m5.invoke(result5, d51);
+				
+			} catch (Exception e) {
+				throw new ServiceException(e);
+			}
+			i++;
 		}
+		
+		resultVOMapper.execDeleteSql("delete from fea_design_result  where project_id='"+fea_design_heatVO.getFeaProjectB().getId()+"'");
+		resultVOMapper.insert(result1);resultVOMapper.insert(result2);resultVOMapper.insert(result3);
+		resultVOMapper.insert(result4);resultVOMapper.insert(result5);
 
 		//*********分区为 是*********//
 		//表1 地热供暖项目设备清单1  地热供暖项目设备清单

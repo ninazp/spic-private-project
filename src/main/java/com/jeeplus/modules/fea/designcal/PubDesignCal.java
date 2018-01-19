@@ -79,8 +79,14 @@ public class PubDesignCal extends Exception{
 		List<List<Double>> heatpumpprice = getheatpumpprice(heatbenVO);
 		
 		if(null!=heatVO && null!=downholeVO && null!=transferVO){
-			singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
-					transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+			if(heatVO.get(0).getAreaselect().equals("Y")){
+				singlewellyes.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
+						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+			}else{
+				singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
+						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+			}
+			
 		}
 	}
 	private List<List<Double>> getheatpumpprice(List<Fea_design_heatbenVO> heatbenVO){

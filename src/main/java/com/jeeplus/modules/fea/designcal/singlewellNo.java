@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jeeplus.core.service.ServiceException;
+import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
@@ -202,11 +203,18 @@ public class singlewellNo {
 
 		Double W2 = Wr2+Wx2+Wx3+Wb2;
 
-		List<Double> yearpow = new ArrayList<Double>();//全年运行能耗
-		List<Double> downwater = new ArrayList<Double>();//地下水用量
-		List<Double> powfeeunit = new ArrayList<Double>();//单位面积电费
-		List<Double> costunit = new ArrayList<Double>();//单位面积运行成本
-		List<Double> yearunit = new ArrayList<Double>();//第i年运行成本
+		
+//		result1.setResulttype("入住率");
+//		result2.setResulttype("供暖面积（平方米）");
+//		result3.setResulttype("地下水用量（立方米/年）");
+//		result4.setResulttype("单位面积电费（元/平方米）");
+//		result5.setResulttype("运行成本（万元/年）");
+		
+		List<Double> res1 = new ArrayList<Double>();//入住率
+		List<Double> res2 = new ArrayList<Double>();//供暖面积（平方米）
+		List<Double> res3 = new ArrayList<Double>();//地下水用量（立方米/年）
+		List<Double> res4 = new ArrayList<Double>();//单位面积电费（元/平方米）
+		List<Double> res5 = new ArrayList<Double>();//第i年运行成本
 		
 		Fea_design_resultVO result1 = new Fea_design_resultVO();
 		Fea_design_resultVO result2 = new Fea_design_resultVO();
@@ -220,6 +228,12 @@ public class singlewellNo {
 		result4.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		result5.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		
+		result1.setId(PubUtil.getid(1));
+		result2.setId(PubUtil.getid(1));
+		result3.setId(PubUtil.getid(1));
+		result4.setId(PubUtil.getid(1));
+		result5.setId(PubUtil.getid(1));
+		
 		result1.setResulttype("入住率");
 		result2.setResulttype("供暖面积（平方米）");
 		result3.setResulttype("地下水用量（立方米/年）");
@@ -228,70 +242,71 @@ public class singlewellNo {
 		
 		int i = 1;
 		for(Double rate : heatrate){
-			Double yearpowdoub = 0.00;
-			Double downwaterdoub = 0.00;
-			Double powfeeunitdoub = 0.00;
-			Double costunitdoub = 0.00;
-			Double yearunitdoub = 0.00;
+			Double yearpow = 0.00;
+			Double downwater = 0.00;
+			Double powfeeunit = 0.00;
+			Double costunit = 0.00;
+			Double yearunit = 0.00;
 			if(A*rate <= Nk*A1 ){
-				yearpowdoub = A*rate*W1*D*T*gmaq/(Nk*A1);
-				downwaterdoub = A*rate*m*D*T/A1;
-				powfeeunitdoub = yearpowdoub*E1/A1;	
+				yearpow = A*rate*W1*D*T*gmaq/(Nk*A1);
+				downwater = A*rate*m*D*T/A1;
+				powfeeunit = yearpow*D*T*E1/A1;	
 			}else{
-				yearpowdoub = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
-				downwaterdoub = Nk*m*D*T;
-				powfeeunitdoub = yearpowdoub*E1/(A1*rate);	
+				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
+				downwater = Nk*m*D*T;
+				powfeeunit = yearpow*D*T*E1/(A1*rate);	
 			}
-			costunitdoub = powfeeunitdoub;
-			yearunitdoub = powfeeunitdoub*A*rate/10000;
+			costunit = powfeeunit;
+			yearunit = powfeeunit*A*rate/10000;
 
-			yearpow.add(yearpowdoub);
-			downwater.add(downwaterdoub); 
-			powfeeunit.add(powfeeunitdoub);
-			costunit.add(costunitdoub);
-			yearunit.add(yearunitdoub);
+			res1.add(rate);
+			res2.add(A*rate); 
+			res3.add(downwater);
+			res4.add(costunit);
+			res5.add(yearunit);
 
 			try {
 				
-				Method m1 = result1.getClass().getMethod("setyear"+(i+1), Double.class);
+				Method m1 = result1.getClass().getMethod("setYear"+(i), Double.class);
 				m1.invoke(result1, rate);
 				
-				Method m2 = result2.getClass().getMethod("setyear"+(i+1), Double.class);
-				BigDecimal   d1 = new BigDecimal(downwaterdoub);
+				Method m2 = result2.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d1 = new BigDecimal(A*rate);
 				Double d11 = d1.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m2.invoke(result2,d11);
 				
-				Method m3 = result3.getClass().getMethod("setyear"+(i+1), Double.class);
-				BigDecimal   d3 = new BigDecimal(powfeeunitdoub);
+				Method m3 = result3.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d3 = new BigDecimal(downwater);
 				Double d31 = d3.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m3.invoke(result3, d31);
 				
 				
-				Method m4 = result4.getClass().getMethod("setyear"+(i+1), Double.class);
-				BigDecimal   d4 = new BigDecimal(costunitdoub);
+				Method m4 = result4.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d4 = new BigDecimal(costunit);
 				Double d41 = d4.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 				
-				Method m5 = result5.getClass().getMethod("setyear"+(i+1), Double.class);
-				BigDecimal   d5 = new BigDecimal(yearunitdoub);
+				Method m5 = result5.getClass().getMethod("setYear"+(i), Double.class);
+				BigDecimal   d5 = new BigDecimal(yearunit);
 				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 				m5.invoke(result5, d51);
 				
+				i++;
 			} catch (Exception e) {
 				throw new ServiceException(e);
 			}
 		}
-		resultVOMapper.execDeleteSql("delete from fea_design_result t where t.project_id='"+fea_design_heatVO.getFeaProjectB().getId()+"'");
+		resultVOMapper.execDeleteSql("delete from fea_design_result  where project_id='"+fea_design_heatVO.getFeaProjectB().getId()+"'");
 		resultVOMapper.insert(result1);resultVOMapper.insert(result2);resultVOMapper.insert(result3);
 		resultVOMapper.insert(result4);resultVOMapper.insert(result5);
 		
 		List<List<Double>> costinfolst = new ArrayList<List<Double>>();
-		costinfolst.add(yearpow);
-		costinfolst.add(downwater);
-		costinfolst.add(powfeeunit);
-		costinfolst.add(costunit);
-		costinfolst.add(yearunit);
+		costinfolst.add(res1);
+		costinfolst.add(res2);
+		costinfolst.add(res3);
+		costinfolst.add(res4);
+		costinfolst.add(res5);
 		
 		//*********分区为 是*********//
 		//表1 地热供暖项目设备清单1  地热供暖项目设备清单
@@ -386,8 +401,6 @@ public class singlewellNo {
 		rettable1.add(col4);rettable1.add(col5);rettable1.add(col6);
 		rettable1.add(col7);rettable1.add(col8);
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
-		
-	    
 		
 	}
 }

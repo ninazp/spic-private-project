@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 热泵价格Entity
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 public class Fea_design_heatbenVO extends DataEntity<Fea_design_heatbenVO> {
 	

@@ -62,23 +62,23 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">井深（米）：</label></td>
 					<td class="width-35">
-						<form:input path="holeheight" htmlEscape="false"    class="form-control "/>
+						<form:input path="holeheight" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">流量（立方米/小时）：</label></td>
 					<td class="width-35">
-						<form:input path="flowcount" htmlEscape="false"    class="form-control "/>
+						<form:input path="flowcount" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">出口温度（摄氏度）：</label></td>
 					<td class="width-35">
-						<form:input path="outheat" htmlEscape="false"    class="form-control "/>
+						<form:input path="outheat" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">动水位（米）：</label></td>
 					<td class="width-35">
-						<form:input path="waterlevel" htmlEscape="false"    class="form-control "/>
+						<form:input path="waterlevel" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">回灌配比a采：</label></td>
 					<td class="width-35">

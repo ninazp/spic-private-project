@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 /**
  * 供热参数MAPPER接口
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @MyBatisMapper
 public interface Fea_design_heatVOMapper extends BaseMapper<Fea_design_heatVO> {

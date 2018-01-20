@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.heattrans.Fea_design_heattransVOService;
 /**
  * 换热器价格Controller
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/heattrans/fea_design_heattransVO")

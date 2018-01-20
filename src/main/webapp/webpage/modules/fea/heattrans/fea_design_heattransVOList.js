@@ -77,22 +77,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
 		        field: 'price',
 		        title: '价格ch',
 		        sortable: true
+		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		         }
 		       
 		    }
 			,{
@@ -104,12 +94,6 @@ $(document).ready(function() {
 			,{
 		        field: 'higharea',
 		        title: '最高面积',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'office.name',
-		        title: '部门',
 		        sortable: true
 		       
 		    }

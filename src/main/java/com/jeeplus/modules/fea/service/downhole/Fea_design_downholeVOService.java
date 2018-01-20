@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.downhole.Fea_design_downholeVOMapper;
 /**
  * 井下参数Service
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @Service
 @Transactional(readOnly = true)

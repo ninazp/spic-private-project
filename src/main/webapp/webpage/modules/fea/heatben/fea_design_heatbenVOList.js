@@ -77,22 +77,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
 		        field: 'qr2',
 		        title: '制热量Qr2(kw)',
 		        sortable: true
+		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		         }
 		       
 		    }
 			,{
@@ -104,12 +94,6 @@ $(document).ready(function() {
 			,{
 		        field: 'cr2',
 		        title: '价格Cr2（元）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'office.name',
-		        title: '部门',
 		        sortable: true
 		       
 		    }

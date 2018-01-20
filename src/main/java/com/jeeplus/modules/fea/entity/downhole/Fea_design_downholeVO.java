@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 井下参数Entity
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 public class Fea_design_downholeVO extends DataEntity<Fea_design_downholeVO> {
 	

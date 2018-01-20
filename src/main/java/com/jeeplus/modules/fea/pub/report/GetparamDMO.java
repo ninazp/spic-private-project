@@ -145,7 +145,6 @@ public class GetparamDMO {
 						basemaper);
 		List<Double> costrate = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){
-			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
 				for(int j=0;j<countyear;j++){
 					try {
 						Method m ;
@@ -156,7 +155,7 @@ public class GetparamDMO {
 						}
 						Object rated = m.invoke(fcvo);
 						if(null!=rated){
-							costrate.add(((Double)rated)/100);
+							costrate.add(((Double)rated));
 						}else{
 							costrate.add(0.00);
 						}
@@ -164,7 +163,6 @@ public class GetparamDMO {
 						e.printStackTrace();
 					} 
 				}
-			}
 		}
 		
 		return costrate;

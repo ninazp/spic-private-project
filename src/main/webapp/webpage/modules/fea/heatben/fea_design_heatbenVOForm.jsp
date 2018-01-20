@@ -55,31 +55,19 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_heatbenVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_heatbenVO.feaProjectB.projectName}"
-							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
-					</td>
 					<td class="width-15 active"><label class="pull-right">制热量Qr2(kw)：</label></td>
 					<td class="width-35">
 						<form:input path="qr2" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">电热量Pr2(kw)：</label></td>
 					<td class="width-35">
 						<form:input path="pr2" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">价格Cr2（元）：</label></td>
 					<td class="width-35">
 						<form:input path="cr2" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">部门：</label></td>
-					<td class="width-35">
-						<sys:treeselect id="office" name="office.id" value="${fea_design_heatbenVO.office.id}" labelName="office.name" labelValue="${fea_design_heatbenVO.office.name}"
-							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">

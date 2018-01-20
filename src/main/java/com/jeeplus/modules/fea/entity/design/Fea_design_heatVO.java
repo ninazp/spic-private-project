@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 供热参数Entity
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 	

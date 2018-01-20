@@ -4,7 +4,9 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jeeplus.core.service.ServiceException;
 import com.jeeplus.modules.fea.dao.PubUtil;
@@ -16,13 +18,15 @@ import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 
 public class singlewellNo {
 
-	public  static void calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
+	public  static Map<String,Object> calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
 			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
 			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
 
+		Map<String,Object> retmap = new HashMap<String, Object>();
+		
 		Double q = fea_design_heatVO.getHeatload();
 		Double A = fea_design_heatVO.getHeatarea();
 		Double E1 = fea_design_heatVO.getPowerfee();
@@ -141,7 +145,7 @@ public class singlewellNo {
 		}
 
 		//************** 4、潜水泵模块 **************//
-		Double rou = 1000.00;//固定参数 - 柔 - 密度 ？？？ www
+		Double rou = 1000.00;//固定参数 - 柔 - 密度 www
 
 		Double hq = hd+30;//（程序中备注：10米：水面下10米；20米为泵送热水系统压力损失）
 
@@ -405,6 +409,10 @@ public class singlewellNo {
 		rettable1.add(col4);rettable1.add(col5);rettable1.add(col6);
 		rettable1.add(col7);rettable1.add(col8);
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
+		
+		retmap.put("设备清单", rettable1);
+		
+		return retmap;
 		
 	}
 	

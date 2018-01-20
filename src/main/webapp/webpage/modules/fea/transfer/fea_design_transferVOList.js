@@ -77,18 +77,16 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		         }
-		       
-		    }
-			,{
 		        field: 'feaProjectB.projectName',
 		        title: '项目名称',
 		        sortable: true
+		        ,formatter:function(value, row , index){
+ 			    if(value == null){
+		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+		            }else{
+		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		            }
+		        }
 		       
 		    }
 			,{
@@ -142,12 +140,6 @@ $(document).ready(function() {
 			,{
 		        field: 'pumprate',
 		        title: '热泵效率',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'office.name',
-		        title: '部门',
 		        sortable: true
 		       
 		    }

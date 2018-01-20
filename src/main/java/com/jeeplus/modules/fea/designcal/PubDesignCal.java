@@ -2,7 +2,9 @@ package com.jeeplus.modules.fea.designcal;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,7 +51,9 @@ public class PubDesignCal extends Exception{
 	private Fea_design_resultVOMapper resultVOMapper;
 	
 	@SuppressWarnings("unchecked")
-	public void calprocess(String  projectid) throws Exception{
+	public Map<String,Object> calprocess(String  projectid) throws Exception{
+		
+		Map<String,Object> retmap = new HashMap<String, Object>();
 		
 		FeaProjectB projectvo = projectBMapper.get(projectid);
 		
@@ -63,10 +67,10 @@ public class PubDesignCal extends Exception{
 				getMutiParentVO("fea_design_transfer", "id", " project_id='"+projectvo.getId()+"' ", transferVOMapper);
 		
 		List<Fea_design_heatbenVO>   heatbenVO = (List<Fea_design_heatbenVO>) PubBaseDAO.getMutiParentVOByorder
-				("fea_design_heatben", "id", " project_id='"+projectvo.getId()+"' ", "qr2"  ,heatbenVOMapper);
+				("fea_design_heatben", "id", " del_flag = 0 ", "qr2"  ,heatbenVOMapper);
 		
 		List<Fea_design_heattransVO>   heattransVO = (List<Fea_design_heattransVO>) PubBaseDAO.
-				getMutiParentVO("Fea_design_heattrans", "id", " project_id='"+projectvo.getId()+"' ", heattransVOMapper);
+				getMutiParentVO("Fea_design_heattrans", "id", " del_flag = 0  ", heattransVOMapper);
 		
 		List<Fea_design_setVO>   distrvolst = (List<Fea_design_setVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_set", "id", " project_id='"+projectvo.getId()+"' ", setVOMapper);
@@ -80,14 +84,15 @@ public class PubDesignCal extends Exception{
 		
 		if(null!=heatVO && null!=downholeVO && null!=transferVO){
 			if(heatVO.get(0).getAreaselect().equals("Y")){
-				singlewellyes.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
+				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
 						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}else{
-				singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
+				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
 						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}
-			
 		}
+		
+		return retmap;
 	}
 	private List<List<Double>> getheatpumpprice(List<Fea_design_heatbenVO> heatbenVO){
 		List<List<Double>> heatpumpprice = new ArrayList<List<Double>>();
@@ -96,7 +101,6 @@ public class PubDesignCal extends Exception{
 				Double qr2 = (null!=fvo.getQr2())?fvo.getQr2():0.00;
 				Double pr2 = (null!=fvo.getPr2())?fvo.getPr2():0.00;
 				Double cr2 = (null!=fvo.getCr2())?Double.valueOf(fvo.getCr2()):0.00;
-			
 			    List<Double> priced = new ArrayList<Double>();
 			    priced.add(qr2);
 			    priced.add(pr2);
@@ -134,7 +138,6 @@ public class PubDesignCal extends Exception{
 						basemaper);
 		List<Double> costrate = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){
-			if(fcvo.getCostype().contains("入住率") || fcvo.getCostype().equals("1")){
 				for(int j=0;j<countyear;j++){
 					try {
 						Method m ;
@@ -145,7 +148,7 @@ public class PubDesignCal extends Exception{
 						}
 						Object rated = m.invoke(fcvo);
 						if(null!=rated){
-							costrate.add(((Double)rated)/100);
+							costrate.add(((Double)rated));
 						}else{
 							costrate.add(0.00);
 						}
@@ -153,7 +156,6 @@ public class PubDesignCal extends Exception{
 						e.printStackTrace();
 					} 
 				}
-			}
 		}
 		
 		return costrate;

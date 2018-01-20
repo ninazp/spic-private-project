@@ -62,33 +62,33 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">热负荷指标（瓦/平方米）：</label></td>
 					<td class="width-35">
-						<form:input path="heatload" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatload" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">供热面积（平方米）：</label></td>
 					<td class="width-35">
-						<form:input path="heatarea" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatarea" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">电费（元/度）：</label></td>
 					<td class="width-35">
-						<form:input path="powerfee" htmlEscape="false"    class="form-control "/>
+						<form:input path="powerfee" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">供热天数（天）：</label></td>
 					<td class="width-35">
-						<form:input path="heatdays" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatdays" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">每日供热小时数（小时）：</label></td>
 					<td class="width-35">
-						<form:input path="dayheathours" htmlEscape="false"    class="form-control "/>
+						<form:input path="dayheathours" htmlEscape="false"   max="24"  min="0" class="form-control  isFloatLtZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">建筑物高度（米）：</label></td>
 					<td class="width-35">
-						<form:input path="buildheight" htmlEscape="false"    class="form-control "/>
+						<form:input path="buildheight" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">分区选择：</label></td>
 					<td class="width-35">

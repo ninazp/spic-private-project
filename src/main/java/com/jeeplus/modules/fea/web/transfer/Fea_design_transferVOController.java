@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.transfer.Fea_design_transferVOService;
 /**
  * 换热参数Controller
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/transfer/fea_design_transferVO")

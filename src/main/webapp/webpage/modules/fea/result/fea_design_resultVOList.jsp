@@ -40,7 +40,7 @@
 				<a id="add" class="btn btn-primary" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新建</a>
 			</shiro:hasPermission> --%>
 			<shiro:hasPermission name="fea:result:fea_design_resultVO:add">
-				<button id="calculation" class="btn btn-primary" disabled onclick="calculation()">
+				<button id="calculation" class="btn btn-primary" onclick="calculation()">
 	            	<i class="glyphicon glyphicon-plus"></i> 计算
 	        	</button>
 			</shiro:hasPermission>

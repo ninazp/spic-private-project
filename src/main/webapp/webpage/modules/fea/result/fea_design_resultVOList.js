@@ -322,7 +322,7 @@ $(document).ready(function() {
                 'check-all.bs.table uncheck-all.bs.table', function () {
             $('#remove').prop('disabled', ! $('#fea_design_resultVOTable').bootstrapTable('getSelections').length);
             $('#edit').prop('disabled', $('#fea_design_resultVOTable').bootstrapTable('getSelections').length!=1);
-            $('#calculation').prop('disabled', $('#fea_design_resultVOTable').bootstrapTable('getSelections').length!=1);
+            //$('#calculation').prop('disabled', 'true');
         });
 		  
 		$("#btnImport").click(function(){

@@ -28,10 +28,6 @@
 				<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${feaDesignReport.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${feaDesignReport.feaProjectB.projectName}"
 					title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 			</div>
-			 <div class="col-xs-12 col-sm-6 col-md-4">
-				<label class="label-item single-overflow pull-left" title="设备名称：">设备名称：</label>
-				<form:input path="name" htmlEscape="false" maxlength="200"  class=" form-control"/>
-			</div>
 		 <div class="col-xs-12 col-sm-6 col-md-4">
 			<div style="margin-top:26px">
 			  <a  id="search" class="btn btn-primary btn-rounded  btn-bordered btn-sm"><i class="fa fa-search"></i> 查询</a>
@@ -45,20 +41,20 @@
 	
 	<!-- 工具栏 -->
 	<div id="toolbar">
-			<shiro:hasPermission name="fea:quotation:feaDesignReport:add">
+			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:add">
 				<a id="add" class="btn btn-primary" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新建</a>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
+			</shiro:hasPermission> --%>
+			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
 			    <button id="edit" class="btn btn-success" disabled onclick="edit()">
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:quotation:feaDesignReport:del">
+			</shiro:hasPermission> --%>
+			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:del">
 				<button id="remove" class="btn btn-danger" disabled onclick="deleteAll()">
 	            	<i class="glyphicon glyphicon-remove"></i> 删除
 	        	</button>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:quotation:feaDesignReport:import">
+			</shiro:hasPermission> --%>
+			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:import">
 				<button id="btnImport" class="btn btn-info"><i class="fa fa-folder-open-o"></i> 导入</button>
 				<div id="importBox" class="hide">
 						<form id="importForm" action="${ctx}/fea/quotation/feaDesignReport/import" method="post" enctype="multipart/form-data"
@@ -68,7 +64,7 @@
 							
 						</form>
 				</div>
-			</shiro:hasPermission>
+			</shiro:hasPermission> --%>
 	        	<a class="accordion-toggle btn btn-default" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
 					<i class="fa fa-search"></i> 检索
 				</a>

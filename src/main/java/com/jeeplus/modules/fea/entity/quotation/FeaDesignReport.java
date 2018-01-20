@@ -21,6 +21,7 @@ public class FeaDesignReport extends DataEntity<FeaDesignReport> {
 	private String parameter;		// 选型参考性能参数
 	private Double number;		// 数量
 	private Double price;		// 参考价格（万元）
+	private String rownum;		// 行号
 	
 	public FeaDesignReport() {
 		super();
@@ -73,6 +74,15 @@ public class FeaDesignReport extends DataEntity<FeaDesignReport> {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	
+	@ExcelField(title="行号", align=2, sort=12)
+	public String getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(String rownum) {
+		this.rownum = rownum;
 	}
 	
 }

@@ -90,6 +90,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'remarks',
+		        title: '备注信息',
+		        sortable: true
+		       
+		    }
+			,{
 		        field: 'name',
 		        title: '设备名称',
 		        sortable: true
@@ -110,12 +116,6 @@ $(document).ready(function() {
 			,{
 		        field: 'price',
 		        title: '参考价格（万元）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
 		        sortable: true
 		       
 		    }

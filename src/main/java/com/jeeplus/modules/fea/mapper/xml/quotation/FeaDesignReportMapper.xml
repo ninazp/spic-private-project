@@ -15,6 +15,7 @@
 		a.parameter AS "parameter",
 		a.number AS "number",
 		a.price AS "price",
+		a.rownum AS "rownum",
 				
 		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
@@ -43,9 +44,6 @@
 			${dataScope}
 			<if test="feaProjectB != null and feaProjectB.id != null and feaProjectB.id != ''">
 				AND a.project_id = #{feaProjectB.id}
-			</if>
-			<if test="name != null and name != ''">
-				AND a.name = #{name}
 			</if>
 		</where>
 		<choose>
@@ -90,7 +88,8 @@
 			name,
 			parameter,
 			number,
-			price
+			price,
+			rownum
 		) VALUES (
 			#{id},
 			#{feaProjectB.id},
@@ -103,7 +102,8 @@
 			#{name},
 			#{parameter},
 			#{number},
-			#{price}
+			#{price},
+			#{rownum}
 		)
 	</insert>
 	
@@ -116,7 +116,8 @@
 			name = #{name},
 			parameter = #{parameter},
 			number = #{number},
-			price = #{price}
+			price = #{price},
+			rownum = #{rownum}
 		WHERE id = #{id}
 	</update>
 	

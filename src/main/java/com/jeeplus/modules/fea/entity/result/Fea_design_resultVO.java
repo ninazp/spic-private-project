@@ -12,13 +12,13 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 方案运行费用结果表Entity
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 public class Fea_design_resultVO extends DataEntity<Fea_design_resultVO> {
 	
 	private static final long serialVersionUID = 1L;
-	private String resulttype;		// 结果类别
 	private FeaProjectB feaProjectB;		// 项目名称
+	private String resulttype;		// 结果类别
 	private Double year1;		// 第1年
 	private Double year2;		// 第2年
 	private Double year3;		// 第3年
@@ -55,6 +55,7 @@ public class Fea_design_resultVO extends DataEntity<Fea_design_resultVO> {
 	private Double year34;		// 第34年
 	private Double year35;		// 第35年
 	private Office office;		// 部门
+	private String rownum;		// 行号
 	
 	public Fea_design_resultVO() {
 		super();
@@ -64,22 +65,22 @@ public class Fea_design_resultVO extends DataEntity<Fea_design_resultVO> {
 		super(id);
 	}
 
-	@ExcelField(title="结果类别", align=2, sort=7)
-	public String getResulttype() {
-		return resulttype;
-	}
-
-	public void setResulttype(String resulttype) {
-		this.resulttype = resulttype;
-	}
-	
-	@ExcelField(title="项目名称", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=8)
+	@ExcelField(title="项目名称", fieldType=FeaProjectB.class, value="feaProjectB.projectName", align=2, sort=7)
 	public FeaProjectB getFeaProjectB() {
 		return feaProjectB;
 	}
 
 	public void setFeaProjectB(FeaProjectB feaProjectB) {
 		this.feaProjectB = feaProjectB;
+	}
+	
+	@ExcelField(title="结果类别", align=2, sort=8)
+	public String getResulttype() {
+		return resulttype;
+	}
+
+	public void setResulttype(String resulttype) {
+		this.resulttype = resulttype;
 	}
 	
 	@ExcelField(title="第1年", align=2, sort=9)
@@ -404,6 +405,15 @@ public class Fea_design_resultVO extends DataEntity<Fea_design_resultVO> {
 
 	public void setOffice(Office office) {
 		this.office = office;
+	}
+	
+	@ExcelField(title="行号", align=2, sort=45)
+	public String getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(String rownum) {
+		this.rownum = rownum;
 	}
 	
 }

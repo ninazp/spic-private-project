@@ -10,8 +10,8 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		a.resulttype AS "resulttype",
 		a.project_id AS "feaProjectB.id",
+		a.resulttype AS "resulttype",
 		a.year1 AS "year1",
 		a.year2 AS "year2",
 		a.year3 AS "year3",
@@ -48,7 +48,7 @@
 		a.year34 AS "year34",
 		a.year35 AS "year35",
 		a.dept AS "office.id",
-				
+		a.rownum AS "rownum",
 				
 				
 				
@@ -57,6 +57,7 @@
 				
 				
 		feaProjectB.project_name AS "feaProjectB.projectName",
+				
 				
 				
 				
@@ -122,10 +123,10 @@
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
+				ORDER BY a.project_id, a.rownum, ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.project_id, a.rownum
 			</otherwise>
 		</choose>
 	</select>
@@ -141,10 +142,10 @@
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
+				ORDER BY a.project_id, a.rownum,${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.project_id, a.rownum
 			</otherwise>
 		</choose>
 	</select>
@@ -158,8 +159,8 @@
 			update_date,
 			remarks,
 			del_flag,
-			resulttype,
 			project_id,
+			resulttype,
 			year1,
 			year2,
 			year3,
@@ -195,7 +196,8 @@
 			year33,
 			year34,
 			year35,
-			dept
+			dept,
+			rownum
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -204,8 +206,8 @@
 			#{updateDate},
 			#{remarks},
 			#{delFlag},
-			#{resulttype},
 			#{feaProjectB.id},
+			#{resulttype},
 			#{year1},
 			#{year2},
 			#{year3},
@@ -241,7 +243,8 @@
 			#{year33},
 			#{year34},
 			#{year35},
-			#{office.id}
+			#{office.id},
+			#{rownum}
 		)
 	</insert>
 	
@@ -250,8 +253,8 @@
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},
-			resulttype = #{resulttype},
 			project_id = #{feaProjectB.id},
+			resulttype = #{resulttype},
 			year1 = #{year1},
 			year2 = #{year2},
 			year3 = #{year3},
@@ -287,7 +290,8 @@
 			year33 = #{year33},
 			year34 = #{year34},
 			year35 = #{year35},
-			dept = #{office.id}
+			dept = #{office.id},
+			rownum = #{rownum}
 		WHERE id = #{id}
 	</update>
 	

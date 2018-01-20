@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 /**
  * 方案运行费用结果表Service
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @Service
 @Transactional(readOnly = true)

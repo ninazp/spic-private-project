@@ -80,19 +80,13 @@ $(document).ready(function() {
 		        field: 'feaProjectB.projectName',
 		        title: '项目',
 		        sortable: true
-		        ,formatter:function(value, row , index){
+		        /*,formatter:function(value, row , index){
  			    if(value == null){
 		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
 		            }else{
 		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
 		            }
-		        }
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
+		        }*/
 		       
 		    }
 			,{
@@ -116,6 +110,12 @@ $(document).ready(function() {
 			,{
 		        field: 'price',
 		        title: '参考价格（万元）',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'remarks',
+		        title: '备注信息',
 		        sortable: true
 		       
 		    }

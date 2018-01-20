@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 /**
  * 基本参数MAPPER接口
  * @author jw
- * @version 2018-01-17
+ * @version 2018-01-20
  */
 @MyBatisMapper
 public interface Fea_design_setVOMapper extends BaseMapper<Fea_design_setVO> {

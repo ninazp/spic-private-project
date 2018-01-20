@@ -14,7 +14,12 @@
 		a.hdlose AS "hdlose",
 		a.hx1 AS "hx1",
 		a.hx2 AS "hx2",
+		a.hb2 AS "hb2",
 		a.mpumpcoe AS "mpumpcoe",
+		a.cq1price AS "cq1price",
+		a.cb1price AS "cb1price",
+		a.cx1price AS "cx1price",
+		a.cxb1price AS "cxb1price",
 		a.dept AS "office.id",
 		a.remarks AS "remarks",
 				
@@ -24,6 +29,11 @@
 				
 				
 		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+				
 				
 				
 				
@@ -99,7 +109,12 @@
 			hdlose,
 			hx1,
 			hx2,
+			hb2,
 			mpumpcoe,
+			cq1price,
+			cb1price,
+			cx1price,
+			cxb1price,
 			dept,
 			remarks
 		) VALUES (
@@ -114,7 +129,12 @@
 			#{hdlose},
 			#{hx1},
 			#{hx2},
+			#{hb2},
 			#{mpumpcoe},
+			#{cq1price},
+			#{cb1price},
+			#{cx1price},
+			#{cxb1price},
 			#{office.id},
 			#{remarks}
 		)
@@ -129,7 +149,12 @@
 			hdlose = #{hdlose},
 			hx1 = #{hx1},
 			hx2 = #{hx2},
+			hb2 = #{hb2},
 			mpumpcoe = #{mpumpcoe},
+			cq1price = #{cq1price},
+			cb1price = #{cb1price},
+			cx1price = #{cx1price},
+			cxb1price = #{cxb1price},
 			dept = #{office.id},
 			remarks = #{remarks}
 		WHERE id = #{id}

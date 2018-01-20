@@ -77,22 +77,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
 		        field: 'hddept',
 		        title: '水下深度（米）',
 		        sortable: true
+		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		         }
 		       
 		    }
 			,{
@@ -103,13 +93,19 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'hx1',
-		        title: '一级循环水泵扬程（米）',
+		        title: '热泵冷凝器侧循环水泵扬程',
 		        sortable: true
 		       
 		    }
 			,{
 		        field: 'hx2',
-		        title: '二级循环水泵扬程（米）',
+		        title: '热泵蒸发器侧循环水泵扬程',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'hb2',
+		        title: '地下位置和末端高差',
 		        sortable: true
 		       
 		    }
@@ -120,8 +116,26 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'office.name',
-		        title: '部门',
+		        field: 'cq1price',
+		        title: '潜水泵单价',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'cb1price',
+		        title: '补水泵单价',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'cx1price',
+		        title: '循环水泵单价',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'cxb1price',
+		        title: '变频控制柜单价',
 		        sortable: true
 		       
 		    }

@@ -55,30 +55,29 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_setVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_setVO.feaProjectB.projectName}"
-							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
-					</td>
 					<td class="width-15 active"><label class="pull-right">水下深度（米）：</label></td>
 					<td class="width-35">
 						<form:input path="hddept" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">压力损失（米）：</label></td>
 					<td class="width-35">
 						<form:input path="hdlose" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">一级循环水泵扬程（米）：</label></td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">热泵冷凝器侧循环水泵扬程：</label></td>
 					<td class="width-35">
 						<form:input path="hx1" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">二级循环水泵扬程（米）：</label></td>
+					<td class="width-15 active"><label class="pull-right">热泵蒸发器侧循环水泵扬程：</label></td>
 					<td class="width-35">
 						<form:input path="hx2" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">地下位置和末端高差：</label></td>
+					<td class="width-35">
+						<form:input path="hb2" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">补水泵流量系数（%）：</label></td>
 					<td class="width-35">
@@ -86,16 +85,33 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">部门：</label></td>
+					<td class="width-15 active"><label class="pull-right">潜水泵单价：</label></td>
 					<td class="width-35">
-						<sys:treeselect id="office" name="office.id" value="${fea_design_setVO.office.id}" labelName="office.name" labelValue="${fea_design_setVO.office.name}"
-							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
+						<form:input path="cq1price" htmlEscape="false"    class="form-control "/>
 					</td>
+					<td class="width-15 active"><label class="pull-right">补水泵单价：</label></td>
+					<td class="width-35">
+						<form:input path="cb1price" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">循环水泵单价：</label></td>
+					<td class="width-35">
+						<form:input path="cx1price" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">变频控制柜单价：</label></td>
+					<td class="width-35">
+						<form:input path="cxb1price" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
-				</tr>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

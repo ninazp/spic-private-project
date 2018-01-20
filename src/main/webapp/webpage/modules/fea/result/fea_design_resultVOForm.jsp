@@ -4,6 +4,7 @@
 <head>
 	<title>方案运行费用结果表管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
@@ -44,7 +45,7 @@
 					}
 				}
 			});
-			
+			hideCol();
 		});
 	</script>
 </head>
@@ -55,14 +56,19 @@
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-				    <td class="width-15 active"><label class="pull-right">结果类别：</label></td>
-					<td class="width-35">
-						<form:input path="resulttype" htmlEscape="false"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_resultVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_resultVO.feaProjectB.projectName}"
 							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+					</td>
+					<td class="width-15 active hide"><label class="pull-right">部门：</label></td>
+					<td class="width-35 hide">
+						<sys:treeselect id="office" name="office.id" value="${fea_design_resultVO.office.id}" labelName="office.name" labelValue="${fea_design_resultVO.office.name}"
+							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">结果类别：</label></td>
+					<td class="width-35">
+						<form:input path="resulttype" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
@@ -76,6 +82,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第3年：</label></td>
 					<td class="width-35">
 						<form:input path="year3" htmlEscape="false"    class="form-control "/>
@@ -86,6 +93,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第5年：</label></td>
 					<td class="width-35">
 						<form:input path="year5" htmlEscape="false"    class="form-control "/>
@@ -96,6 +104,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第7年：</label></td>
 					<td class="width-35">
 						<form:input path="year7" htmlEscape="false"    class="form-control "/>
@@ -106,6 +115,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第9年：</label></td>
 					<td class="width-35">
 						<form:input path="year9" htmlEscape="false"    class="form-control "/>
@@ -116,6 +126,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第11年：</label></td>
 					<td class="width-35">
 						<form:input path="year11" htmlEscape="false"    class="form-control "/>
@@ -126,6 +137,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第13年：</label></td>
 					<td class="width-35">
 						<form:input path="year13" htmlEscape="false"    class="form-control "/>
@@ -136,6 +148,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第15年：</label></td>
 					<td class="width-35">
 						<form:input path="year15" htmlEscape="false"    class="form-control "/>
@@ -146,6 +159,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第17年：</label></td>
 					<td class="width-35">
 						<form:input path="year17" htmlEscape="false"    class="form-control "/>
@@ -156,6 +170,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第19年：</label></td>
 					<td class="width-35">
 						<form:input path="year19" htmlEscape="false"    class="form-control "/>
@@ -166,6 +181,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第21年：</label></td>
 					<td class="width-35">
 						<form:input path="year21" htmlEscape="false"    class="form-control "/>
@@ -176,6 +192,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第23年：</label></td>
 					<td class="width-35">
 						<form:input path="year23" htmlEscape="false"    class="form-control "/>
@@ -186,6 +203,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第25年：</label></td>
 					<td class="width-35">
 						<form:input path="year25" htmlEscape="false"    class="form-control "/>
@@ -196,6 +214,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第27年：</label></td>
 					<td class="width-35">
 						<form:input path="year27" htmlEscape="false"    class="form-control "/>
@@ -206,6 +225,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第29年：</label></td>
 					<td class="width-35">
 						<form:input path="year29" htmlEscape="false"    class="form-control "/>
@@ -216,6 +236,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第31年：</label></td>
 					<td class="width-35">
 						<form:input path="year31" htmlEscape="false"    class="form-control "/>
@@ -226,6 +247,7 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第33年：</label></td>
 					<td class="width-35">
 						<form:input path="year33" htmlEscape="false"    class="form-control "/>
@@ -236,18 +258,41 @@
 					</td>
 				</tr>
 				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">第35年：</label></td>
 					<td class="width-35">
 						<form:input path="year35" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">部门：</label></td>
-					<td class="width-35">
-						<sys:treeselect id="office" name="office.id" value="${fea_design_resultVO.office.id}" labelName="office.name" labelValue="${fea_design_resultVO.office.name}"
-							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
-					</td>
 				</tr>
 		 	</tbody>
 		</table>
+		<script type="text/javascript">
+				
+				function hideCol(){
+					//jp.loading();
+					var projectId = $("#feaProjectBId").val();
+					
+					jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+						if(data.success){
+							debugger;
+						    var countyears = data.body.feaProjectB.countyears;//计算期
+						    var alltd = $('tbody tr td');
+						    var len = alltd.length;
+						    if(isNull(countyears) && isNull(len)){
+						    	var startHidecol = countyears*2 + 6;  //6：前三个固定字段 *2（每隔字段两个td）
+					    		alltd.each(function(index,element){
+					    			if(index >= startHidecol){
+					    				$(this).addClass("hide");
+					    			}
+					    		});
+						    }
+		      	  		}else{
+		      	  			jp.error(data.msg);
+		      	  		}
+		            });
+					//jp.close();
+				}
+		</script>
 	</form:form>
 </body>
 </html>

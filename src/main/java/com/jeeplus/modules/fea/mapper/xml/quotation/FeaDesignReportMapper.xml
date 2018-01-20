@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper">
+    
+	<sql id="feaDesignReportColumns">
+		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.name AS "name",
+		a.parameter AS "parameter",
+		a.number AS "number",
+		a.price AS "price",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName"
+	</sql>
+	
+	<sql id="feaDesignReportJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+	</sql>
+	
+    
+	<select id="get" resultType="FeaDesignReport" >
+		SELECT 
+			<include refid="feaDesignReportColumns"/>
+		FROM fea_design_report a
+		<include refid="feaDesignReportJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FeaDesignReport" >
+		SELECT 
+			<include refid="feaDesignReportColumns"/>
+		FROM fea_design_report a
+		<include refid="feaDesignReportJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="feaProjectB != null and feaProjectB.id != null and feaProjectB.id != ''">
+				AND a.project_id = #{feaProjectB.id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="FeaDesignReport" >
+		SELECT 
+			<include refid="feaDesignReportColumns"/>
+		FROM fea_design_report a
+		<include refid="feaDesignReportJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_design_report(
+			id,
+			project_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			name,
+			parameter,
+			number,
+			price
+		) VALUES (
+			#{id},
+			#{feaProjectB.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{name},
+			#{parameter},
+			#{number},
+			#{price}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_design_report SET 	
+			project_id = #{feaProjectB.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			name = #{name},
+			parameter = #{parameter},
+			number = #{number},
+			price = #{price}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_design_report
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_design_report SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="FeaDesignReport" statementType="STATEMENT">
+		select * FROM fea_design_report  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

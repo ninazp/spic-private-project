@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <script>
 $(document).ready(function() {
-	$('#fea_costinfoVOTable').bootstrapTable({
+	$('#feaDesignReportTable').bootstrapTable({
 		 
 		  //请求方法
                method: 'get',
@@ -34,7 +34,7 @@ $(document).ready(function() {
                //可供选择的每页的行数（*）    
                pageList: [10, 25, 50, 100],
                //这个接口需要处理bootstrap table传递的固定参数,并返回特定格式的json数据  
-               url: "${ctx}/fea/costinfo/fea_costinfoVO/data",
+               url: "${ctx}/fea/quotation/feaDesignReport/data",
                //默认值为 'limit',传给服务端的参数为：limit, offset, search, sort, order Else
                //queryParamsType:'',   
                ////查询参数,每次调用是会带上这个参数，可自定义                         
@@ -54,11 +54,11 @@ $(document).ready(function() {
                    if($el.data("item") == "edit"){
                    	edit(row.id);
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该入住率记录吗？', function(){
+                        jp.confirm('确认要删除该设备选型报价清单记录吗？', function(){
                        	jp.loading();
-                       	jp.get("${ctx}/fea/costinfo/fea_costinfoVO/delete?id="+row.id, function(data){
+                       	jp.get("${ctx}/fea/quotation/feaDesignReport/delete?id="+row.id, function(data){
                    	  		if(data.success){
-                   	  			$('#fea_costinfoVOTable').bootstrapTable('refresh');
+                   	  			$('#feaDesignReportTable').bootstrapTable('refresh');
                    	  			jp.success(data.msg);
                    	  		}else{
                    	  			jp.error(data.msg);
@@ -89,246 +89,51 @@ $(document).ready(function() {
 		        }
 		       
 		    }
-			/*,{
-		        field: 'projectcode',
-		        title: '项目编码',
+			,{
+		        field: 'name',
+		        title: '设备名称',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'projectname',
-		        title: '项目名称',
-		        sortable: true
-		       
-		    }*/
-			,{
-		        field: 'costype',
-		        title: '产品种类',
+		        field: 'parameter',
+		        title: '选型参考性能参数',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'unit',
-		        title: '单位',
+		        field: 'number',
+		        title: '数量',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'productrate',
-		        title: '产品税（%）',
+		        field: 'price',
+		        title: '参考价格（万元）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'year',
-		        title: '第1年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year2',
-		        title: '第2年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year3',
-		        title: '第3年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year4',
-		        title: '第4年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year5',
-		        title: '第5年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year6',
-		        title: '第6年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year7',
-		        title: '第7年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year8',
-		        title: '第8年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year9',
-		        title: '第9年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year10',
-		        title: '第10年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year11',
-		        title: '第11年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year12',
-		        title: '第12年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year13',
-		        title: '第13年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year14',
-		        title: '第14年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year15',
-		        title: '第15年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year16',
-		        title: '第16年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year17',
-		        title: '第17年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year18',
-		        title: '第18年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year19',
-		        title: '第19年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year20',
-		        title: '第20年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year21',
-		        title: '第21年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year22',
-		        title: '第22年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year23',
-		        title: '第23年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year24',
-		        title: '第24年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year25',
-		        title: '第25年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year26',
-		        title: '第26年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year27',
-		        title: '第27年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year28',
-		        title: '第28年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year29',
-		        title: '第29年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year30',
-		        title: '第30年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year31',
-		        title: '第31年',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'year32',
-		        title: '第32年',
+		        field: 'remarks',
+		        title: '备注信息',
 		        sortable: true
 		       
 		    }
 		     ]
 		
 		});
-	
-	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'costype');
-	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'unit');
-	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'productrate');
+		
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端
 
 		 
-		  $('#fea_costinfoVOTable').bootstrapTable("toggleView");
+		  $('#feaDesignReportTable').bootstrapTable("toggleView");
 		}
 	  
-	  $('#fea_costinfoVOTable').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
+	  $('#feaDesignReportTable').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
                 'check-all.bs.table uncheck-all.bs.table', function () {
-            $('#remove').prop('disabled', ! $('#fea_costinfoVOTable').bootstrapTable('getSelections').length);
-            $('#edit').prop('disabled', $('#fea_costinfoVOTable').bootstrapTable('getSelections').length!=1);
+            $('#remove').prop('disabled', ! $('#feaDesignReportTable').bootstrapTable('getSelections').length);
+            $('#edit').prop('disabled', $('#feaDesignReportTable').bootstrapTable('getSelections').length!=1);
         });
 		  
 		$("#btnImport").click(function(){
@@ -339,7 +144,7 @@ $(document).ready(function() {
 			    content:$("#importBox").html() ,
 			    btn: ['下载模板','确定', '关闭'],
 				    btn1: function(index, layero){
-					  window.location='${ctx}/fea/costinfo/fea_costinfoVO/import/template';
+					  window.location='${ctx}/fea/quotation/feaDesignReport/import/template';
 				  },
 			    btn2: function(index, layero){
 				        var inputForm =top.$("#importForm");
@@ -359,32 +164,32 @@ $(document).ready(function() {
 		});
 		    
 	  $("#search").click("click", function() {// 绑定查询按扭
-		  $('#fea_costinfoVOTable').bootstrapTable('refresh');
+		  $('#feaDesignReportTable').bootstrapTable('refresh');
 		});
 	 
 	 $("#reset").click("click", function() {// 绑定查询按扭
 		  $("#searchForm  input").val("");
 		  $("#searchForm  select").val("");
 		  $("#searchForm  .select-item").html("");
-		  $('#fea_costinfoVOTable').bootstrapTable('refresh');
+		  $('#feaDesignReportTable').bootstrapTable('refresh');
 		});
 		
 		
 	});
 		
   function getIdSelections() {
-        return $.map($("#fea_costinfoVOTable").bootstrapTable('getSelections'), function (row) {
+        return $.map($("#feaDesignReportTable").bootstrapTable('getSelections'), function (row) {
             return row.id
         });
     }
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该入住率记录吗？', function(){
+		jp.confirm('确认要删除该设备选型报价清单记录吗？', function(){
 			jp.loading();  	
-			jp.get("${ctx}/fea/costinfo/fea_costinfoVO/deleteAll?ids=" + getIdSelections(), function(data){
+			jp.get("${ctx}/fea/quotation/feaDesignReport/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
-         	  			$('#fea_costinfoVOTable').bootstrapTable('refresh');
+         	  			$('#feaDesignReportTable').bootstrapTable('refresh');
          	  			jp.success(data.msg);
          	  		}else{
          	  			jp.error(data.msg);
@@ -394,17 +199,17 @@ $(document).ready(function() {
 		})
   }
    function add(){
-	  jp.openDialog('新增入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form",'800px', '500px', $('#fea_costinfoVOTable'));
+	  jp.openDialog('新增设备选型报价清单', "${ctx}/fea/quotation/feaDesignReport/form",'800px', '500px', $('#feaDesignReportTable'));
   }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){
 			id = getIdSelections();
 		}
-	   <shiro:hasPermission name="fea:costinfo:fea_costinfoVO:edit">
-	  jp.openDialog('编辑入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
+	   <shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
+	  jp.openDialog('编辑设备选型报价清单', "${ctx}/fea/quotation/feaDesignReport/form?id=" + id,'800px', '500px', $('#feaDesignReportTable'));
 	   </shiro:hasPermission>
-	  <shiro:lacksPermission name="fea:costinfo:fea_costinfoVO:edit">
-	  jp.openDialogView('查看入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
+	  <shiro:lacksPermission name="fea:quotation:feaDesignReport:edit">
+	  jp.openDialogView('查看设备选型报价清单', "${ctx}/fea/quotation/feaDesignReport/form?id=" + id,'800px', '500px', $('#feaDesignReportTable'));
 	  </shiro:lacksPermission>
   }
 

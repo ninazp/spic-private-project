@@ -340,7 +340,6 @@ public class singlewellyes {
 				Double d31 = d3.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m3.invoke(result3, d31);
 				
-				
 				Method m4 = result4.getClass().getMethod("setYear"+(i), Double.class);
 				BigDecimal   d4 = new BigDecimal(costunit);
 				Double d41 = d4.setScale(2, RoundingMode.HALF_UP).doubleValue();

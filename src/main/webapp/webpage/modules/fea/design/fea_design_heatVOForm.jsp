@@ -54,7 +54,7 @@
  				jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
  					if(data.success){
  						debugger;
- 						$("#heatarea").val(data.body.feaProjectB.heatArea);
+ 						$("#heatarea").val(data.body.feaProjectB.heatArea*10000);
  				    	$("#heatdays").val(data.body.feaProjectB.heatDays);
  	      	  		}else{
  	      	  			//execute(projectIds);

@@ -114,8 +114,11 @@ public class PubDesignCal extends Exception{
 						reportvo.setParameter(rt.get(1));
 						reportvo.setNumber(Double.valueOf(rt.get(2)));
 						reportvo.setPrice(Double.valueOf(rt.get(3)));
-						reportvo.setRownum(i+"");
-						
+						if(i>9){
+							reportvo.setRownum("9"+i+"");
+						}else{
+							reportvo.setRownum(i+"");
+						}
 						i++;
 						feaDesignReportMapper.insert(reportvo);
 					}

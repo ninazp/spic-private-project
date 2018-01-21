@@ -92,7 +92,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">综合热效率：</label></td>
 					<td class="width-35">
-						<form:input path="sumheatefficient" htmlEscape="false"  max="1"  min="0"  class="form-control  isFloatGtZero"/>
+						<form:input path="sumheatefficient" htmlEscape="false"   max="1"  min="0" class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>
@@ -102,7 +102,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">热泵效率：</label></td>
 					<td class="width-35">
-						<form:input path="pumprate" htmlEscape="false"   class="form-control  isFloatGtZero"/>
+						<form:input path="pumprate" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 		 	</tbody>

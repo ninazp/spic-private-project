@@ -5,7 +5,6 @@ package com.jeeplus.modules.fea.entity.transfer;
 
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.sys.entity.Office;
-import javax.validation.constraints.NotNull;
 
 import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
@@ -13,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 换热参数Entity
  * @author jw
- * @version 2018-01-20
+ * @version 2018-01-21
  */
 public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 	
@@ -128,7 +127,6 @@ public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 		this.pumprate = pumprate;
 	}
 	
-	@NotNull(message="部门不能为空")
 	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
 	public Office getOffice() {
 		return office;

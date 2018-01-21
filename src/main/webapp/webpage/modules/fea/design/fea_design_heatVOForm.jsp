@@ -103,7 +103,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">每日供热小时数（小时）：</label></td>
 					<td class="width-35">
-						<form:input path="dayheathours" htmlEscape="false"   max="24"  min="0" class="form-control  isFloatLtZero"/>
+						<form:input path="dayheathours" htmlEscape="false"   max="24"  min="0" class="form-control  isFloatGtZero"/>
 					</td>
 				</tr>
 				<tr>

@@ -89,7 +89,7 @@ public class FeaProjectB extends DataEntity<FeaProjectB> {
 		this.heatArea = heatArea;
 	}
 	
-	@ExcelField(title="供暖天数", align=2, sort=12)
+	@ExcelField(title="供暖天数", dictType="heating_days", align=2, sort=12)
 	public Double getHeatDays() {
 		return heatDays;
 	}

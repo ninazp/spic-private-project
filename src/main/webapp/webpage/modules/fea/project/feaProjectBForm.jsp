@@ -89,9 +89,12 @@
 					<td class="width-35">
 						<form:input path="heatArea" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-left">供暖天数：</label></td>
+					<td class="width-15 active"><label class="pull-right">供暖天数：</label></td>
 					<td class="width-35">
-						<form:input path="heatDays" htmlEscape="false"    class="form-control "/>
+						<form:select path="heatDays" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('heating_days')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
 					</td>
 				</tr>
 				<tr>

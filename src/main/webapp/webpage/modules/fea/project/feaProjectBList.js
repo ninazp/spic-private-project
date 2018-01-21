@@ -114,8 +114,10 @@ $(document).ready(function() {
 			,{
 		        field: 'heatDays',
 		        title: '供暖天数',
-		        sortable: true
-		       
+		        sortable: true,
+		        formatter:function(value, row , index){
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, value, "-");
+		        }
 		    }
 			,{
 		        field: 'price',

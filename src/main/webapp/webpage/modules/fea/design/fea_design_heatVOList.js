@@ -112,7 +112,7 @@ $(document).ready(function() {
 		        title: '供暖天数',
 		        sortable: true,
 		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, value, "-");
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, row.heatDays, "-");
 		        }
 		    }
 			,{

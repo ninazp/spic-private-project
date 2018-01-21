@@ -112,12 +112,14 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'heatDays',
-		        title: '供暖天数',
+		        field: 'heatdays',
+		        title: '供热天数（天）',
 		        sortable: true,
 		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, value, "-");
+		        	debugger;
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, row.heatDays, "-");
 		        }
+		       
 		    }
 			,{
 		        field: 'price',

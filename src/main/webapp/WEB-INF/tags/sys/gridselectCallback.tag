@@ -49,6 +49,10 @@ $(document).ready(function(){
 			    	jp.warning("必须选择一条数据!");
 			    	return;
 		    	 }
+		    	 if(items.length > 1){
+		    		 jp.warning("只能选择一条数据!");
+				    	return;
+		    	 }
 		    	 var ids = [];
 		    	 var names = [];
 		    	 for(var i=0; i<items.length; i++){

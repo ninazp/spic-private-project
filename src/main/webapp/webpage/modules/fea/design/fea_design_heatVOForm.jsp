@@ -4,6 +4,7 @@
 <head>
 	<title>供热参数管理</title>
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
@@ -46,6 +47,23 @@
 			});
 			
 		});
+		
+		function callback(projectId){
+			
+			if(isNull(projectId)){
+ 				jp.get("${ctx}/fea/project/feaProjectB/getProjectById?id=" + projectId, function (data) {
+ 					if(data.success){
+ 						debugger;
+ 						$("#heatarea").val(data.body.feaProjectB.heatArea);
+ 				    	$("#heatdays").val(data.body.feaProjectB.heatDays);
+ 	      	  		}else{
+ 	      	  			//execute(projectIds);
+ 	      	  			//jp.error(data.msg);
+ 	      	  		}
+ 	            })
+ 			}
+		}
+		
 	</script>
 </head>
 <body class="bg-white">
@@ -57,8 +75,8 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_heatVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_heatVO.feaProjectB.projectName}"
-							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+						<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_heatVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_heatVO.feaProjectB.projectName}"
+							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
 					</td>
 					<td class="width-15 active"><label class="pull-right">热负荷指标（瓦/平方米）：</label></td>
 					<td class="width-35">
@@ -76,9 +94,12 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">供热天数（天）：</label></td>
+					<td class="width-15 active"><label class="pull-right">供暖天数：</label></td>
 					<td class="width-35">
-						<form:input path="heatdays" htmlEscape="false"    class="form-control  isFloatGtZero"/>
+						<form:select path="heatdays" class="form-control ">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('heating_days')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
 					</td>
 					<td class="width-15 active"><label class="pull-right">每日供热小时数（小时）：</label></td>
 					<td class="width-35">

@@ -71,7 +71,7 @@ public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 		this.powerfee = powerfee;
 	}
 	
-	@ExcelField(title="供热天数（天）", align=2, sort=10)
+	@ExcelField(title="供暖天数（天）", dictType="heating_days", align=2, sort=10)
 	public Double getHeatdays() {
 		return heatdays;
 	}

@@ -108,10 +108,12 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'heatdays',
-		        title: '供热天数（天）',
-		        sortable: true
-		       
+		        field: 'heatDays',
+		        title: '供暖天数',
+		        sortable: true,
+		        formatter:function(value, row , index){
+		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, value, "-");
+		        }
 		    }
 			,{
 		        field: 'dayheathours',

@@ -31,7 +31,7 @@
 			<include refid="feaDesignReportColumns"/>
 		FROM fea_design_report a
 		<include refid="feaDesignReportJoins"/>
-		WHERE a.id = #{id}
+		WHERE a.id = #{id} 
 	</select>
 	
 	<select id="findList" resultType="FeaDesignReport" >
@@ -48,10 +48,10 @@
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
+				ORDER BY  a.project_id, a.rownum, ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY  a.project_id, a.rownum, a.update_date
 			</otherwise>
 		</choose>
 	</select>
@@ -67,10 +67,10 @@
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
+				ORDER BY a.project_id, a.rownum, ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.project_id, a.rownum
 			</otherwise>
 		</choose>
 	</select>

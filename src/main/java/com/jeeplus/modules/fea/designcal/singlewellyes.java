@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +14,17 @@ import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
+import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class singlewellyes {
 
 	public  static Map<String,Object> calsinglewellyes(Fea_design_heatVO  fea_design_heatVO,
 			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
+			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
 			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
@@ -51,6 +55,17 @@ public class singlewellyes {
 		Double  gmah = fea_design_transferVO.getSumheatefficient();
 		Double  gmaq = fea_design_transferVO.getLoadrate();
 		Double  cop = fea_design_transferVO.getPumprate();
+		
+//		Double hddept = fea_design_setVO.getHddept();
+//		Double hdlose = fea_design_setVO.getHddept();
+//		Double hx1price = fea_design_setVO.getHx1();;		// 热泵冷凝器侧循环水泵扬程
+//		Double hx2price = fea_design_setVO.getHx2();		// 热泵蒸发器侧循环水泵扬程
+//		Double hb2price= fea_design_setVO.getHb2();		// 地下位置和末端高差
+//		Double mpumpcoe = fea_design_setVO.getMpumpcoe();		// 补水泵流量系数（%）
+//		Double cq1price= fea_design_setVO.getCq1price();		// 潜水泵单价
+//		Double cb1price= fea_design_setVO.getCb1price();		// 补水泵单价
+//		Double cx1price= fea_design_setVO.getCx1price();		// 循环水泵单价
+//		Double cxb1price= fea_design_setVO.getCxb1price();
 
 		Double Q1 = 0.00;//一级板换供热量
 		if(null!=m && null!=t1 && null!=t2){
@@ -146,7 +161,7 @@ public class singlewellyes {
 		}
 
 		//************** 4、潜水泵模块 **************//
-		Double rou = 1000.00;//固定参数 - 柔 - 密度 ？？？ wwww
+		Double rou = 1000.00;//固定参数 - 柔 - 密度 
 
 		Double hq = hd+30;//（程序中备注：10米：水面下10米；20米为泵送热水系统压力损失）
 
@@ -252,11 +267,34 @@ public class singlewellyes {
 		result4.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		result5.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		
+		result1.setCreateBy(UserUtils.getUser());
+		result1.setCreateDate(new Date());
+		result2.setCreateBy(UserUtils.getUser());
+		result2.setCreateDate(new Date());
+		result3.setCreateBy(UserUtils.getUser());
+		result3.setCreateDate(new Date());
+		result4.setCreateBy(UserUtils.getUser());
+		result4.setCreateDate(new Date());
+		result5.setCreateBy(UserUtils.getUser());
+		result5.setCreateDate(new Date());
+		
+		result1.setOffice(UserUtils.getOfficeList().get(0));
+		result2.setOffice(UserUtils.getOfficeList().get(0));
+		result3.setOffice(UserUtils.getOfficeList().get(0));
+		result4.setOffice(UserUtils.getOfficeList().get(0));
+		result5.setOffice(UserUtils.getOfficeList().get(0));
+		
 		result1.setId(PubUtil.getid(1));
 		result2.setId(PubUtil.getid(1));
 		result3.setId(PubUtil.getid(1));
 		result4.setId(PubUtil.getid(1));
 		result5.setId(PubUtil.getid(1));
+		
+		result1.setRownum(1+"");
+		result2.setRownum(2+"");
+		result3.setRownum(3+"");
+		result4.setRownum(4+"");
+		result5.setRownum(5+"");
 		
 		result1.setResulttype("入住率");
 		result2.setResulttype("供暖面积（平方米）");
@@ -276,7 +314,7 @@ public class singlewellyes {
 				downwater = A*rate*m*D*T/A1;
 			}else{
 				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
-				downwater = Nk*m*D*T/A1;
+				downwater = Nk*A*m*D*T/A1;
 			}
 			powfeeunit = yearpow*E1/A1;	
 			costunit = powfeeunit;
@@ -436,7 +474,7 @@ public class singlewellyes {
 		 +" m;功率 "+getDouble2float(Phb1)+"kW";
 		col13.add(col13str);
 		col13.add(""+2*Nk);
-		col13.add(""+2*Nk*Chb1);
+		col13.add(""+getDouble2float(2*Nk*Chb1));
 		col13.add(" 高区 "+Nk+"用"+Nk+"备变频 ");
 		
 		
@@ -446,7 +484,7 @@ public class singlewellyes {
 		  +getDouble2float(hb2)+" m;功率 "+getDouble2float(Pb2)+"kW";
 		col14.add(col14str);
 		col14.add(""+2*Nk);
-		col14.add(""+2*Nk*Cb2);
+		col14.add(""+getDouble2float(2*Nk*Cb2));
 		col14.add("高区  "+Nk+"用"+Nk+"备变频 ");
 		
 		rettable1.add(col1);rettable1.add(col2);rettable1.add(col3);

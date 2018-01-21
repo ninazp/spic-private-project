@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +14,17 @@ import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
+import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class singlewellNo {
 
 	public  static Map<String,Object> calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
 			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
+			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
 			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
@@ -50,6 +54,17 @@ public class singlewellNo {
 		Double  gmah = fea_design_transferVO.getSumheatefficient();
 		Double  gmaq = fea_design_transferVO.getLoadrate();
 		Double  cop = fea_design_transferVO.getPumprate();
+		
+		Double hddept = fea_design_setVO.getHddept();
+		Double hdlose = fea_design_setVO.getHddept();
+		Double hx1price = fea_design_setVO.getHx1();;		// 热泵冷凝器侧循环水泵扬程
+		Double hx2price = fea_design_setVO.getHx2();		// 热泵蒸发器侧循环水泵扬程
+		Double hb2price= fea_design_setVO.getHb2();		// 地下位置和末端高差
+		Double mpumpcoe = fea_design_setVO.getMpumpcoe();		// 补水泵流量系数（%）
+		Double cq1price= fea_design_setVO.getCq1price();		// 潜水泵单价
+		Double cb1price= fea_design_setVO.getCb1price();		// 补水泵单价
+		Double cx1price= fea_design_setVO.getCx1price();		// 循环水泵单价
+		Double cxb1price= fea_design_setVO.getCxb1price();
 
 		Double Q1 = 0.00;//一级板换供热量
 		if(null!=m && null!=t1 && null!=t2){
@@ -231,6 +246,23 @@ public class singlewellNo {
 		result3.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		result4.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
 		result5.setFeaProjectB(fea_design_heatVO.getFeaProjectB());
+		
+		result1.setCreateBy(UserUtils.getUser());
+		result1.setCreateDate(new Date());
+		result2.setCreateBy(UserUtils.getUser());
+		result2.setCreateDate(new Date());
+		result3.setCreateBy(UserUtils.getUser());
+		result3.setCreateDate(new Date());
+		result4.setCreateBy(UserUtils.getUser());
+		result4.setCreateDate(new Date());
+		result5.setCreateBy(UserUtils.getUser());
+		result5.setCreateDate(new Date());
+		
+		result1.setRownum(1+"");
+		result2.setRownum(2+"");
+		result3.setRownum(3+"");
+		result4.setRownum(4+"");
+		result5.setRownum(5+"");
 		
 		result1.setId(PubUtil.getid(1));
 		result2.setId(PubUtil.getid(1));

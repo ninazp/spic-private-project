@@ -2,6 +2,7 @@ package com.jeeplus.modules.fea.designcal;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +10,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jeeplus.core.persistence.BaseMapper;
+import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.heatben.Fea_design_heatbenVO;
 import com.jeeplus.modules.fea.entity.heattrans.Fea_design_heattransVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
 import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
@@ -23,10 +26,12 @@ import com.jeeplus.modules.fea.mapper.downhole.Fea_design_downholeVOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
+import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
 import com.jeeplus.modules.fea.mapper.transfer.Fea_design_transferVOMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class PubDesignCal extends Exception{
 	
@@ -49,6 +54,8 @@ public class PubDesignCal extends Exception{
 	private FeaProjectBMapper projectBMapper;
 	@Autowired
 	private Fea_design_resultVOMapper resultVOMapper;
+	@Autowired
+	private FeaDesignReportMapper feaDesignReportMapper;
 	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> calprocess(String  projectid) throws Exception{
@@ -72,8 +79,8 @@ public class PubDesignCal extends Exception{
 		List<Fea_design_heattransVO>   heattransVO = (List<Fea_design_heattransVO>) PubBaseDAO.
 				getMutiParentVO("Fea_design_heattrans", "id", " del_flag = 0  ", heattransVOMapper);
 		
-		List<Fea_design_setVO>   distrvolst = (List<Fea_design_setVO>) PubBaseDAO.
-				getMutiParentVO("fea_design_set", "id", " project_id='"+projectvo.getId()+"' ", setVOMapper);
+		List<Fea_design_setVO>   setvolst = (List<Fea_design_setVO>) PubBaseDAO.
+				getMutiParentVO("fea_design_set", "id", " del_flag = 0 ", setVOMapper);
 		
 		FeaProjectB  projectqueryvo = projectBMapper.get(projectvo.getId());
 		
@@ -83,13 +90,39 @@ public class PubDesignCal extends Exception{
 		List<List<Double>> heatpumpprice = getheatpumpprice(heatbenVO);
 		
 		if(null!=heatVO && null!=downholeVO && null!=transferVO){
-			if(heatVO.get(0).getAreaselect().equals("Y")){
+			if(heatVO.get(0).getAreaselect().equals("Y") || heatVO.get(0).getAreaselect().equals("1")){
 				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
-						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}else{
 				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
-						transferVO.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}
+			
+			if(null!=retmap && retmap.size()>0 && retmap.containsKey("设备清单")){
+				List<List<String>> report = (List<List<String>>) retmap.get("设备清单");
+				
+				feaDesignReportMapper.execDeleteSql("delete from fea_design_report  where project_id='"+projectvo.getId()+"'");
+				if(null!=report && report.size()>0){
+					int i=1;
+					for(List<String> rt : report){
+						FeaDesignReport reportvo = new FeaDesignReport();
+						reportvo.setId(PubUtil.getid(1));
+						reportvo.setCreateBy(UserUtils.getUser());
+						reportvo.setCreateDate(new Date());
+						reportvo.setFeaProjectB(projectvo);
+						reportvo.setName(rt.get(0));
+						reportvo.setParameter(rt.get(1));
+						reportvo.setNumber(Double.valueOf(rt.get(2)));
+						reportvo.setPrice(Double.valueOf(rt.get(3)));
+						reportvo.setRownum(i+"");
+						
+						i++;
+						feaDesignReportMapper.insert(reportvo);
+					}
+				}
+				
+			}
+			
 		}
 		
 		return retmap;

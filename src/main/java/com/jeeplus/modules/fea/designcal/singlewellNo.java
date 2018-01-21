@@ -147,15 +147,15 @@ public class singlewellNo {
 			Q2tmp = Q2tmp/2;
 			jznum = 2;
 		}
-		for(int i=0;i<heatpumpprice.get(0).size()-1;i++){
-			if(Q2tmp==heatpumpprice.get(0).get(0)){
-				Qr2 = heatpumpprice.get(0).get(0);
-				Pr2 = heatpumpprice.get(1).get(0);
-				Cr2 = heatpumpprice.get(2).get(0);
-			}else if(Q2tmp>heatpumpprice.get(0).get(i) && Q2tmp<=heatpumpprice.get(0).get(i+1)){
-				Qr2 = heatpumpprice.get(0).get(i+1);
-				Pr2 = heatpumpprice.get(1).get(i+1);
-				Cr2 = heatpumpprice.get(2).get(i+1);
+		for(int i=0;i<heatpumpprice.size()-1;i++){
+			if(Q2tmp==heatpumpprice.get(i).get(0)){
+				Qr2 = heatpumpprice.get(i).get(0);
+				Pr2 = heatpumpprice.get(i).get(1);
+				Cr2 = heatpumpprice.get(i).get(2);
+			}else if(Q2tmp>heatpumpprice.get(i).get(0) && Q2tmp<=heatpumpprice.get(i+1).get(0)){
+				Qr2 = heatpumpprice.get(i+1).get(0);
+				Pr2 = heatpumpprice.get(i+1).get(1);
+				Cr2 = heatpumpprice.get(i+1).get(2);
 			}
 		}
 
@@ -415,7 +415,7 @@ public class singlewellNo {
 
 		List<String> col10= new ArrayList<String>();
 		col10.add("循环水泵");
-		String col10str = "流量"+(M3)+" m³/h;\n  扬程"+hx3+" m;\n "+ "功率 "+Px3+"kw;" ;
+		String col10str = "流量"+getDouble2float(M3)+" m³/h;\n  扬程"+getDouble2float(hx3)+" m;\n "+ "功率 "+getDouble2float(Px3)+"kw;" ;
 		col10.add(col10str);
 		col10.add(""+2*Nk);
 		col10.add(""+getDouble2float(2*Nk*Cx3+Nk*Cxb3));
@@ -423,7 +423,7 @@ public class singlewellNo {
 
 		List<String> col11= new ArrayList<String>();
 		col11.add("循环水泵");
-		String col11str = "流量"+(M2)+" m³/h;\n  扬程"+hx2+" m;功率 "+Px2+"kW";
+		String col11str = "流量"+(M2)+" m³/h;\n  扬程"+getDouble2float(hx2)+" m;功率 "+getDouble2float(Px2)+"kW";
 		col11.add(col11str);
 		col11.add(""+2*Nk);
 		col11.add(""+getDouble2float(2*Nk*Cx2));
@@ -431,7 +431,7 @@ public class singlewellNo {
 
 		List<String> col12= new ArrayList<String>();
 		col12.add("补水泵");
-		String col12str = "流量"+(0.03*(M1+M3))+" m³/h;\n  扬程"+hb1+" m;功率 "+Pb1+"kW";
+		String col12str = "流量"+(0.03*(M1+M3))+" m³/h;\n  扬程"+getDouble2float(hb1)+" m;功率 "+getDouble2float(Pb1)+"kW";
 		col12.add(col12str);
 		col12.add(""+2*Nk);
 		col12.add(""+getDouble2float(2*Nk*Cb1));

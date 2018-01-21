@@ -148,15 +148,15 @@ public class singlewellyes {
 			Q2tmp = Q2tmp/2;
 			jznum = 2;
 		}
-		for(int i=0;i<heatpumpprice.get(0).size()-1;i++){
-			if(Q2tmp==heatpumpprice.get(0).get(0)){
-				Qr2 = heatpumpprice.get(0).get(0);
-				Pr2 = heatpumpprice.get(1).get(0);
-				Cr2 = heatpumpprice.get(2).get(0);
-			}else if(Q2tmp>heatpumpprice.get(0).get(i) && Q2tmp<=heatpumpprice.get(0).get(i+1)){
-				Qr2 = heatpumpprice.get(0).get(i+1);
-				Pr2 = heatpumpprice.get(1).get(i+1);
-				Cr2 = heatpumpprice.get(2).get(i+1);
+		for(int i=0;i<heatpumpprice.size()-1;i++){
+			if(Q2tmp==heatpumpprice.get(i).get(0)){
+				Qr2 = heatpumpprice.get(i).get(0);
+				Pr2 = heatpumpprice.get(i).get(1);
+				Cr2 = heatpumpprice.get(i).get(2);
+			}else if(Q2tmp>heatpumpprice.get(i).get(0) && Q2tmp<=heatpumpprice.get(i+1).get(0)){
+				Qr2 = heatpumpprice.get(i+1).get(0);
+				Pr2 = heatpumpprice.get(i+1).get(1);
+				Cr2 = heatpumpprice.get(i+1).get(2);
 			}
 		}
 

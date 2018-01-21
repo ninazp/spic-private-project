@@ -77,7 +77,7 @@ public class PubDesignCal extends Exception{
 				("fea_design_heatben", "id", " del_flag = 0 ", "qr2"  ,heatbenVOMapper);
 		
 		List<Fea_design_heattransVO>   heattransVO = (List<Fea_design_heattransVO>) PubBaseDAO.
-				getMutiParentVO("Fea_design_heattrans", "id", " del_flag = 0  ", heattransVOMapper);
+				getMutiParentVO("fea_design_heattrans", "id", " del_flag = 0  ", heattransVOMapper);
 		
 		List<Fea_design_setVO>   setvolst = (List<Fea_design_setVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_set", "id", " del_flag = 0 ", setVOMapper);
@@ -157,9 +157,9 @@ public class PubDesignCal extends Exception{
 				Double higharea = (null!=fvo.getHigharea())?Double.valueOf(fvo.getHigharea()):0.00;
 			
 			    List<Double> priced = new ArrayList<Double>();
-			    priced.add(price);
 			    priced.add(lowarea);
 			    priced.add(higharea);
+			    priced.add(price);
 			    pricechlst.add(priced);
 			}
 		}

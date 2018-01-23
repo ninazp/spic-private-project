@@ -60,6 +60,9 @@
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			${dataScope}
+			<if test="feaProjectB != null and feaProjectB.id != null and feaProjectB.id != ''">
+				AND a.project_id = #{feaProjectB.id}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

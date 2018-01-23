@@ -80,16 +80,14 @@ $(document).ready(function() {
    		        field: 'feaProjectB.projectName',
    		        title: '项目名称',
    		        sortable: true
-   		       
+   		        ,formatter:function(value, row , index){
+		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		        }
    		    }
 			,{
 		        field: 'resulttype',
 		        title: '结果类别',
 		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		         }
-		       
 		    }
 			,{
 		        field: 'year1',

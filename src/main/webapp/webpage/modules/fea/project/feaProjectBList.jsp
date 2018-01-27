@@ -5,6 +5,7 @@
 	<title>项目（子表）管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="feaProjectTreeList.js" %>

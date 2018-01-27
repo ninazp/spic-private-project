@@ -391,6 +391,25 @@ $(document).ready(function() {
    
    function calculation(){
 	   
+	   var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	   if(isNull(node) && isNull(node.id)){
+		   jp.confirm('确定要对项目：【' + node.text + '】进行计算吗?', function(){
+               jp.loading();
+               jp.post("${ctx}/fea/result/fea_design_resultVO/calculation?projectId=" + node.id,null,function(data){
+	       			if(data.success){
+	                	$('#fea_design_resultVOTable').bootstrapTable('refresh');
+	                	jp.success(data.msg);
+	                }else{
+	         			jp.error(data.msg);
+	                }
+	       	   })
+           });
+	   }else{
+		   jp.warning("请在左侧选中一个项目，再进行计算");
+		   return;
+	   }
+	   
+	   /*
 	   var url="${ctx}/fea/project/feaProjectB/data";
 	   var id="feaProjectB" ;
 	   var name="feaProjectB.id" ;
@@ -449,10 +468,7 @@ $(document).ready(function() {
 			  },
 			  cancel: function(index){ 
 		       }
-		});
-	   
-	   
-	   
+		});*/
    }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){

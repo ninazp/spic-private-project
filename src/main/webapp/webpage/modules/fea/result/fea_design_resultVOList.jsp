@@ -5,9 +5,26 @@
 	<title>方案运行费用结果表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="fea_design_resultVOList.js" %>
+	<%@include file="/webpage/modules/fea/project/feaProjectBTreeListPublic.js" %>
+	<script type="text/javascript">
+		function selectproject(){
+			var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+			$("#feaProjectBId").val(node.id);
+			$("#feaProjectBName").val(node.text);
+			var opt = {
+					silent: true,
+					query:{
+						'feaProjectB.id':node.id
+					}
+				};
+			$('#fea_design_resultVOTable').bootstrapTable('refresh',opt);
+			//alert("选中了："+node.text);
+		}
+	</script>
 </head>
 <body>
 	<div class="wrapper wrapper-content">
@@ -16,6 +33,28 @@
 		<h3 class="panel-title">方案运行费用结果表列表</h3>
 	</div>
 	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-4 col-md-3" >
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-10" >
+							<div class="input-search">
+								<button type="submit" class="input-search-btn">
+									<i class="fa fa-search" aria-hidden="true"></i></button>
+								<input   id="search_q" type="text" class="form-control input-sm" name="" placeholder="查找...">
+
+							</div>
+						</div>
+						<%-- <div class="col-sm-2" >
+							<button  class="btn btn-default btn-sm"  onclick="jp.openDialog('新建项目（主表）', '${ctx}/fea/project/feaProject/form','800px', '500px', $('#feaProjectjsTree'))">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div> --%>
+					</div>
+				</div>
+				<div id="feaProjectjsTree"></div>
+			</div>
+		<div  class="col-sm-8 col-md-9 animated fadeInRight">
 		<sys:message content="${message}"/>
 	
 	<!-- 搜索 -->

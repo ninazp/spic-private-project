@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
 import com.jeeplus.common.utils.DateUtils;
@@ -32,6 +33,7 @@ import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
+import com.jeeplus.modules.fea.entity.project.FeaProject;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.project.FeaProjectBService;
 
@@ -238,6 +240,26 @@ public class FeaProjectBController extends BaseController {
 		j.setSuccess(true);
 		
 		return j;
+	}
+	
+	@RequiresPermissions("user")
+	@ResponseBody
+	@RequestMapping(value = "treeData")
+	public List<Map<String, Object>> treeData(@RequestParam(required=false) String extId, HttpServletResponse response) {
+		List<Map<String, Object>> mapList = Lists.newArrayList();
+		List<FeaProjectB> list = feaProjectBService.findList(new FeaProjectB());
+		for (int i=0; i<list.size(); i++){
+			FeaProjectB e = list.get(i);
+			Map<String, Object> map = Maps.newHashMap();
+			map.put("id", e.getId());
+			map.put("text", e.getProjectName());
+			map.put("parent", "#");
+			Map<String, Object> state = Maps.newHashMap();
+			state.put("opened", true);
+			map.put("state", state);
+			mapList.add(map);
+		}
+		return mapList;
 	}
 
 }

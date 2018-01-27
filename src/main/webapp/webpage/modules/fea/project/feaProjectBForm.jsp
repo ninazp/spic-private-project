@@ -54,7 +54,13 @@
 	        $('#productDate').datetimepicker({
 				 format: "YYYY-MM-DD HH:mm:ss"
 		    });
+		    init();
 		});
+		
+		/*初始化一些信息*/
+		function init(){
+			debugger;
+		}
 	</script>
 </head>
 <body class="bg-white">
@@ -87,11 +93,11 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-left">供暖面积(万平米)：</label></td>
 					<td class="width-35">
-						<form:input path="heatArea" htmlEscape="false"    class="form-control "/>
+						<form:input path="heatArea" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">供暖天数：</label></td>
 					<td class="width-35">
-						<form:select path="heatDays" class="form-control ">
+						<form:select path="heatDays" class="form-control required">
 							<form:option value="" label=""/>
 							<form:options items="${fns:getDictList('heating_days')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 						</form:select>
@@ -100,13 +106,13 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-left">供暖单价(元/平米)：</label></td>
 					<td class="width-35">
-						<form:input path="price" htmlEscape="false"    class="form-control "/>
+						<form:input path="price" htmlEscape="false"    class="form-control required"/>
 					</td>
 					<td class="width-15 active"><label class="pull-left">项目起始日期：</label></td>
 					<td class="width-35">
 						<p class="input-group">
 							<div class='input-group form_datetime' id='projectStart'>
-			                    <input type='text'  name="projectStart" class="form-control"  value="<fmt:formatDate value="${feaProjectB.projectStart}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
+			                    <input type='text'  name="projectStart" class="form-control required"  value="<fmt:formatDate value="${feaProjectB.projectStart}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -119,7 +125,7 @@
 					<td class="width-35">
 						<p class="input-group">
 							<div class='input-group form_datetime' id='startupDate'>
-			                    <input type='text'  name="startupDate" class="form-control"  value="<fmt:formatDate value="${feaProjectB.startupDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
+			                    <input type='text'  name="startupDate" class="form-control required"  value="<fmt:formatDate value="${feaProjectB.startupDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -128,7 +134,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-left">建设期(月)：</label></td>
 					<td class="width-35">
-						<form:input path="constructPeriod" htmlEscape="false"    class="form-control "/>
+						<form:input path="constructPeriod" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -136,7 +142,7 @@
 					<td class="width-35">
 						<p class="input-group">
 							<div class='input-group form_datetime' id='productDate'>
-			                    <input type='text'  name="productDate" class="form-control"  value="<fmt:formatDate value="${feaProjectB.productDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
+			                    <input type='text'  name="productDate" class="form-control required"  value="<fmt:formatDate value="${feaProjectB.productDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"/>
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -145,7 +151,7 @@
 					</td>
 					<td class="width-15 active"><label class="pull-left">计算期（年）：</label></td>
 					<td class="width-35">
-						<form:input path="countyears" htmlEscape="false"    class="form-control "/>
+						<form:input path="countyears" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>

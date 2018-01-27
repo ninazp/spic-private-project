@@ -77,12 +77,22 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'feaProjectB.projectName',
+		        title: '项目名称',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+ 			    if(value == null){
+		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+		            }else{
+		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+		            }
+		        }
+		       
+		    }
+			,{
 		        field: 'hddept',
 		        title: '水下深度（米）',
 		        sortable: true
-		        ,formatter:function(value, row , index){
-		        	return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		         }
 		       
 		    }
 			,{
@@ -225,7 +235,12 @@ $(document).ready(function() {
 		})
   }
    function add(){
-	  jp.openDialog('新增基本参数', "${ctx}/fea/set/fea_design_setVO/form",'800px', '500px', $('#fea_design_setVOTable'));
+	   var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+		  if(isNull(node) && isNull(node.id)){
+			  jp.openDialog('新增基本参数', "${ctx}/fea/set/fea_design_setVO/form?feaProjectB.id="+node.id +"&feaProjectB.projectName="+node.text,'800px', '500px', $('#fea_design_setVOTable'));
+		  }else{
+			  jp.warning("请在左侧选择的一个项目");
+		  }
   }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){

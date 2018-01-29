@@ -1,0 +1,420 @@
+.con{
+    width: 750px;
+    height: 400px;
+    background-color: transparent;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -375px;
+    margin-top: -200px;
+    z-index: 9999;
+}
+.txt{
+    font-weight: bold;
+}
+/*地热井潜水泵*/
+.con .sp-con{
+    position: absolute;
+    top: 38%;
+    left: 3%;
+}
+
+.con .sp-con .sp-con-ep{
+    position: absolute;
+    width: 20px;
+    height: 45px;
+    border-bottom: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+.con .sp-con .sp-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    bottom: 4px;
+}
+.con .sp-con .sp-con-ep .txt{
+    font-size: 12px;
+    width: 74px;
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+}
+/*旋流除砂器*/
+.con .bcd-con{
+    position: absolute;
+    top: 23%;
+    left: 10%;
+}
+.con .bcd-con .bcd-con-ep{
+    position: absolute;
+}
+.con .bcd-con .bcd-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    bottom: 4px;
+}
+.con .bcd-con .bcd-con-ep .txt{
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+}
+
+/*汽水分离器*/
+.con .ms-con{
+    position: absolute;
+    top: 23%;
+    left: 21%;
+}
+.con .ms-con .ms-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    bottom: 4px;
+}
+.con .ms-con .ms-con-ep .txt{
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    top: -80px;
+    left: 0px;
+}
+/*板式换热器*/
+.con .phe-con{
+    position: absolute;
+    top: 33%;
+    left: 30%;
+}
+.con .phe-con .phe-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 100px;
+    bottom: 4px;
+}
+.con .phe-con .phe-con-ep .txt{
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    top: -120px;
+    left: 20px;
+}
+
+/*回灌井*/
+.con .rw-con{
+    position: absolute;
+    bottom: 25%;
+    left: 9%;
+}
+.con .rw-con .rw-con-ep{
+    position: absolute;
+    width: 20px;
+    height: 45px;
+    border-bottom: 3px solid;
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+.con .rw-con .rw-con-ep .txt{
+    font-size: 12px;
+    width: 74px;
+    position: absolute;
+    bottom: -25px;
+    left: -8px;
+}
+
+/*过滤器*/
+.con .filter-con{
+    position: absolute;
+    bottom: 20%;
+    left: 20%;
+}
+.con .filter-con .filter-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    bottom: 4px;
+}
+.con .filter-con .filter-con-ep .txt{
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+}
+
+/*板式换热器2*/
+.phet-con{
+    position: absolute;
+    bottom: 20%;
+    left: 30%;
+}
+.phet-con .phet-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 100px;
+    bottom: 4px;
+}
+.phet-con .phet-con-ep .txt{
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    top: -120px;
+    left: 20px;
+}
+
+/*板式换热器2*/
+.pump-con{
+    position: absolute;
+    bottom: 30%;
+    left: 41%;
+}
+.pump-con .pump-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    bottom: 4px;
+}
+.pump-con .pump-con-ep .txt{
+    font-size: 12px;
+    width: 40px;
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+}
+
+/*热泵机组*/
+.hpu-con{
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+}
+.hpu-con .hpu-con-ep img{
+    display: inline-block;
+    position: absolute;
+    width: 160px;
+    bottom: 4px;
+}
+.hpu-con .hpu-con-ep .txt{
+    font-size: 12px;
+    width: 50px;
+    position: absolute;
+    bottom: -10px;
+    left: 50px;
+}
+/*循环水泵组（灰色面板）*/
+.panel-con{
+    position: absolute;
+    left: 50%;
+    top: 5%;
+
+}
+.panel-con .panel-a{
+    width: 20px;
+    height: 50px;
+    background-color: #A6A6A6;
+    border:1px solid #000204;
+}
+
+.panel-con .panel-b{
+    width: 20px;
+    height: 50px;
+    background-color: #A6A6A6;
+    margin-top: 10px;
+    border:1px solid #000204;
+}
+/*循环水泵组*/
+.cwp-con{
+    position: absolute;
+    left: 55%;
+    top: 15%;
+}
+.cwp-con .cwp-con-ep{
+    position: absolute;
+}
+.cwp-con .cwp-con-ep .cwp-a{
+    position: absolute;
+    top: 0;
+}
+.cwp-con .cwp-con-ep .cwp-b{
+    position: absolute;
+    top: 40px;
+}
+.cwp-con .cwp-con-ep img{
+    width: 60px;
+}
+.cwp-con .cwp-con-ep .txt{
+    font-size: 12px;
+    width: 50px;
+    position: absolute;
+    top: 90px;
+    left: 8px;
+}
+
+/*循环水泵（灰色面板）*/
+.panelt-con{
+    position: absolute;
+    left: 75%;
+    bottom: 25%;
+}
+.panelt-con .panel-a{
+    width: 20px;
+    height: 60px;
+    background-color: #A6A6A6;
+    border:1px solid #000204;
+}
+.panelt-con .panel-a .txt{
+    font-size: 12px;
+    width: 50px;
+    position: absolute;
+    top: 70px;
+    left: -13px;
+}
+
+/*循环水泵组*/
+.cwpt-con{
+    position: absolute;
+    left: 82%;
+    bottom: 45%;
+}
+.cwpt-con .cwp-con-ep{
+    position: absolute;
+}
+.cwpt-con .cwp-con-ep .cwp-a{
+    position: absolute;
+    top: 0;
+}
+.cwpt-con .cwp-con-ep .cwp-b{
+    position: absolute;
+    top: 40px;
+}
+.cwpt-con .cwp-con-ep img{
+    width: 60px;
+}
+.cwpt-con .cwp-con-ep .txt{
+    font-size: 12px;
+    width: 50px;
+    position: absolute;
+    top: 88px;
+    left: 7px;
+}
+#myCanvas{
+    width: 750px;
+    height: 400px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -375px;
+    margin-top: -200px;
+    z-index: 99;
+}
+
+.hw{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    left: 80%;
+    top: 5%;
+}
+.lw{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    left: 90%;
+    top: 13%;
+}
+.hb{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    top: 20%;
+    left: 70%;
+}
+.lb{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    top: 29%;
+    left: 70%;
+}
+.hb-o{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    top: 56%;
+    left: 90%;
+}
+.lb-o{
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    position: absolute;
+    top: 74%;
+    left: 90%;
+}
+.tip{
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid #F7F7F7;
+    padding: 5px;
+    border-radius: 5px;
+    left: 35px;
+    top: -25px;
+    z-index: 9999;
+    color: white;
+}
+.sp-con .tip{
+    width: 110px;
+    left: 35px;
+    top: -25px;
+}
+.bcd-con .tip{
+    width: 50px;
+}
+.ms-con .tip{
+    width: 60px;
+}
+.phe-con .tip{
+    width: 115px;
+    left: 75px;
+    top: -100px;
+}
+.cwp-con .tip{
+    width: 110px;
+    left: 48px;
+    top: 0px;
+}
+.cwpt-con .tip{
+    width: 110px;
+    left: -30px;
+    top: -85px;
+}
+.hpu-con .tip{
+    width: 110px;
+    left: 155px;
+    top: -90px;
+}
+.pump-con .tip{
+    width: 110px;
+}
+.phet-con .tip{
+    width: 115px;
+    left: 75px;
+    top: -100px;
+}
+.filter-con .tip{
+    width: 50px;
+    left: 45px;
+}
+.container:hover .tip{
+    display: inline-block;
+}

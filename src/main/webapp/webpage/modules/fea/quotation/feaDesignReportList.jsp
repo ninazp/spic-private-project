@@ -5,10 +5,11 @@
 	<title>设备选型报价清单管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="feaDesignReportList.js" %>
-	<%@include file="/webpage/modules/fea/project/feaProjectBTreeListPublic.js" %>
+	<%@include file="feaDesignReportListTree.js" %>
 	<script type="text/javascript">
 		function selectproject(){
 			var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
@@ -106,6 +107,11 @@
 	        	<a class="accordion-toggle btn btn-default" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
 					<i class="fa fa-search"></i> 检索
 				</a>
+				<shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
+				    <button id="showImage" class="btn btn-success" disabled onclick="showImage()">
+		            	<i class="glyphicon glyphicon-play"></i> 示例图
+		        	</button>
+				</shiro:hasPermission>
 		    </div>
 		
 	<!-- 表格 -->

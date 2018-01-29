@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.quotation;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
 import com.jeeplus.modules.fea.service.quotation.FeaDesignReportService;
 
@@ -89,6 +87,37 @@ public class FeaDesignReportController extends BaseController {
 	public String form(FeaDesignReport feaDesignReport, Model model) {
 		model.addAttribute("feaDesignReport", feaDesignReport);
 		return "modules/fea/quotation/feaDesignReportForm";
+	}
+	
+	
+	/**
+	 * 示例图
+	 */
+	@RequiresPermissions(value={"fea:quotation:feaDesignReport:view","fea:quotation:feaDesignReport:add","fea:quotation:feaDesignReport:edit"},logical=Logical.OR)
+	@RequestMapping(value = "showImage")
+	public String showImage(FeaDesignReport feaDesignReport, Model model) {
+		model.addAttribute("feaDesignReport", feaDesignReport);
+		return "modules/fea/quotation/feaDesignReportImage";
+	}
+	
+	/**
+	 * 获取示例图json数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"fea:quotation:feaDesignReport:view","fea:quotation:feaDesignReport:add","fea:quotation:feaDesignReport:edit"},logical=Logical.OR)
+	@RequestMapping(value = "imageDatas")
+	public AjaxJson imageDatas(FeaDesignReport feaDesignReport, Model model, RedirectAttributes redirectAttributes) throws Exception{
+		List<FeaDesignReport> list = feaDesignReportService.findList(feaDesignReport);
+		AjaxJson j = new AjaxJson();
+		if (!beanValidator(model, feaDesignReport)){
+			j.setSuccess(false);
+			j.setMsg("非法参数！");
+			return j;
+		}
+		j.put("datas", list);
+		j.setSuccess(true);
+		j.setMsg("获取示例图数据成功");
+		return j;
 	}
 
 	/**

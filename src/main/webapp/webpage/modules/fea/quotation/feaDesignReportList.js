@@ -132,8 +132,10 @@ $(document).ready(function() {
 	  
 	  $('#feaDesignReportTable').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
                 'check-all.bs.table uncheck-all.bs.table', function () {
-            $('#remove').prop('disabled', ! $('#feaDesignReportTable').bootstrapTable('getSelections').length);
-            $('#edit').prop('disabled', $('#feaDesignReportTable').bootstrapTable('getSelections').length!=1);
+          $('#remove').prop('disabled', ! $('#feaDesignReportTable').bootstrapTable('getSelections').length);
+          $('#edit').prop('disabled', $('#feaDesignReportTable').bootstrapTable('getSelections').length!=1);
+          var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+  		  $('#showImage').prop('disabled', !isNull(node));
         });
 		  
 		$("#btnImport").click(function(){
@@ -211,6 +213,11 @@ $(document).ready(function() {
 	  <shiro:lacksPermission name="fea:quotation:feaDesignReport:edit">
 	  jp.openDialogView('查看设备选型报价清单', "${ctx}/fea/quotation/feaDesignReport/form?id=" + id,'800px', '500px', $('#feaDesignReportTable'));
 	  </shiro:lacksPermission>
+  }
+  
+  function showImage(){
+	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	  jp.openDialog('查看示例图', "${ctx}/fea/quotation/feaDesignReport/showImage?feaProjectB.id="+node.id +"&feaProjectB.projectName="+node.text,'800px', '500px', $('#feaDesignReportTable'));
   }
 
 </script>

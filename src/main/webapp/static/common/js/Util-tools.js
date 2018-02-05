@@ -39,3 +39,4 @@
 		}
 		return t.split("").reverse().join("") + "." + r;
 	}
+	

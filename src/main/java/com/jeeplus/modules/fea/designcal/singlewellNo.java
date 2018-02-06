@@ -61,10 +61,6 @@ public class singlewellNo {
 		Double hx2price = fea_design_setVO.getHx2();		// 热泵蒸发器侧循环水泵扬程
 		Double hb2price= fea_design_setVO.getHb2();		// 地下位置和末端高差
 		Double mpumpcoe = fea_design_setVO.getMpumpcoe();		// 补水泵流量系数（%）
-		Double cq1price= fea_design_setVO.getCq1price();		// 潜水泵单价
-		Double cb1price= fea_design_setVO.getCb1price();		// 补水泵单价
-		Double cx1price= fea_design_setVO.getCx1price();		// 循环水泵单价
-		Double cxb1price= fea_design_setVO.getCxb1price();
 
 		Double Q1 = 0.00;//一级板换供热量
 		if(null!=m && null!=t1 && null!=t2){

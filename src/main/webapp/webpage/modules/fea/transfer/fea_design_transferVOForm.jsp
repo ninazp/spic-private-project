@@ -90,21 +90,9 @@
 					<td class="width-35">
 						<form:input path="backhgheat" htmlEscape="false"    class="form-control  isFloatGtZero"/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">综合热效率：</label></td>
-					<td class="width-35">
-						<form:input path="sumheatefficient" htmlEscape="false"   max="1"  min="0" class="form-control  isFloatGtZero"/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">负荷率：</label></td>
-					<td class="width-35">
-						<form:input path="loadrate" htmlEscape="false"   max="1"  min="0" class="form-control  isFloatGtZero"/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">热泵效率：</label></td>
-					<td class="width-35">
-						<form:input path="pumprate" htmlEscape="false"    class="form-control  isFloatGtZero"/>
-					</td>
-				</tr>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

@@ -125,24 +125,6 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
-			,{
-		        field: 'sumheatefficient',
-		        title: '综合热效率',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'loadrate',
-		        title: '负荷率',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'pumprate',
-		        title: '热泵效率',
-		        sortable: true
-		       
-		    }
 		     ]
 		
 		});

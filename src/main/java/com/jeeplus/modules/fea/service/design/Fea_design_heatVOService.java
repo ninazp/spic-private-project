@@ -11,13 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
 
 /**
  * 供热参数Service
  * @author jw
- * @version 2018-01-20
+ * @version 2018-02-05
  */
 @Service
 @Transactional(readOnly = true)
@@ -43,11 +42,6 @@ public class Fea_design_heatVOService extends CrudService<Fea_design_heatVOMappe
 	@Transactional(readOnly = false)
 	public void delete(Fea_design_heatVO fea_design_heatVO) {
 		super.delete(fea_design_heatVO);
-	}
-	
-	public Fea_design_heatVO getFea_design_heatVOByProjectId(String projectId){
-		Fea_design_heatVO fea_design_heatVO = this.mapper.findUniqueByProperty("project_id", projectId);
-		return fea_design_heatVO;
 	}
 	
 }

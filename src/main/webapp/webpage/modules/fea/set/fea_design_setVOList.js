@@ -9,7 +9,7 @@ $(document).ready(function() {
                dataType: "json",
                //显示刷新按钮
                showRefresh: true,
-               //显示切换手机试图按钮
+//               //显示切换手机试图按钮
                showToggle: true,
                //显示 内容列下拉框
     	       showColumns: true,
@@ -73,91 +73,85 @@ $(document).ready(function() {
                onClickRow: function(row, $el){
                },
                columns: [{
-		        checkbox: true
-		       
-		    }
-			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
-		        field: 'hddept',
-		        title: '水下深度（米）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'hdlose',
-		        title: '压力损失（米）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'hx1',
-		        title: '热泵冷凝器侧循环水泵扬程',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'hx2',
-		        title: '热泵蒸发器侧循环水泵扬程',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'hb2',
-		        title: '地下位置和末端高差',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'mpumpcoe',
-		        title: '补水泵流量系数（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'cq1price',
-		        title: '潜水泵单价',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'cb1price',
-		        title: '补水泵单价',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'cx1price',
-		        title: '循环水泵单价',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'cxb1price',
-		        title: '变频控制柜单价',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
-		       
-		    }
-		     ]
-		
-		});
+   		        checkbox: true
+   		       
+   		    }
+   			,{
+   		        field: 'feaProjectB.projectName',
+   		        title: '项目名称',
+   		        sortable: true
+   		        ,formatter:function(value, row , index){
+    			    if(value == null){
+   		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+   		            }else{
+   		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+   		            }
+   		        }
+   		       
+   		    }
+   			,{
+   		        field: 'sumheatefficient',
+   		        title: '综合热效率',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'loadrate',
+   		        title: '负荷率',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'pumprate',
+   		        title: '热泵效率',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hddept',
+   		        title: '潜水泵水下位置（米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hdlose',
+   		        title: '潜水泵压力损失（米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hx1',
+   		        title: '水密度',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hx2',
+   		        title: '循环水泵扬程',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hb2',
+   		        title: '蒸发器侧水泵扬程',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'mpumpcoe',
+   		        title: '补水泵流量系数（%）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'remarks',
+   		        title: '备注信息',
+   		        sortable: true
+   		       
+   		    }
+   		     ]
+       		
+       		});
 		
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端

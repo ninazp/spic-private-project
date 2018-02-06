@@ -19,6 +19,12 @@
 		a.areaselect AS "areaselect",
 		a.dept AS "office.id",
 		a.remarks AS "remarks",
+		a.holeheight AS "holeheight",
+		a.flowcount AS "flowcount",
+		a.outheat AS "outheat",
+		a.waterlevel AS "waterlevel",
+		a.hgpbac AS "hgpbac",
+		a.hgpbbh AS "hgpbbh",
 				
 				
 				
@@ -110,7 +116,13 @@
 			buildheight,
 			areaselect,
 			dept,
-			remarks
+			remarks,
+			holeheight,
+			flowcount,
+			outheat,
+			waterlevel,
+			hgpbac,
+			hgpbbh
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -127,7 +139,13 @@
 			#{buildheight},
 			#{areaselect},
 			#{office.id},
-			#{remarks}
+			#{remarks},
+			#{holeheight},
+			#{flowcount},
+			#{outheat},
+			#{waterlevel},
+			#{hgpbac},
+			#{hgpbbh}
 		)
 	</insert>
 	
@@ -144,7 +162,13 @@
 			buildheight = #{buildheight},
 			areaselect = #{areaselect},
 			dept = #{office.id},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			holeheight = #{holeheight},
+			flowcount = #{flowcount},
+			outheat = #{outheat},
+			waterlevel = #{waterlevel},
+			hgpbac = #{hgpbac},
+			hgpbbh = #{hgpbbh}
 		WHERE id = #{id}
 	</update>
 	

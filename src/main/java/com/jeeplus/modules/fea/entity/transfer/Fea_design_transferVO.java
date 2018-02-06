@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 换热参数Entity
  * @author jw
- * @version 2018-01-21
+ * @version 2018-02-05
  */
 public class Fea_design_transferVO extends DataEntity<Fea_design_transferVO> {
 	

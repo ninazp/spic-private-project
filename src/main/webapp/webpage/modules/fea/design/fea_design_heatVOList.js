@@ -73,85 +73,109 @@ $(document).ready(function() {
                onClickRow: function(row, $el){
                },
                columns: [{
-		        checkbox: true
-		       
-		    }
-			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
-		        field: 'heatload',
-		        title: '热负荷指标（瓦/平方米）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatarea',
-		        title: '供热面积（平方米）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'powerfee',
-		        title: '电费（元/度）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatDays',
-		        title: '供暖天数',
-		        sortable: true,
-		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, row.heatDays, "-");
-		        }
-		    }
-			,{
-		        field: 'dayheathours',
-		        title: '每日供热小时数（小时）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'buildheight',
-		        title: '建筑物高度（米）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'areaselect',
-		        title: '分区选择',
-		        sortable: true,
-		        formatter:function(value, row , index){
-		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
-		        }
-		       
-		    }
-			,{
-		        field: 'office.name',
-		        title: '部门',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
-		       
-		    }
-		     ]
-		
-		});
-		
+   		        checkbox: true
+   		       
+   		    }
+   			,{
+   		        field: 'feaProjectB.projectName',
+   		        title: '项目名称',
+   		        sortable: true
+   		        ,formatter:function(value, row , index){
+    			    if(value == null){
+   		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+   		            }else{
+   		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+   		            }
+   		        }
+   		       
+   		    }
+   			,{
+   		        field: 'heatload',
+   		        title: '热负荷指标（瓦/平方米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'heatarea',
+   		        title: '供热面积（平方米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'powerfee',
+   		        title: '电费（元/度）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'heatdays',
+   		        title: '供热天数（天）',
+   		        sortable: true,
+   		        formatter:function(value, row , index){
+   		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('heating_days'))}, value, "-");
+   		        }
+   		       
+   		    }
+   			,{
+   		        field: 'dayheathours',
+   		        title: '每日供热小时数（小时）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'buildheight',
+   		        title: '建筑物高度（米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'areaselect',
+   		        title: '分区选择',
+   		        sortable: true,
+   		        formatter:function(value, row , index){
+   		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('yes_no'))}, value, "-");
+   		        }
+   		       
+   		    }
+   			,{
+   		        field: 'holeheight',
+   		        title: '井深（米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'flowcount',
+   		        title: '流量（立方米/小时）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'outheat',
+   		        title: '出口温度（摄氏度）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'waterlevel',
+   		        title: '动水位（米）',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hgpbac',
+   		        title: '回灌配比开采井',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'hgpbbh',
+   		        title: '回灌配比回灌井',
+   		        sortable: true
+   		       
+   		    }
+   		     ]
+   		
+   		});		
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端
 

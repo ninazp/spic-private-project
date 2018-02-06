@@ -4,31 +4,29 @@
     
 	<sql id="fea_design_setVOColumns">
 		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.del_flag AS "delFlag",
-		a.project_id AS "feaProjectB.id",
+		a.sumheatefficient AS "sumheatefficient",
+		a.loadrate AS "loadrate",
+		a.pumprate AS "pumprate",
 		a.hddept AS "hddept",
 		a.hdlose AS "hdlose",
-		a.hx1 AS "hx1",
+		a.rou AS "hx1",
 		a.hx2 AS "hx2",
 		a.hb2 AS "hb2",
 		a.mpumpcoe AS "mpumpcoe",
-		a.cq1price AS "cq1price",
-		a.cb1price AS "cb1price",
-		a.cx1price AS "cx1price",
-		a.cxb1price AS "cxb1price",
 		a.dept AS "office.id",
 		a.remarks AS "remarks",
 				
-				
-				
-				
-				
-				
 		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
 				
 				
 				
@@ -102,42 +100,40 @@
 	<insert id="insert">
 		INSERT INTO fea_design_set(
 			id,
+			project_id,
 			create_by,
 			create_date,
 			update_by,
 			update_date,
 			del_flag,
-			project_id,
+			sumheatefficient,
+			loadrate,
+			pumprate,
 			hddept,
 			hdlose,
-			hx1,
+			rou,
 			hx2,
 			hb2,
 			mpumpcoe,
-			cq1price,
-			cb1price,
-			cx1price,
-			cxb1price,
 			dept,
 			remarks
 		) VALUES (
 			#{id},
+			#{feaProjectB.id},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
 			#{delFlag},
-			#{feaProjectB.id},
+			#{sumheatefficient},
+			#{loadrate},
+			#{pumprate},
 			#{hddept},
 			#{hdlose},
 			#{hx1},
 			#{hx2},
 			#{hb2},
 			#{mpumpcoe},
-			#{cq1price},
-			#{cb1price},
-			#{cx1price},
-			#{cxb1price},
 			#{office.id},
 			#{remarks}
 		)
@@ -145,19 +141,18 @@
 	
 	<update id="update">
 		UPDATE fea_design_set SET 	
+			project_id = #{feaProjectB.id},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			project_id = #{feaProjectB.id},
+			sumheatefficient = #{sumheatefficient},
+			loadrate = #{loadrate},
+			pumprate = #{pumprate},
 			hddept = #{hddept},
 			hdlose = #{hdlose},
-			hx1 = #{hx1},
+			rou = #{hx1},
 			hx2 = #{hx2},
 			hb2 = #{hb2},
 			mpumpcoe = #{mpumpcoe},
-			cq1price = #{cq1price},
-			cb1price = #{cb1price},
-			cx1price = #{cx1price},
-			cxb1price = #{cxb1price},
 			dept = #{office.id},
 			remarks = #{remarks}
 		WHERE id = #{id}

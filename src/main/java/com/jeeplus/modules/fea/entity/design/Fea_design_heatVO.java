@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 供热参数Entity
  * @author jw
- * @version 2018-01-20
+ * @version 2018-02-05
  */
 public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 	
@@ -26,6 +26,12 @@ public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 	private Double buildheight;		// 建筑物高度（米）
 	private String areaselect;		// 分区选择
 	private Office office;		// 部门
+	private Double holeheight;		// 井深（米）
+	private Double flowcount;		// 流量（立方米/小时）
+	private Double outheat;		// 出口温度（摄氏度）
+	private Double waterlevel;		// 动水位（米）
+	private Double hgpbac;		// 回灌配比开采井
+	private Double hgpbbh;		// 回灌配比回灌井
 	
 	public Fea_design_heatVO() {
 		super();
@@ -71,7 +77,7 @@ public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 		this.powerfee = powerfee;
 	}
 	
-	@ExcelField(title="供暖天数（天）", dictType="heating_days", align=2, sort=10)
+	@ExcelField(title="供热天数（天）", dictType="heating_days", align=2, sort=10)
 	public Double getHeatdays() {
 		return heatdays;
 	}
@@ -114,6 +120,60 @@ public class Fea_design_heatVO extends DataEntity<Fea_design_heatVO> {
 
 	public void setOffice(Office office) {
 		this.office = office;
+	}
+	
+	@ExcelField(title="井深（米）", align=2, sort=16)
+	public Double getHoleheight() {
+		return holeheight;
+	}
+
+	public void setHoleheight(Double holeheight) {
+		this.holeheight = holeheight;
+	}
+	
+	@ExcelField(title="流量（立方米/小时）", align=2, sort=17)
+	public Double getFlowcount() {
+		return flowcount;
+	}
+
+	public void setFlowcount(Double flowcount) {
+		this.flowcount = flowcount;
+	}
+	
+	@ExcelField(title="出口温度（摄氏度）", align=2, sort=18)
+	public Double getOutheat() {
+		return outheat;
+	}
+
+	public void setOutheat(Double outheat) {
+		this.outheat = outheat;
+	}
+	
+	@ExcelField(title="动水位（米）", align=2, sort=19)
+	public Double getWaterlevel() {
+		return waterlevel;
+	}
+
+	public void setWaterlevel(Double waterlevel) {
+		this.waterlevel = waterlevel;
+	}
+	
+	@ExcelField(title="回灌配比开采井", align=2, sort=20)
+	public Double getHgpbac() {
+		return hgpbac;
+	}
+
+	public void setHgpbac(Double hgpbac) {
+		this.hgpbac = hgpbac;
+	}
+	
+	@ExcelField(title="回灌配比回灌井", align=2, sort=21)
+	public Double getHgpbbh() {
+		return hgpbbh;
+	}
+
+	public void setHgpbbh(Double hgpbbh) {
+		this.hgpbbh = hgpbbh;
 	}
 	
 }

@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.transfer;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.service.transfer.Fea_design_transferVOService;
 
@@ -90,6 +88,29 @@ public class Fea_design_transferVOController extends BaseController {
 		model.addAttribute("fea_design_transferVO", fea_design_transferVO);
 		return "modules/fea/transfer/fea_design_transferVOForm";
 	}
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:transfer:fea_design_transferVO:add","fea:transfer:fea_design_transferVO:edit","fea:transfer:fea_design_transferVO:list"},logical=Logical.OR)
+	@RequestMapping(value = "getFormByProjectId")
+	public AjaxJson getFormByProjectId(String feaProjectId, Fea_design_transferVO fea_design_transferVO, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		fea_design_transferVO = fea_design_transferVOService.getFea_design_transferVOByProjectId(feaProjectId);
+		if(null == fea_design_transferVO || null == fea_design_transferVO.getId()){
+			j.setSuccess(false);
+			j.setMsg("该项目没有数据，请点击修改进行数据录入");
+			return j;
+		}
+		
+		
+		Fea_design_transferVO re = new Fea_design_transferVO();
+		re = fea_design_transferVOService.get(fea_design_transferVO.getId());
+		//model.addAttribute("fea_design_heatVO", re);
+		j.setSuccess(true);
+		j.put("fea_design_heatVO", re);
+		j.setMsg("获取信息成功");
+		return j;
+	}
+
 
 	/**
 	 * 保存换热参数

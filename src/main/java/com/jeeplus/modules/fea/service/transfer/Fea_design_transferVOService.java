@@ -44,4 +44,9 @@ public class Fea_design_transferVOService extends CrudService<Fea_design_transfe
 		super.delete(fea_design_transferVO);
 	}
 	
+	public Fea_design_transferVO getFea_design_transferVOByProjectId(String projectId){
+		Fea_design_transferVO fea_design_transferVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_design_transferVO;
+	}
+	
 }

@@ -93,27 +93,11 @@ $(document).ready(function() {
 		        }
 		       
 		    }
-			/*,{
-		        field: 'projectcode',
-		        title: '项目编码',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'projectname',
-		        title: '项目名称',
-		        sortable: true
-		       
-		    }*/
-			,{
-		        field: 'persons',
-		        title: '定员（人）',
-		        sortable: true
-		       
-		    }
+			
+			
 			,{
 		        field: 'perwage',
-		        title: '年人均工资',
+		        title: '年人均工资（万元）',
 		        sortable: true
 		       
 		    }
@@ -124,26 +108,8 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'material',
-		        title: '材料费',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'insurance',
 		        title: '保险费率（%）',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'wateramt',
-		        title: '泵送费',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatdeposit',
-		        title: '供暖费',
 		        sortable: true
 		       
 		    }
@@ -367,7 +333,6 @@ $(document).ready(function() {
 						<thead>
 							<tr>
 								<th>成本种类</th>
-								<th>单位</th>
 								<th>第1年</th>
 								<th>第2年</th>
 								<th>第3年</th>
@@ -412,9 +377,6 @@ $(document).ready(function() {
 				<tr>
 					<td>
 						{{row.costtype}}
-					</td>
-					<td>
-						{{row.costunit}}
 					</td>
 					<td>
 						{{row.year1}}

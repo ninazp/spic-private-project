@@ -100,68 +100,42 @@
 		   <tbody>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目：</label></td>
-					<td class="width-15">
+					<td class="width-35">
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_productcostVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_productcostVO.feaProjectB.projectName}"
 							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">定员（人）：</label></td>
-					<td class="width-15">
-						<form:input path="persons" htmlEscape="false"    class="form-control required"/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">年人均工资：</label></td>
-					<td class="width-15">
-						<form:input path="perwage" htmlEscape="false"    class="form-control required"/>
+					<td class="width-15 active"><label class="pull-right">年人均工资（万元）：</label></td>
+					<td class="width-35">
+						<form:input path="perwage" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
-				<%-- <tr>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
-					<td class="width-35">
-						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr> --%>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">福利费系数（%）：</label></td>
-					<td class="width-15">
-						<form:input path="welfare" htmlEscape="false"    class="form-control required"/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">材料费：</label></td>
-					<td class="width-15">
-						<form:input path="material" htmlEscape="false"    class="form-control "/>
+					<td class="width-35">
+						<form:input path="welfare" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">保险费率（%）：</label></td>
-					<td class="width-15">
-						<form:input path="insurance" htmlEscape="false"    class="form-control required"/>
+					<td class="width-35">
+						<form:input path="insurance" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">泵送费：</label></td>
-					<td class="width-15">
-						<form:input path="wateramt" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">供暖费：</label></td>
-					<td class="width-15">
-						<form:input path="heatdeposit" htmlEscape="false"    class="form-control required"/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">无形资产摊销（年）：</label></td>
-					<td class="width-15">
+					<td class="width-35">
 						<form:input path="intangibletx" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">其他资产摊销（年）：</label></td>
-					<td class="width-15">
+					<td class="width-35">
 						<form:input path="otherassettx" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">其他费用：</label></td>
-					<td class="width-15">
+					<td class="width-35">
 						<form:input path="othercost" htmlEscape="false"    class="form-control "/>
 					</td>
 					<td class="width-15 active"></td>
-		   			<td class="width-15" ></td>
+		   			<td class="width-35" ></td>
 		  		</tr>
 		 	</tbody>
 		</table>
@@ -179,7 +153,6 @@
 						<th class="hide"></th>
 						<th width="10">&nbsp;</th>
 						<th width="150">成本种类</th>
-						<th width="100">单位</th>
 						<th width="100">第1年</th>
 						<th width="100">第2年</th>
 						<th width="100">第3年</th>
@@ -212,7 +185,6 @@
 						<th width="100">第30年</th>
 						<th width="100">第31年</th>
 						<th width="100">第32年</th>
-						
 					</tr>
 				</thead>
 				<tbody id="fea_productcostBVOList">
@@ -230,19 +202,17 @@
 					</td>
 					
 					<td>
-						<input id="fea_productcostBVOList{{idx}}_costtype" name="fea_productcostBVOList[{{idx}}].costtype" type="text" value="{{row.costtype}}"    class="form-control "/>
+						<select id="fea_productcostBVOList{{idx}}_costtype" name="fea_productcostBVOList[{{idx}}].costtype" data-value="{{row.costtype}}" class="form-control m-b  ">
+							<option value=""></option>
+							<c:forEach items="${fns:getDictList('costtype')}" var="dict">
+								<option value="${dict.value}">${dict.label}</option>
+							</c:forEach>
+						</select>
 					</td>
-					
-					
-					<td>
-						<input id="fea_productcostBVOList{{idx}}_costunit" name="fea_productcostBVOList[{{idx}}].costunit" type="text" value="{{row.costunit}}"    class="form-control "/>
-					</td>
-					
 					
 					<td>
 						<input id="fea_productcostBVOList{{idx}}_year1" name="fea_productcostBVOList[{{idx}}].year1" type="text" value="{{row.year1}}"    class="form-control "/>
 					</td>
-					
 					
 					<td>
 						<input id="fea_productcostBVOList{{idx}}_year2" name="fea_productcostBVOList[{{idx}}].year2" type="text" value="{{row.year2}}"    class="form-control "/>
@@ -420,8 +390,8 @@
 						if(data.success){
 						    var countyears = data.body.feaProjectB.countyears;//建设期
 						    var len = $('thead  tr th').length;
-						    if(isNull(countyears) && isNull(len) && len > countyears + 4){
-						    	var startHidecol = countyears + 4;  //4：隐藏列4个
+						    if(isNull(countyears) && isNull(len) && len > countyears + 3){
+						    	var startHidecol = countyears + 3;  //4：隐藏列4个
 						    	for(var i = startHidecol;i<len;i++){
 					    			$("#listTheadtr").find('th:eq('+i+')').addClass("hide");
 									$("#fea_productcostBVOList tr").find('td:eq('+i+')').addClass("hide");
@@ -442,7 +412,7 @@
 							var isChange = false;
 				            if(event.keyCode == "13")
 				            {
-				            	for(var i=4;i<inputList.length;i++){
+				            	for(var i=2;i<inputList.length;i++){
 				            		if(inputList.get(i).id == $(this).attr("id")){
 				            			isChange = true;
 				            		}
@@ -454,7 +424,7 @@
 				        });
 				        $(this).blur(function(){//失去焦点
 							var isChange = false;
-			            	for(var i=4;i<inputList.length;i++){
+			            	for(var i=2;i<inputList.length;i++){
 			            		if(inputList.get(i).id == $(this).attr("id")){
 			            			isChange = true;
 			            		}

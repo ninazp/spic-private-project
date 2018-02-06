@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 成本种类Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2018-02-06
  */
 public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 	
@@ -63,7 +63,7 @@ public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 		this.fea_productcost = fea_productcost;
 	}
 
-	@ExcelField(title="成本种类", align=2, sort=6)
+	@ExcelField(title="成本种类", dictType="costtype", align=2, sort=6)
 	public String getCosttype() {
 		return costtype;
 	}

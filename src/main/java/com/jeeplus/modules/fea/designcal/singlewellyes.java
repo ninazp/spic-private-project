@@ -12,7 +12,6 @@ import java.util.Map;
 import com.jeeplus.core.service.ServiceException;
 import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
-import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
@@ -22,7 +21,6 @@ import com.jeeplus.modules.sys.utils.UserUtils;
 public class singlewellyes {
 
 	public  static Map<String,Object> calsinglewellyes(Fea_design_heatVO  fea_design_heatVO,
-			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
 			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
@@ -30,7 +28,6 @@ public class singlewellyes {
 			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
 
 		Map<String,Object> retmap = new HashMap<String, Object>();
-		
 		Double q = fea_design_heatVO.getHeatload();
 		Double A = fea_design_heatVO.getHeatarea();
 		Double E1 = fea_design_heatVO.getPowerfee();
@@ -38,13 +35,12 @@ public class singlewellyes {
 		Double T = fea_design_heatVO.getDayheathours();
 		Double Hj = fea_design_heatVO.getBuildheight();
 
-
-		Double  H = fea_design_downholeVO.getHoleheight();
-		Double m  =fea_design_downholeVO.getFlowcount();
-		Double  t1 =fea_design_downholeVO.getOutheat();
-		Double  hd =fea_design_downholeVO.getWaterlevel();
-		Double  a =fea_design_downholeVO.getHgpbac();
-		Double  b =fea_design_downholeVO.getHgpbbh();
+		Double  H = fea_design_heatVO.getHoleheight();
+		Double m  =fea_design_heatVO.getFlowcount();
+		Double  t1 =fea_design_heatVO.getOutheat();
+		Double  hd =fea_design_heatVO.getWaterlevel();
+		Double  a =fea_design_heatVO.getHgpbac();
+		Double  b =fea_design_heatVO.getHgpbbh();
 
 		Double  t2 = fea_design_transferVO.getOneoutheat();
 		Double  tg = fea_design_transferVO.getTwooutheat();
@@ -56,16 +52,6 @@ public class singlewellyes {
 		Double  gmaq = fea_design_transferVO.getLoadrate();
 		Double  cop = fea_design_transferVO.getPumprate();
 		
-//		Double hddept = fea_design_setVO.getHddept();
-//		Double hdlose = fea_design_setVO.getHddept();
-//		Double hx1price = fea_design_setVO.getHx1();;		// 热泵冷凝器侧循环水泵扬程
-//		Double hx2price = fea_design_setVO.getHx2();		// 热泵蒸发器侧循环水泵扬程
-//		Double hb2price= fea_design_setVO.getHb2();		// 地下位置和末端高差
-//		Double mpumpcoe = fea_design_setVO.getMpumpcoe();		// 补水泵流量系数（%）
-//		Double cq1price= fea_design_setVO.getCq1price();		// 潜水泵单价
-//		Double cb1price= fea_design_setVO.getCb1price();		// 补水泵单价
-//		Double cx1price= fea_design_setVO.getCx1price();		// 循环水泵单价
-//		Double cxb1price= fea_design_setVO.getCxb1price();
 
 		Double Q1 = 0.00;//一级板换供热量
 		if(null!=m && null!=t1 && null!=t2){

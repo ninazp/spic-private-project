@@ -120,7 +120,7 @@ $(document).ready(function() {
    		       
    		    }
    			,{
-   		        field: 'hx1',
+   		        field: 'rou',
    		        title: '水密度',
    		        sortable: true
    		       

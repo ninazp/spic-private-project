@@ -57,6 +57,8 @@ public class PubDesignCal extends Exception{
 	@Autowired
 	private FeaDesignReportMapper feaDesignReportMapper;
 	
+
+	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> calprocess(String  projectid) throws Exception{
 		
@@ -67,20 +69,17 @@ public class PubDesignCal extends Exception{
 		List<Fea_design_heatVO>  heatVO = (List<Fea_design_heatVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_heat", "id", " project_id='"+projectvo.getId()+"' ", heatVOMapper);
 		
-		List<Fea_design_downholeVO>   downholeVO = (List<Fea_design_downholeVO>) PubBaseDAO.
-				getMutiParentVO("fea_design_downhole", "id", " project_id='"+projectvo.getId()+"' ", downholeVOMapper);
-		
 		List<Fea_design_transferVO>  transferVO = (List<Fea_design_transferVO>) PubBaseDAO.
 				getMutiParentVO("fea_design_transfer", "id", " project_id='"+projectvo.getId()+"' ", transferVOMapper);
 		
 		List<Fea_design_heatbenVO>   heatbenVO = (List<Fea_design_heatbenVO>) PubBaseDAO.getMutiParentVOByorder
-				("fea_design_heatben", "id", " del_flag = 0 ", "qr2"  ,heatbenVOMapper);
+				("fea_design_heatben", "id", " del_flag = 0 and  project_id='"+projectvo.getId()+"' ", "qr2"  ,heatbenVOMapper);
 		
 		List<Fea_design_heattransVO>   heattransVO = (List<Fea_design_heattransVO>) PubBaseDAO.
-				getMutiParentVO("fea_design_heattrans", "id", " del_flag = 0  ", heattransVOMapper);
+				getMutiParentVO("fea_design_heattrans", "id", " del_flag = 0  and  project_id='"+projectvo.getId()+"' ", heattransVOMapper);
 		
 		List<Fea_design_setVO>   setvolst = (List<Fea_design_setVO>) PubBaseDAO.
-				getMutiParentVO("fea_design_set", "id", " del_flag = 0 ", setVOMapper);
+				getMutiParentVO("fea_design_set", "id", " del_flag = 0 and  project_id='"+projectvo.getId()+"' ", setVOMapper);
 		
 		FeaProjectB  projectqueryvo = projectBMapper.get(projectvo.getId());
 		
@@ -89,12 +88,12 @@ public class PubDesignCal extends Exception{
 		List<List<Double>> pricech = getpricech(heattransVO);
 		List<List<Double>> heatpumpprice = getheatpumpprice(heatbenVO);
 		
-		if(null!=heatVO && null!=downholeVO && null!=transferVO){
+		if(null!=heatVO &&  null!=transferVO){
 			if(heatVO.get(0).getAreaselect().equals("Y") || heatVO.get(0).getAreaselect().equals("1")){
-				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), downholeVO.get(0),
+				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), 
 						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}else{
-				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), downholeVO.get(0),
+				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), 
 						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}
 			

@@ -22,7 +22,6 @@ import com.jeeplus.modules.sys.utils.UserUtils;
 public class singlewellNo {
 
 	public  static Map<String,Object> calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
-			Fea_design_downholeVO fea_design_downholeVO,
 			Fea_design_transferVO fea_design_transferVO,
 			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
@@ -38,12 +37,12 @@ public class singlewellNo {
 		Double T = fea_design_heatVO.getDayheathours();
 		Double Hj = fea_design_heatVO.getBuildheight();
 
-		Double  H = fea_design_downholeVO.getHoleheight();
-		Double m  =fea_design_downholeVO.getFlowcount();
-		Double  t1 =fea_design_downholeVO.getOutheat();
-		Double  hd =fea_design_downholeVO.getWaterlevel();
-		Double  a =fea_design_downholeVO.getHgpbac();
-		Double  b =fea_design_downholeVO.getHgpbbh();
+		Double  H = fea_design_heatVO.getHoleheight();
+		Double m  =fea_design_heatVO.getFlowcount();
+		Double  t1 =fea_design_heatVO.getOutheat();
+		Double  hd =fea_design_heatVO.getWaterlevel();
+		Double  a =fea_design_heatVO.getHgpbac();
+		Double  b =fea_design_heatVO.getHgpbbh();
 
 		Double  t2 = fea_design_transferVO.getOneoutheat();
 		Double  tg = fea_design_transferVO.getTwooutheat();
@@ -57,7 +56,7 @@ public class singlewellNo {
 		
 		Double hddept = fea_design_setVO.getHddept();
 		Double hdlose = fea_design_setVO.getHddept();
-		Double hx1price = fea_design_setVO.getHx1();;		// 热泵冷凝器侧循环水泵扬程
+		Double rou = fea_design_setVO.getRou();;		// 热泵冷凝器侧循环水泵扬程
 		Double hx2price = fea_design_setVO.getHx2();		// 热泵蒸发器侧循环水泵扬程
 		Double hb2price= fea_design_setVO.getHb2();		// 地下位置和末端高差
 		Double mpumpcoe = fea_design_setVO.getMpumpcoe();		// 补水泵流量系数（%）
@@ -156,8 +155,6 @@ public class singlewellNo {
 		}
 
 		//************** 4、潜水泵模块 **************//
-		Double rou = 1000.00;//固定参数 - 柔 - 密度 www
-
 		Double hq = hd+30;//（程序中备注：10米：水面下10米；20米为泵送热水系统压力损失）
 
 		Double Pq = rou*m*hq*1.15*9.8/(3600*0.75*1000);//kwh

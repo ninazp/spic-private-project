@@ -175,7 +175,7 @@
 					<td class="width-35"><form:input path="investtotal"
 							htmlEscape="false" class="form-control required" /></td>
 				</tr>
-				<tr>
+			   <%-- 	<tr>
 					<td class="width-15 active"><label class="pull-right">增值税抵扣：</label></td>
 					<td class="width-35"><form:select path="isdeductvtax"
 							class="form-control ">
@@ -186,7 +186,8 @@
 					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
 					<td class="width-35"><form:input path="deductvtax"
 							htmlEscape="false" class="form-control " /></td>
-				</tr>
+				       </tr>
+				--%>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">资本金比例(%)：</label></td>
 					<td class="width-35"><form:input path="capitalprop"

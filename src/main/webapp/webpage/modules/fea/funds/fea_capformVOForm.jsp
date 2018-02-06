@@ -76,7 +76,7 @@
 					</td>
 				</tr> --%>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">折旧年限（年）：</label></td>
 					<td class="width-35">
 						<form:input path="uselifefat" htmlEscape="false"    class="form-control required"/>
 					</td>
@@ -90,7 +90,7 @@
 					<td class="width-35">
 						<form:input path="intangibleprop" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">折旧年限（年）：</label></td>
 					<td class="width-35">
 						<form:input path="usefullitb" htmlEscape="false"    class="form-control "/>
 					</td>
@@ -100,7 +100,7 @@
 					<td class="width-35">
 						<form:input path="otherprop" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">折旧年限（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">折旧年限（年）：</label></td>
 					<td class="width-35">
 						<form:input path="uselifeother" htmlEscape="false"    class="form-control "/>
 					</td>

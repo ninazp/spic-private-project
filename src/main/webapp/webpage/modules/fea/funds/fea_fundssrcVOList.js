@@ -109,7 +109,7 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'isdeductvtax',
 		        title: '增值税抵扣',
 		        sortable: true,
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		        title: '可抵扣税金',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'capitalprop',
 		        title: '资本金比例(%)',

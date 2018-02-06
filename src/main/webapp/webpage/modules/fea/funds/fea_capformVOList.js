@@ -109,7 +109,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'uselifefat',
-		        title: '折旧年限（%）',
+		        title: '折旧年限（年）',
 		        sortable: true
 		       
 		    }
@@ -127,7 +127,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'usefullitb',
-		        title: '折旧年限（%）',
+		        title: '折旧年限（年）',
 		        sortable: true
 		       
 		    }
@@ -139,7 +139,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'uselifeother',
-		        title: '折旧年限（%）',
+		        title: '折旧年限（年）',
 		        sortable: true
 		       
 		    }

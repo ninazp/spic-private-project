@@ -44,4 +44,9 @@ public class Fea_design_heatVOService extends CrudService<Fea_design_heatVOMappe
 		super.delete(fea_design_heatVO);
 	}
 	
+	public Fea_design_heatVO getFea_design_heatVOByProjectId(String projectId){
+		Fea_design_heatVO fea_design_heatVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_design_heatVO;
+	}
+	
 }

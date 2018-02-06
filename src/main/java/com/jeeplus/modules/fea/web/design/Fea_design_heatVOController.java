@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.design;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.service.design.Fea_design_heatVOService;
 
@@ -89,6 +87,29 @@ public class Fea_design_heatVOController extends BaseController {
 	public String form(Fea_design_heatVO fea_design_heatVO, Model model) {
 		model.addAttribute("fea_design_heatVO", fea_design_heatVO);
 		return "modules/fea/design/fea_design_heatVOForm";
+	}
+	
+
+	@ResponseBody
+	@RequiresPermissions(value={"fea:design:fea_design_heatVO:add","fea:design:fea_design_heatVO:edit","fea:design:fea_design_heatVO:list"},logical=Logical.OR)
+	@RequestMapping(value = "getFormByProjectId")
+	public AjaxJson getFormByProjectId(String feaProjectId, Fea_design_heatVO fea_design_heatVO, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		fea_design_heatVO = fea_design_heatVOService.getFea_design_heatVOByProjectId(feaProjectId);
+		if(null == fea_design_heatVO || null == fea_design_heatVO.getId()){
+			j.setSuccess(false);
+			j.setMsg("该项目未进行供热参数录入，请点击修改进行数据录入");
+			return j;
+		}
+		
+		
+		Fea_design_heatVO re = new Fea_design_heatVO();
+		re = fea_design_heatVOService.get(fea_design_heatVO.getId());
+		//model.addAttribute("fea_design_heatVO", re);
+		j.setSuccess(true);
+		j.put("fea_design_heatVO", re);
+		j.setMsg("获取信息成功");
+		return j;
 	}
 
 	/**

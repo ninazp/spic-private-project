@@ -559,6 +559,33 @@ public class singlewellNo {
 		rettable1.add(ccol16);rettable1.add(col11);rettable1.add(colend);
 		
 		retmap.put("设备清单", rettable1);
+		
+		List<List<String>> djlist = new ArrayList<List<String>>();
+		List<String> d1 = new ArrayList<String>();
+		d1.add("一级板换供热量Q1");
+		d1.add(""+Q1);
+		d1.add("千瓦时");
+		List<String> d2 = new ArrayList<String>();
+		d2.add("一级板换最大供热面积A1");
+		d2.add(""+A1);
+		d2.add("平方米");
+		List<String> d3 = new ArrayList<String>();
+		d3.add("二级板换+热泵供热量Q2");
+		d3.add(""+Q2);
+		d3.add("千瓦时");
+		List<String> d4 = new ArrayList<String>();
+		d4.add("二级板换供热面积A2");
+		d4.add(""+A2);
+		d4.add("平方米");
+		List<String> d5 = new ArrayList<String>();
+		d5.add("单井最大供热面积Ad");
+		d5.add(""+Ad);
+		d5.add("平方米");
+		djlist.add(d1);djlist.add(d2);djlist.add(d3);
+		djlist.add(d4);djlist.add(d5);
+		
+		retmap.put("单井供热", djlist);
+		
 
 		return retmap;
 

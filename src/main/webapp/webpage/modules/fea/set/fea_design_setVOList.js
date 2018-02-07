@@ -120,7 +120,7 @@ $(document).ready(function() {
    		       
    		    }
    			,{
-   		        field: 'hx1',
+   		        field: 'rou',
    		        title: '水密度',
    		        sortable: true
    		       
@@ -237,12 +237,15 @@ $(document).ready(function() {
 		  }
   }
   function edit(id){//没有权限时，不显示确定按钮
-	  readOnly(false);
-	  /*如果id数据不存在，视为新增数据，初始化一些字段，如：项目*/
-	  var id = $("#inputForm input[name='id']").val();
-	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
-	  $("#inputForm input[name='feaProjectB.projectName']").val(node.text);
-	  $("#inputForm input[name='feaProjectB.id']").val(node.id);
+  	  if(id == undefined){
+			id = getIdSelections();
+		}
+	   <shiro:hasPermission name="fea:set:fea_design_setVO:edit">
+	  jp.openDialog('编辑基本参数', "${ctx}/fea/set/fea_design_setVO/form?id=" + id,'800px', '500px', $('#fea_design_setVOTable'));
+	   </shiro:hasPermission>
+	  <shiro:lacksPermission name="fea:set:fea_design_setVO:edit">
+	  jp.openDialogView('查看基本参数', "${ctx}/fea/set/fea_design_setVO/form?id=" + id,'800px', '500px', $('#fea_design_setVOTable'));
+	  </shiro:lacksPermission>
   }
 
 </script>

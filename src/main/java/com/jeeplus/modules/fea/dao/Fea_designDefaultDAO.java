@@ -148,12 +148,12 @@ public class Fea_designDefaultDAO {
 		vo.setOffice(UserUtils.getOfficeList().get(0));
 		
 		vo.setHeatload(45.00);
-		vo.setHeatarea(projectvo.getHeatArea());
+		vo.setHeatarea(projectvo.getHeatArea()*10000);
 		vo.setPowerfee(0.486);
 		vo.setHeatdays(projectvo.getHeatDays());
 		vo.setDayheathours(24.00);
 		vo.setBuildheight(45.00);
-		vo.setAreaselect("2");
+		vo.setAreaselect("0");
 		vo.setHoleheight(1200.00);
 		vo.setFlowcount(100.00);
 		vo.setOutheat(68.00);

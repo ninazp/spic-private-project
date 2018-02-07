@@ -13,7 +13,6 @@ import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
-import com.jeeplus.modules.fea.entity.downhole.Fea_design_downholeVO;
 import com.jeeplus.modules.fea.entity.heatben.Fea_design_heatbenVO;
 import com.jeeplus.modules.fea.entity.heattrans.Fea_design_heattransVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
@@ -22,7 +21,6 @@ import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
-import com.jeeplus.modules.fea.mapper.downhole.Fea_design_downholeVOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
@@ -38,8 +36,6 @@ public class PubDesignCal extends Exception{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private Fea_design_heatVOMapper	heatVOMapper;
-	@Autowired
-	private Fea_design_downholeVOMapper	downholeVOMapper;
 	@Autowired
 	private Fea_design_transferVOMapper	transferVOMapper;
 	@Autowired
@@ -111,8 +107,11 @@ public class PubDesignCal extends Exception{
 						reportvo.setFeaProjectB(projectvo);
 						reportvo.setName(rt.get(0));
 						reportvo.setParameter(rt.get(1));
-						reportvo.setNumber(Double.valueOf(rt.get(2)));
-						reportvo.setPrice(Double.valueOf(rt.get(3)));
+						Double n = (null!=rt.get(3) && rt.get(3).trim().length()>0)?Double.valueOf(rt.get(3).trim()):0.00;
+						reportvo.setNumber(n);
+						Double nval = (null!=rt.get(5) && rt.get(5).trim().length()>0)?Double.valueOf(rt.get(5).trim()):0.00;
+						reportvo.setPrice(nval);
+						reportvo.setRemarks(rt.get(8));
 						if(i>9){
 							reportvo.setRownum("9"+i+"");
 						}else{

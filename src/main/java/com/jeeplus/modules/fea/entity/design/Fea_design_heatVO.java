@@ -10,7 +10,7 @@ import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
 
 /**
- * 供热参数Entity
+ * 供热及井下参数
  * @author jw
  * @version 2018-02-05
  */

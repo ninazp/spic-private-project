@@ -8,15 +8,53 @@
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="fea_design_equiplst2VOList.js" %>
+	<%@include file="/webpage/modules/fea/project/feaProjectBTreeListPublic.js" %>
+	<script type="text/javascript">
+		function selectproject(){
+			var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+			$("#feaProjectBId").val(node.id);
+			$("#feaProjectBName").val(node.text);
+			var opt = {
+					silent: true,
+					query:{
+						'feaProjectB.id':node.id
+					}
+				};
+			$('#fea_design_equiplst2VOTable').bootstrapTable('refresh',opt);
+			//alert("选中了："+node.text);
+		}
+	</script>
 </head>
 <body>
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">地热供暖项目设备清单2列表</h3>
+		<h3 class="panel-title">部分设备清单录入</h3>
 	</div>
 	<div class="panel-body">
-		<sys:message content="${message}"/>
+		<div class="row">
+				<div class="col-sm-4 col-md-3" >
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-10" >
+								<div class="input-search">
+									<button type="submit" class="input-search-btn">
+										<i class="fa fa-search" aria-hidden="true"></i></button>
+									<input   id="search_q" type="text" class="form-control input-sm" name="" placeholder="查找...">
+
+								</div>
+							</div>
+							<%-- <div class="col-sm-2" >
+								<button  class="btn btn-default btn-sm"  onclick="jp.openDialog('新建项目（主表）', '${ctx}/fea/project/feaProject/form','800px', '500px', $('#feaProjectjsTree'))">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div> --%>
+						</div>
+					</div>
+					<div id="feaProjectjsTree"></div>
+				</div>
+		<div  class="col-sm-8 col-md-9 animated fadeInRight">
+	<sys:message content="${message}"/>
 	
 	<!-- 搜索 -->
 	<div class="accordion-group">

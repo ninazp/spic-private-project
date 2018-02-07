@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.funds;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 import com.jeeplus.modules.fea.service.funds.Fea_capformVOService;
 
@@ -89,6 +87,28 @@ public class Fea_capformVOController extends BaseController {
 	public String form(Fea_capformVO fea_capformVO, Model model) {
 		model.addAttribute("fea_capformVO", fea_capformVO);
 		return "modules/fea/funds/fea_capformVOForm";
+	}
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:funds:fea_capformVO:add","fea:funds:fea_capformVO:edit","fea:funds:fea_capformVO:list"},logical=Logical.OR)
+	@RequestMapping(value = "getFormByProjectId")
+	public AjaxJson getFormByProjectId(String feaProjectId, Fea_capformVO fea_capformVO, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		fea_capformVO = fea_capformVOService.getFea_capformVOByProjectId(feaProjectId);
+		if(null == fea_capformVO || null == fea_capformVO.getId()){
+			j.setSuccess(false);
+			j.setMsg("该项目没有数据，请点击修改进行数据录入");
+			return j;
+		}
+		
+		
+		Fea_capformVO re = new Fea_capformVO();
+		re = fea_capformVOService.get(fea_capformVO.getId());
+		//model.addAttribute("fea_design_heatVO", re);
+		j.setSuccess(true);
+		j.put("fea_design_heatVO", re);
+		j.setMsg("获取信息成功");
+		return j;
 	}
 
 	/**

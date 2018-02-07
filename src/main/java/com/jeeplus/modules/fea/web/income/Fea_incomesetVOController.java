@@ -34,6 +34,7 @@ import com.jeeplus.core.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
 import com.jeeplus.modules.fea.service.income.Fea_incomesetVOService;
 
@@ -89,6 +90,28 @@ public class Fea_incomesetVOController extends BaseController {
 	public String form(Fea_incomesetVO fea_incomesetVO, Model model) {
 		model.addAttribute("fea_incomesetVO", fea_incomesetVO);
 		return "modules/fea/income/fea_incomesetVOForm";
+	}
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:income:fea_incomesetVO:add","fea:income:fea_incomesetVO:edit","fea:income:fea_incomesetVO:list"},logical=Logical.OR)
+	@RequestMapping(value = "getFormByProjectId")
+	public AjaxJson getFormByProjectId(String feaProjectId, Fea_incomesetVO fea_incomesetVO, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		fea_incomesetVO = fea_incomesetVOService.getFea_incomesetVOByProjectId(feaProjectId);
+		if(null == fea_incomesetVO || null == fea_incomesetVO.getId()){
+			j.setSuccess(false);
+			j.setMsg("该项目没有数据，请点击修改进行数据录入");
+			return j;
+		}
+		
+		
+		Fea_incomesetVO re = new Fea_incomesetVO();
+		re = fea_incomesetVOService.get(fea_incomesetVO.getId());
+		//model.addAttribute("fea_design_heatVO", re);
+		j.setSuccess(true);
+		j.put("fea_design_heatVO", re);
+		j.setMsg("获取信息成功");
+		return j;
 	}
 
 	/**

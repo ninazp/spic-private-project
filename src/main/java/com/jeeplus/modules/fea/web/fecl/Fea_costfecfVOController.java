@@ -3,8 +3,6 @@
  */
 package com.jeeplus.modules.fea.web.fecl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.service.fecl.Fea_costfecfVOService;
 
@@ -89,6 +87,28 @@ public class Fea_costfecfVOController extends BaseController {
 	public String form(Fea_costfecfVO fea_costfecfVO, Model model) {
 		model.addAttribute("fea_costfecfVO", fea_costfecfVO);
 		return "modules/fea/fecl/fea_costfecfVOForm";
+	}
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:fecl:fea_costfecfVO:add","fea:fecl:fea_costfecfVO:edit","fea:fecl:fea_costfecfVO:list"},logical=Logical.OR)
+	@RequestMapping(value = "getFormByProjectId")
+	public AjaxJson getFormByProjectId(String feaProjectId, Fea_costfecfVO fea_costfecfVO, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		fea_costfecfVO = fea_costfecfVOService.getFea_costfecfVOByProjectId(feaProjectId);
+		if(null == fea_costfecfVO || null == fea_costfecfVO.getId()){
+			j.setSuccess(false);
+			j.setMsg("该项目没有数据，请点击修改进行数据录入");
+			return j;
+		}
+		
+		
+		Fea_costfecfVO re = new Fea_costfecfVO();
+		re = fea_costfecfVOService.get(fea_costfecfVO.getId());
+		//model.addAttribute("fea_design_heatVO", re);
+		j.setSuccess(true);
+		j.put("fea_design_heatVO", re);
+		j.setMsg("获取信息成功");
+		return j;
 	}
 
 	/**

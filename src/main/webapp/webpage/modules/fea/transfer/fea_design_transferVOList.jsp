@@ -224,12 +224,12 @@
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:design:fea_design_heatVO:edit">
+			<shiro:hasPermission name="fea:transfer:fea_design_transferVO:edit">
 			    <button id="save" class="btn btn-danger" onclick="doSubmit()">
 	            	<i class="glyphicon glyphicon-ok-sign"></i> 保存
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:design:fea_design_heatVO:edit">
+			<shiro:hasPermission name="fea:transfer:fea_design_transferVO:edit">
 			    <button id="cancel" class="btn btn-default" onclick="readOnly(true)">
 	            	<i class="glyphicon glyphicon-off"></i> 取消
 	        	</button>

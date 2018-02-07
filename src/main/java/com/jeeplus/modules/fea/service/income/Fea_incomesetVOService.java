@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
+import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
 import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
 import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
 
@@ -42,6 +43,11 @@ public class Fea_incomesetVOService extends CrudService<Fea_incomesetVOMapper, F
 	@Transactional(readOnly = false)
 	public void delete(Fea_incomesetVO fea_incomesetVO) {
 		super.delete(fea_incomesetVO);
+	}
+	
+	public Fea_incomesetVO getFea_incomesetVOByProjectId(String projectId){
+		Fea_incomesetVO fea_incomesetVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_incomesetVO;
 	}
 	
 }

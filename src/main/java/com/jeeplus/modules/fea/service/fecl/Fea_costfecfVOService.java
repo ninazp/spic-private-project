@@ -44,4 +44,9 @@ public class Fea_costfecfVOService extends CrudService<Fea_costfecfVOMapper, Fea
 		super.delete(fea_costfecfVO);
 	}
 	
+	public Fea_costfecfVO getFea_costfecfVOByProjectId(String projectId){
+		Fea_costfecfVO fea_costfecfVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_costfecfVO;
+	}
+	
 }

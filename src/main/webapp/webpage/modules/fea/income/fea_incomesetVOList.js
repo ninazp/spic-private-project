@@ -289,15 +289,12 @@ $(document).ready(function() {
 	  jp.openDialog('新增基本参数', "${ctx}/fea/income/fea_incomesetVO/form",'800px', '500px', $('#fea_incomesetVOTable'));
   }
   function edit(id){//没有权限时，不显示确定按钮
-  	  if(id == undefined){
-			id = getIdSelections();
-		}
-	   <shiro:hasPermission name="fea:income:fea_incomesetVO:edit">
-	  jp.openDialog('编辑基本参数', "${ctx}/fea/income/fea_incomesetVO/form?id=" + id,'800px', '500px', $('#fea_incomesetVOTable'));
-	   </shiro:hasPermission>
-	  <shiro:lacksPermission name="fea:income:fea_incomesetVO:edit">
-	  jp.openDialogView('查看基本参数', "${ctx}/fea/income/fea_incomesetVO/form?id=" + id,'800px', '500px', $('#fea_incomesetVOTable'));
-	  </shiro:lacksPermission>
+	  readOnly(false);
+	  /*如果id数据不存在，视为新增数据，初始化一些字段，如：项目*/
+	  var id = $("#inputForm input[name='id']").val();
+	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	  $("#inputForm input[name='feaProjectB.projectName']").val(node.text);
+	  $("#inputForm input[name='feaProjectB.id']").val(node.id);
   }
 
 </script>

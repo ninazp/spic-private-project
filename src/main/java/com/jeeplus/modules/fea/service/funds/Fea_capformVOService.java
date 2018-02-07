@@ -44,4 +44,9 @@ public class Fea_capformVOService extends CrudService<Fea_capformVOMapper, Fea_c
 		super.delete(fea_capformVO);
 	}
 	
+	public Fea_capformVO getFea_capformVOByProjectId(String projectId){
+		Fea_capformVO fea_capformVO = this.mapper.findUniqueByProperty("project_id", projectId);
+		return fea_capformVO;
+	}
+	
 }

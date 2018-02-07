@@ -208,15 +208,12 @@ $(document).ready(function() {
 	  jp.openDialog('新增财务费用及流动资金', "${ctx}/fea/fecl/fea_costfecfVO/form",'800px', '500px', $('#fea_costfecfVOTable'));
   }
   function edit(id){//没有权限时，不显示确定按钮
-  	  if(id == undefined){
-			id = getIdSelections();
-		}
-	   <shiro:hasPermission name="fea:fecl:fea_costfecfVO:edit">
-	  jp.openDialog('编辑财务费用及流动资金', "${ctx}/fea/fecl/fea_costfecfVO/form?id=" + id,'800px', '500px', $('#fea_costfecfVOTable'));
-	   </shiro:hasPermission>
-	  <shiro:lacksPermission name="fea:fecl:fea_costfecfVO:edit">
-	  jp.openDialogView('查看财务费用及流动资金', "${ctx}/fea/fecl/fea_costfecfVO/form?id=" + id,'800px', '500px', $('#fea_costfecfVOTable'));
-	  </shiro:lacksPermission>
+	  readOnly(false);
+	  /*如果id数据不存在，视为新增数据，初始化一些字段，如：项目*/
+	  var id = $("#inputForm input[name='id']").val();
+	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	  $("#inputForm input[name='feaProjectB.projectName']").val(node.text);
+	  $("#inputForm input[name='feaProjectB.id']").val(node.id);
   }
 
 </script>

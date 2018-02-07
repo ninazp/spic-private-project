@@ -232,15 +232,12 @@ $(document).ready(function() {
 	  jp.openDialog('新增资产形成', "${ctx}/fea/funds/fea_capformVO/form",'800px', '500px', $('#fea_capformVOTable'));
   }
   function edit(id){//没有权限时，不显示确定按钮
-  	  if(id == undefined){
-			id = getIdSelections();
-		}
-	   <shiro:hasPermission name="fea:funds:fea_capformVO:edit">
-	  jp.openDialog('编辑资产形成', "${ctx}/fea/funds/fea_capformVO/form?id=" + id,'800px', '500px', $('#fea_capformVOTable'));
-	   </shiro:hasPermission>
-	  <shiro:lacksPermission name="fea:funds:fea_capformVO:edit">
-	  jp.openDialogView('查看资产形成', "${ctx}/fea/funds/fea_capformVO/form?id=" + id,'800px', '500px', $('#fea_capformVOTable'));
-	  </shiro:lacksPermission>
+	  readOnly(false);
+	  /*如果id数据不存在，视为新增数据，初始化一些字段，如：项目*/
+	  var id = $("#inputForm input[name='id']").val();
+	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	  $("#inputForm input[name='feaProjectB.projectName']").val(node.text);
+	  $("#inputForm input[name='feaProjectB.id']").val(node.id);
   }
 
 </script>

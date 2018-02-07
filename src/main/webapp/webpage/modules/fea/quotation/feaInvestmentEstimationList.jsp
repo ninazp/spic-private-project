@@ -143,6 +143,7 @@
 	<script>
 		var hot;
 		var projectIds = '';
+		var projectName = '';
 		$(document).ready(function() {
 				init(projectIds);
 		});
@@ -153,6 +154,7 @@
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
+ 				    	projectName = data.projectName;
  				    	execute(data.projectId);
  	      	  		}else{
  	      	  			jp.error("获取项目信息失败");
@@ -186,34 +188,40 @@
 		           ["换热站设备购置费及安装工程投资估算表","","","","","","","","",""],
 		           //["工程名称：","","","","","","","","",""],
 		           ["","","","","","","","","",""],
-		           ["", "", "","","","设备购置费估算金额（万元）","","安装工程费估算金额（万元）","",""],
-		           ["序号", "工程或费用名称", "设备性能参数","单位","数量","厂价或询价，含运杂费（万元/单位）","合计","费率（％） 或指标","合计","备注"],
+		           ["序号", "工程或费用名称", "设备性能参数","单位","数量","设备购置费估算金额（万元）","","安装工程费估算金额（万元）","","备注"],
+		           ["", "", "","","","厂价或询价，含运杂费（万元/单位）","合计","费率（％） 或指标","合计",""],
 		           [""]
 		    ];
  			//报表数据
 			var array = eval(datas);
 			var colLeg = array[0].length;
 			//计算年份数据 和 时期数据
-			var yearAndPeriodArray = yearAndPeriodDatas(colLeg);
+			//var yearAndPeriodArray = yearAndPeriodDatas(colLeg);
 			//计算列宽
-			var colWidthsArray = getColWidths(colLeg);
+			//var colWidthsArray = getColWidths(colLeg);
 
 			function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
+                    td.style = "font-size: 20px;vertical-align: middle;text-align:center";
                     td.style.color = '#000000';
-                    td.style.textAlign = 'center';
-                    //td.style.fontSize= = 50px;
+                    //td.style.textAlign = 'center';
+                	td.style.fontWeight = 'bold';//黑体
+                    //td.style.margin = '0';
+                    //td.style.className='htRight htMiddle';
+                    //td.style.fontSize= = 12px;
+            }
+            function headerRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                	td.style = "vertical-align: middle;text-align:center";
+                    td.style.color = '#000000';
+                	td.style.fontWeight = 'bold';//黑体
             }
             function SecondRowRenderer(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
+                	td.style = "vertical-align: middle";
                     td.style.color = '#000000';
-                    td.style.textAlign = 'right';
-            }
-            function ThirdRowRenderer(instance, td, row, col, prop, value, cellProperties) {
-                Handsontable.renderers.TextRenderer.apply(this, arguments);
-                    td.style.color = '#000000';
-                    td.style.lineHeight =4;
-                    td.style.textAlign = 'right';
+                    td.style.textAlign = 'left';
+                    td.style.fontWeight = 'bold';//黑体
             }
             
             function col1Renderer(instance, td, row, col, prop, value, cellProperties) {
@@ -230,10 +238,10 @@
                     td.innerText = value != null ? fmoney(value ,2) : "0.00";
             }
             Handsontable.renderers.registerRenderer('firstRowRenderer', firstRowRenderer);
+            Handsontable.renderers.registerRenderer('headerRowRenderer', headerRowRenderer);
             Handsontable.renderers.registerRenderer('SecondRowRenderer', SecondRowRenderer);
-            Handsontable.renderers.registerRenderer('ThirdRowRenderer', ThirdRowRenderer);
-            Handsontable.renderers.registerRenderer('col1Renderer', col1Renderer);
-            Handsontable.renderers.registerRenderer('formatamount', formatamount);
+            //Handsontable.renderers.registerRenderer('col1Renderer', col1Renderer);
+            //Handsontable.renderers.registerRenderer('formatamount', formatamount);
             
             var hotElement = document.getElementById('report');
 		    var hotElementContainer = hotElement.parentNode;
@@ -244,9 +252,10 @@
 			    //width: 1648,
 			    autoWrapRow: true,
 			    height: 500,
-			    maxRows: 22,
+			    maxRows: 100,
 			    //maxCols: 15,
-			    colWidths:colWidthsArray,
+			    colWidths:[40,110,300,80,80,250,80,150,80,250],
+			    rowHeights:[40],//定义行高度
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
 			    //autoColumnSize:true,
 			    rowHeaders: true,
@@ -256,7 +265,14 @@
 			    	//第二行
 			    	{row:1, col:0, rowspan:1, colspan:10},
 			    	//第三行
-			    	//{row:2, col:4, rowspan:1, colspan:10},//冻结的话  合并不生效
+			    	{row:2, col:0, rowspan:2, colspan:1},
+			    	{row:2, col:1, rowspan:2, colspan:1},
+			    	{row:2, col:2, rowspan:2, colspan:1},
+			    	{row:2, col:3, rowspan:2, colspan:1},
+			    	{row:2, col:4, rowspan:2, colspan:1},
+			    	{row:2, col:5, rowspan:1, colspan:2},
+			    	{row:2, col:7, rowspan:1, colspan:2},
+			    	{row:2, col:9, rowspan:2, colspan:1},
 			    	//其他行
 			    	//{row:2, col:0, rowspan:2, colspan:1},
 			    	//{row:2, col:2, rowspan:2, colspan:1},
@@ -265,21 +281,29 @@
 			    contextMenu: true,
 			    colHeaders:true,
 			    cells: function(row, col, prop) {//单元格渲染  
-			    	if(row>3 && col>1){
+			    
+			    	if(row==0){
+			    		this.renderer = firstRowRenderer;
+			    	}else if(row == 1){
+			    		this.renderer = SecondRowRenderer;
+			    	}else if(row==2 || row==3){
+			    		this.renderer = headerRowRenderer;
+			    	}
+			    	/* if(row>3 && col>1){
 			    		this.renderer = formatamount;
 			    	}
 			    	else if(row==1){
 			    		this.renderer = SecondRowRenderer;
 			    	}
-			    	/* else if(row==2){
+			    	else if(row==2){
 			    		this.renderer = ThirdRowRenderer;
-			    	} */
+			    	} 
 			    	else if(row >3 && (col == 0 || col == 1)){
 			    		this.renderer = col1Renderer;
 			    	}
 			    	else{
                     	this.renderer = firstRowRenderer;
-			    	}
+			    	} */
             	}
             	//, fixedRowsTop:4
             	//,fixedColumnsLeft:2
@@ -309,8 +333,10 @@
 			   */
 			 //填充报表数据
 		     hot.populateFromArray(4, 2, array, 15, colLeg+1, "populateFromArray", "overwrite", null, null);
+		     var projectData = [["工程名称：".concat(projectName)]];
+		     hot.populateFromArray(1, 0, projectData, 1, 0, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
-		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
+		     //hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
 		     
 		}
@@ -373,7 +399,8 @@
 			return t.split("").reverse().join("") + "." + r;
 		}
 		
-		function callback(projectIds){
+		function callback(projectIds,name){
+			projectName = name;
 			init(projectIds);
 		}
 		
@@ -391,8 +418,8 @@
 						<tr>
 							<td class="width-15 active"><label class="pull-right">项目：</label></td>
 							<td class="width-70">
-								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
-									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
+								<sys:gridselectCallback2 url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback2>
 							</td>
 							<td>
 								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>

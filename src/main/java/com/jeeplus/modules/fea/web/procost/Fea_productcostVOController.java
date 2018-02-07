@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.procost.Fea_productcostVOService;
 /**
  * 生成成本Controller
  * @author jw
- * @version 2017-12-06
+ * @version 2018-02-06
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/procost/fea_productcostVO")

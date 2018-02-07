@@ -22,7 +22,7 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	private Double pumprate;		// 热泵效率
 	private Double hddept;		// 潜水泵水下位置（米）
 	private Double hdlose;		// 潜水泵压力损失（米）
-	private Double hx1;		// 水密度
+	private Double rou;		// 水密度
 	private Double hx2;		// 循环水泵扬程
 	private Double hb2;		// 蒸发器侧水泵扬程
 	private Double mpumpcoe;		// 补水泵流量系数（%）
@@ -91,12 +91,12 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	}
 	
 	@ExcelField(title="水密度", align=2, sort=12)
-	public Double getHx1() {
-		return hx1;
+	public Double getRou() {
+		return rou;
 	}
 
-	public void setHx1(Double hx1) {
-		this.hx1 = hx1;
+	public void setRou(Double rou) {
+		this.rou = rou;
 	}
 	
 	@ExcelField(title="循环水泵扬程", align=2, sort=13)

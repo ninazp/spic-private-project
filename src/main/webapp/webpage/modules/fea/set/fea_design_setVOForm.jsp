@@ -88,7 +88,7 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">水密度：</label></td>
 					<td class="width-35">
-						<form:input path="hx1" htmlEscape="false"    class="form-control isFloatGtZero "/>
+						<form:input path="rou" htmlEscape="false"    class="form-control isFloatGtZero "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">循环水泵扬程：</label></td>
 					<td class="width-35">

@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 生成成本Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2018-02-06
  */
 public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 	
@@ -22,10 +22,10 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
 	private Double persons;		// 定员（人）
-	private Double perwage;		// 年人均工资
+	private Double perwage;		// 年人均工资（万元）
 	private Double welfare;		// 福利费系数（%）
 	private Double material;		// 材料费
-	private Double insurance;		// 保险费率（‰）
+	private Double insurance;		// 保险费率（%）
 	private Double wateramt;		// 泵送费
 	private Double heatdeposit;		// 供暖费
 	private Double intangibletx;		// 无形资产摊销（年）
@@ -77,7 +77,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.persons = persons;
 	}
 	
-	@ExcelField(title="年人均工资", align=2, sort=10)
+	@ExcelField(title="年人均工资（万元）", align=2, sort=10)
 	public Double getPerwage() {
 		return perwage;
 	}
@@ -104,7 +104,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.material = material;
 	}
 	
-	@ExcelField(title="保险费率（‰）", align=2, sort=13)
+	@ExcelField(title="保险费率（%）", align=2, sort=13)
 	public Double getInsurance() {
 		return insurance;
 	}

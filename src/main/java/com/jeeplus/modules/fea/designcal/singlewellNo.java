@@ -341,10 +341,10 @@ public class singlewellNo {
 		col1.add("地热井潜水泵");
 		String col1str = "流量 "+getDouble2float(m)+" m³/h;\n "+ "扬程  "+getDouble2float(hq)+" m;\n "
 		+ "电机功率 "+getDouble2float(Pq)+" kW ";
-		col1.add("台");
 		col1.add(col1str);
+		col1.add("台");
 		col1.add(""+2*Nk);
-		col1.add(""+Cq1);
+		col1.add(""+getDouble2float(Cq1));
 		col1.add(getDouble2float(Cq)+"");
 		col1.add("15%");
 		col1.add(""+getDouble2float(Cq*0.15));
@@ -448,7 +448,7 @@ public class singlewellNo {
 		col8.add(col8str);
 		col8.add("台");
 		col8.add(""+2*Nk);
-		col8.add(""+Cx1);
+		col8.add(""+getDouble2float(Cx1));
 		col8.add(""+getDouble2float(2*Nk*Cx1+Nk*Cxb1));
 		col8.add("15%");
 		col8.add(""+getDouble2float((2*Nk*Cx1+Nk*Cxb1)*0.15));
@@ -462,7 +462,7 @@ public class singlewellNo {
 		col9.add(col9str);
 		col9.add("台");
 		col9.add(""+2*Nk);
-		col9.add(""+Cx3);
+		col9.add(""+getDouble2float(Cx3));
 		col9.add(""+getDouble2float(2*Nk*Cx3+Nk*Cxb3));
 		col9.add("15%");
 		col9.add(""+getDouble2float((2*Nk*Cx3+Nk*Cxb3)*0.15));
@@ -476,7 +476,7 @@ public class singlewellNo {
 		col10.add(col10str);
 		col10.add("台");
 		col10.add(""+2*Nk);
-		col10.add(""+Cx2);
+		col10.add(""+getDouble2float(Cx2));
 		col10.add(""+getDouble2float(2*Nk*Cx2));
 		col10.add("15%");
 		col10.add(""+getDouble2float(2*Nk*Cx2*0.15));
@@ -490,7 +490,7 @@ public class singlewellNo {
 		ccol15.add("");
 		ccol15.add("套");
 		ccol15.add(""+Nk);
-		ccol15.add(""+Cxb1);
+		ccol15.add(""+getDouble2float(Cxb1));
 		ccol15.add(""+getDouble2float(Nk*Cxb1));
 		ccol15.add("15%");
 		ccol15.add(""+getDouble2float(Nk*Cxb1*0.15));
@@ -504,7 +504,7 @@ public class singlewellNo {
 		ccol17.add("");
 		ccol17.add("套");
 		ccol17.add(""+Nk);
-		ccol17.add(""+Cxb2);
+		ccol17.add(""+getDouble2float(Cxb2));
 		ccol17.add(""+getDouble2float(Nk*Cxb2));
 		ccol17.add("15%");
 		ccol17.add(""+getDouble2float(Nk*Cxb2*0.15));
@@ -518,7 +518,7 @@ public class singlewellNo {
 		ccol16.add("");
 		ccol16.add("套");
 		ccol16.add(""+Nk);
-		ccol16.add(""+Cxb3);
+		ccol16.add(""+getDouble2float(Cxb3));
 		ccol16.add(""+getDouble2float(Nk*Cxb3));
 		ccol16.add("15%");
 		ccol16.add(""+getDouble2float(Nk*Cxb3*0.15));
@@ -533,7 +533,7 @@ public class singlewellNo {
 		col11.add(col11str);
 		col11.add("台");
 		col11.add(""+2*Nk);
-		col11.add(""+Cb1);
+		col11.add(""+getDouble2float(Cb1));
 		col11.add(""+getDouble2float(2*Nk*Cb1));
 		col11.add("15%");
 		col11.add(""+getDouble2float((2*Nk*Cb1)*0.15));
@@ -547,9 +547,9 @@ public class singlewellNo {
 		colend.add(" ");
 		colend.add(" ");
 		colend.add(" ");
-		colend.add(" "+totalgs);
+		colend.add(" "+getDouble2float(totalgs));
 		colend.add("15%");
-		colend.add(""+totalfl);
+		colend.add(""+getDouble2float(totalfl));
 		colend.add(" ");
 
 		rettable1.add(col1);rettable1.add(col2);rettable1.add(col3);

@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2015-2020 <a href="http://www.jeeplus.org/">JeePlus</a> All rights reserved.
  */
-package com.jeeplus.modules.fea.web.quotation;
+package com.jeeplus.modules.feareport.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,108 +38,108 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.designcal.PubDesignCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
-import com.jeeplus.modules.fea.entity.quotation.FeaInvestmentEstimation;
-import com.jeeplus.modules.fea.service.quotation.FeaInvestmentEstimationService;
+import com.jeeplus.modules.feareport.entity.ReportTotalEstimation;
+import com.jeeplus.modules.feareport.service.ReportTotalEstimationService;
 
 /**
- * 换热站设备购置费及安装工程投资估算Controller
+ * 总估算表Controller
  * @author zp
- * @version 2018-02-07
+ * @version 2018-02-08
  */
 @Controller
-@RequestMapping(value = "${adminPath}/fea/quotation/feaInvestmentEstimation")
-public class FeaInvestmentEstimationController extends BaseController {
+@RequestMapping(value = "${adminPath}/feareport/reportTotalEstimation")
+public class ReportTotalEstimationController extends BaseController {
 
 	@Autowired
-	private FeaInvestmentEstimationService feaInvestmentEstimationService;
+	private ReportTotalEstimationService reportTotalEstimationService;
 	
 	@ModelAttribute
-	public FeaInvestmentEstimation get(@RequestParam(required=false) String id) {
-		FeaInvestmentEstimation entity = null;
+	public ReportTotalEstimation get(@RequestParam(required=false) String id) {
+		ReportTotalEstimation entity = null;
 		if (StringUtils.isNotBlank(id)){
-			entity = feaInvestmentEstimationService.get(id);
+			entity = reportTotalEstimationService.get(id);
 		}
 		if (entity == null){
-			entity = new FeaInvestmentEstimation();
+			entity = new ReportTotalEstimation();
 		}
 		return entity;
 	}
 	
 	/**
-	 * 换热站设备购置费及安装工程投资估算列表页面
+	 * 总估算表列表页面
 	 */
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:list")
+	@RequiresPermissions("feareport:reportTotalEstimation:list")
 	@RequestMapping(value = {"list", ""})
 	public String list() {
-		return "modules/fea/quotation/feaInvestmentEstimationList";
+		return "modules/feareport/reportTotalEstimationList";
 	}
 	
 		/**
-	 * 换热站设备购置费及安装工程投资估算列表数据
+	 * 总估算表列表数据
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:list")
+	@RequiresPermissions("feareport:reportTotalEstimation:list")
 	@RequestMapping(value = "data")
-	public Map<String, Object> data(FeaInvestmentEstimation feaInvestmentEstimation, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<FeaInvestmentEstimation> page = feaInvestmentEstimationService.findPage(new Page<FeaInvestmentEstimation>(request, response), feaInvestmentEstimation); 
+	public Map<String, Object> data(ReportTotalEstimation reportTotalEstimation, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<ReportTotalEstimation> page = reportTotalEstimationService.findPage(new Page<ReportTotalEstimation>(request, response), reportTotalEstimation); 
 		return getBootstrapData(page);
 	}
 
 	/**
-	 * 查看，增加，编辑换热站设备购置费及安装工程投资估算表单页面
+	 * 查看，增加，编辑总估算表表单页面
 	 */
-	@RequiresPermissions(value={"fea:quotation:feaInvestmentEstimation:view","fea:quotation:feaInvestmentEstimation:add","fea:quotation:feaInvestmentEstimation:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:reportTotalEstimation:view","feareport:reportTotalEstimation:add","feareport:reportTotalEstimation:edit"},logical=Logical.OR)
 	@RequestMapping(value = "form")
-	public String form(FeaInvestmentEstimation feaInvestmentEstimation, Model model) {
-		model.addAttribute("feaInvestmentEstimation", feaInvestmentEstimation);
-		return "modules/fea/quotation/feaInvestmentEstimationForm";
+	public String form(ReportTotalEstimation reportTotalEstimation, Model model) {
+		model.addAttribute("reportTotalEstimation", reportTotalEstimation);
+		return "modules/feareport/reportTotalEstimationForm";
 	}
 
 	/**
-	 * 保存换热站设备购置费及安装工程投资估算
+	 * 保存总估算表
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"fea:quotation:feaInvestmentEstimation:add","fea:quotation:feaInvestmentEstimation:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:reportTotalEstimation:add","feareport:reportTotalEstimation:edit"},logical=Logical.OR)
 	@RequestMapping(value = "save")
-	public AjaxJson save(FeaInvestmentEstimation feaInvestmentEstimation, Model model, RedirectAttributes redirectAttributes) throws Exception{
+	public AjaxJson save(ReportTotalEstimation reportTotalEstimation, Model model, RedirectAttributes redirectAttributes) throws Exception{
 		AjaxJson j = new AjaxJson();
-		if (!beanValidator(model, feaInvestmentEstimation)){
+		if (!beanValidator(model, reportTotalEstimation)){
 			j.setSuccess(false);
 			j.setMsg("非法参数！");
 			return j;
 		}
-		feaInvestmentEstimationService.save(feaInvestmentEstimation);//新建或者编辑保存
+		reportTotalEstimationService.save(reportTotalEstimation);//新建或者编辑保存
 		j.setSuccess(true);
-		j.setMsg("保存换热站设备购置费及安装工程投资估算成功");
+		j.setMsg("保存总估算表成功");
 		return j;
 	}
 	
 	/**
-	 * 删除换热站设备购置费及安装工程投资估算
+	 * 删除总估算表
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:del")
+	@RequiresPermissions("feareport:reportTotalEstimation:del")
 	@RequestMapping(value = "delete")
-	public AjaxJson delete(FeaInvestmentEstimation feaInvestmentEstimation, RedirectAttributes redirectAttributes) {
+	public AjaxJson delete(ReportTotalEstimation reportTotalEstimation, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
-		feaInvestmentEstimationService.delete(feaInvestmentEstimation);
-		j.setMsg("删除换热站设备购置费及安装工程投资估算成功");
+		reportTotalEstimationService.delete(reportTotalEstimation);
+		j.setMsg("删除总估算表成功");
 		return j;
 	}
 	
 	/**
-	 * 批量删除换热站设备购置费及安装工程投资估算
+	 * 批量删除总估算表
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:del")
+	@RequiresPermissions("feareport:reportTotalEstimation:del")
 	@RequestMapping(value = "deleteAll")
 	public AjaxJson deleteAll(String ids, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		String idArray[] =ids.split(",");
 		for(String id : idArray){
-			feaInvestmentEstimationService.delete(feaInvestmentEstimationService.get(id));
+			reportTotalEstimationService.delete(reportTotalEstimationService.get(id));
 		}
-		j.setMsg("删除换热站设备购置费及安装工程投资估算成功");
+		j.setMsg("删除总估算表成功");
 		return j;
 	}
 	
@@ -147,20 +147,20 @@ public class FeaInvestmentEstimationController extends BaseController {
 	 * 导出excel文件
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:export")
+	@RequiresPermissions("feareport:reportTotalEstimation:export")
     @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(FeaInvestmentEstimation feaInvestmentEstimation, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    public AjaxJson exportFile(ReportTotalEstimation reportTotalEstimation, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "换热站设备购置费及安装工程投资估算"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<FeaInvestmentEstimation> page = feaInvestmentEstimationService.findPage(new Page<FeaInvestmentEstimation>(request, response, -1), feaInvestmentEstimation);
-    		new ExportExcel("换热站设备购置费及安装工程投资估算", FeaInvestmentEstimation.class).setDataList(page.getList()).write(response, fileName).dispose();
+            String fileName = "总估算表"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+            Page<ReportTotalEstimation> page = reportTotalEstimationService.findPage(new Page<ReportTotalEstimation>(request, response, -1), reportTotalEstimation);
+    		new ExportExcel("总估算表", ReportTotalEstimation.class).setDataList(page.getList()).write(response, fileName).dispose();
     		j.setSuccess(true);
     		j.setMsg("导出成功！");
     		return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
-			j.setMsg("导出换热站设备购置费及安装工程投资估算记录失败！失败信息："+e.getMessage());
+			j.setMsg("导出总估算表记录失败！失败信息："+e.getMessage());
 		}
 			return j;
     }
@@ -169,7 +169,7 @@ public class FeaInvestmentEstimationController extends BaseController {
 	 * 导入Excel数据
 
 	 */
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:import")
+	@RequiresPermissions("feareport:reportTotalEstimation:import")
     @RequestMapping(value = "import", method=RequestMethod.POST)
     public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
@@ -177,10 +177,10 @@ public class FeaInvestmentEstimationController extends BaseController {
 			int failureNum = 0;
 			StringBuilder failureMsg = new StringBuilder();
 			ImportExcel ei = new ImportExcel(file, 1, 0);
-			List<FeaInvestmentEstimation> list = ei.getDataList(FeaInvestmentEstimation.class);
-			for (FeaInvestmentEstimation feaInvestmentEstimation : list){
+			List<ReportTotalEstimation> list = ei.getDataList(ReportTotalEstimation.class);
+			for (ReportTotalEstimation reportTotalEstimation : list){
 				try{
-					feaInvestmentEstimationService.save(feaInvestmentEstimation);
+					reportTotalEstimationService.save(reportTotalEstimation);
 					successNum++;
 				}catch(ConstraintViolationException ex){
 					failureNum++;
@@ -189,37 +189,38 @@ public class FeaInvestmentEstimationController extends BaseController {
 				}
 			}
 			if (failureNum>0){
-				failureMsg.insert(0, "，失败 "+failureNum+" 条换热站设备购置费及安装工程投资估算记录。");
+				failureMsg.insert(0, "，失败 "+failureNum+" 条总估算表记录。");
 			}
-			addMessage(redirectAttributes, "已成功导入 "+successNum+" 条换热站设备购置费及安装工程投资估算记录"+failureMsg);
+			addMessage(redirectAttributes, "已成功导入 "+successNum+" 条总估算表记录"+failureMsg);
 		} catch (Exception e) {
-			addMessage(redirectAttributes, "导入换热站设备购置费及安装工程投资估算失败！失败信息："+e.getMessage());
+			addMessage(redirectAttributes, "导入总估算表失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/fea/quotation/feaInvestmentEstimation/?repage";
+		return "redirect:"+Global.getAdminPath()+"/feareport/reportTotalEstimation/?repage";
     }
 	
 	/**
-	 * 下载导入换热站设备购置费及安装工程投资估算数据模板
+	 * 下载导入总估算表数据模板
 	 */
-	@RequiresPermissions("fea:quotation:feaInvestmentEstimation:import")
+	@RequiresPermissions("feareport:reportTotalEstimation:import")
     @RequestMapping(value = "import/template")
     public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
-            String fileName = "换热站设备购置费及安装工程投资估算数据导入模板.xlsx";
-    		List<FeaInvestmentEstimation> list = Lists.newArrayList(); 
-    		new ExportExcel("换热站设备购置费及安装工程投资估算数据", FeaInvestmentEstimation.class, 1).setDataList(list).write(response, fileName).dispose();
+            String fileName = "总估算表数据导入模板.xlsx";
+    		List<ReportTotalEstimation> list = Lists.newArrayList(); 
+    		new ExportExcel("总估算表数据", ReportTotalEstimation.class, 1).setDataList(list).write(response, fileName).dispose();
     		return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入模板下载失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/fea/quotation/feaInvestmentEstimation/?repage";
+		return "redirect:"+Global.getAdminPath()+"/feareport/reportTotalEstimation/?repage";
     }
 	
+
 	/**
 	 * 获取报表数据
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"fea:quotation:feaInvestmentEstimation:add","fea:quotation:feaInvestmentEstimation:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:reportTotalEstimation:add","feareport:reportTotalEstimation:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getReportDatas")
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
@@ -264,7 +265,7 @@ public class FeaInvestmentEstimationController extends BaseController {
 	 * 获取项目数据
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"fea:quotation:feaInvestmentEstimation:add","fea:quotation:feaInvestmentEstimation:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"feareport:reportTotalEstimation:add","feareport:reportTotalEstimation:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getProjectDatas")
 	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
@@ -273,7 +274,7 @@ public class FeaInvestmentEstimationController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		List<FeaProjectB> project = new ArrayList<FeaProjectB>();
 		
-		project = feaInvestmentEstimationService.getProjectDatas();
+		project = reportTotalEstimationService.getProjectDatas();
 		// 倒叙排序去第一条作为默认值返回
 		ids = project.get(0).getId();
 		projectName = project.get(0).getProjectName();

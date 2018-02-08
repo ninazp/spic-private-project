@@ -371,10 +371,10 @@ public class singlewellyes {
 		col1.add("地热井潜水泵");
 		String col1str = "流量 "+getDouble2float(m)+" m³/h;\n "+ "扬程  "+getDouble2float(hq)+" m;\n "
 				+ "电机功率 "+getDouble2float(Pq)+" kW ";
-		col1.add("台");
 		col1.add(col1str);
+		col1.add("台");
 		col1.add(""+2*Nk);
-		col1.add(""+Cq1);
+		col1.add(""+getDouble2float(Cq1));
 		col1.add(getDouble2float(Cq)+"");
 		col1.add("15%");
 		col1.add(""+getDouble2float(Cq*0.15));
@@ -478,7 +478,7 @@ public class singlewellyes {
 		col8.add(col8str);
 		col8.add("台");
 		col8.add(""+2*Nk);
-		col8.add(""+Chx1);
+		col8.add(""+getDouble2float(Chx1));
 		col8.add(""+getDouble2float(2*Nk*Chx1+Nk*Chxb1));
 		col8.add("15%");
 		col8.add(""+getDouble2float((2*Nk*Chx1+Nk*Chxb1)*0.15));
@@ -493,7 +493,7 @@ public class singlewellyes {
 		col9.add(col9str);
 		col9.add("台");
 		col9.add(""+2*Nk);
-		col9.add(""+Cdx1);
+		col9.add(""+getDouble2float(Cdx1));
 		col9.add(""+getDouble2float(2*Nk*Cdx1+Nk*Cdxb1));
 		col9.add("15%");
 		col9.add(""+getDouble2float((2*Nk*Cdx1+Nk*Cdxb1)*0.15));
@@ -508,7 +508,7 @@ public class singlewellyes {
 		col10.add(col10str);
 		col10.add("台");
 		col10.add(""+2*Nk);
-		col10.add(""+Chx3);
+		col10.add(""+getDouble2float(Chx3));
 		col10.add(""+getDouble2float(2*Nk*Chx3+Nk*Chxb3));
 		col10.add("15%");
 		col10.add(""+getDouble2float((2*Nk*Chx3+Nk*Chxb3)*0.15));
@@ -524,7 +524,7 @@ public class singlewellyes {
 		col11.add(col11str);
 		col11.add("台");
 		col11.add(""+2*Nk);
-		col11.add(""+Cdx3);
+		col11.add(""+getDouble2float(Cdx3));
 		col11.add(""+getDouble2float(2*Nk*Cdx3+Nk*Cdxb3));
 		col11.add("15%");
 		col11.add(""+getDouble2float((2*Nk*Cdx3+Nk*Cdxb3)*0.15));
@@ -539,7 +539,7 @@ public class singlewellyes {
 		col12.add(col12str);
 		col12.add("台");
 		col12.add(""+2*Nk);
-		col12.add(""+Cdx2);
+		col12.add(""+getDouble2float(Cdx2));
 		col12.add(""+getDouble2float(2*Nk*Cdx2));
 		col12.add("15%");
 		col12.add(""+getDouble2float(2*Nk*Cdx2*0.15));
@@ -553,7 +553,7 @@ public class singlewellyes {
 		col13.add("");
 		col13.add("套");
 		col13.add(""+Nk);
-		col13.add(""+Chxb1);
+		col13.add(""+getDouble2float(Chxb1));
 		col13.add(""+getDouble2float(Nk*Chxb1));
 		col13.add("15%");
 		col13.add(""+getDouble2float(Nk*Chxb1*0.15));
@@ -566,7 +566,7 @@ public class singlewellyes {
 		col14.add("");
 		col14.add("套");
 		col14.add(""+Nk);
-		col14.add(""+Cdxb1);
+		col14.add(""+getDouble2float(Cdxb1));
 		col14.add(""+getDouble2float(Nk*Cdxb1));
 		col14.add("15%");
 		col14.add(""+getDouble2float(Nk*Cdxb1*0.15));
@@ -580,7 +580,7 @@ public class singlewellyes {
 		col15.add("");
 		col15.add("套");
 		col15.add(""+Nk);
-		col15.add(""+Chxb3);
+		col15.add(""+getDouble2float(Chxb3));
 		col15.add(""+getDouble2float(Nk*Chxb3));
 		col15.add("15%");
 		col15.add(""+getDouble2float(Nk*Chxb3*0.15));
@@ -594,7 +594,7 @@ public class singlewellyes {
 		col16.add("");
 		col16.add("套");
 		col16.add(""+Nk);
-		col16.add(""+Cdxb3);
+		col16.add(""+getDouble2float(Cdxb3));
 		col16.add(""+getDouble2float(Nk*Cdxb3));
 		col16.add("15%");
 		col16.add(""+getDouble2float(Nk*Cdxb3*0.15));
@@ -607,7 +607,7 @@ public class singlewellyes {
 		col17.add("");
 		col17.add("套");
 		col17.add(""+Nk);
-		col17.add(""+Cdxb2);
+		col17.add(""+getDouble2float(Cdxb2));
 		col17.add(""+getDouble2float(Nk*Cdxb2));
 		col17.add("15%");
 		col17.add(""+getDouble2float(Nk*Cdxb2*0.15));
@@ -622,7 +622,7 @@ public class singlewellyes {
 		col18.add(col18str);
 		col18.add("台");
 		col18.add(""+2*Nk);
-		col18.add(""+Chb1);
+		col18.add(""+getDouble2float(Chb1));
 		col18.add(""+getDouble2float(2*Nk*Chb1));
 		col18.add("15%");
 		col18.add(""+getDouble2float(2*Nk*Chb1*0.15));
@@ -638,7 +638,7 @@ public class singlewellyes {
 		col19.add(col19str);
 		col19.add("台");
 		col19.add(""+2*Nk);
-		col19.add(""+Cb2);
+		col19.add(""+getDouble2float(Cb2));
 		col19.add(""+getDouble2float(2*Nk*Cb2));
 		col19.add("15%");
 		col19.add(""+getDouble2float(2*Nk*Cb2*0.15));
@@ -652,9 +652,9 @@ public class singlewellyes {
 		colend.add(" ");
 		colend.add(" ");
 		colend.add(" ");
-		colend.add(""+totalgs);
+		colend.add(""+getDouble2float(totalgs));
 		colend.add("15%");
-		colend.add(""+totalfl);
+		colend.add(""+getDouble2float(totalfl));
 		colend.add(" ");
 
 		rettable1.add(col1);rettable1.add(col2);rettable1.add(col3);

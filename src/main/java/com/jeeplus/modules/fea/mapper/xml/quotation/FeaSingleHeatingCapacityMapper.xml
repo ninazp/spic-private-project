@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.fea.mapper.quotation.FeaSingleHeatingCapacityMapper">
+    
+	<sql id="feaSingleHeatingCapacityColumns">
+		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.dept AS "office.id",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="feaSingleHeatingCapacityJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
+	</sql>
+	
+    
+	<select id="get" resultType="FeaSingleHeatingCapacity" >
+		SELECT 
+			<include refid="feaSingleHeatingCapacityColumns"/>
+		FROM fea_single_heating_capacity a
+		<include refid="feaSingleHeatingCapacityJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FeaSingleHeatingCapacity" >
+		SELECT 
+			<include refid="feaSingleHeatingCapacityColumns"/>
+		FROM fea_single_heating_capacity a
+		<include refid="feaSingleHeatingCapacityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="feaProjectB != null and feaProjectB.id != null and feaProjectB.id != ''">
+				AND a.project_id = #{feaProjectB.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="FeaSingleHeatingCapacity" >
+		SELECT 
+			<include refid="feaSingleHeatingCapacityColumns"/>
+		FROM fea_single_heating_capacity a
+		<include refid="feaSingleHeatingCapacityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO fea_single_heating_capacity(
+			id,
+			project_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			dept
+		) VALUES (
+			#{id},
+			#{feaProjectB.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{office.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fea_single_heating_capacity SET 	
+			project_id = #{feaProjectB.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			dept = #{office.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM fea_single_heating_capacity
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE fea_single_heating_capacity SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="FeaSingleHeatingCapacity" statementType="STATEMENT">
+		select * FROM fea_single_heating_capacity  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

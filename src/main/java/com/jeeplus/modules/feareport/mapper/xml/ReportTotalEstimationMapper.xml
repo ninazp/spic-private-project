@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.feareport.mapper.ReportTotalEstimationMapper">
+    
+	<sql id="reportTotalEstimationColumns">
+		a.id AS "id",
+		a.project_id AS "feaProjectB.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.dept AS "office.id",
+				
+		feaProjectB.project_name AS "feaProjectB.projectName",
+				
+				
+				
+				
+				
+				
+				
+		office.name AS "office.name"
+	</sql>
+	
+	<sql id="reportTotalEstimationJoins">
+		
+		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
+		LEFT JOIN sys_office office ON office.id = a.dept
+	</sql>
+	
+    
+	<select id="get" resultType="ReportTotalEstimation" >
+		SELECT 
+			<include refid="reportTotalEstimationColumns"/>
+		FROM report_total_estimation a
+		<include refid="reportTotalEstimationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ReportTotalEstimation" >
+		SELECT 
+			<include refid="reportTotalEstimationColumns"/>
+		FROM report_total_estimation a
+		<include refid="reportTotalEstimationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="feaProjectB != null and feaProjectB.id != null and feaProjectB.id != ''">
+				AND a.project_id = #{feaProjectB.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ReportTotalEstimation" >
+		SELECT 
+			<include refid="reportTotalEstimationColumns"/>
+		FROM report_total_estimation a
+		<include refid="reportTotalEstimationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO report_total_estimation(
+			id,
+			project_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			dept
+		) VALUES (
+			#{id},
+			#{feaProjectB.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{office.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE report_total_estimation SET 	
+			project_id = #{feaProjectB.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			dept = #{office.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM report_total_estimation
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE report_total_estimation SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="ReportTotalEstimation" statementType="STATEMENT">
+		select * FROM report_total_estimation  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

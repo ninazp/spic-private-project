@@ -2,16 +2,18 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>换热站设备购置费及安装工程投资估算管理</title>
+	<title>单井供热能力管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="feaInvestmentEstimationList.js" %>
+	<%@include file="feaSingleHeatingCapacityList.js" %>
+	
 	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
+<%-- 	<script src="${ctxStatic}/common/js/exportReportUtil.js"></script> --%>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
-	<script>
+    <script>
 		//----工具类 开始----
 		var utl = {};
 		utl.Binary = {
@@ -139,22 +141,19 @@
 		}
 		//----工具类 结束----
 	</script>
-	
 	<script>
 		var hot;
 		var projectIds = '';
-		var projectName = '';
 		$(document).ready(function() {
 				init(projectIds);
 		});
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/fea/quotation/feaInvestmentEstimation/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/fea/quotation/feaSingleHeatingCapacity/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
- 				    	projectName = data.projectName;
  				    	execute(data.projectId);
  	      	  		}else{
  	      	  			jp.error("获取项目信息失败");
@@ -168,7 +167,7 @@
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/fea/quotation/feaInvestmentEstimation/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/fea/quotation/feaSingleHeatingCapacity/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -185,16 +184,10 @@
 			//固定数据
 			$('#report').empty();
  			var data = [
-		           ["换热站设备购置费及安装工程投资估算表","","","","","","","","",""],
-		           //["工程名称：","","","","","","","","",""],
-		           ["","","","","","","","","",""],
-		           ["序号", "工程或费用名称", "设备性能参数","单位","数量","设备购置费估算金额（万元）","","安装工程费估算金额（万元）","","备注"],
-		           ["", "", "","","","厂价或询价，含运杂费（万元/单位）","合计","费率（％） 或指标","合计",""],
-		           [""]
+		           ["单井供热能力","","",""],
+		           ["序号", "类别", "数值","单位"]
 		    ];
  			//报表数据
- 			debugger;
-	        //var datas2 = "[['地热井潜水泵', '台', '流量 100.0 m3/h扬程  110.0 m电机功率 45.91 kW' , 4.0, 2.0870370370370366, 8.35, '15%', 1.25, '2.0用2.0备']]";
 			var array = eval(datas);
 			var colLeg = array.length;
 			//计算年份数据 和 时期数据
@@ -220,10 +213,14 @@
             }
             function SecondRowRenderer(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
-                	td.style = "vertical-align: middle";
                     td.style.color = '#000000';
-                    td.style.textAlign = 'left';
-                    td.style.fontWeight = 'bold';//黑体
+                    td.style.textAlign = 'right';
+            }
+            function ThirdRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                    td.style.color = '#000000';
+                    td.style.lineHeight =4;
+                    td.style.textAlign = 'right';
             }
             
             function col1Renderer(instance, td, row, col, prop, value, cellProperties) {
@@ -241,7 +238,7 @@
             }
             Handsontable.renderers.registerRenderer('firstRowRenderer', firstRowRenderer);
             Handsontable.renderers.registerRenderer('headerRowRenderer', headerRowRenderer);
-            Handsontable.renderers.registerRenderer('SecondRowRenderer', SecondRowRenderer);
+            //Handsontable.renderers.registerRenderer('ThirdRowRenderer', ThirdRowRenderer);
             //Handsontable.renderers.registerRenderer('col1Renderer', col1Renderer);
             //Handsontable.renderers.registerRenderer('formatamount', formatamount);
             
@@ -254,27 +251,22 @@
 			    //width: 1648,
 			    autoWrapRow: true,
 			    height: 500,
-			    maxRows: 100,
+			    maxRows: 22,
 			    //maxCols: 15,
-			    colWidths:[40,110,300,80,80,250,80,150,80,250],
+			    colWidths:[40,200,140,140],
 			    rowHeights:[40],//定义行高度
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
 			    //autoColumnSize:true,
 			    rowHeaders: true,
 			    mergeCells: [
 			        //第一行
-			    	{row:0, col:0, rowspan:1, colspan:10},
+			    	{row:0, col:0, rowspan:1, colspan:4},
+			    	//{row:0, col:0, rowspan:1, colspan:3},
 			    	//第二行
-			    	{row:1, col:0, rowspan:1, colspan:10},
+			    	//{row:1, col:3, rowspan:1, colspan:colLeg - 1},
+			    	//{row:1, col:0, rowspan:1, colspan:3},
 			    	//第三行
-			    	{row:2, col:0, rowspan:2, colspan:1},
-			    	{row:2, col:1, rowspan:2, colspan:1},
-			    	{row:2, col:2, rowspan:2, colspan:1},
-			    	{row:2, col:3, rowspan:2, colspan:1},
-			    	{row:2, col:4, rowspan:2, colspan:1},
-			    	{row:2, col:5, rowspan:1, colspan:2},
-			    	{row:2, col:7, rowspan:1, colspan:2},
-			    	{row:2, col:9, rowspan:2, colspan:1},
+			    	//{row:2, col:4, rowspan:1, colspan:10},//冻结的话  合并不生效
 			    	//其他行
 			    	//{row:2, col:0, rowspan:2, colspan:1},
 			    	//{row:2, col:2, rowspan:2, colspan:1},
@@ -283,23 +275,17 @@
 			    contextMenu: true,
 			    colHeaders:true,
 			    cells: function(row, col, prop) {//单元格渲染  
-			    
 			    	if(row==0){
 			    		this.renderer = firstRowRenderer;
-			    	}else if(row == 1){
-			    		this.renderer = SecondRowRenderer;
-			    	}else if(row==2 || row==3){
+			    	}else if(row==1){
 			    		this.renderer = headerRowRenderer;
 			    	}
-			    	/* if(row>3 && col>1){
-			    		this.renderer = formatamount;
-			    	}
-			    	else if(row==1){
+			    	/* else if(row==1){
 			    		this.renderer = SecondRowRenderer;
 			    	}
 			    	else if(row==2){
 			    		this.renderer = ThirdRowRenderer;
-			    	} 
+			    	}
 			    	else if(row >3 && (col == 0 || col == 1)){
 			    		this.renderer = col1Renderer;
 			    	}
@@ -308,7 +294,7 @@
 			    	} */
             	}
             	//, fixedRowsTop:4
-            	//,fixedColumnsLeft:2
+            	//, fixedColumnsLeft:3
             	
 			};
 	    	hot = new Handsontable(hotElement, hotSettings);
@@ -334,18 +320,14 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 1, array, colLeg+3, 9, "populateFromArray", "overwrite", null, null);
-		     var projectData = [["工程名称：".concat(projectName)]];
-		     //项目名称
-		     hot.populateFromArray(1, 0, projectData, 1, 0, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 1, array, colLeg+1, 3, "populateFromArray", "overwrite", null, null);
 		     //序号
 		     var rownum = [];
-		     
-		     for(var i=0;i<colLeg+3;i++){
+		     for(var i=0;i<colLeg+1;i++){
 		     	rownum[i]=[];
 		     	rownum[i][0] = i+1; 
 		     }
-		     hot.populateFromArray(4, 0, rownum, colLeg+3, 0, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(2, 0, rownum, colLeg+1, 0, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     //hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -410,8 +392,7 @@
 			return t.split("").reverse().join("") + "." + r;
 		}
 		
-		function callback(projectIds,name){
-			projectName = name;
+		function callback(projectIds){
 			init(projectIds);
 		}
 		
@@ -421,7 +402,7 @@
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">换热站设备购置费及安装工程投资估算报表</h3>
+				<h3 class="panel-title">单井供热能力报表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>
@@ -429,8 +410,8 @@
 						<tr>
 							<td class="width-15 active"><label class="pull-right">项目：</label></td>
 							<td class="width-70">
-								<sys:gridselectCallback2 url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
-									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback2>
+								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
+									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
 							</td>
 							<td>
 								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>

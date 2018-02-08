@@ -218,6 +218,7 @@
 					["2.2.2","流动资金借款"]
 		    ];
  			//报表数据
+ 			debugger;
 			var array = eval(datas);
 			var colLeg = array[0].length;
 			//计算年份数据 和 时期数据

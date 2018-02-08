@@ -2,12 +2,12 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>换热站设备购置费及安装工程投资估算管理</title>
+	<title>总估算表管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="feaInvestmentEstimationList.js" %>
+	<%@include file="reportTotalEstimationList.js" %>
 	<script src="${ctxStatic}/common/js/handsontable.full.js"></script>
 	<script src="${ctxStatic}/common/js/xlsx.full.min.js"></script>
 	<link rel="stylesheet" href="${ctxStatic}/common/css/handsontable.full.css">
@@ -150,7 +150,7 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/fea/quotation/feaInvestmentEstimation/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/reportTotalEstimation/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
@@ -168,7 +168,7 @@
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/fea/quotation/feaInvestmentEstimation/getReportDatas?ids=" + projectIds, function (data) {
+			jp.get("${ctx}/feareport/reportTotalEstimation/getReportDatas?ids=" + projectIds, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);
@@ -185,17 +185,15 @@
 			//固定数据
 			$('#report').empty();
  			var data = [
-		           ["换热站设备购置费及安装工程投资估算表","","","","","","","","",""],
-		           //["工程名称：","","","","","","","","",""],
-		           ["","","","","","","","","",""],
-		           ["序号", "工程或费用名称", "设备性能参数","单位","数量","设备购置费估算金额（万元）","","安装工程费估算金额（万元）","","备注"],
-		           ["", "", "","","","厂价或询价，含运杂费（万元/单位）","合计","费率（％） 或指标","合计",""],
-		           [""]
+		           ["总    估    算    表","","","","","","","","","",""],
+		           ["","","","","","","","","","",""],
+		           ["序号", "工程和费用名称", "估    算   价   值   （万  元 ）",""              ,""      ,""     ,""   ,"技术经济指标（万元）",""    ,""  ,"备注"],
+		           [""   , ""          , "建筑工程"             ,"设备及工器具购置费","安装工程","其他费用","合计","单位"            ,"数量","指标",""],
 		    ];
  			//报表数据
  			debugger;
-	        //var datas2 = "[['地热井潜水泵', '台', '流量 100.0 m3/h扬程  110.0 m电机功率 45.91 kW' , 4.0, 2.0870370370370366, 8.35, '15%', 1.25, '2.0用2.0备']]";
 			var array = eval(datas);
+			debugger;
 			var colLeg = array.length;
 			//计算年份数据 和 时期数据
 			//var yearAndPeriodArray = yearAndPeriodDatas(colLeg);
@@ -206,11 +204,7 @@
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                     td.style = "font-size: 20px;vertical-align: middle;text-align:center";
                     td.style.color = '#000000';
-                    //td.style.textAlign = 'center';
                 	td.style.fontWeight = 'bold';//黑体
-                    //td.style.margin = '0';
-                    //td.style.className='htRight htMiddle';
-                    //td.style.fontSize= = 12px;
             }
             function headerRowRenderer(instance, td, row, col, prop, value, cellProperties) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -230,7 +224,6 @@
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                     td.style.color = '#000000';
                     td.style.textAlign = 'left';
-                    //td.style.fontSize= = 50px;
             }
             
             function formatamount(instance, td, row, col, prop, value, cellProperties) {
@@ -256,29 +249,30 @@
 			    height: 500,
 			    maxRows: 100,
 			    //maxCols: 15,
-			    colWidths:[40,110,300,80,80,250,80,150,80,250],
+			    colWidths:[40,200,100,100,100,100,100,100,100,100,250],
 			    rowHeights:[40],//定义行高度
-			    //colWidths: [50,100,200,300,100,43,22,22,22],
 			    //autoColumnSize:true,
-			    rowHeaders: true,
+			    rowHeaders: false,
 			    mergeCells: [
 			        //第一行
-			    	{row:0, col:0, rowspan:1, colspan:10},
+			    	{row:0, col:0, rowspan:1, colspan:11},
 			    	//第二行
-			    	{row:1, col:0, rowspan:1, colspan:10},
+			    	{row:1, col:0, rowspan:1, colspan:11},
 			    	//第三行
 			    	{row:2, col:0, rowspan:2, colspan:1},
 			    	{row:2, col:1, rowspan:2, colspan:1},
-			    	{row:2, col:2, rowspan:2, colspan:1},
-			    	{row:2, col:3, rowspan:2, colspan:1},
-			    	{row:2, col:4, rowspan:2, colspan:1},
-			    	{row:2, col:5, rowspan:1, colspan:2},
-			    	{row:2, col:7, rowspan:1, colspan:2},
-			    	{row:2, col:9, rowspan:2, colspan:1},
+			    	{row:2, col:2, rowspan:1, colspan:5},
+			    	{row:2, col:7, rowspan:1, colspan:3},
+			    	{row:2, col:10, rowspan:2, colspan:1},
+			    	//第四行
+			    	//{row:5, col:0, rowspan:2, colspan:2},
+			    	//{row:3, col:0, rowspan:2, colspan:1},
 			    	//其他行
 			    	//{row:2, col:0, rowspan:2, colspan:1},
 			    	//{row:2, col:2, rowspan:2, colspan:1},
 			    	//{row:2, col:1, rowspan:2, colspan:1}
+			    	//最后一行
+			    	//{row:17, col:0, rowspan:1, colspan:2}
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
@@ -334,18 +328,10 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 1, array, colLeg+3, 9, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 1, array, colLeg+3, 10, "populateFromArray", "overwrite", null, null);
 		     var projectData = [["工程名称：".concat(projectName)]];
 		     //项目名称
 		     hot.populateFromArray(1, 0, projectData, 1, 0, "populateFromArray", "overwrite", null, null);
-		     //序号
-		     var rownum = [];
-		     
-		     for(var i=0;i<colLeg+3;i++){
-		     	rownum[i]=[];
-		     	rownum[i][0] = i+1; 
-		     }
-		     hot.populateFromArray(4, 0, rownum, colLeg+3, 0, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     //hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;
@@ -421,7 +407,7 @@
 	<div class="wrapper wrapper-content">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">换热站设备购置费及安装工程投资估算报表</h3>
+				<h3 class="panel-title">总估算报表</h3>
 			</div>
 			<table class="table table-no-bordered" style="width:450px">
 			   <tbody>

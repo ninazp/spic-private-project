@@ -328,7 +328,7 @@
 			   * @returns {Object|undefined} The ending TD element in pasted area (only if any cells were changed).
 			   */
 			 //填充报表数据
-		     hot.populateFromArray(4, 1, array, colLeg+3, 10, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(4, 0, array, colLeg+3, 10, "populateFromArray", "overwrite", null, null);
 		     var projectData = [["工程名称：".concat(projectName)]];
 		     //项目名称
 		     hot.populateFromArray(1, 0, projectData, 1, 0, "populateFromArray", "overwrite", null, null);

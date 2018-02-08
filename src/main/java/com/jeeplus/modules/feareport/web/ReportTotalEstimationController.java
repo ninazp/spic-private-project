@@ -36,7 +36,7 @@ import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
-import com.jeeplus.modules.fea.designcal.PubDesignCal;
+import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.feareport.entity.ReportTotalEstimation;
 import com.jeeplus.modules.feareport.service.ReportTotalEstimationService;
@@ -225,20 +225,20 @@ public class ReportTotalEstimationController extends BaseController {
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
 		AjaxJson j = new AjaxJson();
-		Map<String,Object> reportmap = new HashMap<String, Object>();
+		List<List<String>> reportmap = new ArrayList<List<String>>();
 
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		PubDesignCal pubDesignCal = (PubDesignCal) wac.getBean("pubDesignCal");
+		//com.jeeplus.modules.fea.designcal.BusiIndexCal
+		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
 		
-		if(null!=pubDesignCal){
-			reportmap = pubDesignCal.calprocess(ids);
+		if(null!=busiIndexCal){
+			reportmap = busiIndexCal.getInitIvdesMny(ids);
 		}
 		
 //		List<List<String>> datas = feaInvestmentEstimationService.getReportDatas(ids);
-		List<List<String>> datas = null != reportmap ? (List<List<String>>)reportmap.get("设备清单") : null;
 		List<List<String>> reDatas = new ArrayList<List<String>>();
 		
-		for(List<String> innerLi : datas){
+		for(List<String> innerLi : reportmap){
 			List<String> reinnerLi = new ArrayList<String>();
 			for(String s : innerLi){
 				if(null != s){
@@ -249,7 +249,7 @@ public class ReportTotalEstimationController extends BaseController {
 			}
 			reDatas.add(reinnerLi);
 		}
-		if(null == datas || datas.size()<1){
+		if(null == reportmap || reportmap.size()<1){
 			j.setMsg("没有查询到报表信息");
 			j.setSuccess(false);
 			return j;

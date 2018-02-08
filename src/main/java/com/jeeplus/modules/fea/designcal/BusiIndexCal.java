@@ -87,7 +87,7 @@ public class BusiIndexCal {
 		
 		//项目可行性研究编制费
 		Double d21 = (summny-qqzx1[0])*(qqzx2[1]-qqzx1[1])/(qqzx2[0]-qqzx1[0])+qqzx1[1];
-		Double d22 = (summny-qqzx1[0])*(qqzx2[2]-qqzx1[2])/(qqzx2[0]-qqzx1[0])+qqzx1[2];
+		Double d22 = 20.00;//(summny-qqzx1[0])*(qqzx2[2]-qqzx1[2])/(qqzx2[0]-qqzx1[0])+qqzx1[2];
 		Double d23 = (summny-qqzx1[0])*(qqzx2[3]-qqzx1[3])/(qqzx2[0]-qqzx1[0])+qqzx1[3];
 		Double d24 = (summny-qqzx1[0])*(qqzx2[4]-qqzx1[4])/(qqzx2[0]-qqzx1[0])+qqzx1[4];
 		Double d2=d22+d24;
@@ -127,9 +127,9 @@ public class BusiIndexCal {
 		//招标代理服务费
 		Double []d11set = new Double[]{100.0,0.0110,1.50,100.0,0.0080,1.50,1000.0,0.0035,6.55 };
 		Double []d11set2 = new Double[]{500.0,0.0080,5.90,500.0,0.0045,4.70,5000.0,0.0020,20.55};
-		Double d111 = d11set[2]+ (d11set2[0]-d11set[0])*d11set[1];
-		Double d112 = d11set[5] + (d11set2[3]-d11set[3])*d11set[4];
-		Double d113 = d11set[8] + (d11set2[6]-d11set[6])*d11set[7];
+		Double d111 = d11set[2]+ ((l10.get(1)+l11.get(1))-d11set[0])*d11set[1];
+		Double d112 = d11set[5] + (d2+d4+d5+d8+d9-d11set[3])*d11set[4];
+		Double d113 = d11set[8] + (sumbuild-(l10.get(1)+l11.get(1))-d11set[6])*d11set[7];
 		Double d11  = d111+d112+d113;
 		
 		//工程保险费
@@ -167,7 +167,7 @@ public class BusiIndexCal {
 		ll11.add("2"); ll11.add("热网工程"); ll11.add(getDouble2float(l11.get(0))+"");
 		ll11.add(getDouble2float(l11.get(1))+""); ll11.add(getDouble2float(l11.get(2))+"");
 		ll11.add(getDouble2float(l11.get(3))+""); ll11.add(getDouble2float(l11.get(0)+l11.get(1)+l11.get(2)+l11.get(3))+"");
-		ll10.add("");ll10.add("");ll10.add("");ll10.add("");
+		ll11.add("");ll11.add("");ll11.add("");ll11.add("");
 		
 		//工程其他费用
 		Double ld13 = getDouble2float(d1)+getDouble2float(d2)+getDouble2float(d5)+
@@ -230,7 +230,7 @@ public class BusiIndexCal {
 		ll42.add(r4+"%");
 		ll42.add("");ll42.add("");ll42.add("");ll42.add("");
 		
-		retlst.add(ll9);retlst.add(ll10);retlst.add(ll13);
+		retlst.add(ll9);retlst.add(ll10);retlst.add(ll11);retlst.add(ll13);
 		retlst.add(ll14);retlst.add(ll15);retlst.add(ll16);
 		retlst.add(ll17);retlst.add(ll18);retlst.add(ll19);
 		retlst.add(ll20);retlst.add(ll21);retlst.add(ll22);

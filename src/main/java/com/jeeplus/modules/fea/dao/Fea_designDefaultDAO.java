@@ -1,14 +1,18 @@
 package com.jeeplus.modules.fea.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
+import com.jeeplus.modules.fea.entity.equiplst.Fea_design_equiplst2VO;
 import com.jeeplus.modules.fea.entity.heatben.Fea_design_heatbenVO;
 import com.jeeplus.modules.fea.entity.heattrans.Fea_design_heattransVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
+import com.jeeplus.modules.fea.mapper.equiplst.Fea_design_equiplst2VOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
@@ -29,7 +33,7 @@ public class Fea_designDefaultDAO {
 		vo.setId(PubUtil.getid(1));
 		vo.setCreateBy(UserUtils.getUser());
 		vo.setCreateDate(new Date());
-		vo.setOffice(UserUtils.getOfficeList().get(0).getId());
+		vo.setOffice(UserUtils.getOfficeList().get(0));
 		vo.setSumheatefficient(0.92);//综合热效率
 		vo.setLoadrate(1.00);
 		vo.setPumprate(5.00);
@@ -162,6 +166,197 @@ public class Fea_designDefaultDAO {
 		vo.setHgpbbh(1.00);
 		
 		vomapper.insert(vo);
+	}
+	
+	public static void insetFea_design_equiplst2VO(Fea_design_equiplst2VOMapper vomapper,FeaProjectB projectvo){
+		
+		List<Fea_design_equiplst2VO> li = new ArrayList<Fea_design_equiplst2VO>();
+		
+		Fea_design_equiplst2VO vo1 = new Fea_design_equiplst2VO();
+		vo1.setId(PubUtil.getid(1));
+		vo1.setCreateBy(UserUtils.getUser());
+		vo1.setCreateDate(new Date());
+		vo1.setOffice(UserUtils.getOfficeList().get(0));
+		vo1.setFeaProjectB(projectvo);
+		vo1.setEquipname("除污器");
+		vo1.setPerforparam("DN300 立式直通除污器");
+		vo1.setUnit("台");
+		vo1.setNum(2.0);
+		vo1.setPrice(0.318);
+		vo1.setRemarks("高区");
+		li.add(vo1);
+		
+		Fea_design_equiplst2VO vo2 = new Fea_design_equiplst2VO();
+		vo2.setId(PubUtil.getid(1));
+		vo2.setCreateBy(UserUtils.getUser());
+		vo2.setCreateDate(new Date());
+		vo2.setOffice(UserUtils.getOfficeList().get(0));
+		vo2.setFeaProjectB(projectvo);
+		vo2.setEquipname("除污器");
+		vo2.setPerforparam("DN300 立式直通除污器");
+		vo2.setUnit("台");
+		vo2.setNum(2.0);
+		vo2.setPrice(1.17);
+		vo2.setRemarks("低区");
+		li.add(vo2);
+		
+		Fea_design_equiplst2VO vo3 = new Fea_design_equiplst2VO();
+		vo3.setId(PubUtil.getid(1));
+		vo3.setCreateBy(UserUtils.getUser());
+		vo3.setCreateDate(new Date());
+		vo3.setOffice(UserUtils.getOfficeList().get(0));
+		vo3.setFeaProjectB(projectvo);
+		vo3.setEquipname("高位水箱");
+		vo3.setPerforparam("1000X1000X1000");
+		vo3.setUnit("台");
+		vo3.setNum(2.0);
+		vo3.setPrice(0.32);
+		vo3.setRemarks("");
+		li.add(vo3);
+		
+		Fea_design_equiplst2VO vo4 = new Fea_design_equiplst2VO();
+		vo4.setId(PubUtil.getid(1));
+		vo4.setCreateBy(UserUtils.getUser());
+		vo4.setCreateDate(new Date());
+		vo4.setOffice(UserUtils.getOfficeList().get(0));
+		vo4.setFeaProjectB(projectvo);
+		vo4.setEquipname("定压补水装置");
+		vo4.setPerforparam("");
+		vo4.setUnit("台");
+		vo4.setNum(2.0);
+		vo4.setPrice(0.85);
+		vo4.setRemarks("一用一备");
+		li.add(vo4);
+		
+		Fea_design_equiplst2VO vo5 = new Fea_design_equiplst2VO();
+		vo5.setId(PubUtil.getid(1));
+		vo5.setCreateBy(UserUtils.getUser());
+		vo5.setCreateDate(new Date());
+		vo5.setOffice(UserUtils.getOfficeList().get(0));
+		vo5.setFeaProjectB(projectvo);
+		vo5.setEquipname("定压补水装置");
+		vo5.setPerforparam("");
+		vo5.setUnit("台");
+		vo5.setNum(2.0);
+		vo5.setPrice(1.06);
+		vo5.setRemarks("低区热泵蒸发器");
+		li.add(vo5);
+		
+		Fea_design_equiplst2VO vo6 = new Fea_design_equiplst2VO();
+		vo6.setId(PubUtil.getid(1));
+		vo6.setCreateBy(UserUtils.getUser());
+		vo6.setCreateDate(new Date());
+		vo6.setOffice(UserUtils.getOfficeList().get(0));
+		vo6.setFeaProjectB(projectvo);
+		vo6.setEquipname("补水箱");
+		vo6.setPerforparam("3500X4500X2000");
+		vo6.setUnit("台");
+		vo6.setNum(2.0);
+		vo6.setPrice(4.24);
+		vo6.setRemarks("高区");
+		li.add(vo6);
+		
+		Fea_design_equiplst2VO vo7 = new Fea_design_equiplst2VO();
+		vo7.setId(PubUtil.getid(1));
+		vo7.setCreateBy(UserUtils.getUser());
+		vo7.setCreateDate(new Date());
+		vo7.setOffice(UserUtils.getOfficeList().get(0));
+		vo7.setFeaProjectB(projectvo);
+		vo7.setEquipname("全自动软化水设备");
+		vo7.setPerforparam("");
+		vo7.setUnit("台");
+		vo7.setNum(2.0);
+		vo7.setPrice(10.60);
+		vo7.setRemarks("低区");
+		li.add(vo7);
+		
+		Fea_design_equiplst2VO vo8 = new Fea_design_equiplst2VO();
+		vo8.setId(PubUtil.getid(1));
+		vo8.setCreateBy(UserUtils.getUser());
+		vo8.setCreateDate(new Date());
+		vo8.setOffice(UserUtils.getOfficeList().get(0));
+		vo8.setFeaProjectB(projectvo);
+		vo8.setEquipname("电控柜");
+		vo8.setPerforparam("");
+		vo8.setUnit("台");
+		vo8.setNum(2.0);
+		vo8.setPrice(21.20);
+		vo8.setRemarks("");
+		li.add(vo8);
+		
+		Fea_design_equiplst2VO vo9 = new Fea_design_equiplst2VO();
+		vo9.setId(PubUtil.getid(1));
+		vo9.setCreateBy(UserUtils.getUser());
+		vo9.setCreateDate(new Date());
+		vo9.setOffice(UserUtils.getOfficeList().get(0));
+		vo9.setFeaProjectB(projectvo);
+		vo9.setEquipname("变压器");
+		vo9.setPerforparam("SCB15-1250");
+		vo9.setUnit("台");
+		vo9.setNum(2.0);
+		vo9.setPrice(12.72);
+		vo9.setRemarks("");
+		li.add(vo9);
+		
+		Fea_design_equiplst2VO vo10 = new Fea_design_equiplst2VO();
+		vo10.setId(PubUtil.getid(1));
+		vo10.setCreateBy(UserUtils.getUser());
+		vo10.setCreateDate(new Date());
+		vo10.setOffice(UserUtils.getOfficeList().get(0));
+		vo10.setFeaProjectB(projectvo);
+		vo10.setEquipname("无人值守换热站自控系统");
+		vo10.setPerforparam("");
+		vo10.setUnit("台");
+		vo10.setNum(2.0);
+		vo10.setPrice(21.20);
+		vo10.setRemarks("");
+		li.add(vo10);
+		
+		Fea_design_equiplst2VO vo11 = new Fea_design_equiplst2VO();
+		vo11.setId(PubUtil.getid(1));
+		vo11.setCreateBy(UserUtils.getUser());
+		vo11.setCreateDate(new Date());
+		vo11.setOffice(UserUtils.getOfficeList().get(0));
+		vo11.setFeaProjectB(projectvo);
+		vo11.setEquipname("设备基础");
+		vo11.setPerforparam("");
+		vo11.setUnit("项");
+		vo11.setNum(1.0);
+		vo11.setPrice(4.69);
+		vo11.setRemarks("");
+		li.add(vo11);
+		
+		Fea_design_equiplst2VO vo12 = new Fea_design_equiplst2VO();
+		vo12.setId(PubUtil.getid(1));
+		vo12.setCreateBy(UserUtils.getUser());
+		vo12.setCreateDate(new Date());
+		vo12.setOffice(UserUtils.getOfficeList().get(0));
+		vo12.setFeaProjectB(projectvo);
+		vo12.setEquipname("配套电气系统（综合）");
+		vo12.setPerforparam("");
+		vo12.setUnit("套");
+		vo12.setNum(1.0);
+		vo12.setPrice(11.29);
+		vo12.setRemarks("");
+		li.add(vo12);
+		
+		Fea_design_equiplst2VO vo13 = new Fea_design_equiplst2VO();
+		vo13.setId(PubUtil.getid(1));
+		vo13.setCreateBy(UserUtils.getUser());
+		vo13.setCreateDate(new Date());
+		vo13.setOffice(UserUtils.getOfficeList().get(0));
+		vo13.setFeaProjectB(projectvo);
+		vo13.setEquipname("配套管道及其它（综合）");
+		vo13.setPerforparam("");
+		vo13.setUnit("套");
+		vo13.setNum(1.0);
+		vo13.setPrice(33.88);
+		vo13.setRemarks("");
+		li.add(vo13);
+		
+		for(Fea_design_equiplst2VO vo : li){
+			vomapper.insert(vo);
+		}
 	}
 	
 }

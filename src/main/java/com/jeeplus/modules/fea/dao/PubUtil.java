@@ -14,6 +14,7 @@ import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
+import com.jeeplus.modules.fea.mapper.equiplst.Fea_design_equiplst2VOMapper;
 import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcBVOMapper;
@@ -67,6 +68,8 @@ public class PubUtil {
 	private Fea_design_setVOMapper fea_design_setVOMapper;
 	@Autowired
 	private Fea_design_transferVOMapper fea_design_transferVOMapper;
+	@Autowired
+	private Fea_design_equiplst2VOMapper fea_design_equiplst2VOMapper;
 
 	public static String getid(int number){
 		if(number < 1){ 
@@ -105,11 +108,13 @@ public class PubUtil {
 		fea_design_heattransVOMapper.execDeleteSql("DELETE from fea_design_heattrans where project_id='"+projectvo.getId()+"'");
 		fea_design_transferVOMapper.execDeleteSql("DELETE from fea_design_transfer where project_id='"+projectvo.getId()+"'");
 		fea_design_setVOMapper.execDeleteSql("DELETE from fea_design_set where project_id='"+projectvo.getId()+"'");
+		fea_design_equiplst2VOMapper.execDeleteSql("DELETE from fea_design_equiplst2 where project_id='"+projectvo.getId()+"'");
 		Fea_designDefaultDAO.insertFea_design_heat(heatVOMapper, projectvo);
 		Fea_designDefaultDAO.insertFea_design_heatben(fea_design_heatbenVOMapper, projectvo);
 		Fea_designDefaultDAO.insertFea_design_heattrans(fea_design_heattransVOMapper, projectvo);
 		Fea_designDefaultDAO.insertFea_design_transfer(fea_design_transferVOMapper, projectvo);
 		Fea_designDefaultDAO.insertFeaDesignSet(fea_design_setVOMapper, projectvo);
+		Fea_designDefaultDAO.insetFea_design_equiplst2VO(fea_design_equiplst2VOMapper, projectvo);
 	}
 
 	public void deleteALLdata(FeaProjectB projectvo){
@@ -153,7 +158,7 @@ public class PubUtil {
 		fea_incosubsidyVOMapper.execDeleteSql("delete from fea_incosubsidy where project_id='"+projectvo.getId()+"'");;
 		fea_incomesetVOMapper.execDeleteSql("delete from fea_incomeset where project_id='"+projectvo.getId()+"'");;
 		fea_costfecfVOMapper.execDeleteSql("delete from fea_costfecf where project_id='"+projectvo.getId()+"'");;
-
+		fea_design_equiplst2VOMapper.execDeleteSql("DELETE from fea_design_equiplst2 where project_id='"+projectvo.getId()+"'");
 
 	}
 }

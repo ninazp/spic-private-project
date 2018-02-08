@@ -4,6 +4,7 @@
 package com.jeeplus.modules.fea.entity.set;
 
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.sys.entity.Office;
 
 import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
@@ -11,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 基本参数Entity
  * @author jw
- * @version 2018-02-05
+ * @version 2018-02-08
  */
 public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	
@@ -26,7 +27,7 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	private Double hx2;		// 循环水泵扬程
 	private Double hb2;		// 蒸发器侧水泵扬程
 	private Double mpumpcoe;		// 补水泵流量系数（%）
-	private String office;		// 部门
+	private Office office;		// 部门
 	
 	public Fea_design_setVO() {
 		super();
@@ -126,12 +127,12 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 		this.mpumpcoe = mpumpcoe;
 	}
 	
-	@ExcelField(title="部门", fieldType=String.class, value="office.name", align=2, sort=16)
-	public String getOffice() {
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=16)
+	public Office getOffice() {
 		return office;
 	}
 
-	public void setOffice(String office) {
+	public void setOffice(Office office) {
 		this.office = office;
 	}
 	

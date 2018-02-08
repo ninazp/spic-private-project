@@ -16,7 +16,7 @@ import com.jeeplus.modules.fea.mapper.equiplst.Fea_design_equiplst2VOMapper;
 /**
  * 地热供暖项目设备清单2Service
  * @author jw
- * @version 2018-01-17
+ * @version 2018-02-08
  */
 @Service
 @Transactional(readOnly = true)

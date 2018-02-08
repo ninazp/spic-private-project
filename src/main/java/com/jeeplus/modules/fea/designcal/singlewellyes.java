@@ -663,7 +663,7 @@ public class singlewellyes {
 		rettable1.add(col10);rettable1.add(col11);rettable1.add(col12);
 		rettable1.add(col13);rettable1.add(col14);rettable1.add(col15);
 		rettable1.add(col16);rettable1.add(col17);rettable1.add(col18);
-		rettable1.add(col19);rettable1.add(colend);
+		rettable1.add(col19);//rettable1.add(colend);
 
 		retmap.put("设备清单", rettable1);
 		

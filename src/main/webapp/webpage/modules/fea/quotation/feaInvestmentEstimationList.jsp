@@ -260,7 +260,7 @@
 			    rowHeights:[40],//定义行高度
 			    //colWidths: [50,100,200,300,100,43,22,22,22],
 			    //autoColumnSize:true,
-			    rowHeaders: true,
+			    rowHeaders: false,
 			    mergeCells: [
 			        //第一行
 			    	{row:0, col:0, rowspan:1, colspan:10},

@@ -14,6 +14,7 @@
 		a.perforparam AS "perforparam",
 		a.num AS "num",
 		a.price AS "price",
+		a.unit AS "unit",
 		a.dept AS "office.id",
 		a.remarks AS "remarks",
 				
@@ -23,6 +24,7 @@
 				
 				
 		feaProjectB.project_name AS "feaProjectB.projectName",
+				
 				
 				
 				
@@ -100,6 +102,7 @@
 			perforparam,
 			num,
 			price,
+			unit,
 			dept,
 			remarks
 		) VALUES (
@@ -114,6 +117,7 @@
 			#{perforparam},
 			#{num},
 			#{price},
+			#{unit},
 			#{office.id},
 			#{remarks}
 		)
@@ -128,6 +132,7 @@
 			perforparam = #{perforparam},
 			num = #{num},
 			price = #{price},
+			unit = #{unit},
 			dept = #{office.id},
 			remarks = #{remarks}
 		WHERE id = #{id}

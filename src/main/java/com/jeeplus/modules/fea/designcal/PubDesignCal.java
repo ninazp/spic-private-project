@@ -13,6 +13,7 @@ import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
+import com.jeeplus.modules.fea.entity.equiplst.Fea_design_equiplst2VO;
 import com.jeeplus.modules.fea.entity.heatben.Fea_design_heatbenVO;
 import com.jeeplus.modules.fea.entity.heattrans.Fea_design_heattransVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
@@ -21,6 +22,7 @@ import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
+import com.jeeplus.modules.fea.mapper.equiplst.Fea_design_equiplst2VOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
@@ -52,6 +54,8 @@ public class PubDesignCal extends Exception{
 	private Fea_design_resultVOMapper resultVOMapper;
 	@Autowired
 	private FeaDesignReportMapper feaDesignReportMapper;
+	@Autowired
+	private Fea_design_equiplst2VOMapper fea_design_equiplst2VOMapper;
 	
 
 	
@@ -87,13 +91,16 @@ public class PubDesignCal extends Exception{
 		if(null!=heatVO &&  null!=transferVO){
 			if(heatVO.get(0).getAreaselect().equals("Y") || heatVO.get(0).getAreaselect().equals("1")){
 				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), 
-						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}else{
 				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), 
-						transferVO.get(0), setvolst.get(0),pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
 			}
 			
 			if(null!=retmap && retmap.size()>0 && retmap.containsKey("设备清单")){
+				//为"设备清单" 追加 信息
+				addRetmapByequiplst2VO(retmap, projectvo);
+				
 				List<List<String>> report = (List<List<String>>) retmap.get("设备清单");
 				
 				feaDesignReportMapper.execDeleteSql("delete from fea_design_report  where project_id='"+projectvo.getId()+"'");
@@ -128,6 +135,48 @@ public class PubDesignCal extends Exception{
 		
 		return retmap;
 	}
+	
+	@SuppressWarnings("unchecked")
+	private void addRetmapByequiplst2VO(Map<String,Object> retmap, FeaProjectB projectvo){
+		List<Fea_design_equiplst2VO> equiplst2VOList = (List<Fea_design_equiplst2VO>) PubBaseDAO.
+				getMutiParentVO("fea_design_equiplst2", "id", " del_flag = 0  and  project_id='"+projectvo.getId()+"' ", fea_design_equiplst2VOMapper);
+		if(null != equiplst2VOList && equiplst2VOList.size()>0){
+			List<List<String>> temp = (List<List<String>>) retmap.get("设备清单");
+			for(Fea_design_equiplst2VO equiplst2VO : equiplst2VOList){
+				List<String> innerLi = new ArrayList<String>();
+				innerLi.add(equiplst2VO.getEquipname());//设备名称
+				innerLi.add(equiplst2VO.getPerforparam());//参数
+				innerLi.add(equiplst2VO.getUnit());//单位
+				innerLi.add(null != equiplst2VO.getNum() ? singlewellyes.getDouble2float(equiplst2VO.getNum()).toString() : "0.00");//数量
+				innerLi.add(null != equiplst2VO.getPrice() ? singlewellyes.getDouble2float(equiplst2VO.getPrice()).toString() : "0.00");//单价
+				Double tatol = equiplst2VO.getNum()*equiplst2VO.getPrice();
+				innerLi.add(singlewellyes.getDouble2float(tatol).toString());
+				innerLi.add("15%");
+				innerLi.add(singlewellyes.getDouble2float(tatol*0.15).toString());
+				innerLi.add(equiplst2VO.getRemarks());
+				temp.add(innerLi);
+			}
+			
+			Double tatolDou = 0.00;
+			for(List<String> tal: temp){
+				tatolDou += new Double(tal.get(5).trim());
+			}
+			
+			List<String> colend= new ArrayList<String>();
+			colend.add("换热站工程小计");
+			colend.add(" ");
+			colend.add(" ");
+			colend.add(" ");
+			colend.add(" ");
+			colend.add(" "+singlewellyes.getDouble2float(tatolDou));
+			colend.add("15%");
+			colend.add(""+singlewellyes.getDouble2float(tatolDou*0.15));
+			colend.add(" ");
+			temp.add(colend);
+			retmap.put("设备清单", temp);
+		}
+	}
+	
 	private List<List<Double>> getheatpumpprice(List<Fea_design_heatbenVO> heatbenVO){
 		List<List<Double>> heatpumpprice = new ArrayList<List<Double>>();
 		if(null!=heatbenVO && heatbenVO.size()>0){

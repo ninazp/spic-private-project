@@ -60,9 +60,9 @@
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_equiplst2VO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_equiplst2VO.feaProjectB.projectName}"
 							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">设备名称：</label></td>
+					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>设备名称：</label></td>
 					<td class="width-35">
-						<form:input path="equipname" htmlEscape="false"    class="form-control "/>
+						<form:input path="equipname" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
@@ -70,21 +70,29 @@
 					<td class="width-35">
 						<form:input path="perforparam" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">数量：</label></td>
+					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>数量：</label></td>
 					<td class="width-35">
-						<form:input path="num" htmlEscape="false"    class="form-control "/>
+						<form:input path="num" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">参考价格：</label></td>
+					<td class="width-15 active"><label class="pull-right"><font color="red">*</font>参考价格：</label></td>
 					<td class="width-35">
-						<form:input path="price" htmlEscape="false"    class="form-control "/>
+						<form:input path="price" htmlEscape="false"    class="form-control required"/>
 					</td>
+					<td class="width-15 active"><label class="pull-right">单位：</label></td>
+					<td class="width-35">
+						<form:input path="unit" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
-				</tr>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

@@ -76,49 +76,55 @@ $(document).ready(function() {
 		        checkbox: true
 		       
 		    }
-			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
-		        field: 'equipname',
-		        title: '设备名称',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'perforparam',
-		        title: '选型参考性能参数',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'num',
-		        title: '数量',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'price',
-		        title: '参考价格',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'remarks',
-		        title: '备注信息',
-		        sortable: true
-		       
-		    }
+               ,{
+   		        field: 'feaProjectB.projectName',
+   		        title: '项目名称',
+   		        sortable: true
+   		        ,formatter:function(value, row , index){
+    			    if(value == null){
+   		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
+   		            }else{
+   		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
+   		            }
+   		        }
+   		       
+   		    }
+   			,{
+   		        field: 'equipname',
+   		        title: '设备名称',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'perforparam',
+   		        title: '选型参考性能参数',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'num',
+   		        title: '数量',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'price',
+   		        title: '参考价格',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'unit',
+   		        title: '单位',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'remarks',
+   		        title: '备注信息',
+   		        sortable: true
+   		       
+   		    }
 		     ]
 		
 		});
@@ -199,7 +205,13 @@ $(document).ready(function() {
 		})
   }
    function add(){
-	  jp.openDialog('新增地热供暖项目设备清单2', "${ctx}/fea/equiplst/fea_design_equiplst2VO/form",'800px', '500px', $('#fea_design_equiplst2VOTable'));
+	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
+	  if(isNull(node) && isNull(node.id)){
+		  jp.openDialog('新增部分设备清单录入', "${ctx}/fea/equiplst/fea_design_equiplst2VO/form?feaProjectB.id="+node.id +"&feaProjectB.projectName="+node.text,'800px', '500px', $('#fea_design_equiplst2VOTable'));
+	  }else{
+		  jp.warning("请在左侧选择的一个项目");
+	  }
+	  
   }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){

@@ -5,6 +5,7 @@
 	<title>地热供暖项目设备清单2管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
+	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
 	<%@include file="fea_design_equiplst2VOList.js" %>

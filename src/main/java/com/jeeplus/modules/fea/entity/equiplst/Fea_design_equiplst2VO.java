@@ -4,6 +4,7 @@
 package com.jeeplus.modules.fea.entity.equiplst;
 
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import javax.validation.constraints.NotNull;
 import com.jeeplus.modules.sys.entity.Office;
 
 import com.jeeplus.core.persistence.DataEntity;
@@ -12,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 地热供暖项目设备清单2Entity
  * @author jw
- * @version 2018-01-17
+ * @version 2018-02-08
  */
 public class Fea_design_equiplst2VO extends DataEntity<Fea_design_equiplst2VO> {
 	
@@ -22,6 +23,7 @@ public class Fea_design_equiplst2VO extends DataEntity<Fea_design_equiplst2VO> {
 	private String perforparam;		// 选型参考性能参数
 	private Double num;		// 数量
 	private Double price;		// 参考价格
+	private String unit;		// 单位
 	private Office office;		// 部门
 	
 	public Fea_design_equiplst2VO() {
@@ -59,6 +61,7 @@ public class Fea_design_equiplst2VO extends DataEntity<Fea_design_equiplst2VO> {
 		this.perforparam = perforparam;
 	}
 	
+	@NotNull(message="数量不能为空")
 	@ExcelField(title="数量", align=2, sort=9)
 	public Double getNum() {
 		return num;
@@ -68,6 +71,7 @@ public class Fea_design_equiplst2VO extends DataEntity<Fea_design_equiplst2VO> {
 		this.num = num;
 	}
 	
+	@NotNull(message="参考价格不能为空")
 	@ExcelField(title="参考价格", align=2, sort=10)
 	public Double getPrice() {
 		return price;
@@ -77,7 +81,16 @@ public class Fea_design_equiplst2VO extends DataEntity<Fea_design_equiplst2VO> {
 		this.price = price;
 	}
 	
-	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=11)
+	@ExcelField(title="单位", align=2, sort=11)
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	
+	@ExcelField(title="部门", fieldType=Office.class, value="office.name", align=2, sort=12)
 	public Office getOffice() {
 		return office;
 	}

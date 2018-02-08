@@ -556,7 +556,7 @@ public class singlewellNo {
 		rettable1.add(col4);rettable1.add(col5);rettable1.add(col6);
 		rettable1.add(col7);rettable1.add(col8);rettable1.add(col9);
 		rettable1.add(col10);rettable1.add(ccol15);rettable1.add(ccol17);
-		rettable1.add(ccol16);rettable1.add(col11);rettable1.add(colend);
+		rettable1.add(ccol16);rettable1.add(col11);//rettable1.add(colend);
 		
 		retmap.put("设备清单", rettable1);
 		

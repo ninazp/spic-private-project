@@ -40,7 +40,7 @@ import com.jeeplus.modules.fea.service.equiplst.Fea_design_equiplst2VOService;
 /**
  * 地热供暖项目设备清单2Controller
  * @author jw
- * @version 2018-01-17
+ * @version 2018-02-08
  */
 @Controller
 @RequestMapping(value = "${adminPath}/fea/equiplst/fea_design_equiplst2VO")

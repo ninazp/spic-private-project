@@ -221,7 +221,6 @@ public class BusiIndexCal {
 		List<String> ll42 = new ArrayList<String>();
 		ll42.add(""); ll42.add("各工程费用占建设项目总投资的比例(%)"); 
 		Double r1 = getDouble2float(d411*100/d41);
-		ll42.add("");
 		ll42.add(r1+"%");
 		Double r2 = getDouble2float(d412*100/d41);
 		ll42.add(r2+"%");

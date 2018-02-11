@@ -61,6 +61,12 @@ public class singlewellyes {
 		Double hb2lang = fea_design_setVO.getHb2();
 		Double mpumpcoe = (null==fea_design_setVO.getMpumpcoe())?0.00:fea_design_setVO.getMpumpcoe()/100;
 
+		Double cxxs = fea_design_setVO.getCxxs();
+		Double cxcl = fea_design_setVO.getCxcl();
+		Double bpxs = fea_design_setVO.getBpxs();
+		Double bpcl = fea_design_setVO.getBpcl();
+		Double bsxs = fea_design_setVO.getBsxs();
+		Double bscl = fea_design_setVO.getBsxl();
 
 
 		Double Q1 = 0.00;//一级板换供热量
@@ -177,44 +183,44 @@ public class singlewellyes {
 
 		Double Phx1 = rou*(M1/2)*hhx1*1.15*9.8/(3600*0.75*1000);
 
-		Double Chx1 = (465*Phx1+5000)/10000;//万元
+		Double Chx1 = (cxxs*Phx1+cxcl)/10000;//万元
 
-		Double Chxb1 = (1264*Phx1+20000)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
+		Double Chxb1 = (bpxs*Phx1+bpcl)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
 
 		//********************（2）二级板换对应循环水泵
 		Double hhx3 = hx2lang;//m （程序备注：根据厂家经验数据而来，可更改） www
 
 		Double Phx3 = rou*(M3/2)*hhx3*1.15*9.8/(3600*0.75*1000);
 
-		Double Chx3 = (465*Phx3+5000)/10000;//万元
+		Double Chx3 = (cxxs*Phx3+cxcl)/10000;//万元
 
-		Double Chxb3 = (1264*Phx3+20000)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
+		Double Chxb3 = (bpxs*Phx3+bpcl)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
 
 		//*********低区
 		Double hdx1 = hx2lang;//m （程序备注：根据厂家经验数据而来，可更改） www
 
 		Double Pdx1 = rou*(M1/2)*hdx1*1.15*9.8/(3600*0.75*1000);
 
-		Double Cdx1 = (465*Pdx1+5000)/10000;//万元
+		Double Cdx1 = (cxxs*Pdx1+cxcl)/10000;//万元
 
-		Double Cdxb1 = (1264*Phx1+20000)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
+		Double Cdxb1 = (bpxs*Phx1+bpcl)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
 
 		//********************（2）二级板换对应循环水泵
 		Double hdx3 = hx2lang;//m （程序备注：根据厂家经验数据而来，可更改） www
 
 		Double Pdx3 = rou*(M3/2)*hdx3*1.15*9.8/(3600*0.75*1000);
 
-		Double Cdx3 = (465*Pdx3+5000)/10000;//万元
+		Double Cdx3 = (cxxs*Pdx3+cxcl)/10000;//万元
 
-		Double Cdxb3 = (1264*Pdx3+20000)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
+		Double Cdxb3 = (bpxs*Pdx3+bpcl)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
 
 		Double hx2 = hb2lang;//扬程
 
 		Double Px2 = rou*M2*hx2*1.15*9.8/(3600*0.75*1000);
 
-		Double Cdx2 =  (465*Px2+5000)/10000;//万元
+		Double Cdx2 =  (cxxs*Px2+cxcl)/10000;//万元
 
-		Double Cdxb2 = (1264*Px2+20000)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
+		Double Cdxb2 = (bpxs*Px2+bpcl)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
 
 		//****************6、补水泵模块 - 是******************//
 		//高区
@@ -224,14 +230,14 @@ public class singlewellyes {
 
 		Double Phb1 = rou*addwater*hhb1*1.15*9.8/(3600*0.75*1000);
 
-		Double Chb1 = (629*Phb1+6000)/10000;   //（程序中备注：单价为拟合公式，可更改） www
+		Double Chb1 = (bsxs*Phb1+bscl)/10000;   //（程序中备注：单价为拟合公式，可更改） www
 
 		//低区
 		Double hb2 = Hj/2 + 25;//（程序备注：根据厂家经验数据而来，25为地下位置和末端高差，可更改） www
 
 		Double Pb2 = rou*addwater*hb2*1.15*9.8/(3600*0.75*1000);
 
-		Double Cb2 = (629*Pb2+6000)/10000;   //（程序中备注：单价为拟合公式，可更改） www
+		Double Cb2 = (bsxs*Pb2+bscl)/10000;   //（程序中备注：单价为拟合公式，可更改） www
 
 		Double hb1 = Hj + 25;
 

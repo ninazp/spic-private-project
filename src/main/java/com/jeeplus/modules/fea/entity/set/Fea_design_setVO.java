@@ -12,7 +12,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 基本参数Entity
  * @author jw
- * @version 2018-02-08
+ * @version 2018-02-11
  */
 public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	
@@ -28,6 +28,12 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 	private Double hb2;		// 蒸发器侧水泵扬程
 	private Double mpumpcoe;		// 补水泵流量系数（%）
 	private Office office;		// 部门
+	private Double cxxs;		// 循环水泵单价系数
+	private Double cxcl;		// 循环水泵单价常量
+	private Double bpxs;		// 变频控制柜单价系数
+	private Double bpcl;		// 变频控制柜单价常量
+	private Double bsxs;		// 补水泵单价系数
+	private Double bsxl;		// 补水泵单价常量
 	
 	public Fea_design_setVO() {
 		super();
@@ -134,6 +140,60 @@ public class Fea_design_setVO extends DataEntity<Fea_design_setVO> {
 
 	public void setOffice(Office office) {
 		this.office = office;
+	}
+	
+	@ExcelField(title="循环水泵单价系数", align=2, sort=18)
+	public Double getCxxs() {
+		return cxxs;
+	}
+
+	public void setCxxs(Double cxxs) {
+		this.cxxs = cxxs;
+	}
+	
+	@ExcelField(title="循环水泵单价常量", align=2, sort=19)
+	public Double getCxcl() {
+		return cxcl;
+	}
+
+	public void setCxcl(Double cxcl) {
+		this.cxcl = cxcl;
+	}
+	
+	@ExcelField(title="变频控制柜单价系数", align=2, sort=20)
+	public Double getBpxs() {
+		return bpxs;
+	}
+
+	public void setBpxs(Double bpxs) {
+		this.bpxs = bpxs;
+	}
+	
+	@ExcelField(title="变频控制柜单价常量", align=2, sort=21)
+	public Double getBpcl() {
+		return bpcl;
+	}
+
+	public void setBpcl(Double bpcl) {
+		this.bpcl = bpcl;
+	}
+	
+	@ExcelField(title="补水泵单价系数", align=2, sort=22)
+	public Double getBsxs() {
+		return bsxs;
+	}
+
+	public void setBsxs(Double bsxs) {
+		this.bsxs = bsxs;
+	}
+	
+	@ExcelField(title="补水泵单价常量", align=2, sort=23)
+	public Double getBsxl() {
+		return bsxl;
+	}
+
+	public void setBsxl(Double bsxl) {
+		this.bsxl = bsxl;
 	}
 	
 }

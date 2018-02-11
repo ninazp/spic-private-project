@@ -144,14 +144,44 @@ $(document).ready(function() {
    		       
    		    }
    			,{
-   		        field: 'remarks',
-   		        title: '备注信息',
+   		        field: 'cxxs',
+   		        title: '循环水泵单价系数',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'cxcl',
+   		        title: '循环水泵单价常量',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'bpxs',
+   		        title: '变频控制柜单价系数',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'bpcl',
+   		        title: '变频控制柜单价常量',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'bsxs',
+   		        title: '补水泵单价系数',
+   		        sortable: true
+   		       
+   		    }
+   			,{
+   		        field: 'bsxl',
+   		        title: '补水泵单价常量',
    		        sortable: true
    		       
    		    }
    		     ]
-       		
-       		});
+   		
+   		});
 		
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端

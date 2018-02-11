@@ -21,6 +21,12 @@
 		a.mpumpcoe AS "mpumpcoe",
 		a.dept AS "office.id",
 		a.remarks AS "remarks",
+		a.cxxs AS "cxxs",
+		a.cxcl AS "cxcl",
+		a.bpxs AS "bpxs",
+		a.bpcl AS "bpcl",
+		a.bsxs AS "bsxs",
+		a.bsxl AS "bsxl",
 				
 		feaProjectB.project_name AS "feaProjectB.projectName",
 				
@@ -116,7 +122,13 @@
 			hb2,
 			mpumpcoe,
 			dept,
-			remarks
+			remarks,
+			cxxs,
+			cxcl,
+			bpxs,
+			bpcl,
+			bsxs,
+			bsxl
 		) VALUES (
 			#{id},
 			#{feaProjectB.id},
@@ -135,7 +147,13 @@
 			#{hb2},
 			#{mpumpcoe},
 			#{office.id},
-			#{remarks}
+			#{remarks},
+			#{cxxs},
+			#{cxcl},
+			#{bpxs},
+			#{bpcl},
+			#{bsxs},
+			#{bsxl}
 		)
 	</insert>
 	
@@ -154,7 +172,13 @@
 			hb2 = #{hb2},
 			mpumpcoe = #{mpumpcoe},
 			dept = #{office.id},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			cxxs = #{cxxs},
+			cxcl = #{cxcl},
+			bpxs = #{bpxs},
+			bpcl = #{bpcl},
+			bsxs = #{bsxs},
+			bsxl = #{bsxl}
 		WHERE id = #{id}
 	</update>
 	

@@ -62,7 +62,13 @@ public class singlewellNo {
 		Double hb2lang = fea_design_setVO.getHb2();
 		Double mpumpcoe = (null==fea_design_setVO.getMpumpcoe())?0.00:fea_design_setVO.getMpumpcoe()/100;
 
-
+		Double cxxs = fea_design_setVO.getCxxs();
+		Double cxcl = fea_design_setVO.getCxcl();
+		Double bpxs = fea_design_setVO.getBpxs();
+		Double bpcl = fea_design_setVO.getBpcl();
+		Double bsxs = fea_design_setVO.getBsxs();
+		Double bscl = fea_design_setVO.getBsxl();
+		
 		Double Q1 = 0.00;//一级板换供热量
 		if(null!=m && null!=t1 && null!=t2){
 			Q1 = (4.2/3.6)*m*(t1-t2);
@@ -171,18 +177,18 @@ public class singlewellNo {
 
 		Double Px1 = rou*M1*hx1*1.15*9.8/(3600*0.75*1000);
 
-		Double Cx1 = (465*Px1+5000)/10000;//万元
+		Double Cx1 = (cxxs*Px1+cxcl)/10000;//万元
 
-		Double Cxb1 = (1264*Px1+20000)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
+		Double Cxb1 = (bpxs*Px1+bpcl)/10000;//万元  变频控制柜单价 www //（程序中备注：单价为拟合公式，可更改）
 
 		//********************（2）二级板换对应循环水泵
 		Double hx2 = hb2lang;//m （程序备注：根据厂家经验数据而来，可更改） www
 
 		Double Px2 = rou*M2*hx2*1.15*9.8/(3600*0.75*1000);
 
-		Double Cx2 = (465*Px2+5000)/10000;//万元
+		Double Cx2 = (cxxs*Px2+cxcl)/10000;//万元
 
-		Double Cxb2 = (1264*Px2+20000)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
+		Double Cxb2 = (bpxs*Px2+bpcl)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
 
 		Double Cx2sum = 2*Nk*Cx2; //热泵蒸发器侧循环水泵总价
 
@@ -190,9 +196,9 @@ public class singlewellNo {
 
 		Double Px3 = rou*M3*hx3*1.15*9.8/(3600*0.75*1000);
 
-		Double Cx3 = (465*Px3+5000)/10000;//万元
+		Double Cx3 = (cxxs*Px3+cxcl)/10000;//万元
 
-		Double Cxb3 = (1264*Px3+20000)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
+		Double Cxb3 = (bpxs*Px3+bpcl)/10000;//万元 //（程序中备注：单价为拟合公式，可更改）www
 
 		//****************6、补水泵模块 - 否******************//
 		//       
@@ -202,7 +208,7 @@ public class singlewellNo {
 
 		Double Pb1 = rou*addwater*hb1*1.15*9.8/(3600*0.75*1000);
 
-		Double Cb1 = (629*Pb1+6000)/10000;   //（程序中备注：单价为拟合公式，可更改） www
+		Double Cb1 = (bsxs*Pb1+bscl)/10000;   //（程序中备注：单价为拟合公式，可更改） www
 
 		//****************** 四、方案运行计算
 

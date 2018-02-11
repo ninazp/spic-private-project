@@ -43,6 +43,12 @@ public class Fea_designDefaultDAO {
 		vo.setHx2(32.00);
 		vo.setHb2(20.00);
 		vo.setMpumpcoe(3.00);
+		vo.setCxxs(465.00);
+		vo.setCxcl(5000.00);
+		vo.setBpxs(1264.00);
+		vo.setBpcl(20000.00);
+		vo.setBsxs(629.00);
+		vo.setBsxl(6000.00);
 		vomapper.insert(vo);
 	}
 

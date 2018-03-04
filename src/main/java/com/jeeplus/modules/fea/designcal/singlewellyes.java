@@ -321,9 +321,11 @@ public class singlewellyes {
 				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
 				downwater = Nk*m*D*T;
 			}
-			powfeeunit = yearpow*E1/(A*rate);	
-			costunit = powfeeunit;
-			yearunit = powfeeunit*A*rate/10000;
+			if(rate>0){
+			 powfeeunit = yearpow*E1/(A*rate);	
+			 costunit = powfeeunit;
+			 yearunit = powfeeunit*A*rate/10000;
+			}
 
 			res1.add(rate);
 			res2.add(A*rate); 
@@ -468,14 +470,14 @@ public class singlewellyes {
 		String col7str = "制热量 "+getDouble2float(Qr2)+" kW;\n "+ "电功率 "+getDouble2float(Pr2) ;
 		col7.add(col7str);
 		col7.add("台");
-		col7.add(""+jznum*Nk);
+		col7.add(""+jznum);
 		col7.add(""+getDouble2float(Cr2));
-		col7.add(""+getDouble2float(jznum*Nk*Cr2));
+		col7.add(""+getDouble2float(jznum*Cr2));
 		col7.add("15%");
-		col7.add(""+getDouble2float(jznum*Nk*Cr2*0.15));
+		col7.add(""+getDouble2float(jznum*Cr2*0.15));
 		col7.add(" ");
-		totalgs = totalgs+getDouble2float(jznum*Nk*Cr2);
-		totalfl = totalfl+getDouble2float(jznum*Nk*Cr2*0.15);
+		totalgs = totalgs+getDouble2float(jznum*Cr2);
+		totalfl = totalfl+getDouble2float(jznum*Cr2*0.15);
 
 		List<String> col8= new ArrayList<String>();
 		col8.add("循环水泵");
@@ -485,12 +487,12 @@ public class singlewellyes {
 		col8.add("台");
 		col8.add(""+2*Nk);
 		col8.add(""+getDouble2float(Chx1));
-		col8.add(""+getDouble2float(2*Nk*Chx1+Nk*Chxb1));
+		col8.add(""+getDouble2float(2*Nk*Chx1));
 		col8.add("15%");
-		col8.add(""+getDouble2float((2*Nk*Chx1+Nk*Chxb1)*0.15));
+		col8.add(""+getDouble2float((2*Nk*Chx1)*0.15));
 		col8.add(" 高区"+Nk+"用"+Nk+"备变频 "); //1
-		totalgs = totalgs+getDouble2float(2*Nk*Chx1+Nk*Chxb1);
-		totalfl = totalfl+getDouble2float((2*Nk*Chx1+Nk*Chxb1)*0.15);
+		totalgs = totalgs+getDouble2float(2*Nk*Chx1);
+		totalfl = totalfl+getDouble2float((2*Nk*Chx1)*0.15);
 
 		List<String> col9= new ArrayList<String>();
 		col9.add("循环水泵");
@@ -500,12 +502,12 @@ public class singlewellyes {
 		col9.add("台");
 		col9.add(""+2*Nk);
 		col9.add(""+getDouble2float(Cdx1));
-		col9.add(""+getDouble2float(2*Nk*Cdx1+Nk*Cdxb1));
+		col9.add(""+getDouble2float(2*Nk*Cdx1));
 		col9.add("15%");
-		col9.add(""+getDouble2float((2*Nk*Cdx1+Nk*Cdxb1)*0.15));
+		col9.add(""+getDouble2float((2*Nk*Cdx1)*0.15));
 		col9.add(" 低区"+Nk+"用"+Nk+"备变频 ");//2
-		totalgs = totalgs+getDouble2float(2*Nk*Cdx1+Nk*Cdxb1);
-		totalfl = totalfl+getDouble2float((2*Nk*Cdx1+Nk*Cdxb1)*0.15);
+		totalgs = totalgs+getDouble2float(2*Nk*Cdx1);
+		totalfl = totalfl+getDouble2float((2*Nk*Cdx1)*0.15);
 
 		List<String> col10= new ArrayList<String>();
 		col10.add("循环水泵");
@@ -515,13 +517,13 @@ public class singlewellyes {
 		col10.add("台");
 		col10.add(""+2*Nk);
 		col10.add(""+getDouble2float(Chx3));
-		col10.add(""+getDouble2float(2*Nk*Chx3+Nk*Chxb3));
+		col10.add(""+getDouble2float(2*Nk*Chx3));
 		col10.add("15%");
-		col10.add(""+getDouble2float((2*Nk*Chx3+Nk*Chxb3)*0.15));
+		col10.add(""+getDouble2float((2*Nk*Chx3)*0.15));
 		col10.add(" 低区热泵冷凝器 "+Nk+"用"+Nk+"备变频 ");//3
 
-		totalgs = totalgs+getDouble2float(2*Nk*Chx3+Nk*Chxb3);
-		totalfl = totalfl+getDouble2float((2*Nk*Chx3+Nk*Chxb3)*0.15);
+		totalgs = totalgs+getDouble2float(2*Nk*Chx3);
+		totalfl = totalfl+getDouble2float((2*Nk*Chx3)*0.15);
 
 		List<String> col11= new ArrayList<String>();
 		col11.add("循环水泵");
@@ -531,12 +533,12 @@ public class singlewellyes {
 		col11.add("台");
 		col11.add(""+2*Nk);
 		col11.add(""+getDouble2float(Cdx3));
-		col11.add(""+getDouble2float(2*Nk*Cdx3+Nk*Cdxb3));
+		col11.add(""+getDouble2float(2*Nk*Cdx3));
 		col11.add("15%");
-		col11.add(""+getDouble2float((2*Nk*Cdx3+Nk*Cdxb3)*0.15));
+		col11.add(""+getDouble2float((2*Nk*Cdx3)*0.15));
 		col11.add(" 热泵蒸发器 "+Nk+"用"+Nk+"备变频 ");//4
-		totalgs = totalgs+getDouble2float(2*Nk*Cdx3+Nk*Cdxb3);
-		totalfl = totalfl+getDouble2float((2*Nk*Cdx3+Nk*Cdxb3)*0.15);
+		totalgs = totalgs+getDouble2float(2*Nk*Cdx3);
+		totalfl = totalfl+getDouble2float((2*Nk*Cdx3)*0.15);
 
 		List<String> col12= new ArrayList<String>();
 		col12.add("循环水泵");

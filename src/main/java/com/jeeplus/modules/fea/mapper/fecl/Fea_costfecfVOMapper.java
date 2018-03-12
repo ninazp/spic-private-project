@@ -10,7 +10,7 @@ import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 /**
  * 财务费用及流动资金MAPPER接口
  * @author jw
- * @version 2017-12-06
+ * @version 2018-03-12
  */
 @MyBatisMapper
 public interface Fea_costfecfVOMapper extends BaseMapper<Fea_costfecfVO> {

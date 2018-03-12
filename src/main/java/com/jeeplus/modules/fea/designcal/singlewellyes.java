@@ -12,10 +12,16 @@ import java.util.Map;
 import com.jeeplus.core.service.ServiceException;
 import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
+import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class singlewellyes {
@@ -25,7 +31,10 @@ public class singlewellyes {
 			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
-			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
+			List<Double> heatrate,
+			Fea_design_resultVOMapper resultVOMapper,
+			Fea_productcostVOMapper fea_productcostVOmapper,
+			Fea_productcostBVOMapper fea_productcostBVOmapper){
 
 		Map<String,Object> retmap = new HashMap<String, Object>();
 		//供热及井下参数
@@ -307,6 +316,14 @@ public class singlewellyes {
 		result4.setResulttype("单位面积电费（元/平方米）");
 		result5.setResulttype("运行成本（万元/年）");
 
+		//更新成本-电费
+		Fea_productcostBVO bvo = new Fea_productcostBVO();
+		bvo.setId(PubUtil.getid(1));
+		bvo.setCreateBy(UserUtils.getUser());	
+		bvo.setCreateDate(new Date());
+		bvo.setCosttype("2");		// 成本种类
+		bvo.setCostunit("万元");
+		
 		int i=1;
 		for(Double rate : heatrate){
 			Double yearpow = 0.00;
@@ -357,6 +374,9 @@ public class singlewellyes {
 				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 				m5.invoke(result5, d51);
+				
+				Method m6 = bvo.getClass().getMethod("setYear"+(i),Double.class);
+				m6.invoke(bvo, d51);
 
 			} catch (Exception e) {
 				throw new ServiceException(e);
@@ -367,6 +387,9 @@ public class singlewellyes {
 		resultVOMapper.execDeleteSql("delete from fea_design_result  where project_id='"+fea_design_heatVO.getFeaProjectB().getId()+"'");
 		resultVOMapper.insert(result1);resultVOMapper.insert(result2);resultVOMapper.insert(result3);
 		resultVOMapper.insert(result4);resultVOMapper.insert(result5);
+		
+		updateproductcost(fea_design_heatVO.getFeaProjectB(),bvo,
+				fea_productcostVOmapper,fea_productcostBVOmapper);
 
 		//*********分区为 是*********//
 		//表1 地热供暖项目设备清单1  地热供暖项目设备清单
@@ -704,6 +727,20 @@ public class singlewellyes {
 		retmap.put("单井供热", djlist);
 		
 		return retmap;
+	}
+	
+	public static void updateproductcost(FeaProjectB  projectvo,
+			Fea_productcostBVO bvo,
+			Fea_productcostVOMapper fea_productcostVOmapper,
+			Fea_productcostBVOMapper fea_productcostBVOmapper){
+		@SuppressWarnings("unchecked")
+		List<Fea_productcostVO> volst = (List<Fea_productcostVO>) PubBaseDAO.getMutiParentVO("fea_productcost", "id", "project_id='"+projectvo.getId()+"'", fea_productcostVOmapper);
+		if(null!=volst && volst.size()>0){
+			Fea_productcostVO prarentvo = volst.get(0);
+			bvo.setFea_productcost(prarentvo);
+			fea_productcostBVOmapper.execDeleteSql("delete from fea_productcostb  where PKPRODUCTCOST='"+prarentvo.getId()+"' and COSTTYPE='2'");
+			fea_productcostBVOmapper.insert(bvo);
+		}
 	}
 
 	public static Double getDouble2float(Double m){

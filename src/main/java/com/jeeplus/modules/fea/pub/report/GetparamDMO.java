@@ -28,7 +28,7 @@ public class GetparamDMO {
 	@SuppressWarnings("unchecked")
 	public static Map<String,Object> getparammap(FeaProjectB  projectvo,
 			BaseMapper fea_incomesetVOMapper,
-			BaseMapper fea_fundssrcVOMapper,
+			BaseMapper fea_fundssrcVOMapper1,
 			BaseMapper fea_fundssrcTVOMapper,
 			BaseMapper fea_costfecfVOMapper,
 			BaseMapper fea_investdisVOMapper,
@@ -54,6 +54,7 @@ public class GetparamDMO {
 		 calendar.setTime(startupdate);
 		 int startyearini = calendar.get(Calendar.YEAR);
 		
+		retmap.put("startmth", month);
 		retmap.put("constructPeriod", consperiod);
 		retmap.put("project_id", projectvo.getId());
 		retmap.put("countyear", countyear);
@@ -70,11 +71,8 @@ public class GetparamDMO {
 //		retlst.add(tvo.getPrincipalrate());// 本金利率（%）
 //		retlst.add(tvo.getLangrate());// 利息利率（%）
 //		retlst.add(Double.valueOf(tvo.getRepaytype()));// 还款方式
-		List<Double>  fundssrcparam = getfundssrc(fea_fundssrcVOMapper,fea_fundssrcTVOMapper, projectvo);
-		retmap.put("interestcount", fundssrcparam.get(0));// 计息次数（年）
-		retmap.put("principalrate", fundssrcparam.get(1));// 本金利率（%）
-		retmap.put("langrate", fundssrcparam.get(2));// 利息利率（%）
-		retmap.put("repaytype", fundssrcparam.get(3));// 还款方式
+//		List<Double>  fundssrcparam = getfundssrc(fea_fundssrcVOMapper,fea_fundssrcTVOMapper, projectvo);
+	
 
 		//资金分配 -- 获得供热面积
 		Map<Integer,Double> heatareamap = new HashMap<Integer, Double>(); 
@@ -113,6 +111,12 @@ public class GetparamDMO {
 		if(null!=Fea_costfecfVOlst && Fea_costfecfVOlst.size()>0){
 			Double shortloanrate =(null==Fea_costfecfVOlst.get(0).getCircularate())?0.00:Fea_costfecfVOlst.get(0).getCircularate();
 			retmap.put("shortloanrate", shortloanrate);
+			
+			retmap.put("interestcount", Fea_costfecfVOlst.get(0).getLangyear());// 计息次数（年）
+			retmap.put("principalrate", Fea_costfecfVOlst.get(0).getLangrate());// 本金利率（%）
+			retmap.put("langrate", Fea_costfecfVOlst.get(0).getLangrate());// 利息利率（%）
+			retmap.put("repaytype", 1);// 还款方式
+			
 		}
 
 		//获取基本参数信息
@@ -233,11 +237,11 @@ public class GetparamDMO {
 							if(null!=rated){
 								rateddf = (Double)rated;
 							}
-							if(bvo.getCosttype().contains("维修") || bvo.getCosttype().equals("1")){
+							if(bvo.getCosttype().contains("维修") || bvo.getCosttype().equals("3")){
 								repairrate.add(rateddf);
-							}else if(bvo.getCosttype().contains("人员") || bvo.getCosttype().equals("2")){
+							}else if(bvo.getCosttype().contains("定员") || bvo.getCosttype().equals("1")){
 								personlst.add(rateddf);
-							}else if(bvo.getCosttype().contains("供热") || bvo.getCosttype().equals("3")){
+							}else if(bvo.getCosttype().contains("电费") || bvo.getCosttype().equals("2")){
 								heatcostlst.add(rateddf);
 							}
 						} catch (Exception e) {

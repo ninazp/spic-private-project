@@ -20,7 +20,8 @@ import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class Fea_fundssrcDAO {
 
-	public static Fea_fundssrcVO insertFea_fundssrc(Fea_fundssrcVOMapper  basemapper,
+	public static Fea_fundssrcVO insertFea_fundssrc(
+			Fea_fundssrcVOMapper  basemapper,
 			Fea_fundssrcBVOMapper basemapper2,
 			Fea_fundssrcTVOMapper basemapper3,
 			FeaProjectB projectvo){
@@ -31,7 +32,7 @@ public class Fea_fundssrcDAO {
 		vo.setCreateBy(UserUtils.getUser());	
 		vo.setCreateDate(new Date());
 
-		vo.setInvesttotal(2228.16);;		// 投资总额
+		vo.setInvesttotal(2228.16);;		//投资总额
 		vo.setIsdeductvtax("0");;		// 增值税抵扣
 		vo.setDeductvtax(93.79);;		// 可抵扣税金
 		vo.setCapitalprop(20.00);;		// 资本金比例(%)

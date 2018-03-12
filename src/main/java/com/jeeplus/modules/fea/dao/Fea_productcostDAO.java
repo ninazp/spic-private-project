@@ -41,7 +41,7 @@ public class Fea_productcostDAO {
 		bvo.setCreateDate(new Date());
 		bvo.setFea_productcost(vo);
 		
-		bvo.setCosttype("维修率");		// 成本种类
+		bvo.setCosttype("3");		// 成本种类
 		bvo.setCostunit("%");
 		
 		if(null!=projectvo.getCountyears() && projectvo.getCountyears()>0){
@@ -63,9 +63,9 @@ public class Fea_productcostDAO {
 			   }
 			}
 		
-		Fea_productcostBVO bvo2 = getbvo("人员数量","个",2.00,projectvo.getCountyears());
+		Fea_productcostBVO bvo2 = getbvo("1","个",2.00,projectvo.getCountyears());
 		bvo2.setFea_productcost(vo);
-		Fea_productcostBVO bvo3 = getbvo("供热费用","万元",32.15,projectvo.getCountyears());
+		Fea_productcostBVO bvo3 = getbvo("2","万元",32.15,projectvo.getCountyears());
 		bvo3.setFea_productcost(vo);
 		
 		basemapper1.insert(vo);

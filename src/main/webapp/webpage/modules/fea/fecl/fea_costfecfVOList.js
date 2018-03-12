@@ -89,18 +89,18 @@ $(document).ready(function() {
 		        }
 		       
 		    }
-			/*,{
-		        field: 'projectcode',
-		        title: '项目编码',
+			,{
+		        field: 'langrate',
+		        title: '长期借款利率（%）',
 		        sortable: true
 		       
 		    }
 			,{
-		        field: 'projectname',
-		        title: '项目名称',
+		        field: 'langyear',
+		        title: '长期借款年限',
 		        sortable: true
 		       
-		    }*/
+		    }
 			,{
 		        field: 'circularate',
 		        title: '短期借款利率（%）',

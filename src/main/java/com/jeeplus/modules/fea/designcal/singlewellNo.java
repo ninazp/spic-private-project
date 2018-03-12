@@ -12,9 +12,12 @@ import java.util.Map;
 import com.jeeplus.core.service.ServiceException;
 import com.jeeplus.modules.fea.dao.PubUtil;
 import com.jeeplus.modules.fea.entity.design.Fea_design_heatVO;
+import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.result.Fea_design_resultVO;
 import com.jeeplus.modules.fea.entity.set.Fea_design_setVO;
 import com.jeeplus.modules.fea.entity.transfer.Fea_design_transferVO;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 import com.jeeplus.modules.sys.utils.UserUtils;
 
@@ -25,7 +28,9 @@ public class singlewellNo {
 			Fea_design_setVO fea_design_setVO,
 			List<List<Double>> pricech,
 			List<List<Double>> heatpumpprice,
-			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper){
+			List<Double> heatrate,Fea_design_resultVOMapper resultVOMapper,
+			Fea_productcostVOMapper fea_productcostVOmapper,
+			Fea_productcostBVOMapper fea_productcostBVOmapper){
 
 		Map<String,Object> retmap = new HashMap<String, Object>();
 
@@ -271,6 +276,14 @@ public class singlewellNo {
 		result4.setResulttype("单位面积电费（元/平方米）");
 		result5.setResulttype("运行成本（万元/年）");
 
+		//更新成本-电费
+		Fea_productcostBVO bvo = new Fea_productcostBVO();
+		bvo.setId(PubUtil.getid(1));
+		bvo.setCreateBy(UserUtils.getUser());	
+		bvo.setCreateDate(new Date());
+		bvo.setCosttype("2");		// 成本种类
+		bvo.setCostunit("万元");
+		
 		int i=1;
 		for(Double rate : heatrate){
 			Double yearpow = 0.00;
@@ -323,6 +336,9 @@ public class singlewellNo {
 				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 				m5.invoke(result5, d51);
+				
+				Method m6 = bvo.getClass().getMethod("setYear"+(i),Double.class);
+				m6.invoke(bvo, d51);
 
 				i++;
 			} catch (Exception e) {
@@ -333,6 +349,9 @@ public class singlewellNo {
 		resultVOMapper.insert(result1);resultVOMapper.insert(result2);resultVOMapper.insert(result3);
 		resultVOMapper.insert(result4);resultVOMapper.insert(result5);
 
+		singlewellyes.updateproductcost(fea_design_heatVO.getFeaProjectB(),bvo,
+				fea_productcostVOmapper,fea_productcostBVOmapper);
+		
 		List<List<Double>> costinfolst = new ArrayList<List<Double>>();
 		costinfolst.add(res1);
 		costinfolst.add(res2);

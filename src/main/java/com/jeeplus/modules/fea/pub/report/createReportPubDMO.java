@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
@@ -24,8 +25,9 @@ import com.jeeplus.modules.fea.pub.util.BalanceHandler;
 import com.jeeplus.modules.fea.pub.util.CapitalHandler;
 import com.jeeplus.modules.fea.pub.util.CapitalSrcHandler;
 import com.jeeplus.modules.fea.pub.util.EVAHandler;
+import com.jeeplus.modules.fea.pub.util.GetZjcctable;
 import com.jeeplus.modules.fea.pub.util.InvestFlowHandler;
-import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
+import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 
@@ -75,8 +77,20 @@ public class createReportPubDMO {
 					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);
 			
 			//1 -- 投资计划与资金筹措表
-			List<List<Double>> zjcktable = ProjectInfoHander.getzjcctable(
-					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap);
+//			List<List<Double>> zjcktable = ProjectInfoHander.getzjcctable(
+//					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap);
+			
+			List<Fea_investdisVO> fitvo =  (List<Fea_investdisVO>) PubBaseDAO.getMutiParentVO("fea_investdis", "id",
+					"project_id='"+projectvo.getId()+"'", fea_investdisVOMapper);
+			
+			if(null==fitvo || fitvo.size()==0){
+				return retmap;
+			}
+			
+			Double rate = (Double) parammap.get("langrate");
+			int startmth = (int) parammap.get("startmth");
+			List<List<Double>> zjcktable = GetZjcctable.getzjcctable(fitvo.get(0).getInvestamt(),
+					0.00,rate, startmth+0.00);
 			
 			Map<String,List<List<Double>>>  basereportmap = GetBaseReportDMO.getbasereport(zjcktable, parammap);
 			

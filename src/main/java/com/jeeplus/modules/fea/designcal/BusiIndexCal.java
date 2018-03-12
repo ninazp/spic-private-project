@@ -3,15 +3,23 @@ package com.jeeplus.modules.fea.designcal;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeeplus.modules.fea.dao.PubUtil;
+import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class BusiIndexCal {
 
@@ -19,6 +27,10 @@ public class BusiIndexCal {
 	private FeaProjectBMapper projectBMapper;
 	@Autowired
 	private FeaDesignReportMapper feaDesignReportMapper;
+	@Autowired
+	private Fea_investdisVOMapper basemapper4;
+	@Autowired
+	private Fea_investdisBVOMapper basemapper5;
 
 	@SuppressWarnings("unchecked")
 	public List<List<String>> getInitIvdesMny(String projectid){
@@ -141,35 +153,35 @@ public class BusiIndexCal {
 
 		//******************************计算总投资--解方程******************//
 		Double sumtval = t4+t5+t6+t7+t8+t10+t12+t13+t14+t15+t17;
-		
+
 		Double t2cs = p2[0][2]-p2[0][0]*p2[1][1];
 		Double t2xs = p2[1][1];
-		
+
 		Double t3cs = p30[4]+1.7*p30[2]-((p31[4]-p30[4])*p30[0]/(p31[0]-p30[0]))
 				-((p31[2]-p30[2])*p30[0]*1.7/(p31[0]-p30[0]));
-		
+
 		Double t3xs = ((p31[4]-p30[4])/(p31[0]-p30[0]))+((p31[2]-p30[2])*1.7/(p31[0]-p30[0]));
-		
+
 		Double t9cs = p90[1]+p90[3]-p90[0]*(p91[1]-p90[1])/(10000*(p91[0]-p90[0]))
 				-p90[0]*(p91[3]-p90[3])/(10000*(p91[0]-p90[0]));
-		
+
 		Double t9xs = (p91[1]-p90[1])/(10000*(p91[0]-p90[0]))
 				+(p91[3]-p90[3])/(10000*(p91[0]-p90[0]));
-		
+
 		Double t111 = p11[2]+ ((l10.get(1)+l11.get(1))-p11[0])*p11[1];
 		Double t113 = p11[8] + (sumbuild-(l10.get(1)+l11.get(1))-p11[6])*p11[7];
-		
+
 		Double t11cs = t111+t113+p11[5]-p11[3]*p11[4]+p11[4]*(t7+t8+t12+t13);
-		
+
 		Double t11xs = p11[4];
-		
+
 		Double totalxs = (1/1.05)-(t2xs+t3xs+t9xs+(t11xs*t9xs));
-		
+
 		Double totalcs = sumbuild+sumtval+t2cs+t3cs+t9cs+t11cs+t11xs*t9xs;
-		
+
 		Double summny = totalcs/totalxs;
-		
-		
+
+
 		//******************************计算总投资--解方程******************//
 
 		//建设管理费
@@ -178,7 +190,7 @@ public class BusiIndexCal {
 		Double d22 = (summny-p30[0])*(p31[2]-p30[2])/(p31[0]-p30[0])+p30[2];
 		Double d24 = (summny-p30[0])*(p31[4]-p30[4])/(p31[0]-p30[0])+p31[4];
 		Double d2=d22+d24;
-		
+
 		Double d91 = (summny/10000 - p90[0])*(p91[1]-p90[1])/(p91[0]-p90[0])+p90[1];
 		Double d93 = (summny/10000 - p90[0])*(p91[3]-p90[3])/(p91[0]-p90[0])+p90[3];
 		Double d9 = d91+d93;
@@ -229,7 +241,7 @@ public class BusiIndexCal {
 		ll11.add(getDouble2float(l11.get(3))+""); ll11.add(getDouble2float(l11.get(0)+l11.get(1)+l11.get(2)+l11.get(3))+"");
 		ll11.add("");ll11.add("");ll11.add("");ll11.add("");
 
-	
+
 		List<String> ll13 = getotherfee("II", "工程其他费用", getDouble2float(ld13), "财建[2016]504号");
 		List<String> ll14 = getotherfee("1", "建设单位管理费",getDouble2float(d1), "财建[2016]504号");
 		List<String> ll15 = getotherfee("2", "项目可行性研究编制费",getDouble2float(d2), "计价格[1999]1283号");
@@ -263,15 +275,22 @@ public class BusiIndexCal {
 		ll41.add(""); ll41.add("建设项目总投资");
 		Double d411 = getDouble2float(l10.get(0)+l11.get(0));
 		ll41.add(""+d411);
+		//设备购置费
 		Double d412 = getDouble2float(l10.get(1)+l11.get(1));
 		ll41.add(""+d412); 
 		Double d413 = getDouble2float(l10.get(2)+l11.get(2));
 		ll41.add(""+d413);
 		Double d414 = getDouble2float(l10.get(3)+l11.get(3)+35+getDouble2float((sumbuild+ld13)*0.05)+getDouble2float(ld13));
 		ll41.add(d414+""); 
+		//总投资
 		Double d41 = getDouble2float(d411+d412+d413+d414);
 		ll41.add(d41+"");
 		ll41.add("");ll41.add("");ll41.add("");ll41.add("");
+		
+		int startmth = projectvo.getStartupDate().getMonth();
+		
+		 updateinvdis(d41,d412,4.9,startmth+0.00,
+				projectvo,basemapper4,basemapper5);
 
 		List<String> ll42 = new ArrayList<String>();
 		ll42.add(""); ll42.add("各工程费用占建设项目总投资的比例(%)"); 
@@ -314,6 +333,91 @@ public class BusiIndexCal {
 		Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
 
 		return bm1;
+	}
+
+	public void updateinvdis(Double tzamt,
+			Double equipamt,Double rate,Double startmth,
+			FeaProjectB projectvo,
+			Fea_investdisVOMapper basemapper4,
+			Fea_investdisBVOMapper basemapper5
+			){
+
+		Double ldamt = 35.00;
+
+		Double a1 = rate*(12-startmth+1)/2400;
+		Double a2 = (1.25+0.25*a1);
+		//长期借款本金
+		Double y = tzamt/a2;
+		//建设期利息
+		Double x = a1*y;
+		//长期借款
+		Double d221 = x+y;
+		//流动资金借款
+		Double d222 = ldamt *0.7;
+		//借款
+		Double d22 = d221+d222;
+
+		//建设投资资本金
+		Double d211 = tzamt - y;
+		Double d212 =  ldamt*0.3;
+		Double d21 = d211 +d212;
+		//资金筹措
+		Double d2 = d21+d22;
+
+		Double d13 = 35.00;
+		Double d12 = x;
+		Double d11 = tzamt;
+
+		Double d1 = x+tzamt+35.00;
+
+		Fea_investdisVO vo = new Fea_investdisVO();
+		vo.setFeaProjectB(projectvo);
+		vo.setHeatarea(projectvo.getHeatArea());
+		vo.setId(PubUtil.getid(1));
+		vo.setCreateBy(UserUtils.getUser());	
+		vo.setCreateDate(new Date());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(projectvo.getStartupDate());
+		int year = cal.get(Calendar.YEAR);
+		vo.setYear(year+"");;		// 年度
+		vo.setInvestprop(100.00);;		// 投资比例
+		vo.setInvestamt(tzamt);;		// 投资额度
+		vo.setDeductvtax(getDouble2float(equipamt*0.17));		// 可抵扣税金
+		vo.setCappropsum(getDouble2float(d211));		// 注资方合计
+		vo.setLoanpropsum(getDouble2float(y));	// 融资合计
+
+
+		Fea_investdisBVO bvo = new Fea_investdisBVO();
+		bvo.setId(PubUtil.getid(1));
+		bvo.setFea_investdis(vo);
+		bvo.setCreateBy(UserUtils.getUser());	
+		bvo.setCreateDate(new Date());
+		bvo.setFea_investdis(vo);
+		bvo.setZjname("注资方");
+		bvo.setInvesttype("1");;		// 资金方类别
+		bvo.setInvestprop(20.00);;		// 当期比例（%）
+		bvo.setInvestamt(getDouble2float(d21));;		// 资金金额
+		bvo.setJsamt(getDouble2float(d211));		// 用于建设金额
+		bvo.setLdamt(d212);	// 用于流动资金金额
+		
+		Fea_investdisBVO ibvo2 = new Fea_investdisBVO();
+		ibvo2.setId(PubUtil.getid(1));
+		ibvo2.setCreateBy(UserUtils.getUser());	
+		ibvo2.setCreateDate(new Date());
+		ibvo2.setFea_investdis(vo);
+		ibvo2.setZjname("融资方");
+		ibvo2.setInvesttype("2");;		// 融资方
+		ibvo2.setInvestprop(80.00);;		// 当期比例（%）
+		ibvo2.setInvestamt(getDouble2float(d22));;		// 资金金额
+		ibvo2.setJsamt(getDouble2float(y));		// 用于建设金额
+		ibvo2.setLdamt(d222);	// 用于流动资金金额
+
+		basemapper5.execSelectSql("delete from spic.fea_investdis_b "
+				+ "where PKINVESTDIS in (select id from fea_investdis where PROJECT_ID='"+projectvo.getId()+"')");
+		basemapper4.execDeleteSql("delete from fea_investdis where PROJECT_ID='"+projectvo.getId()+"'");
+		basemapper4.insert(vo);
+		basemapper5.insert(bvo);
+		basemapper5.insert(ibvo2);
 	}
 
 

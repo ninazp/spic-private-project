@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.dao.PubUtil;
@@ -25,6 +27,8 @@ import com.jeeplus.modules.fea.mapper.design.Fea_design_heatVOMapper;
 import com.jeeplus.modules.fea.mapper.equiplst.Fea_design_equiplst2VOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
+import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
@@ -56,7 +60,10 @@ public class PubDesignCal extends Exception{
 	private FeaDesignReportMapper feaDesignReportMapper;
 	@Autowired
 	private Fea_design_equiplst2VOMapper fea_design_equiplst2VOMapper;
-	
+	@Autowired
+	private Fea_productcostVOMapper fea_productcostVOmapper;
+	@Autowired
+	private Fea_productcostBVOMapper fea_productcostBVOmapper;
 
 	
 	@SuppressWarnings("unchecked")
@@ -91,10 +98,16 @@ public class PubDesignCal extends Exception{
 		if(null!=heatVO &&  null!=transferVO){
 			if(heatVO.get(0).getAreaselect().equals("Y") || heatVO.get(0).getAreaselect().equals("1")){
 				retmap =  singlewellyes.calsinglewellyes(heatVO.get(0), 
-						transferVO.get(0), setvolst.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0), pricech,
+						heatpumpprice, fea_costinfo,resultVOMapper,
+						 fea_productcostVOmapper,
+						 fea_productcostBVOmapper);
 			}else{
 				retmap = singlewellNo.calsinglewelNo(heatVO.get(0), 
-						transferVO.get(0), setvolst.get(0), pricech, heatpumpprice, fea_costinfo,resultVOMapper);
+						transferVO.get(0), setvolst.get(0), pricech, 
+						heatpumpprice, fea_costinfo,resultVOMapper,
+						fea_productcostVOmapper,
+						fea_productcostBVOmapper);
 			}
 			
 			if(null!=retmap && retmap.size()>0 && retmap.containsKey("设备清单")){
@@ -131,6 +144,13 @@ public class PubDesignCal extends Exception{
 				
 			}
 			
+		}
+		
+
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
+		if(null!=busiIndexCal){
+		     busiIndexCal.getInitIvdesMny(projectid);
 		}
 		
 		return retmap;

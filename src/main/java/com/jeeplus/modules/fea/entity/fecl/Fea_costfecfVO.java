@@ -11,7 +11,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 财务费用及流动资金Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2018-03-12
  */
 public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 	
@@ -19,6 +19,8 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 	private FeaProjectB feaProjectB;		// 项目
 	private String projectcode;		// 项目编码
 	private String projectname;		// 项目名称
+	private Double langrate;		// 长期借款利率（%）
+	private Integer langyear;		// 长期借款年限
 	private Double circularate;		// 短期借款利率（%）
 	private Double flowamt;		// 流动资金指标（万元）
 	private Double flowloanprop;		// 流动资金贷款比例（%）
@@ -59,7 +61,25 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="短期借款利率（%）", align=2, sort=9)
+	@ExcelField(title="长期借款利率（%）", align=2, sort=9)
+	public Double getLangrate() {
+		return langrate;
+	}
+
+	public void setLangrate(Double langrate) {
+		this.langrate = langrate;
+	}
+	
+	@ExcelField(title="长期借款年限", align=2, sort=10)
+	public Integer getLangyear() {
+		return langyear;
+	}
+
+	public void setLangyear(Integer langyear) {
+		this.langyear = langyear;
+	}
+	
+	@ExcelField(title="短期借款利率（%）", align=2, sort=11)
 	public Double getCircularate() {
 		return circularate;
 	}
@@ -68,7 +88,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.circularate = circularate;
 	}
 	
-	@ExcelField(title="流动资金指标（万元）", align=2, sort=10)
+	@ExcelField(title="流动资金指标（万元）", align=2, sort=12)
 	public Double getFlowamt() {
 		return flowamt;
 	}
@@ -77,7 +97,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.flowamt = flowamt;
 	}
 	
-	@ExcelField(title="流动资金贷款比例（%）", align=2, sort=11)
+	@ExcelField(title="流动资金贷款比例（%）", align=2, sort=13)
 	public Double getFlowloanprop() {
 		return flowloanprop;
 	}
@@ -86,7 +106,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 		this.flowloanprop = flowloanprop;
 	}
 	
-	@ExcelField(title="流动资金贷款利率（%）", align=2, sort=12)
+	@ExcelField(title="流动资金贷款利率（%）", align=2, sort=14)
 	public Double getFlowcaprate() {
 		return flowcaprate;
 	}

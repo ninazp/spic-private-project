@@ -95,7 +95,7 @@
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
-			</when>
+			</when> 
 			<otherwise>
 				ORDER BY a.create_date ASC
 			</otherwise>

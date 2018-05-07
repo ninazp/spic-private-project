@@ -227,13 +227,13 @@ public class TotalCostHander {
 			}
 			
 			for(int i=key;i<=totalcalyears;i++){
-				Double repval = assetnolxmap.get(key)*wxrate.get(i-key)/100;
+				Double repval = assetnolxmap.get(key);
 				Double amt = 0.00;
-				if(i==key){
-					amt = repval*(firstmths/12);
-				}else{
+//				if(i==key){
+//					amt = repval*(firstmths/12);
+//				}else{
 					amt = repval;
-				}
+//				}
 				if(retlist.size()<totalcalyears+1){
 				   retlist.add(amt);
 				}else{

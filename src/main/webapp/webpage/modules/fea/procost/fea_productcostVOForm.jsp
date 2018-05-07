@@ -120,6 +120,16 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="width-15 active"><label class="pull-right">维修费率（%）：</label></td>
+					<td class="width-35">
+						<form:input path="repairrate" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
+					<td class="width-35">
+						<form:input path="equitamt" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">无形资产摊销（年）：</label></td>
 					<td class="width-35">
 						<form:input path="intangibletx" htmlEscape="false"    class="form-control "/>

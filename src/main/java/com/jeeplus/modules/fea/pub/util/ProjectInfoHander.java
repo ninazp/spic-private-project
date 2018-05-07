@@ -139,10 +139,10 @@ public class ProjectInfoHander {
 							
 							Double jslxamt = r2211.get(investindex)*principalrate/200;
 							
-							if(null!=consperiod){
-								Double consperiodufd = (Double) consperiod;
-								jslxamt = jslxamt*consperiodufd/12;
-							}
+//							if(null!=consperiod){
+//								Double consperiodufd = (Double) consperiod;
+//								jslxamt = jslxamt*consperiodufd/12;
+//							}
 							
 							r2212.set(investindex, jslxamt);//建设期利息
 							r221.set(investindex, r2211.get(investindex)+r2212.get(investindex));

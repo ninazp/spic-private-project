@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 生成成本Entity
  * @author jw
- * @version 2018-02-06
+ * @version 2018-05-07
  */
 public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 	
@@ -26,6 +26,8 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 	private Double welfare;		// 福利费系数（%）
 	private Double material;		// 材料费
 	private Double insurance;		// 保险费率（%）
+	private Double repairrate;		// 维修费率（%）
+	private Double equitamt;		// 设备费
 	private Double wateramt;		// 泵送费
 	private Double heatdeposit;		// 供暖费
 	private Double intangibletx;		// 无形资产摊销（年）
@@ -113,7 +115,25 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.insurance = insurance;
 	}
 	
-	@ExcelField(title="泵送费", align=2, sort=14)
+	@ExcelField(title="维修费率（%）", align=2, sort=14)
+	public Double getRepairrate() {
+		return repairrate;
+	}
+
+	public void setRepairrate(Double repairrate) {
+		this.repairrate = repairrate;
+	}
+	
+	@ExcelField(title="设备费", align=2, sort=15)
+	public Double getEquitamt() {
+		return equitamt;
+	}
+
+	public void setEquitamt(Double equitamt) {
+		this.equitamt = equitamt;
+	}
+	
+	@ExcelField(title="泵送费", align=2, sort=16)
 	public Double getWateramt() {
 		return wateramt;
 	}
@@ -122,7 +142,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.wateramt = wateramt;
 	}
 	
-	@ExcelField(title="供暖费", align=2, sort=16)
+	@ExcelField(title="供暖费", align=2, sort=18)
 	public Double getHeatdeposit() {
 		return heatdeposit;
 	}
@@ -131,7 +151,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.heatdeposit = heatdeposit;
 	}
 	
-	@ExcelField(title="无形资产摊销（年）", align=2, sort=17)
+	@ExcelField(title="无形资产摊销（年）", align=2, sort=19)
 	public Double getIntangibletx() {
 		return intangibletx;
 	}
@@ -140,7 +160,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.intangibletx = intangibletx;
 	}
 	
-	@ExcelField(title="其他资产摊销（年）", align=2, sort=18)
+	@ExcelField(title="其他资产摊销（年）", align=2, sort=20)
 	public Double getOtherassettx() {
 		return otherassettx;
 	}
@@ -149,7 +169,7 @@ public class Fea_productcostVO extends DataEntity<Fea_productcostVO> {
 		this.otherassettx = otherassettx;
 	}
 	
-	@ExcelField(title="其他费用", align=2, sort=19)
+	@ExcelField(title="其他费用", align=2, sort=21)
 	public Double getOthercost() {
 		return othercost;
 	}

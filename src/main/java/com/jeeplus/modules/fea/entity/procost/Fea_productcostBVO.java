@@ -10,7 +10,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 成本种类Entity
  * @author jw
- * @version 2018-02-06
+ * @version 2018-05-07
  */
 public class Fea_productcostBVO extends DataEntity<Fea_productcostBVO> {
 	

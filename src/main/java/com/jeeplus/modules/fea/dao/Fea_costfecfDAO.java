@@ -19,14 +19,21 @@ public class Fea_costfecfDAO {
 		vo.setCreateBy(UserUtils.getUser());	
 		vo.setCreateDate(new Date());
 		
-		vo.setCircularate(4.35);;		// 短期借款利率（%）
-		vo.setFlowamt(35.00);;		// 流动资金指标（万元）
-		vo.setFlowloanprop(70.00);;		// 流动资金贷款比例（%）
-	    vo.setFlowcaprate(4.35);;	
+		Double area = projectvo.getHeatArea();
+		Double areaprice =  projectvo.getPrice();
+
+		Double flowamt = area*areaprice*0.85*0.2;
+		
+		vo.setCircularate(4.35);		// 短期借款利率（%）
+		vo.setFlowamt(flowamt);		// 流动资金指标（万元）
+		vo.setFlowloanprop(70.00);		// 流动资金贷款比例（%）
+	    vo.setFlowcaprate(4.35);	
 		
 		basemapper.insert(vo);
 		
 		return vo;
 	}
+	
+	
 	
 }

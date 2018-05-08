@@ -41,7 +41,7 @@ public class TotalCostHander {
 		List<Double> costparam = (List<Double>) parammap.get("costparam");
 		List<Double> person = (List<Double>) parammap.get("person");
 		List<Double> heatcostlst = (List<Double>) parammap.get("heatcost");
-		Map<Integer,Double> dkje = (Map<Integer,Double>) parammap.get("dkje");
+		Double dkjeamt = (Double) parammap.get("dkjeamt");
 		
 		//折旧年限，残值率，保险费率，工资,福利，供热,泵热费
 		Double depyears = costparam.get(0);
@@ -50,8 +50,8 @@ public class TotalCostHander {
 		Double perwage = costparam.get(3);
 		Double welfare =costparam.get(4);
 
-		Map<Integer,Double> assetValmap=  getjsamt(zjcktable, dkje);
-		Map<Integer,Double> assetValnolxmap=  getjsamtnolx(zjcktable, dkje);
+		Map<Integer,Double> assetValmap=  getjsamt(zjcktable, dkjeamt);
+		Map<Integer,Double> assetValnolxmap=  getjsamtnolx(zjcktable, dkjeamt);
 		
 		
 		//折旧费  
@@ -182,26 +182,20 @@ public class TotalCostHander {
 		return retList;
 	}
 	
-	public static Map<Integer,Double> getjsamt(List<List<Double>> zjcktable,Map<Integer,Double> dkje){
+	public static Map<Integer,Double> getjsamt(List<List<Double>> zjcktable,Double dkjeamt){
 		Map<Integer,Double>  retmap = new HashMap<Integer, Double>();
 		for(int i=1;i<zjcktable.get(0).size();i++){
 			Double amt = zjcktable.get(1).get(i)+zjcktable.get(2).get(i);
-			if(dkje.containsKey(i)){
-				amt = amt - dkje.get(i);
-			}
-			retmap.put(i, amt);
+			retmap.put(i, amt-dkjeamt);
 		}
 		return retmap;
 	}
 	
-	public static Map<Integer,Double> getjsamtnolx(List<List<Double>> zjcktable,Map<Integer,Double> dkje){
+	public static Map<Integer,Double> getjsamtnolx(List<List<Double>> zjcktable,Double dkjeamt){
 		Map<Integer,Double>  retmap = new HashMap<Integer, Double>();
 		for(int i=1;i<zjcktable.get(0).size();i++){
 			Double amt = zjcktable.get(1).get(i);
-			if(dkje.containsKey(i)){
-				amt = amt - dkje.get(i);
-			}
-			retmap.put(i, amt);
+			retmap.put(i, amt-dkjeamt);
 		}
 		return retmap;
 	}

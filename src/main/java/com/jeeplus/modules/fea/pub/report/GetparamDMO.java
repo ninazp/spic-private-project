@@ -65,58 +65,27 @@ public class GetparamDMO {
 		}else{
 			retmap.put("price", 14.00);//供热单价
 		}
-		
-
-		//资金来源retlst.add(tvo.getInterestcount());// 计息次数（年）
-//		retlst.add(tvo.getPrincipalrate());// 本金利率（%）
-//		retlst.add(tvo.getLangrate());// 利息利率（%）
-//		retlst.add(Double.valueOf(tvo.getRepaytype()));// 还款方式
-//		List<Double>  fundssrcparam = getfundssrc(fea_fundssrcVOMapper,fea_fundssrcTVOMapper, projectvo);
-	
-
-		//资金分配 -- 获得供热面积
-		Map<Integer,Double> heatareamap = new HashMap<Integer, Double>(); 
-		Map<Integer,Double> dkjemap = new HashMap<Integer, Double>(); 
-		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
-				getMutiParentVO("fea_investdis", "id", " project_id='"+projectvo.getId()+"' ", fea_investdisVOMapper);
-		
-		Double dkjeamt = 0.00;
-		for(Fea_investdisVO fvo : distrvolst){
-			int investyear = (null==fvo.getYear())?0:Integer.valueOf(fvo.getYear());
-			int investindex = investyear - startyearini+1;
-			if(null!=fvo.getHeatarea()) heatareamap.put(investindex, fvo.getHeatarea());
-			if(null!=fvo.getDeductvtax()) {
-				dkjemap.put(investindex, fvo.getDeductvtax());
-				
-				dkjeamt = dkjeamt+ fvo.getDeductvtax();
-			}
-		}
-		retmap.put("heatarea", heatareamap);
-		retmap.put("dkje", dkjemap);
-		retmap.put("dkjeamt", dkjeamt);
-
 		List<List<Double>> costparam = getcostparam(projectvo.getId(), countyear, currentproductmonth, fea_capformVOMapper, fea_productcostVOMapper, fea_productcostBVOMapper);
-
 		retmap.put("repairrate", costparam.get(0));//维修率
 		retmap.put("costparam", costparam.get(1));
+		
+		retmap.put("dkjeamt", costparam.get(1).get(5)*0.17);//增值税抵扣金额=设备费*0.17
+		
 		retmap.put("person", costparam.get(2));
 		retmap.put("heatcost", costparam.get(3));
-		
 		retmap.put("income", getsubincome(fea_incosubsidyVOMapper, wheresql, countyear));//补贴收入
-		
-		retmap.put("occupancy", getproductlst(countyear, fea_costinfoVOMapper, wheresql));//入住率
+		retmap.put("occupancy", getproductlst(countyear, fea_costinfoVOMapper, wheresql));//入住面积
 
 		//账务费用
 		List<Fea_costfecfVO> Fea_costfecfVOlst = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", wheresql,fea_costfecfVOMapper);
 		if(null!=Fea_costfecfVOlst && Fea_costfecfVOlst.size()>0){
 			Double shortloanrate =(null==Fea_costfecfVOlst.get(0).getCircularate())?0.00:Fea_costfecfVOlst.get(0).getCircularate();
 			retmap.put("shortloanrate", shortloanrate);
-			
 			retmap.put("interestcount", Fea_costfecfVOlst.get(0).getLangyear());// 计息次数（年）
 			retmap.put("principalrate", Fea_costfecfVOlst.get(0).getLangrate());// 本金利率（%）
 			retmap.put("langrate", Fea_costfecfVOlst.get(0).getLangrate());// 利息利率（%）
-			retmap.put("repaytype", 1);// 还款方式
-			
+			retmap.put("flowamt", Fea_costfecfVOlst.get(0).getFlowamt());
+			retmap.put("repaytype", 1);//等额本金
 		}
 
 		//获取基本参数信息
@@ -142,7 +111,7 @@ public class GetparamDMO {
 		return retmap;
 	}
 	
-	//入住率
+	//入住面积
 	public static List<Double> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", wheresql,
@@ -222,6 +191,7 @@ public class GetparamDMO {
 		Double welfare = 0.0;
 		Double heatdeposit = 0.0;
 		Double wateramt = 0.0;
+		Double equitamt = 0.0;
 
 		if(null!=fea_capform && fea_capform.size()>0 && null!=productcost && productcost.size()>0){
 			for(Fea_productcostVO pcost : productcost){
@@ -253,6 +223,7 @@ public class GetparamDMO {
 				if(null!=pcost.getWelfare())  welfare = pcost.getWelfare();
 				if(null!=pcost.getHeatdeposit()) heatdeposit = pcost.getHeatdeposit();
 				if(null!=pcost.getPerwage()) perwage = pcost.getPerwage();
+				if(null!=pcost.getEquitamt()) equitamt = pcost.getEquitamt();
 			}
 		}
 
@@ -265,48 +236,19 @@ public class GetparamDMO {
 			paramdoub.add(0.00);
 		}
 
-		// * 保险费率，工资,福利，供热,泵热费，
-		paramdoub.add(insurance);
+		// * 保险费率，工资,福利，供热,泵热费,设备费
+		paramdoub.add(insurance);//0
 		paramdoub.add(perwage);
 		paramdoub.add(welfare);
 		paramdoub.add(heatdeposit);
 		paramdoub.add(wateramt);
+		paramdoub.add(equitamt);//5
 
 		retlst.add(repairrate);
-		retlst.add(paramdoub);
+		retlst.add(paramdoub);//1
 		retlst.add(personlst);
 		retlst.add(heatcostlst);
 
 		return retlst;
 	}
-
-	//获取长期贷款利率还款年限等信息
-	@SuppressWarnings("unchecked")
-	public static List<Double> getfundssrc(BaseMapper baseMapper,BaseMapper baseMappert, FeaProjectB projectvo){
-		List<Double> retlst = new ArrayList<Double>();
-		//查询资金来源
-		List<Fea_fundssrcVO>   distrvolst = (List<Fea_fundssrcVO>) PubBaseDAO.
-				getMutiParentVO("fea_fundssrc", "id", " project_id='"+projectvo.getId()+"' ", baseMapper);
-		if(null!=distrvolst && distrvolst.size()>0){
-			for(Fea_fundssrcVO fvo : distrvolst){
-				List<Fea_fundssrcTVO>   fundssrctlst = (List<Fea_fundssrcTVO>) PubBaseDAO.getMutiParentVO("fea_fundssrc_t", "id", " pkfundssrc='"+fvo.getId()+"' ", baseMappert);
-				if(null!=fundssrctlst && fundssrctlst.size()>0){
-					for(Fea_fundssrcTVO tvo : fundssrctlst){//长期贷款
-						retlst.add(tvo.getInterestcount());// 计息次数（年）
-						retlst.add(tvo.getPrincipalrate());// 本金利率（%）
-						retlst.add(tvo.getLangrate());// 利息利率（%）
-						retlst.add(Double.valueOf(tvo.getRepaytype()));// 还款方式
-					}
-				}else{
-					retlst.add(15.00);
-					retlst.add(4.9);
-					retlst.add(4.9);
-					retlst.add(1.00);
-				}
-			}
-		}
-
-		return retlst;
-	}
-
 }

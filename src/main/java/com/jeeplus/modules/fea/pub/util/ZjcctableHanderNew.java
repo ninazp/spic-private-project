@@ -1,75 +1,15 @@
 package com.jeeplus.modules.fea.pub.util;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.jeeplus.core.persistence.BaseMapper;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 
-public class ProjectInfoHander {
-
-	public static List<Double> getprojectinfo(
-			FeaProjectB projectvo){
-
-		List<Double> prjectdouble = new ArrayList<Double>();
-
-		Double heatarea = projectvo.getHeatArea();//供暖面积
-		Date startupdate = projectvo.getStartupDate();
-		int year = startupdate.getYear();
-		int month = startupdate.getMonth();
-		Double consperiod = projectvo.getConstructPeriod();
-		Double currentproductmonth = 12-consperiod-month;
-		Double countyear = projectvo.getCountyears();
-
-		prjectdouble.add(currentproductmonth);//当年供热月份
-		prjectdouble.add(countyear);//计算期，比如21年
-		prjectdouble.add(year+0.0);//计算开始年
-		prjectdouble.add(heatarea);//供热面积
-
-		return prjectdouble;
-	}
-
-	public static List<Double> getfundssrc(BaseMapper baseMapper,BaseMapper baseMappert, FeaProjectB projectvo){
-		Double deductval = 0.0;
-		List<Double> retlst = new ArrayList<Double>();
-		//查询资金来源
-		List<Fea_fundssrcVO>   distrvolst = (List<Fea_fundssrcVO>) PubBaseDAO.
-				getMutiParentVO("fea_fundssrc", "id", " project_id='"+projectvo.getId()+"' ", baseMapper);
-		if(null!=distrvolst && distrvolst.size()>0){
-			for(Fea_fundssrcVO fvo : distrvolst){
-				deductval = deductval+((null==fvo.getDeductvtax())?0.00:fvo.getDeductvtax());
-				retlst.add(deductval);
-				List<Fea_fundssrcTVO>   fundssrctlst = (List<Fea_fundssrcTVO>) PubBaseDAO.getMutiParentVO("fea_fundssrc_t", "id", " pkfundssrc='"+fvo.getId()+"' ", baseMappert);
-				if(null!=fundssrctlst && fundssrctlst.size()>0){
-					/**
-					 * private Double interestcount;		// 计息次数（年）
-	                   private Double principalrate;		// 本金利率（%）
-	                   private Double langrate;		// 利息利率（%）
-	                   private String repaytype;		// 还款方式
-					 */
-					for(Fea_fundssrcTVO tvo : fundssrctlst){
-						retlst.add(tvo.getInterestcount());
-						retlst.add(tvo.getPrincipalrate());
-						retlst.add(tvo.getLangrate());
-						retlst.add(Double.valueOf(tvo.getRepaytype()));
-					}
-				}else{
-					retlst.add(15.00);
-					retlst.add(4.9);
-					retlst.add(4.9);
-					retlst.add(1.00);
-				}
-			}
-		}
-
-		return retlst;
-	}
+public class ZjcctableHanderNew {
 
 	@SuppressWarnings("unchecked")
 	public static List<List<Double>> getzjcctable(
@@ -77,7 +17,6 @@ public class ProjectInfoHander {
 			FeaProjectB projectvo, Map<String,Object> parammap){
 
 		List<List<Double>> rettable = new ArrayList<List<Double>>();
-
 		List<Double> r1 = new ArrayList<Double>() ;r1.add(0.0);
 		List<Double> r11 = new ArrayList<Double>();r11.add(0.0);
 		List<Double> r12 = new ArrayList<Double>();r12.add(0.00);
@@ -92,7 +31,7 @@ public class ProjectInfoHander {
 		List<Double> r2212 = new ArrayList<Double>();r2212.add(0.00);
 		List<Double> r222 = new ArrayList<Double>();r222.add(0.00);
 
-		//查询资金来源
+		//查询投资分配表
 		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
 				getMutiParentVO("fea_investdis", "id", " project_id='"+projectvo.getId()+"' ", baseMapper);
 		int maxindex = 1;
@@ -111,12 +50,21 @@ public class ProjectInfoHander {
 			r221.add(0.00);r2211.add(0.00);r2212.add(0.00);
 			r222.add(0.00);
 		}
+		
+		Double flowamt = (Double) parammap.get("flowamt");
+		//计算总投资
+		Double totalamt = 0.00;
+		for(Fea_investdisVO fvo : distrvolst){
+			totalamt = totalamt + fvo.getInvestamt();
+		}
 
 		if(null!=distrvolst && distrvolst.size()>0){
 			for(Fea_investdisVO fvo : distrvolst){
 				int startyear = (null==parammap.get("startyear"))?0:Integer.valueOf(parammap.get("startyear").toString());
 				int investyear = (null==fvo.getYear())?0:Integer.valueOf(fvo.getYear());
 				int investindex = investyear - startyear+1;
+				
+				Double flowamtyear = flowamt*fvo.getInvestamt()/totalamt;//每年的流动资金比例
 
 				List<Fea_investdisBVO>   distriblst = (List<Fea_investdisBVO>) PubBaseDAO.getMutiParentVO("fea_investdis_b", "id", " pkinvestdis='"+fvo.getId()+"' ", baseMapperb);
 				if(null!=distriblst && distriblst.size()>0){
@@ -124,29 +72,29 @@ public class ProjectInfoHander {
 						//资金筹备
 						if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("1")){
 							
-							r211.set(investindex,(null==bvo.getJsamt())?0.00:bvo.getJsamt());
-							r212.set(investindex,(null==bvo.getLdamt())?0.00:bvo.getLdamt());
-							r21.set(investindex,r211.get(investindex)+r212.get(investindex));
+							Double prop1 = bvo.getInvestprop();//投资比例
+							
+							//先不考虑多个投资和融资机构的情况
+							Double investamt = (null!=bvo.getInvestamt()?bvo.getInvestamt():0.00);
+							
+							r211.set(investindex,investamt - (flowamtyear*0.3));
+							r212.set(investindex,flowamtyear*0.3);
+							r21.set(investindex,investamt);
 
 							r211.set(0, r211.get(0)+r211.get(investindex));
 							r212.set(0, r212.get(0)+r212.get(investindex));
 							r21.set(0, r21.get(0)+r21.get(investindex));
 						}else if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("2")){
-							r2211.set(investindex, (null==bvo.getJsamt())?0.00:bvo.getJsamt());
+							r2211.set(investindex,bvo.getInvestamt());//长期借款本金
 							Double principalrate = Double.valueOf(parammap.get("principalrate").toString());
 							
 							Object consperiod = parammap.get("constructPeriod");
 							
 							Double jslxamt = r2211.get(investindex)*principalrate/200;
 							
-//							if(null!=consperiod){
-//								Double consperiodufd = (Double) consperiod;
-//								jslxamt = jslxamt*consperiodufd/12;
-//							}
-							
 							r2212.set(investindex, jslxamt);//建设期利息
 							r221.set(investindex, r2211.get(investindex)+r2212.get(investindex));
-							r222.set(investindex, (null==bvo.getLdamt())?0:bvo.getLdamt());
+							r222.set(investindex, flowamtyear*0.7);
 							r22.set(investindex, r221.get(investindex)+r222.get(investindex));
 							
 							
@@ -183,7 +131,6 @@ public class ProjectInfoHander {
 		
 		return rettable;
 	}
-
 
 
 

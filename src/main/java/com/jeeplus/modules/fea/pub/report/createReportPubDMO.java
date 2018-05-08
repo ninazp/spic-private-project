@@ -26,11 +26,10 @@ import com.jeeplus.modules.fea.pub.util.CapitalHandler;
 import com.jeeplus.modules.fea.pub.util.CapitalSrcHandler;
 import com.jeeplus.modules.fea.pub.util.EVAHandler;
 import com.jeeplus.modules.fea.pub.util.InvestFlowHandler;
-import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
+import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
-import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class createReportPubDMO {
 	@Autowired
@@ -78,7 +77,7 @@ public class createReportPubDMO {
 					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);
 			
 			//1 -- 投资计划与资金筹措表
-			List<List<Double>> zjcktable = ProjectInfoHander.getzjcctable(
+			List<List<Double>> zjcktable = ZjcctableHanderNew.getzjcctable(
 					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap);
 			
 			List<Fea_investdisVO> fitvo =  (List<Fea_investdisVO>) PubBaseDAO.getMutiParentVO("fea_investdis", "id",

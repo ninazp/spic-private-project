@@ -10,7 +10,7 @@ public class ProfitHandler {
 	public static List<List<Double>> getprofittable(List<List<Double>> zjcktable,
 			List<List<Double>> totalcosttable,List<List<Double>> loanrepay,
 			Map<String,Object> parammap){
-		
+
 		//补贴收入
 		List<Double> subincome = (List<Double>) parammap.get("income");
 		Double countyear = (Double) parammap.get("countyear");
@@ -18,7 +18,7 @@ public class ProfitHandler {
 		Double legalaccfund = (Double) parammap.get("legalaccfund");//法定盈余公积金比率
 		Double yflrprop = (Double) parammap.get("yflrprop");//应付利润比率
 		String issdssjsm = (String) parammap.get("issdssjsm");
-		
+
 		//利润表与利润分配表
 		List<List<Double>> profittable = new ArrayList<List<Double>>();
 
@@ -27,7 +27,7 @@ public class ProfitHandler {
 		List<Double> profit21 = gettax(0.0, countyear);
 		List<Double> profit22 = gettax(0.0, countyear);
 		List<Double> profit4 = gettax(0.0, countyear);//补贴收入
-		
+
 		List<Double> profit3 = new ArrayList<Double>();//总成本费用
 		List<Double> profit5 = new ArrayList<Double>();
 		List<Double> profit6 = new ArrayList<Double>();;
@@ -44,70 +44,70 @@ public class ProfitHandler {
 		List<Double> profit17 = new ArrayList<Double>();
 		List<Double> profit18 = new ArrayList<Double>();
 		List<Double> profit19 = new ArrayList<Double>();
-		
+
 		Double zjckamt = 0.00;
 		int miancount = 0;
 		int dcount = 0;
 		List<Double> profit5bak = new ArrayList<Double>();
 		for(int i=0;i<totalcosttable.get(10).size();i++){
 			if(i==0){
-			  profit3.add(0.0);profit5.add(0.0);profit6.add(0.0);profit7.add(0.0);
-			  profit8.add(0.0);profit10.add(0.0);profit11.add(0.0);profit12.add(0.0);
-			  profit13.add(0.0);profit14.add(0.0);profit15.add(0.0);
-			  profit16.add(0.0);profit17.add(0.0);
-			  profit18.add(0.0);profit19.add(0.0);profit5bak.add(0.0);
+				profit3.add(0.0);profit5.add(0.0);profit6.add(0.0);profit7.add(0.0);
+				profit8.add(0.0);profit10.add(0.0);profit11.add(0.0);profit12.add(0.0);
+				profit13.add(0.0);profit14.add(0.0);profit15.add(0.0);
+				profit16.add(0.0);profit17.add(0.0);
+				profit18.add(0.0);profit19.add(0.0);profit5bak.add(0.0);
 			}else{
 				profit3.add(totalcosttable.get(10).get(i));//总成本费用
-				
+
 				profit5.add(profit1.get(i)-profit2.get(i)-profit3.get(i)+profit4.get(i));
 				profit5bak.add(profit1.get(i)-profit2.get(i)-profit3.get(i)+profit4.get(i));
 				//弥补以前年度
 				if(profit5.get(i)>0){
-					 Double lramt = profit5.get(i);
-					 boolean fortrue = false;
-					 for(int j=i-5;(j<i && j>=1 && profit5bak.get(j)<0);j++){
-						 fortrue = true;
-						 lramt = lramt+profit5bak.get(j);
-						 if(lramt<=0){
-							 if(i<profit6.size() && profit6.get(i)>0 ){
-								 profit6.set(i,profit5.get(i));
-							 }else{
-								 profit6.add(profit5.get(i));
-							 }
-							 profit5bak.set(j, lramt);
-							 break;
-						 }else if(lramt>0){
-							 if(i<profit6.size() && profit6.get(i)>0){
-								 profit6.set(i,profit5.get(i)-lramt);
-							 }else{
-								 profit6.add(profit5.get(i)-lramt);
-							 }
-							 
-							 profit5bak.set(j, 0.0);
-						 }
-					 }
-					 if(!fortrue) profit6.add(0.0);
+					Double lramt = profit5.get(i);
+					boolean fortrue = false;
+					for(int j=i-5;(j<i && j>=1 && profit5bak.get(j)<0);j++){
+						fortrue = true;
+						lramt = lramt+profit5bak.get(j);
+						if(lramt<=0){
+							if(i<profit6.size() && profit6.get(i)>0 ){
+								profit6.set(i,profit5.get(i));
+							}else{
+								profit6.add(profit5.get(i));
+							}
+							profit5bak.set(j, lramt);
+							break;
+						}else if(lramt>0){
+							if(i<profit6.size() && profit6.get(i)>0){
+								profit6.set(i,profit5.get(i)-lramt);
+							}else{
+								profit6.add(profit5.get(i)-lramt);
+							}
+
+							profit5bak.set(j, 0.0);
+						}
+					}
+					if(!fortrue) profit6.add(0.0);
 				}else{
 					profit6.add(0.0);
 				}
-				
+
 				//所得额及所得税
 				if(profit5.get(i)-profit6.get(i)>0){
-				    profit7.add(profit5.get(i)-profit6.get(i));
+					profit7.add(profit5.get(i)-profit6.get(i));
 				}else{
 					profit7.add(0.0);
 				}
 				if(profit7.get(i)>0){
 					if(issdssjsm.equals("1")){
-					if(dcount<3){
-						profit8.add(0.0);
-					}else if(miancount<3){
-						profit8.add(profit7.get(i)*incomerate/200);
-						miancount++;
-					}else{
-						profit8.add(profit7.get(i)*incomerate/100);
-					}
-					dcount = dcount+1;
+						if(dcount<3){
+							profit8.add(0.0);
+						}else if(miancount<3){
+							profit8.add(profit7.get(i)*incomerate/200);
+							miancount++;
+						}else{
+							profit8.add(profit7.get(i)*incomerate/100);
+						}
+						dcount = dcount+1;
 					}else{
 						profit8.add(profit7.get(i)*incomerate/100);
 					}
@@ -122,7 +122,7 @@ public class ProfitHandler {
 				}
 				profit12.add(profit10.get(i)+profit11.get(i));
 				if(profit10.get(i)>0){//法定公积金
-				  profit13.add(profit10.get(i)*legalaccfund/100);
+					profit13.add(profit10.get(i)*legalaccfund/100);
 				}else{
 					profit13.add(0.0);
 				}
@@ -130,9 +130,9 @@ public class ProfitHandler {
 				profit15.add(0.0);
 				if(profit14.get(i)>0){
 					if(i<zjcktable.get(5).size()){
-					 for(int j=i;j<zjcktable.get(5).size();j++){
-						zjckamt = zjckamt + zjcktable.get(5).get(j);
-					 }
+						for(int j=i;j<zjcktable.get(5).size();j++){
+							zjckamt = zjckamt + zjcktable.get(5).get(j);
+						}
 					}else{
 						zjckamt = zjcktable.get(5).get(0);
 					}
@@ -146,64 +146,55 @@ public class ProfitHandler {
 					profit16.add(0.0);
 				}
 				profit17.add(profit14.get(i)-profit15.get(i)-profit16.get(i));
-				
+
 				profit18.add(profit5.get(i)+totalcosttable.get(6).get(i));
 				profit19.add(profit18.get(i)+totalcosttable.get(0).get(i));
 			}
-			
-			  profit3.set(0,profit3.get(0)+profit3.get(i));
-			  profit5.set(0,profit5.get(0)+profit5.get(i));
-			  profit6.set(0,profit6.get(0)+profit6.get(i));
-			  profit7.set(0,profit7.get(0)+profit7.get(i));
-			  profit8.set(0,profit8.get(0)+profit8.get(i));
-			  profit10.set(0,profit10.get(0)+profit10.get(i));
-			  profit12.set(0,profit12.get(0)+profit12.get(i));
-			  profit13.set(0,profit13.get(0)+profit13.get(i));
-			  profit14.set(0,profit14.get(0)+profit14.get(i));
-			  profit15.set(0,profit15.get(0)+profit15.get(i));
-			  profit16.set(0,profit16.get(0)+profit16.get(i));
-			  profit18.set(0,profit18.get(0)+profit18.get(i));
-			  profit19.set(0,profit19.get(0)+profit19.get(i));
+
+			profit3.set(0,profit3.get(0)+profit3.get(i));
+			profit5.set(0,profit5.get(0)+profit5.get(i));
+			profit6.set(0,profit6.get(0)+profit6.get(i));
+			profit7.set(0,profit7.get(0)+profit7.get(i));
+			profit8.set(0,profit8.get(0)+profit8.get(i));
+			profit10.set(0,profit10.get(0)+profit10.get(i));
+			profit12.set(0,profit12.get(0)+profit12.get(i));
+			profit13.set(0,profit13.get(0)+profit13.get(i));
+			profit14.set(0,profit14.get(0)+profit14.get(i));
+			profit15.set(0,profit15.get(0)+profit15.get(i));
+			profit16.set(0,profit16.get(0)+profit16.get(i));
+			profit18.set(0,profit18.get(0)+profit18.get(i));
+			profit19.set(0,profit19.get(0)+profit19.get(i));
 		}
-		
+
 		profittable.add(profit1);profittable.add(profit2);profittable.add(profit21);profittable.add(profit22);
 		profittable.add(profit3);profittable.add(profit4);profittable.add(profit5);profittable.add(profit6);
 		profittable.add(profit7);profittable.add(profit8);profittable.add(profit9);profittable.add(profit10);
 		profittable.add(profit11);profittable.add(profit12);profittable.add(profit13);profittable.add(profit14);
 		profittable.add(profit15);profittable.add(profit16);profittable.add(profit17);profittable.add(profit18);
 		profittable.add(profit19);
-		
+
 		return profittable;
 	}
-	
-	
 
-	@SuppressWarnings("unchecked")
+
+/**
+ * 入住面积
+ * @param parammap
+ * @return
+ */
 	public static List<Double> getproductincome(Map<String,Object> parammap){
 		List<Double> retlist = new ArrayList<Double>();
-		Map<Integer,Double> heatareamap = (Map<Integer, Double>) parammap.get("heatarea");
 		List<Double> occupancylst = (List<Double>) parammap.get("occupancy");
 		Double price = (Double) parammap.get("price");
 		Double countyear = (Double) parammap.get("countyear");
 		retlist.add(0.0);
-		for(Integer key : heatareamap.keySet()){
-			if(retlist.size()==1){
-				for(int i=0;i<key-1;i++){
-					retlist.add(0.00);
-				}
-			}
-			for(int i=key;i<=countyear;i++){
-				Double repval = heatareamap.get(key)*price*occupancylst.get(i-key);
-				if(retlist.size()-1<countyear){
-				   retlist.add(repval);
-				}else{
-					retlist.set(i, retlist.get(i)+repval);
-				}
-				retlist.set(0, retlist.get(0)+repval);
-			}
+		for(int i=0;i<=countyear;i++){
+			Double repval = price*occupancylst.get(i);
+			retlist.add(repval);
+			retlist.set(0, retlist.get(0)+repval);
 		}
 		return retlist;
-		
+
 	}
 
 	public static List<Double> gettax(Double taxrate,Double totalyears){
@@ -217,6 +208,6 @@ public class ProfitHandler {
 		occuplst.set(0, sumdoub);
 		return occuplst;
 	}
-	
-	
+
+
 }

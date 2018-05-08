@@ -188,7 +188,7 @@ public class ProfitHandler {
 		Double price = (Double) parammap.get("price");
 		Double countyear = (Double) parammap.get("countyear");
 		retlist.add(0.0);
-		for(int i=0;i<=countyear;i++){
+		for(int i=0;i<countyear;i++){
 			Double repval = price*occupancylst.get(i);
 			retlist.add(repval);
 			retlist.set(0, retlist.get(0)+repval);

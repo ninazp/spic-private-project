@@ -35,6 +35,7 @@ import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.service.costinfo.Fea_costinfoVOService;
 
 /**
@@ -210,5 +211,18 @@ public class Fea_costinfoVOController extends BaseController {
 		}
 		return "redirect:"+Global.getAdminPath()+"/fea/costinfo/fea_costinfoVO/?repage";
     }
+	
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:costinfo:fea_costinfoVO:view","fea:costinfo:fea_costinfoVO:add","fea:costinfo:fea_costinfoVO:edit"},logical=Logical.OR)
+	@RequestMapping(value = "checkProject", method=RequestMethod.POST)
+	public String checkProject(Fea_costinfoVO fea_fundssrcVO, String oldProjectID, String newProjectID) {
+		if (null !=  newProjectID && newProjectID.equals(oldProjectID)) {
+			return "true";
+		} else if (null != newProjectID && fea_costinfoVOService.getFeaVOByProjectId(newProjectID) == null) {
+			return "true";
+		}
+		return "false";
+	}
 
 }

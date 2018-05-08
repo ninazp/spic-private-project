@@ -90,7 +90,7 @@ public class PubDesignCal extends Exception{
 		
 		FeaProjectB  projectqueryvo = projectBMapper.get(projectvo.getId());
 		
-		List<Double>  fea_costinfo = getproductlst(projectqueryvo.getCountyears(), fea_costinfomapper, " project_id='"+projectvo.getId()+"' ");
+		List<Double>  fea_costinfo = getproductlst(projectqueryvo.getCountyears(), fea_costinfomapper, projectvo);
 		
 		List<List<Double>> pricech = getpricech(heattransVO);
 		List<List<Double>> heatpumpprice = getheatpumpprice(heatbenVO);
@@ -235,7 +235,10 @@ public class PubDesignCal extends Exception{
 	
 	
 	@SuppressWarnings("unchecked")
-	private List<Double> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
+	private List<Double> getproductlst(Double countyear,BaseMapper basemaper,FeaProjectB projectvo){
+		
+		String wheresql = " project_id='"+projectvo.getId()+"' ";
+		
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", wheresql,
 						basemaper);
@@ -251,7 +254,8 @@ public class PubDesignCal extends Exception{
 						}
 						Object rated = m.invoke(fcvo);
 						if(null!=rated){
-							costrate.add(((Double)rated));
+							Double ratenew = ((Double)rated)/projectvo.getHeatArea();
+							costrate.add(ratenew);
 						}else{
 							costrate.add(0.00);
 						}

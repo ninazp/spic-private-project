@@ -28,7 +28,7 @@
 					
 							remote:{  
 			                    type:"POST",  
-			                    url:"${ctx}/fea/funds/fea_fundssrcVO/checkProject",
+			                    url:"${ctx}/fea/costinfo/fea_costinfoVO/checkProject",
 			                    data:{
 			                    	fea_fundssrcVO : $('#inputForm').serialize(),
 			                    	oldProjectID : encodeURIComponent('${fea_costinfoVO.feaProjectB.id}'),
@@ -112,161 +112,161 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第1年：</label></td>
 					<td class="width-35">
-						<form:input path="year" htmlEscape="false"  max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第2年：</label></td>
 					<td class="width-35">
-						<form:input path="year2" htmlEscape="false"    max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year2" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第3年：</label></td>
 					<td class="width-35">
-						<form:input path="year3" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year3" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第4年：</label></td>
 					<td class="width-35">
-						<form:input path="year4" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year4" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第5年：</label></td>
 					<td class="width-35">
-						<form:input path="year5" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year5" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第6年：</label></td>
 					<td class="width-35">
-						<form:input path="year6" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year6" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第7年：</label></td>
 					<td class="width-35">
-						<form:input path="year7" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year7" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第8年：</label></td>
 					<td class="width-35">
-						<form:input path="year8" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year8" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第9年：</label></td>
 					<td class="width-35">
-						<form:input path="year9" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year9" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第10年：</label></td>
 					<td class="width-35">
-						<form:input path="year10" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year10" htmlEscape="false"       min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第11年：</label></td>
 					<td class="width-35">
-						<form:input path="year11" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year11" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第12年：</label></td>
 					<td class="width-35">
-						<form:input path="year12" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year12" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第13年：</label></td>
 					<td class="width-35">
-						<form:input path="year13" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year13" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第14年：</label></td>
 					<td class="width-35">
-						<form:input path="year14" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year14" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第15年：</label></td>
 					<td class="width-35">
-						<form:input path="year15" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year15" htmlEscape="false"   min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第16年：</label></td>
 					<td class="width-35">
-						<form:input path="year16" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year16" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第17年：</label></td>
 					<td class="width-35">
-						<form:input path="year17" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year17" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第18年：</label></td>
 					<td class="width-35">
-						<form:input path="year18" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year18" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第19年：</label></td>
 					<td class="width-35">
-						<form:input path="year19" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year19" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第20年：</label></td>
 					<td class="width-35">
-						<form:input path="year20" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year20" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第21年：</label></td>
 					<td class="width-35">
-						<form:input path="year21" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year21" htmlEscape="false"   min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第22年：</label></td>
 					<td class="width-35">
-						<form:input path="year22" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year22" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第23年：</label></td>
 					<td class="width-35">
-						<form:input path="year23" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year23" htmlEscape="false"   min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第24年：</label></td>
 					<td class="width-35">
-						<form:input path="year24" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year24" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第25年：</label></td>
 					<td class="width-35">
-						<form:input path="year25" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year25" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第26年：</label></td>
 					<td class="width-35">
-						<form:input path="year26" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year26" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第27年：</label></td>
 					<td class="width-35">
-						<form:input path="year27" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year27" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第28年：</label></td>
 					<td class="width-35">
-						<form:input path="year28" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year28" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第29年：</label></td>
 					<td class="width-35">
-						<form:input path="year29" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year29" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第30年：</label></td>
 					<td class="width-35">
-						<form:input path="year30" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year30" htmlEscape="false"    min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">第31年：</label></td>
 					<td class="width-35">
-						<form:input path="year31" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year31" htmlEscape="false"      min="0" class="form-control  isFloatGteZero"/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">第32年：</label></td>
 					<td class="width-35">
-						<form:input path="year32" htmlEscape="false"     max="1"  min="0" class="form-control  isFloatGtZero"/>
+						<form:input path="year32" htmlEscape="false"     min="0" class="form-control  isFloatGteZero"/>
 					</td>
 				</tr>
 		 	</tbody>

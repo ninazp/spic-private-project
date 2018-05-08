@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 
 /**
@@ -44,4 +45,9 @@ public class Fea_costinfoVOService extends CrudService<Fea_costinfoVOMapper, Fea
 		super.delete(fea_costinfoVO);
 	}
 	
+	public Fea_costinfoVO getFeaVOByProjectId(String projectId){
+		Fea_costinfoVO feavo = this.mapper.findUniqueByProperty("project_id", projectId);
+		return feavo;
+	}
+
 }

@@ -298,8 +298,6 @@ $(document).ready(function() {
 								<th>资金方类别</th>
 								<th>当期比例（%）</th>
 								<th>资金金额</th>
-								<th>用于建设金额</th>
-								<th>用于流动资金金额</th>
 							</tr>
 						</thead>
 						<tbody id="fea_investdisVOChild-{{idx}}-1-List">
@@ -321,12 +319,6 @@ $(document).ready(function() {
 					</td>
 					<td>
 						{{row.investamt}}
-					</td>
-					<td>
-						{{row.jsamt}}
-					</td>
-					<td>
-						{{row.ldamt}}
 					</td>
 				</tr>//-->
 	</script>

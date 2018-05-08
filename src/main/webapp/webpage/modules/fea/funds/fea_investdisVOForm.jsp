@@ -181,8 +181,6 @@
 						<th>资金方类别</th>
 						<th>当期比例（%）</th>
 						<th>资金金额</th>
-						<th>用于建设金额</th>
-						<th>用于流动资金金额</th>
 						<th width="10">&nbsp;</th>
 					</tr>
 				</thead>
@@ -218,16 +216,6 @@
 					
 					<td>
 						<input id="fea_investdisBVOList{{idx}}_investamt" name="fea_investdisBVOList[{{idx}}].investamt" type="text" value="{{row.investamt}}"    class="form-control " onChange="investamtChange()" />
-					</td>
-					
-					
-					<td>
-						<input id="fea_investdisBVOList{{idx}}_jsamt" name="fea_investdisBVOList[{{idx}}].jsamt" type="text" value="{{row.jsamt}}"    class="form-control "/>
-					</td>
-					
-					
-					<td>
-						<input id="fea_investdisBVOList{{idx}}_ldamt" name="fea_investdisBVOList[{{idx}}].ldamt" type="text" value="{{row.ldamt}}"    class="form-control "/>
 					</td>
 					
 					<td class="text-center" width="10">

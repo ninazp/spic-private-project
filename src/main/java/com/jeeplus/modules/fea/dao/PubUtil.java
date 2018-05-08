@@ -34,7 +34,7 @@ import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 import com.jeeplus.modules.fea.mapper.transfer.Fea_design_transferVOMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 
-public class PubUtil {
+public class PubUtil { 
 
 	@Autowired
 	private Fea_fundssrcVOMapper fea_fundssrcVOMapper;

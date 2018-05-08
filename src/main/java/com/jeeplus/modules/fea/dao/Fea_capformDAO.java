@@ -7,7 +7,7 @@ import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
 import com.jeeplus.modules.sys.utils.UserUtils;
 
-public class Fea_capformDAO {
+public class Fea_capformDAO { 
 
 public static void insertFea_capform(Fea_capformVOMapper  basemapper,FeaProjectB projectvo){
 		

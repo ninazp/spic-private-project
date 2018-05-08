@@ -47,7 +47,7 @@
 			});
 			
 			HeaderInputEditEnding();
-			windowLoadEnding();
+			//windowLoadEnding();
 		});
 		
 		jQuery.validator.addMethod("checkTableInvestprop",function(value,element){       
@@ -136,30 +136,31 @@
 		   			<td class="width-35" ></td>
 		  		</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">投资比例：</label></td>
+					<%-- <td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
 						<form:input path="investprop" htmlEscape="false"    class="form-control required " max="100" data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					</td> --%>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35">
-						<form:input path="investamt" htmlEscape="false"    class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
+						<form:input path="investamt" htmlEscape="false"  class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
 					<td class="width-35">
 						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
 					</td>
+				</tr>
+				<tr>
+					
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
 					<td class="width-35">
 						<form:input path="cappropsum" htmlEscape="false"    class="form-control required" />
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35">
 						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required" />
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
@@ -249,10 +250,23 @@
 			</script>
 			<script type="text/javascript">
 			
+				$(function() {
+					 
+					 $('input[name=investamt]').keyup(function(e){
+					    if(e.keyCode == 13){
+					    	investpropChange(null,null);
+					    }
+					 }); 
+				});
+			
 				var investtotal_pub;//总投资额
 				
 				function HeaderInputEditEnding(){
-					$("#investprop").blur(function(event){
+					
+					/* $("#investamt").blur(function(event){
+						investpropChange(null,null);
+					}); */
+					/* $("#investprop").blur(function(event){
 						var investprop = $("#investprop").val();//投资比例
 						if(!isNull(investprop)) {
 							return;
@@ -269,7 +283,7 @@
 						}
 						$("#investamt").val((investtotal_pub * investprop / 100).toFixed(2));
 						investpropChange(null,null);
-					});
+					}); */
 				}
 				
 				function windowLoadEnding(){

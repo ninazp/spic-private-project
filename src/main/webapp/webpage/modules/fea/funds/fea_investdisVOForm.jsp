@@ -126,7 +126,7 @@
 					<td class="width-35">
 						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
 					</td>
-				</tr> --%>
+				</tr> 
 				<tr>
 					<td class="width-15 active"><label class="pull-right">建筑面积：</label></td>
 					<td class="width-35">
@@ -134,7 +134,7 @@
 					</td>
 					<td class="width-15 active"></td>
 		   			<td class="width-35" ></td>
-		  		</tr>
+		  		</tr>--%>
 				<tr>
 					<%-- <td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
@@ -144,23 +144,20 @@
 					<td class="width-35">
 						<form:input path="investamt" htmlEscape="false"  class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
+					<%--<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
 					<td class="width-35">
 						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					
+					</td>--%>
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
 					<td class="width-35">
 						<form:input path="cappropsum" htmlEscape="false"    class="form-control required" />
 					</td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35">
 						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required" />
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
@@ -263,9 +260,9 @@
 				
 				function HeaderInputEditEnding(){
 					
-					/* $("#investamt").blur(function(event){
+					$("#investamt").blur(function(event){
 						investpropChange(null,null);
-					}); */
+					}); 
 					/* $("#investprop").blur(function(event){
 						var investprop = $("#investprop").val();//投资比例
 						if(!isNull(investprop)) {

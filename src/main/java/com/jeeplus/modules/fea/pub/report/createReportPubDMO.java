@@ -30,6 +30,7 @@ import com.jeeplus.modules.fea.pub.util.ProjectInfoHander;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
+import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class createReportPubDMO {
 	@Autowired
@@ -165,7 +166,7 @@ public class createReportPubDMO {
 		//		       WriteExcelCal.getexcel("capitalTable.xls",capitalTable);
 		//		       WriteExcelCal.getexcel("capitalsrcTable.xls",capitalsrcTable);
 		//		       WriteExcelCal.getexcel("balancetable.xls",balancetable);
-		//		       WriteExcelCal.getexcel("eVAHandlerTable.xls",eVAHandlerTable);
+//				       WriteExcelCal.getexcelstr("输出excel.xls",retmap);
 
 		return retmap;
 	}

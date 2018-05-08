@@ -109,37 +109,37 @@ $(document).ready(function() {
 		        title: '项目名称',
 		        sortable: true
 		       
-		    }*/
+		    }
 			,{
 		        field: 'heatarea',
 		        title: '建筑面积',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'year',
 		        title: '年度',
 		        sortable: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'investprop',
 		        title: '投资比例',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'investamt',
 		        title: '投资额度',
 		        sortable: true
 		       
 		    }
-			,{
+			/*,{
 		        field: 'deductvtax',
 		        title: '可抵扣税金',
 		        sortable: true
 		       
-		    }
+		    }*/
 			,{
 		        field: 'cappropsum',
 		        title: '注资方合计',

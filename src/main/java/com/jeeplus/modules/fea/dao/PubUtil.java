@@ -27,6 +27,8 @@ import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
+import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
+import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
 import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 import com.jeeplus.modules.fea.mapper.transfer.Fea_design_transferVOMapper;
@@ -70,6 +72,12 @@ public class PubUtil {
 	private Fea_design_transferVOMapper fea_design_transferVOMapper;
 	@Autowired
 	private Fea_design_equiplst2VOMapper fea_design_equiplst2VOMapper;
+	@Autowired
+	private Fea_design_resultVOMapper fea_design_resultmapper;
+	@Autowired
+	private FeaDesignReportMapper fea_design_reportmapper;
+	
+	
 
 	public static String getid(int number){
 		if(number < 1){ 
@@ -159,6 +167,10 @@ public class PubUtil {
 		fea_incomesetVOMapper.execDeleteSql("delete from fea_incomeset where project_id='"+projectvo.getId()+"'");;
 		fea_costfecfVOMapper.execDeleteSql("delete from fea_costfecf where project_id='"+projectvo.getId()+"'");;
 		fea_design_equiplst2VOMapper.execDeleteSql("DELETE from fea_design_equiplst2 where project_id='"+projectvo.getId()+"'");
+		fea_design_heatbenVOMapper.execDeleteSql("DELETE from fea_design_heatben where project_id='"+projectvo.getId()+"'");
+		fea_design_heattransVOMapper.execDeleteSql("DELETE from fea_design_heattrans where project_id='"+projectvo.getId()+"'");
+		fea_design_resultmapper.execDeleteSql("DELETE from fea_design_result where project_id='"+projectvo.getId()+"'");
+		fea_design_reportmapper.execDeleteSql("DELETE from fea_design_report where project_id='"+projectvo.getId()+"'");
 
 	}
 }

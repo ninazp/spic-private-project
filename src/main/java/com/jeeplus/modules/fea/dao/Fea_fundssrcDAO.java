@@ -98,7 +98,6 @@ public class Fea_fundssrcDAO {
 
 			Fea_investdisVO vo = new Fea_investdisVO();
 			vo.setFeaProjectB(projectvo);
-			vo.setHeatarea(heatarea);
 			vo.setId(PubUtil.getid(1));
 			vo.setCreateBy(UserUtils.getUser());	
 			vo.setCreateDate(new Date());

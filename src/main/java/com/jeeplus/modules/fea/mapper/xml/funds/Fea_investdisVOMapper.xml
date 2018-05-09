@@ -5,6 +5,13 @@
 	<sql id="fea_investdisVOColumns">
 		a.id AS "id",
 		a.project_id AS "feaProjectB.id",
+		a.fea_fundssrc_investtotal AS "fea_fundssrc_investtotal",
+		a.isreaddesgn AS "isreaddesgn",
+		a.djamt AS "djamt",
+		a.transamt AS "transamt",
+		a.equitamt AS "equitamt",
+		a.gwamt AS "gwamt",
+		a.otheramt AS "otheramt",
 		a.projectcode AS "projectcode",
 		a.projectname AS "projectname",
 		a.year AS "year",
@@ -23,16 +30,11 @@
 		a.dept AS "office.id",
 		a.pk_corp AS "pk_corp",
 				
-		feaProjectB.project_name AS "feaProjectB.projectName",
-		fea_fundssrcVO.investtotal AS "fea_fundssrc_investtotal",
-		office.name AS "office.name"
+		feaProjectB.project_name AS "feaProjectB.projectName"
 	</sql>
 	
 	<sql id="fea_investdisVOJoins">
-		
 		LEFT JOIN fea_project_b feaProjectB ON feaProjectB.id = a.project_id
-		LEFT JOIN fea_fundssrc fea_fundssrcVO ON fea_fundssrcVO.project_id = a.project_id
-		LEFT JOIN sys_office office ON office.id = a.dept
 	</sql>
 	
     
@@ -89,6 +91,13 @@
 		INSERT INTO fea_investdis(
 			id,
 			project_id,
+			fea_fundssrc_investtotal,
+			isreaddesgn,
+			djamt,
+			transamt,
+			equitamt,
+			gwamt,
+			otheramt,
 			projectcode,
 			projectname,
 			year,
@@ -109,6 +118,13 @@
 		) VALUES (
 			#{id},
 			#{feaProjectB.id},
+			#{fea_fundssrc_investtotal},
+			#{isreaddesgn},
+			#{djamt},
+			#{transamt},
+			#{equitamt},
+			#{gwamt},
+			#{otheramt},
 			#{projectcode},
 			#{projectname},
 			#{year},
@@ -132,6 +148,12 @@
 	<update id="update">
 		UPDATE fea_investdis SET 	
 			project_id = #{feaProjectB.id},
+			isreaddesgn = #{isreaddesgn},
+			djamt = #{djamt},
+			transamt = #{transamt},
+			equitamt = #{equitamt},
+			gwamt = #{gwamt},
+			otheramt = #{otheramt},
 			projectcode = #{projectcode},
 			projectname = #{projectname},
 			year = #{year},

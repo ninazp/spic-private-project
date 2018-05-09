@@ -135,6 +135,41 @@
 					<td class="width-15 active"></td>
 		   			<td class="width-35" ></td>
 		  		</tr>--%>
+				
+			<tr>
+					<td class="width-15 active"><label class="pull-right">是否依赖方案设计：</label></td>
+					<td class="width-35">
+						<form:select path="isreaddesgn" class="form-control " data-toggle="tooltip" data-placement="top" title="">
+							<form:option value="" label=""/>
+							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+						</form:select>
+					</td>
+					<td class="width-15 active"><label class="pull-right">打井费用：</label></td>
+					<td class="width-35">
+						<form:input path="djamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">换热站建设费：</label></td>
+					<td class="width-35">
+						<form:input path="transamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
+					<td class="width-35">
+						<form:input path="equitamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">管网费：</label></td>
+					<td class="width-35">
+						<form:input path="gwamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">其他费：</label></td>
+					<td class="width-35">
+						<form:input path="otheramt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
+					</td>
+				</tr>
+				
 				<tr>
 					<%-- <td class="width-15 active"><label class="pull-right">投资比例：</label></td>
 					<td class="width-35">
@@ -241,7 +276,12 @@
 					    if(e.keyCode == 13){
 					    	investpropChange(null,null);
 					    }
-					 }); 
+					 });
+					 $('input[name=djamt]').keyup(function(e){
+						  if(e.keyCode == 13){
+						     investpropChange(null,null);
+						  }
+					}); 
 				});
 			
 				var investtotal_pub;//总投资额
@@ -250,7 +290,37 @@
 					
 					$("#investamt").blur(function(event){
 						investpropChange(null,null);
-					}); 
+					}); 					
+					$("#djamt").blur(function(event){
+						investpropChange(null,null);
+					});
+					
+					$("#transamt").blur(function(event){
+						investpropChange(null,null);
+					});
+					
+					$("#equitamt").blur(function(event){
+						investpropChange(null,null);
+					});
+					
+					$("#gwamt").blur(function(event){
+						investpropChange(null,null);
+					});
+					
+					$("#otheramt").blur(function(event){
+						investpropChange(null,null);
+					});
+					
+					$("#isreaddesgn").blur(function(event){
+						var isreaddesgn = $("#isreaddesgn").val();//投资比例
+						if(!isNull(isreaddesgn)) {
+							return;
+						}
+						isreadedit(isreaddesgn);
+					});
+					
+					
+					
 					/* $("#investprop").blur(function(event){
 						var investprop = $("#investprop").val();//投资比例
 						if(!isNull(investprop)) {
@@ -289,12 +359,26 @@
 	 	            })
 				}
 				
+				function isreadedit(isread){
+					if(Number(isread)==1){
+						document.getElementById("otheramt").disabled=true;
+						document.getElementById("gwamt").disabled=true;
+						document.getElementById("equitamt").disabled=true;
+						document.getElementById("transamt").disabled=true;
+						document.getElementById("djamt").disabled=true;
+					}else{
+						document.getElementById("otheramt").disabled=false;
+						document.getElementById("gwamt").disabled=false;
+						document.getElementById("equitamt").disabled=false;
+						document.getElementById("transamt").disabled=false;
+						document.getElementById("djamt").disabled=false;
+					}
+				}
+				
 				function investamtChange(){
-					
 					var investamt1_total = 0;//投资金额
 					var investamt2_total = 0;//融资金额
 					$("#fea_investdisBVOList").find("tr").each(function(index,element){
-					
 						var investtype = $(element).find('select[id$=_investtype]').val();
 						if(isNull(investtype) && investtype == 1){
 							investamt1_total = investamt1_total + Number($(element).find('input[id$=_investamt]').val());
@@ -309,15 +393,25 @@
 					if(investamt2_total != 0){
 						$("#loanpropsum").val(investamt2_total.toFixed(2));
 					}
+					
+					if(investamt1_total != 0 && investamt2_total != 0){
+						var totalamt = Number(investamt1_total)+Number(investamt2_total);
+						$("#investamt").val(totalamt.toFixed(2));
+					}
 				}
 				
-				function investpropChange(investpropDom, investamtDom){
-					var investamt = $("#investamt").val();
-					
+				function investpropChange(investpropDom, investamtDom){   
+					var djamt = $("#djamt").val();
+					var transamt =$("#transamt").val();
+					var equitamt = $("#equitamt").val();
+					var gwamt = $("#gwamt").val();
+                    var otheramt = $("#otheramt").val();
+                    
+                    var investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt);
+                    
 					if(isNull(investpropDom) && isNull(investamtDom)){//逐条算
 						investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);
 					}else{//全算一遍
-						
 						$("#fea_investdisBVOList").find("tr").each(function(index,element){
 							investpropDom = $(element).find('input[id$=_investprop]');
 							investamtDom = $(element).find('input[id$=_investamt]');
@@ -332,8 +426,6 @@
 					var capitalamt = $("#capitalamt").val();
 					amt.value=($("#capitalamt").val() * prop.value /100).toFixed(2);
 				}
-				
-				
 			</script>
 			</div>
 		</div>

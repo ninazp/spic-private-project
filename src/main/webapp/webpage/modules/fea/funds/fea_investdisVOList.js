@@ -122,6 +122,42 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
+			,{
+		        field: 'isreaddesgn',
+		        title: '是否依赖方案设计',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'djamt',
+		        title: '打井费用',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'transamt',
+		        title: '换热站建设费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'equitamt',
+		        title: '设备费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'gwamt',
+		        title: '管网费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'otheramt',
+		        title: '其他费',
+		        sortable: true
+		       
+		    }
 			/*,{
 		        field: 'investprop',
 		        title: '投资比例',

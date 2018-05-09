@@ -372,7 +372,6 @@ public class BusiIndexCal {
 
 		Fea_investdisVO vo = new Fea_investdisVO();
 		vo.setFeaProjectB(projectvo);
-		vo.setHeatarea(projectvo.getHeatArea());
 		vo.setId(PubUtil.getid(1));
 		vo.setCreateBy(UserUtils.getUser());	
 		vo.setCreateDate(new Date());

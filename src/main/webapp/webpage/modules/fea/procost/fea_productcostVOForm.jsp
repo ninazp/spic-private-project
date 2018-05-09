@@ -122,11 +122,11 @@
 				<tr>
 					<td class="width-15 active"><label class="pull-right">维修费率（%）：</label></td>
 					<td class="width-35">
-						<form:input path="repairrate" htmlEscape="false"    class="form-control "/>
+						<form:input path="repairrate" id="repairrate" htmlEscape="false"    class="form-control changeBodyData "/>
 					</td>
 					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
 					<td class="width-35">
-						<form:input path="equitamt" htmlEscape="false"    class="form-control "/>
+						<form:input path="equitamt" id="equitamt" htmlEscape="false"    class="form-control changeBodyData "/>
 					</td>
 				</tr>
 				<tr>
@@ -447,6 +447,38 @@
 				}
 				
 			</script>
+			
+			<script type="text/javascript">
+			
+				$(function() {
+					$(".changeBodyData").keyup(function(e){
+					    if(e.keyCode == 13){
+					    	changeBodyData();
+					    }
+					 });
+				});
+				
+				function changeBodyData(){
+					$("#fea_productcostBVOList tr").each(function(index,element){
+						//var body_costtype = $(this).attr("id")+"_costtype";
+						var repairrate = $("#repairrate").val();
+						var equitamt = $("#equitamt").val();
+						var tdList = $(this).find("td");
+						var costtype = $(this).find('select[id$=_costtype]').val();//成本种类
+						if(costtype == "3"){//成本种类 == 维修费
+							$.each(tdList,function(i){
+								//debugger;
+								if(i >=3 && isNull(repairrate) && isNull(equitamt)){
+									
+									$(this).find('input').val((repairrate * equitamt / 100).toFixed(2));
+								}
+							});
+						}
+					});
+				}
+			</script>
+			
+			
 			</div>
 		</div>
 		</div>

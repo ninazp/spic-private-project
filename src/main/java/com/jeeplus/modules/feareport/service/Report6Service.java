@@ -74,4 +74,8 @@ public class Report6Service extends CrudService<Report6Mapper, Report6> {
 		return projectmapper.findAllList(new FeaProjectB());
 	}
 	
+	public FeaProjectB getDefaultProject(){
+		return projectmapper.findUniqueByProperty("ordercol", 1);
+	}
+	
 }

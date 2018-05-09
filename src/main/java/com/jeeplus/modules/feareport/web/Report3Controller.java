@@ -249,12 +249,10 @@ public class Report3Controller extends BaseController {
 		String projectName = "";
 
 		AjaxJson j = new AjaxJson();
-		List<FeaProjectB> project = new ArrayList<FeaProjectB>();
-		
-		project = report3Service.getProjectDatas();
+		FeaProjectB project = report3Service.getDefaultProject();
 		// 倒叙排序去第一条作为默认值返回
-		ids = project.get(0).getId();
-		projectName = project.get(0).getProjectName();
+		ids = project.getId();
+		projectName = project.getProjectName();
 		
 		j.setMsg("");
 		j.setProjectId(ids);

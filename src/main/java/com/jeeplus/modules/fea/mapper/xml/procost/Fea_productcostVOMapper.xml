@@ -60,7 +60,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY feaProjectB.create_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -79,7 +79,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY feaProjectB.create_date DESC
 			</otherwise>
 		</choose>
 	</select>

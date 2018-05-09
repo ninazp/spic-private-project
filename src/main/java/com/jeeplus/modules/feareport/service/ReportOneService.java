@@ -71,8 +71,8 @@ public class ReportOneService extends CrudService<ReportOneMapper, ReportOne> {
 		return null != reportmap ? reportmap.get("总成本费用表") : null;
 	}
 	
-	public List<FeaProjectB> getProjectDatas(){
-		return projectmapper.findAllList(new FeaProjectB());
+	public FeaProjectB getDefaultProject(){
+		return projectmapper.findUniqueByProperty("ordercol", 1);
 	}
 	
 }

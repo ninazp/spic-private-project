@@ -55,6 +55,7 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 		super.delete(report5);
 	}
 	
+	@Transactional(readOnly = false)
 	public List<List<Double>> getReportDatas(String ids){
 		Map<String,List<List<Double>>> reportmap = new HashMap<String,List<List<Double>>>();
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
@@ -66,6 +67,8 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 		if(null!=reportbean){
 			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
+		
+		projectmapper.execUpdateSql("update fea_project_b  set  ordercol = (   case   id  when  '"+ids+"' then 1  else 0 end) ");
 		
 		return null != reportmap ? reportmap.get("投资计划与资金筹措表") : null;
 	}

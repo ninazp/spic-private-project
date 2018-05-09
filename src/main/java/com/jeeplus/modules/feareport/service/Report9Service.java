@@ -70,8 +70,7 @@ public class Report9Service extends CrudService<Report9Mapper, Report9> {
 		return null != reportmap ? reportmap.get("资产负债表") : null;
 	}
 	
-	public List<FeaProjectB> getProjectDatas(){
-		return projectmapper.findAllList(new FeaProjectB());
+	public FeaProjectB getDefaultProject(){
+		return projectmapper.findUniqueByProperty("ordercol", 1);
 	}
-	
 }

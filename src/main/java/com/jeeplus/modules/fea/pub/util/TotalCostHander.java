@@ -13,7 +13,7 @@ public class TotalCostHander {
 			List<List<Double>> interestTable,List<List<Double>> zjcktable){
 
 		List<List<Double>> totaltable = new ArrayList<List<Double>>();
-	
+
 		totaltable = getbaseCost(parammap,interestTable,zjcktable);
 
 		List<List<Double>> rettable = getcombineCost(totaltable, Double.valueOf(parammap.get("countyear").toString()));
@@ -36,13 +36,13 @@ public class TotalCostHander {
 
 		Double countyear = (Double) parammap.get("countyear");
 		Double currentproductmonth = (Double) parammap.get("currentproductmonth");
-		
+
 		List<Double> repairrate = (List<Double>) parammap.get("repairrate");
 		List<Double> costparam = (List<Double>) parammap.get("costparam");
 		List<Double> person = (List<Double>) parammap.get("person");
 		List<Double> heatcostlst = (List<Double>) parammap.get("heatcost");
 		Double dkjeamt = (Double) parammap.get("dkjeamt");
-		
+
 		//折旧年限，残值率，保险费率，工资,福利，供热,泵热费
 		Double depyears = costparam.get(0);
 		Double depleftrate = costparam.get(1);
@@ -52,13 +52,13 @@ public class TotalCostHander {
 
 		Map<Integer,Double> assetValmap=  getjsamt(zjcktable, dkjeamt);
 		Map<Integer,Double> assetValnolxmap=  getjsamtnolx(zjcktable, dkjeamt);
-		
-		
+
+
 		//折旧费  
 		List<Double> zjlist = getdepreciation(assetValmap, depyears, depleftrate,
 				currentproductmonth,countyear);
 		//维修费
-		List<Double> wxlist = getRepairsCost(assetValnolxmap, repairrate, currentproductmonth, countyear);
+		List<Double> wxlist = getRepairsCost(repairrate, countyear);
 		//工资及福利 
 		List<Double> wagelist = getWagebenefit( person, perwage,welfare, currentproductmonth, countyear);
 		//保险费 
@@ -145,13 +145,13 @@ public class TotalCostHander {
 	public static List<Double> getdepreciation(
 			Map<Integer,Double> assetValmap ,Double depyears,Double depleftrate,
 			Double firstmths,Double totalcalyears){
-		
+
 		List<Double> retList = new ArrayList<Double>();
 		retList.add(0.0);
-		
+
 		for(Integer key : assetValmap.keySet()){
 			Double yearval = (assetValmap.get(key)/depyears)*(1-depleftrate/100);
-			
+
 			if(retList.size()==1){
 				for(int i=0;i<key-1;i++){
 					retList.add(0.00);
@@ -175,13 +175,13 @@ public class TotalCostHander {
 				}else{
 					retList.set(i, retList.get(i)+doub1);
 				}
-				
+
 				retList.set(0, retList.get(0)+doub1);
 			}
 		}
 		return retList;
 	}
-	
+
 	public static Map<Integer,Double> getjsamt(List<List<Double>> zjcktable,Double dkjeamt){
 		Map<Integer,Double>  retmap = new HashMap<Integer, Double>();
 		for(int i=1;i<zjcktable.get(0).size();i++){
@@ -190,7 +190,7 @@ public class TotalCostHander {
 		}
 		return retmap;
 	}
-	
+
 	public static Map<Integer,Double> getjsamtnolx(List<List<Double>> zjcktable,Double dkjeamt){
 		Map<Integer,Double>  retmap = new HashMap<Integer, Double>();
 		for(int i=1;i<zjcktable.get(0).size();i++){
@@ -208,33 +208,15 @@ public class TotalCostHander {
 	 * @param totalcalyears
 	 * @return
 	 */
-	public static List<Double> getRepairsCost(Map<Integer,Double> assetnolxmap,List<Double> wxrate,Double firstmths,Double totalcalyears){
-		
+	public static List<Double> getRepairsCost(List<Double> repairrate,Double totalcalyears){
+
 		List<Double> retlist = new ArrayList<Double>();
 		retlist.add(0.0);
-		
-		for(Integer key : assetnolxmap.keySet()){
-			if(retlist.size()==1){
-				for(int i=0;i<key-1;i++){
-					retlist.add(0.00);
-				}
-			}
-			
-			for(int i=key;i<=totalcalyears;i++){
-				Double repval = assetnolxmap.get(key);
-				Double amt = 0.00;
-//				if(i==key){
-//					amt = repval*(firstmths/12);
-//				}else{
-					amt = repval;
-//				}
-				if(retlist.size()<totalcalyears+1){
-				   retlist.add(amt);
-				}else{
-					retlist.set(i, retlist.get(i)+amt);
-				}
-				retlist.set(0, retlist.get(0)+amt);
-			}
+
+		for(int i=0;i<repairrate.size();i++){
+			Double repval = repairrate.get(i);
+			retlist.add(repval);
+			retlist.set(0, retlist.get(0)+repval);
 		}
 		return retlist;
 	}
@@ -249,7 +231,7 @@ public class TotalCostHander {
 	public static List<Double> getBXcost(Map<Integer,Double> assetnolxmap,Double bxrate,Double firstmths,Double totalcalyears){
 		List<Double> retlist = new ArrayList<Double>();
 		retlist.add( 0.00);
-		
+
 		for(Integer key : assetnolxmap.keySet()){
 			if(retlist.size()==1){
 				for(int i=0;i<key-1;i++){
@@ -265,14 +247,14 @@ public class TotalCostHander {
 					amt = bxval;
 				}
 				if(retlist.size()-1<totalcalyears){
-				   retlist.add(amt);
+					retlist.add(amt);
 				}else{
 					retlist.set(i, retlist.get(i)+amt);
 				}
 				retlist.set(0, retlist.get(0)+amt);
 			}
 		}
-		
+
 		return retlist;
 	}
 	/**
@@ -289,7 +271,7 @@ public class TotalCostHander {
 		retlist.add(0.00);
 		Double personnum = 0.00;
 		for(int i=1;i<=totalcalyears;i++){
-			
+
 			Double amt = 0.00;
 			if(personnum!=person.get(i-1)){
 				Double wage1 = (person.get(i-1)-personnum)*perwage*(1+benefit)/100;

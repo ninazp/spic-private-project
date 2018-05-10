@@ -277,11 +277,6 @@
 					    	investpropChange(null,null);
 					    }
 					 });
-					 $('input[name=djamt]').keyup(function(e){
-						  if(e.keyCode == 13){
-						     investpropChange(null,null);
-						  }
-					}); 
 				});
 			
 				var investtotal_pub;//总投资额
@@ -407,7 +402,17 @@
 					var gwamt = $("#gwamt").val();
                     var otheramt = $("#otheramt").val();
                     
-                    var investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt);
+                    var intputinvestamt = $("#investamt").val();
+                    
+                    var isreaddesgn = $("#isreaddesgn").val();//投资比例
+                    
+                    var investamt = 0;
+                    
+                    if(Number(isreaddesgn)==1){
+                    	investamt = intputinvestamt;
+                    }else{
+                    	investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt);
+                    }
                     
 					if(isNull(investpropDom) && isNull(investamtDom)){//逐条算
 						investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);

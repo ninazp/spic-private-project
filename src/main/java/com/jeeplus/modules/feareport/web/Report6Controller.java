@@ -248,7 +248,9 @@ public class Report6Controller extends BaseController {
 
 		AjaxJson j = new AjaxJson();
 		
-		FeaProjectB project = report6Service.getDefaultProject();
+		List<FeaProjectB> projectlist = report6Service.getProjectDatas();
+		FeaProjectB project = projectlist.get(0);
+		
 		// 倒叙排序去第一条作为默认值返回
 		ids = project.getId();
 		projectName = project.getProjectName();

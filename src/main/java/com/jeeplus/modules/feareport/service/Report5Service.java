@@ -74,7 +74,7 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 	}
 	
 	public List<FeaProjectB> getProjectDatas(){
-		return projectmapper.findAllList(new FeaProjectB());
+	     return projectmapper.findAllList(new FeaProjectB());
 	}
 	
 }

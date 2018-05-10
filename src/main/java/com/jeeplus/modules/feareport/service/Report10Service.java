@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.feareport.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,15 @@ public class Report10Service extends CrudService<Report10Mapper, Report10> {
 		return null != reportmap ? reportmap.get("EVA测算表") : null;
 	}
 	
-	public FeaProjectB getDefaultProject(){
-		return projectmapper.findUniqueByProperty("ordercol", 1);
+	public List<FeaProjectB> getProjectDatas(){
+		List<FeaProjectB> list = new ArrayList<FeaProjectB>();
+		FeaProjectB projectvo = projectmapper.findUniqueByProperty("ordercol", 1);
+		if(null!=projectvo) {
+			list.add(projectvo);
+		}else {
+			return projectmapper.findAllList(new FeaProjectB());
+		}
+		return list;
 	}
+	
 }

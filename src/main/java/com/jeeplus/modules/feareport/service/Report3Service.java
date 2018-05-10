@@ -92,8 +92,15 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 		return reList;
 	}
 	
-	public FeaProjectB getDefaultProject(){
-		return projectmapper.findUniqueByProperty("ordercol", 1);
+	public List<FeaProjectB> getProjectDatas(){
+		List<FeaProjectB> list = new ArrayList<FeaProjectB>();
+		FeaProjectB projectvo = projectmapper.findUniqueByProperty("ordercol", 1);
+		if(null!=projectvo) {
+			list.add(projectvo);
+		}else {
+			return projectmapper.findAllList(new FeaProjectB());
+		}
+		return list;
 	}
 	
 }

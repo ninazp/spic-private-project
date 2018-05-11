@@ -167,8 +167,9 @@
 		
 		function execute(projectIds){
 			jp.loading();
- 
-			jp.get("${ctx}/feareport/report3/getReportDatas?ids=" + projectIds, function (data) {
+			
+			var timestamp = (new Date()).valueOf(); 
+			jp.get("${ctx}/feareport/report3/getReportDatas?ids=" + projectIds +"&timestamp="+timestamp, function (data) {
 				var datas = data.msg;
 				var datas2 = data.msg2;
 				initreport(datas,datas2);

@@ -167,7 +167,8 @@
 		
 		function execute(projectIds){
 			jp.loading();
-			jp.get("${ctx}/feareport/report10/getReportDatas?ids=" + projectIds, function (data) {
+			var timestamp = (new Date()).valueOf();   
+			jp.get("${ctx}/feareport/report10/getReportDatas?ids=" + projectIds+"&timestamp="+timestamp, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);

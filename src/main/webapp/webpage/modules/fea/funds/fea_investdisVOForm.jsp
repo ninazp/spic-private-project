@@ -20,7 +20,7 @@
 
 		  return false;
 		}
-
+		
 		$(document).ready(function() {
 			validateForm = $("#inputForm").validate({
 				submitHandler: function(form){
@@ -47,7 +47,9 @@
 			});
 			
 			HeaderInputEditEnding();
-			//windowLoadEnding();
+			
+			initreadedit();
+			
 		});
 		
 		jQuery.validator.addMethod("checkTableInvestprop",function(value,element){       
@@ -352,6 +354,25 @@
 	 	      	  			jp.error("获取项目投资总额失败");
 	 	      	  		}
 	 	            })
+				}
+				
+				function initreadedit(){
+					
+					var isreadinit = $("#isreaddesgn").val();
+					
+					if(Number(isreadinit)==1){
+						document.getElementById("otheramt").disabled=true;
+						document.getElementById("gwamt").disabled=true;
+						document.getElementById("equitamt").disabled=true;
+						document.getElementById("transamt").disabled=true;
+						document.getElementById("djamt").disabled=true;
+					}else{
+						document.getElementById("otheramt").disabled=false;
+						document.getElementById("gwamt").disabled=false;
+						document.getElementById("equitamt").disabled=false;
+						document.getElementById("transamt").disabled=false;
+						document.getElementById("djamt").disabled=false;
+					}
 				}
 				
 				function isreadedit(isread){

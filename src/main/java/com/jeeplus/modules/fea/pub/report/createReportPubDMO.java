@@ -26,10 +26,11 @@ import com.jeeplus.modules.fea.pub.util.CapitalHandler;
 import com.jeeplus.modules.fea.pub.util.CapitalSrcHandler;
 import com.jeeplus.modules.fea.pub.util.EVAHandler;
 import com.jeeplus.modules.fea.pub.util.InvestFlowHandler;
-import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
+import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
+import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 
 public class createReportPubDMO {
 	@Autowired
@@ -62,12 +63,14 @@ public class createReportPubDMO {
 
 		Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
 
+		FeaProjectB  projectvo = null;
+		
 		try{
 			if(null==reportparam || (!reportparam.containsKey("projectid"))){
 				return null;
 			}
 			
-			FeaProjectB  projectvo =  (FeaProjectB) projectmapper.get(reportparam.get("projectid").toString());
+			projectvo =  (FeaProjectB) projectmapper.get(reportparam.get("projectid").toString());
 			
 			Map<String,Object> parammap = GetparamDMO.getparammap(projectvo, 
 					fea_incomesetVOMapper, fea_fundssrcVOMapper, 
@@ -151,21 +154,7 @@ public class createReportPubDMO {
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
 			retmap.put("EVA测算表", temp); 
 		}
-		//		//       
-		//		       WriteExcelCal.getexcel("zjcktable.xls",zjcktable);
-		//		       WriteExcelCal.getexcel("totalcostltable.xls",totalcostltable);
-		//		       WriteExcelCal.getexcel("totalcostfinaltable.xls",totalcostfinaltable);
-		//		       WriteExcelCal.getexcel("lrtable.xls",lrtable);
-		//		       WriteExcelCal.getexcel("lrtablefinal.xls",lrfinaltable);
-		//		       WriteExcelCal.getexcel("interestTable.xls",interestTable);
-		//		       WriteExcelCal.getexcel("interestfinalTable.xls",interestFinaltable);
-		//		       WriteExcelCal.getexcel("financeplantable.xls",financeplantable);
-		//		       WriteExcelCal.getexcel("financeplanfinaltable.xls",financeplanfinaltable);
-		//		       WriteExcelCal.getexcel("investHandlerTable.xls",investHandlerTable);
-		//		       WriteExcelCal.getexcel("capitalTable.xls",capitalTable);
-		//		       WriteExcelCal.getexcel("capitalsrcTable.xls",capitalsrcTable);
-		//		       WriteExcelCal.getexcel("balancetable.xls",balancetable);
-//				       WriteExcelCal.getexcelstr("输出excel.xls",retmap);
+	    WriteExcelCal.getexcel("",projectvo.getProjectName(),retmap);
 
 		return retmap;
 	}
@@ -181,9 +170,6 @@ public class createReportPubDMO {
 		}catch(Exception e){
 			e.getMessage();
 		}
-		//       StringBuffer retrunstr = new StringBuffer("计算指标：\n");
-		//       retrunstr.append("资本金财务内部收益率（%）: "+retlst.get(0));
-
 		return retlst;
 	}
 

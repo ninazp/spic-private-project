@@ -15,7 +15,6 @@
 		a.langrate AS "langrate",
 		a.langyear AS "langyear",
 		a.circularate AS "circularate",
-		a.flowamt AS "flowamt",
 		a.flowloanprop AS "flowloanprop",
 		a.flowcaprate AS "flowcaprate",
 		a.remarks AS "remarks",
@@ -92,7 +91,6 @@
 			langrate,
 			langyear,
 			circularate,
-			flowamt,
 			flowloanprop,
 			flowcaprate,
 			remarks
@@ -109,7 +107,6 @@
 			#{langrate},
 			#{langyear},
 			#{circularate},
-			#{flowamt},
 			#{flowloanprop},
 			#{flowcaprate},
 			#{remarks}
@@ -126,7 +123,6 @@
 			langrate = #{langrate},
 			langyear = #{langyear},
 			circularate = #{circularate},
-			flowamt = #{flowamt},
 			flowloanprop = #{flowloanprop},
 			flowcaprate = #{flowcaprate},
 			remarks = #{remarks}

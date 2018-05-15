@@ -74,7 +74,21 @@ public class GetparamDMO {
 		retmap.put("person", costparam.get(2));
 		retmap.put("heatcost", costparam.get(3));
 		retmap.put("income", getsubincome(fea_incosubsidyVOMapper, wheresql, countyear));//补贴收入
-		retmap.put("occupancy", getproductlst(countyear, fea_costinfoVOMapper, wheresql));//入住面积
+		
+		List<Double> occupancyarea = getproductlst(countyear, fea_costinfoVOMapper, wheresql);
+		
+		//通过入住面积*单价*20% == 来计算流动资金 
+		Double flowamt = 0.00;
+		if(null!=occupancyarea && occupancyarea.size()>1){
+			 if(null!=occupancyarea.get(0) && occupancyarea.get(0)>0) {
+				 flowamt = ((Double)retmap.get("price"))*occupancyarea.get(0)*0.2;
+			 }else if(null!=occupancyarea.get(1) && occupancyarea.get(1)>0) {
+				 flowamt = ((Double)retmap.get("price"))*occupancyarea.get(1)*0.2;
+			 }
+		}
+		retmap.put("occupancy", occupancyarea);//入住面积
+		
+		retmap.put("flowamt", flowamt);
 
 		//账务费用
 		List<Fea_costfecfVO> Fea_costfecfVOlst = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", wheresql,fea_costfecfVOMapper);
@@ -84,7 +98,6 @@ public class GetparamDMO {
 			retmap.put("interestcount", Fea_costfecfVOlst.get(0).getLangyear());// 计息次数（年）
 			retmap.put("principalrate", Fea_costfecfVOlst.get(0).getLangrate());// 本金利率（%）
 			retmap.put("langrate", Fea_costfecfVOlst.get(0).getLangrate());// 利息利率（%）
-			retmap.put("flowamt", Fea_costfecfVOlst.get(0).getFlowamt());
 			retmap.put("repaytype", 1);//等额本金
 		}
 

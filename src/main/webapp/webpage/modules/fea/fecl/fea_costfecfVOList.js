@@ -108,12 +108,6 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'flowamt',
-		        title: '流动资金指标（万元）',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'flowloanprop',
 		        title: '流动资金贷款比例（%）',
 		        sortable: true

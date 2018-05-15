@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>财务费用及流动资金管理</title>
+	<title>贷款参数</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
@@ -169,7 +169,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">财务费用及流动资金列表</h3>
+		<h3 class="panel-title">贷款参数列表</h3>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -286,23 +286,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金指标（万元）：</label></td>
-					<td class="width-35">
-						<form:input path="flowamt" htmlEscape="false"    class="form-control required"/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">流动资金贷款比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="flowloanprop" htmlEscape="false"    class="form-control required"/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">流动资金贷款利率（%）：</label></td>
 					<td class="width-35">
 						<form:input path="flowcaprate" htmlEscape="false"    class="form-control required"/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 	</form:form>

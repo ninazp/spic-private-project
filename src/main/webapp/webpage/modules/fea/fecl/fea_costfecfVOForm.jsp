@@ -75,23 +75,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金指标（万元）：</label></td>
-					<td class="width-35">
-						<form:input path="flowamt" htmlEscape="false"    class="form-control required"/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">流动资金贷款比例（%）：</label></td>
 					<td class="width-35">
 						<form:input path="flowloanprop" htmlEscape="false"    class="form-control required"/>
 					</td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">流动资金贷款利率（%）：</label></td>
 					<td class="width-35">
 						<form:input path="flowcaprate" htmlEscape="false"    class="form-control required"/>
 					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
+				</tr>
 		 	</tbody>
 		</table>
 	</form:form>

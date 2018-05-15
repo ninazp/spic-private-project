@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeeplus.common.utils.io.FilePathUtil;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
@@ -154,7 +155,7 @@ public class createReportPubDMO {
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
 			retmap.put("EVA测算表", temp); 
 		}
-	    WriteExcelCal.getexcel("",projectvo.getProjectName(),retmap);
+	    WriteExcelCal.getexcel(FilePathUtil.getJarPath(ReadExcelCal.class),projectvo.getProjectName(),retmap);
 
 		return retmap;
 	}

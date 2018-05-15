@@ -103,7 +103,7 @@ public class WriteExcelCal {
 		WriteExcelCal ex = new WriteExcelCal();
 		try  
 		{  
-			OutputStream out2 = new FileOutputStream("E://"+projectname+"经济性分析报表.xls");  
+			OutputStream out2 = new FileOutputStream(path+projectname+"经济性分析报表.xls");  
 			ex.exportExcel(retmap, out2);
 			out2.close();  
 		} catch (FileNotFoundException e) {  

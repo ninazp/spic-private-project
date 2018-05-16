@@ -127,7 +127,6 @@ public class createReportPubDMO {
 			//10 -- EVA测算表
 			List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(lrfinaltable, totalcostfinaltable, balancetable);
 
-
 			List<List<Double>> table1 = PubUtilHandler.getRoundingTable(zjcktable);
 			List<List<Double>> table2 = PubUtilHandler.getRoundingTable(totalcostfinaltable);
 			List<List<Double>> table3 = PubUtilHandler.getRoundingTable(interestFinaltable);
@@ -155,7 +154,7 @@ public class createReportPubDMO {
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
 			retmap.put("EVA测算表", temp); 
 		}
-	    WriteExcelCal.getexcel(FilePathUtil.getJarPath(ReadExcelCal.class),projectvo.getProjectName(),retmap);
+	    WriteExcelCal.getexcel("E:\\",projectvo.getProjectName(),retmap);
 
 		return retmap;
 	}

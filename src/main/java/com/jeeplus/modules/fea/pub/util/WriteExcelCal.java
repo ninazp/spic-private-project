@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.Region;
 
 import com.jeeplus.modules.fea.pub.report.ColName;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 public class WriteExcelCal {
 	public void exportExcel(
 			Map<String,List<List<Double>>>  retmap, OutputStream out)  
@@ -77,6 +80,77 @@ public class WriteExcelCal {
 					}  
 				}
 			}
+			
+			
+			if(title.equals("项目投资现金流量表")) {
+				
+				String [] colname = new String[] {
+						"计算指标：	",
+						"项目投资财务内部收益率（%）（所得税前）",
+						"项目投资财务内部收益率（%）（所得税后）",
+						"项目投资财务净现值（万元）（所得税前）",
+						"项目投资财务净现值（万元）（所得税后）",
+						"项目投资回收期（年）（所得税前）",
+						"项目投资回收期（年）（所得税后）"
+				};
+				
+				createReportPubDMO dmo = new createReportPubDMO();
+				List<Double> retlst = dmo.getinvest_irrnpv(dataset);
+					
+				int rr = 0;
+				for(int i= dataset.size()+4;i<dataset.size()+11;i++)
+				{  
+					HSSFRow row1 = sheet.createRow(i);
+					for(int j=0;j<3;j++) {
+						HSSFCell cell = row1.createCell(j);
+						cell.setCellValue(colname[rr]);
+						if(rr!=0 && j==2) {
+							if(rr==1 || rr==2) {
+								cell.setCellValue(getDouble2float(retlst.get(rr-1)*100));
+							}else {
+								cell.setCellValue(getDouble2float(retlst.get(rr-1)));
+							}
+							
+						}
+					}
+					rr++;//行数
+				}
+				for(int r = dataset.size()+4;r<dataset.size()+11;r++) {
+					sheet.addMergedRegion(new Region(r, (short)0, (short)r, (short)(1)));
+				}
+			}
+			
+           if(title.equals("项目资本金现金流量表")) {
+				String [] colname = new String[] {
+						"计算指标： ",
+						"资本金财务内部收益率（%）"
+				};
+				createReportPubDMO dmo = new createReportPubDMO();
+				List<Double> retlst = dmo.getcapital_irrnpv(dataset);
+					
+				int rr = 0;
+				for(int i= dataset.size()+4;i<dataset.size()+6;i++)
+				{  
+					HSSFRow row1 = sheet.createRow(i);
+					for(int j=0;j<3;j++) {
+						HSSFCell cell = row1.createCell(j);
+						cell.setCellValue(colname[rr]);
+						if(rr!=0 && j==2) {
+							if(rr==1 || rr==2) {
+								cell.setCellValue(getDouble2float(retlst.get(rr-1)*100));
+							}else {
+								cell.setCellValue(getDouble2float(retlst.get(rr-1)));
+							}
+							
+						}
+					}
+					rr++;//行数
+				}
+				for(int r = dataset.size()+4;r<dataset.size()+11;r++) {
+					sheet.addMergedRegion(new Region(r, (short)0, (short)r, (short)(1)));
+				}
+			}
+			
 			sheet.addMergedRegion(new Region(0, (short) 0, (short)0, (short)(dataset.get(0).size()+1)));
 			sheet.addMergedRegion(new Region(1, (short) 0, (short)1, (short)(dataset.get(0).size()+1)));
 			sheet.addMergedRegion(new Region(2, (short) 0, (short)3, (short)(0)));
@@ -86,8 +160,10 @@ public class WriteExcelCal {
 			sheet.getRow(0).getCell(0).setCellStyle(cellStyle1);
 			sheet.getRow(1).getCell(0).setCellStyle(cellStyle2);
 			
-			
 		}
+		
+		
+		
 		try  
 		{  
 			workbook.write(out);  
@@ -113,6 +189,11 @@ public class WriteExcelCal {
 		}  
 	}  
 	
-	
+	public Double getDouble2float(Double m){
+		BigDecimal  bm = new BigDecimal(m);
+		Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+		return bm1;
+	}
 	
 }

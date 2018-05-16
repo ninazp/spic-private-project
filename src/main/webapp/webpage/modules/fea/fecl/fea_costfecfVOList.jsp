@@ -286,7 +286,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">流动资金贷款比例（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">流动资金占比（%）：</label></td>
 					<td class="width-35">
 						<form:input path="flowloanprop" htmlEscape="false"    class="form-control required"/>
 					</td>

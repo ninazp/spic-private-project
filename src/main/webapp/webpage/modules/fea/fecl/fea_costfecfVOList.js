@@ -109,7 +109,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'flowloanprop',
-		        title: '流动资金贷款比例（%）',
+		        title: '流动资金占比（%）',
 		        sortable: true
 		       
 		    }

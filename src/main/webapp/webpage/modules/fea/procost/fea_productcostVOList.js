@@ -120,12 +120,6 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'equitamt',
-		        title: '设备费',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'intangibletx',
 		        title: '无形资产摊销（年）',
 		        sortable: true

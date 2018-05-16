@@ -124,10 +124,6 @@
 					<td class="width-35">
 						<form:input path="repairrate" id="repairrate" htmlEscape="false"    class="form-control changeBodyData "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
-					<td class="width-35">
-						<form:input path="equitamt" id="equitamt" htmlEscape="false"    class="form-control changeBodyData "/>
-					</td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">无形资产摊销（年）：</label></td>

@@ -22,7 +22,7 @@ public class Fea_costfecfVO extends DataEntity<Fea_costfecfVO> {
 	private Double langrate;		// 长期借款利率（%）
 	private Integer langyear;		// 长期借款年限
 	private Double circularate;		// 短期借款利率（%）
-	private Double flowamt;		// 流动资金指标（万元）
+	private Double flowamt;		// 流动资金比例
 	private Double flowloanprop;		// 流动资金贷款比例（%）
 	private Double flowcaprate;		// 流动资金贷款利率（%）
 	

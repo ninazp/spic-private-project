@@ -26,7 +26,7 @@ public class Fea_costfecfDAO {
 		
 		vo.setCircularate(4.35);		// 短期借款利率（%）
 		vo.setFlowamt(flowamt);		// 流动资金指标（万元）
-		vo.setFlowloanprop(70.00);		// 流动资金贷款比例（%）
+		vo.setFlowloanprop(20.00);		// 流动资金占比（%）
 	    vo.setFlowcaprate(4.35);
 	    vo.setLangrate(4.9);
 	    vo.setLangyear(15);

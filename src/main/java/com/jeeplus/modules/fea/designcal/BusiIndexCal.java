@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeeplus.modules.fea.dao.Fea_productcostDAO;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
+import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
+import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
@@ -26,9 +27,10 @@ public class BusiIndexCal {
 	private FeaDesignReportMapper feaDesignReportMapper;
 	@Autowired
 	private Fea_investdisVOMapper  fea_investdisVOMapper;
-	
 	@Autowired
 	private Fea_costinfoVOMapper  Fea_costinfoVOMapper;
+	@Autowired
+	private Fea_costfecfVOMapper  Fea_costfecfVOMapper;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -43,6 +45,10 @@ public class BusiIndexCal {
 		
 		List<Fea_costinfoVO> fea_costinfoVOlst  = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", " project_id ='"+projectid+"' ", Fea_costinfoVOMapper);
+		
+		List<Fea_costfecfVO> fea_costfecflst  = (List<Fea_costfecfVO>) PubBaseDAO.
+				getMutiParentVO("fea_costfecf", "id", " project_id ='"+projectid+"' ", Fea_costfecfVOMapper);
+		
 		
 		Double heattransfee = 0.00 ;
 		Double heattransset = 0.00 ;
@@ -141,10 +147,15 @@ public class BusiIndexCal {
 			
 			Fea_investdisVO fidvo = fea_investdisVOlst.get(0);
 			//换热
-			l10.add(fidvo.getTransamt());l10.add(fidvo.getEquitamt());l10.add(fidvo.getEquitamt()*0.15);l10.add(0.00);
+			l10.add((null!=fidvo.getTransamt())?fidvo.getTransamt():0.00);
+			l10.add((null!=fidvo.getEquitamt())?fidvo.getEquitamt():0.00);
+			l10.add((null!=fidvo.getSetupamt())?fidvo.getSetupamt():0.00);
+			l10.add(0.00);
 			//管网
-			l11.add(fidvo.getDjamt()+fidvo.getGwamt());
-			l11.add(0.00);l11.add(0.00);l11.add(fidvo.getOtheramt());
+			Double gwamt22 = (null!=fidvo.getDjamt())?fidvo.getDjamt():0.00;
+			Double gwamt33 = (null!=fidvo.getGwamt())?fidvo.getGwamt():0.00;
+			l11.add(gwamt22+gwamt33);
+			l11.add(0.00);l11.add(0.00);l11.add((null!=fidvo.getTransamt()?fidvo.getTransamt():0.00));
 		}else {
 			l10.add(heatbuild);l10.add(heattransfee+lightbuy);l10.add(waterset+getheat+lightset+heattransset);l10.add(0.00);
 			l11.add(pumpDN300build+pumpDN200build+holehighbuild);
@@ -309,11 +320,20 @@ public class BusiIndexCal {
 					ruarea = fea_costinfoVOlst.get(0).getYear();
 				}
 				flowamt = projectvo.getPrice()*ruarea;
+				
+				if(null!=fea_costfecflst && fea_costfecflst.size()>0) {
+					Fea_costfecfVO vo = fea_costfecflst.get(0);
+					if(null!=vo && vo.getFlowloanprop()!=null) {
+						flowamt = flowamt*vo.getFlowloanprop()/100;
+					}
+				}else {
+					flowamt = flowamt*0.2;
+				}
 			}
 		}
 		
 		List<String> ll39 = getotherfee("IV", "建设期贷款利息", 0.00, "");
-		List<String> ll40 = getotherfee("V", "铺底流动资金", getDouble2float(flowamt*0.2), "");
+		List<String> ll40 = getotherfee("V", "铺底流动资金", getDouble2float(flowamt), "");
 
 		List<String> ll41 = new ArrayList<String>();
 		ll41.add(""); ll41.add("建设项目总投资");

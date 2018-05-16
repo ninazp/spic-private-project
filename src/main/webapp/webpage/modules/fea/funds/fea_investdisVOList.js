@@ -92,30 +92,6 @@ $(document).ready(function() {
 		            }
 		        }
 		    }
-			/*,{
-		        field: 'fea_fundssrc_investtotal',
-		        title: '资金来源-总资金',
-		        sortable: true
-		       
-		    }*/
-			/*,{
-		        field: 'projectcode',
-		        title: '项目编码',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'projectname',
-		        title: '项目名称',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'heatarea',
-		        title: '建筑面积',
-		        sortable: true
-		       
-		    }*/
 			,{
 		        field: 'year',
 		        title: '年度',
@@ -158,24 +134,12 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
-			/*,{
-		        field: 'investprop',
-		        title: '投资比例',
-		        sortable: true
-		       
-		    }*/
 			,{
 		        field: 'investamt',
 		        title: '投资额度',
 		        sortable: true
 		       
 		    }
-			/*,{
-		        field: 'deductvtax',
-		        title: '可抵扣税金',
-		        sortable: true
-		       
-		    }*/
 			,{
 		        field: 'cappropsum',
 		        title: '注资方合计',
@@ -200,8 +164,6 @@ $(document).ready(function() {
 		
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端
-
-		 
 		  $('#fea_investdisVOTable').bootstrapTable("toggleView");
 		}
 	  

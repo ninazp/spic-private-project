@@ -1,11 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>投资分配管理</title>
-	<meta name="decorator" content="ani"/>
-	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
-	<script type="text/javascript">
+<title>投资分配管理</title>
+<meta name="decorator" content="ani" />
+<script src="${ctxStatic}/common/js/Util-tools.js"></script>
+<script type="text/javascript">
 		var validateForm;
 		var $table; // 父页面table表格id
 		var $topIndex;//弹出窗口的 index
@@ -102,129 +102,108 @@
 	</script>
 </head>
 <body class="bg-white">
-		<form:form id="inputForm" modelAttribute="fea_investdisVO" action="${ctx}/fea/funds/fea_investdisVO/save" method="post" class="form-horizontal">
-		<form:hidden path="id"/>
-		<sys:message content="${message}"/>
+	<form:form id="inputForm" modelAttribute="fea_investdisVO"
+		action="${ctx}/fea/funds/fea_investdisVO/save" method="post"
+		class="form-horizontal">
+		<form:hidden path="id" />
+		<sys:message content="${message}" />
 		<table class="table table-bordered">
-		   <tbody>
+			<tbody>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目：</label></td>
-					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_investdisVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_investdisVO.feaProjectB.projectName}"
-							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
-					</td>
-					
+					<td class="width-35"><sys:gridselect
+							url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB"
+							name="feaProjectB.id" value="${fea_investdisVO.feaProjectB.id}"
+							labelName="feaProjectB.projectName"
+							labelValue="${fea_investdisVO.feaProjectB.projectName}"
+							title="选择项目" cssClass="form-control required" fieldLabels="项目名称"
+							fieldKeys="projectName" searchLabels="项目名称"
+							searchKeys="projectName"></sys:gridselect></td>
+
 					<td class="width-15 active"><label class="pull-right">年度：</label></td>
-					<td class="width-35">
-						<form:input path="year" htmlEscape="false"    class="form-control required"/>
-					</td>
+					<td class="width-35"><form:input path="year"
+							htmlEscape="false" class="form-control required" /></td>
 				</tr>
-				<%-- <tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
-					<td class="width-35">
-						<form:input path="projectname" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">项目编码：</label></td>
-					<td class="width-35">
-						<form:input path="projectcode" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr> 
+
 				<tr>
-					<td class="width-15 active"><label class="pull-right">建筑面积：</label></td>
-					<td class="width-35">
-						<form:input path="heatarea" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>--%>
-				
-			<tr>
 					<td class="width-15 active"><label class="pull-right">是否依赖方案设计：</label></td>
-					<td class="width-35">
-						<form:select path="isreaddesgn" class="form-control " data-toggle="tooltip" data-placement="top" title="">
-							<form:option value="" label=""/>
-							<form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
-						</form:select>
-					</td>
+					<td class="width-35"><form:select path="isreaddesgn"
+							class="form-control " data-toggle="tooltip" data-placement="top"
+							title="">
+							<form:option value="" label="" />
+							<form:options items="${fns:getDictList('yes_no')}"
+								itemLabel="label" itemValue="value" htmlEscape="false" />
+						</form:select></td>
 					<td class="width-15 active"><label class="pull-right">打井费用：</label></td>
-					<td class="width-35">
-						<form:input path="djamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					<td class="width-35"><form:input path="djamt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">换热站建设费：</label></td>
-					<td class="width-35">
-						<form:input path="transamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					<td class="width-35"><form:input path="transamt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
-					<td class="width-35">
-						<form:input path="equitamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					<td class="width-35"><form:input path="equitamt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">管网费：</label></td>
-					<td class="width-35">
-						<form:input path="gwamt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					<td class="width-35"><form:input path="gwamt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 					<td class="width-15 active"><label class="pull-right">其他费：</label></td>
-					<td class="width-35">
-						<form:input path="otheramt" htmlEscape="false"    class="form-control " data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
+					<td class="width-35"><form:input path="otheramt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 				</tr>
-				
+
 				<tr>
-					<%-- <td class="width-15 active"><label class="pull-right">投资比例：</label></td>
-					<td class="width-35">
-						<form:input path="investprop" htmlEscape="false"    class="form-control required " max="100" data-toggle="tooltip" data-placement="top" title=""/>
-					</td> --%>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
-					<td class="width-35">
-						<form:input path="investamt" htmlEscape="false"  class="form-control required" data-toggle="tooltip" data-placement="top" title=""/>
-					</td>
-					<%--<td class="width-15 active"><label class="pull-right">可抵扣税金：</label></td>
-					<td class="width-35">
-						<form:input path="deductvtax" htmlEscape="false"    class="form-control "/>
-					</td>--%>
+					<td class="width-35"><form:input path="investamt"
+							htmlEscape="false" class="form-control required"
+							data-toggle="tooltip" data-placement="top" title="" /></td>
 					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
-					<td class="width-35">
-						<form:input path="cappropsum" htmlEscape="false"    class="form-control required" />
-					</td>
+					<td class="width-35"><form:input path="cappropsum"
+							htmlEscape="false" class="form-control required" /></td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
-					<td class="width-35">
-						<form:input path="loanpropsum" htmlEscape="false"    class="form-control required" />
-					</td>
+					<td class="width-35"><form:input path="loanpropsum"
+							htmlEscape="false" class="form-control required" /></td>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
-					<td class="width-35">
-						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
-					</td>
+					<td class="width-35"><form:textarea path="remarks"
+							htmlEscape="false" rows="4" class="form-control " /></td>
 				</tr>
-		 	</tbody>
+			</tbody>
 		</table>
 		<div class="tabs-container">
-            <ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">分配组成：</a>
-                </li>
-            </ul>
-            <div class="tab-content">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#tab-1"
+					aria-expanded="true">分配组成：</a></li>
+			</ul>
+			<div class="tab-content">
 				<div id="tab-1" class="tab-pane fade in  active">
-			<a class="btn btn-white btn-sm" onclick="addRow('#fea_investdisBVOList', fea_investdisBVORowIdx, fea_investdisBVOTpl);fea_investdisBVORowIdx = fea_investdisBVORowIdx + 1;" title="新增"><i class="fa fa-plus"></i> 新增</a>
-			<table class="table table-striped table-bordered table-condensed">
-				<thead>
-					<tr>
-						<th class="hide"></th>
-						<th>资金方名称</th>
-						<th>资金方类别</th>
-						<th>当期比例（%）</th>
-						<th>资金金额</th>
-						<th width="10">&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody id="fea_investdisBVOList">
-				</tbody>
-			</table>
-			<script type="text/template" id="fea_investdisBVOTpl">//<!--
+					<a class="btn btn-white btn-sm"
+						onclick="addRow('#fea_investdisBVOList', fea_investdisBVORowIdx, fea_investdisBVOTpl);fea_investdisBVORowIdx = fea_investdisBVORowIdx + 1;"
+						title="新增"><i class="fa fa-plus"></i> 新增</a>
+					<table class="table table-striped table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th class="hide"></th>
+								<th>资金方名称</th>
+								<th>资金方类别</th>
+								<th>当期比例（%）</th>
+								<th>资金金额</th>
+								<th width="10">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody id="fea_investdisBVOList">
+						</tbody>
+					</table>
+					<script type="text/template" id="fea_investdisBVOTpl">//<!--
 				<tr id="fea_investdisBVOList{{idx}}">
 					<td class="hide">
 						<input id="fea_investdisBVOList{{idx}}_id" name="fea_investdisBVOList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
@@ -260,7 +239,7 @@
 					</td>
 				</tr>//-->
 			</script>
-			<script type="text/javascript">
+					<script type="text/javascript">
 				var fea_investdisBVORowIdx = 0, fea_investdisBVOTpl = $("#fea_investdisBVOTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
 				$(document).ready(function() {
 					var data = ${fns:toJson(fea_investdisVO.fea_investdisBVOList)};
@@ -270,7 +249,7 @@
 					}
 				});
 			</script>
-			<script type="text/javascript">
+					<script type="text/javascript">
 			
 				$(function() {
 					 
@@ -284,7 +263,6 @@
 				var investtotal_pub;//总投资额
 				
 				function HeaderInputEditEnding(){
-					
 					$("#investamt").blur(function(event){
 						investpropChange(null,null);
 					}); 					
@@ -315,27 +293,6 @@
 						}
 						isreadedit(isreaddesgn);
 					});
-					
-					
-					
-					/* $("#investprop").blur(function(event){
-						var investprop = $("#investprop").val();//投资比例
-						if(!isNull(investprop)) {
-							return;
-						}
-						
-						var projectId = $("#feaProjectBId").val();
-						if(!isNull(projectId)){
-							jp.info("请先选择一个项目，再录入比例");
-						}
-						
-						if(!isNull(investtotal_pub)){
-							jp.error("获取项目投资总额为空");
-							return;
-						}
-						$("#investamt").val((investtotal_pub * investprop / 100).toFixed(2));
-						investpropChange(null,null);
-					}); */
 				}
 				
 				function windowLoadEnding(){
@@ -359,7 +316,9 @@
 				function initreadedit(){
 					
 					var isreadinit = $("#isreaddesgn").val();
-					
+					if(!isNull(isreadinit)){
+						return;
+					}
 					if(Number(isreadinit)==1){
 						document.getElementById("otheramt").disabled=true;
 						document.getElementById("gwamt").disabled=true;
@@ -453,9 +412,9 @@
 					amt.value=($("#capitalamt").val() * prop.value /100).toFixed(2);
 				}
 			</script>
+				</div>
 			</div>
 		</div>
-		</div>
-		</form:form>
+	</form:form>
 </body>
 </html>

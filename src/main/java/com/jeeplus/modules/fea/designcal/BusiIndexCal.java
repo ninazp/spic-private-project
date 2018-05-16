@@ -3,23 +3,15 @@ package com.jeeplus.modules.fea.designcal;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeeplus.modules.fea.dao.PubUtil;
-import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
-import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class BusiIndexCal {
 
@@ -27,10 +19,6 @@ public class BusiIndexCal {
 	private FeaProjectBMapper projectBMapper;
 	@Autowired
 	private FeaDesignReportMapper feaDesignReportMapper;
-	@Autowired
-	private Fea_investdisVOMapper basemapper4;
-	@Autowired
-	private Fea_investdisBVOMapper basemapper5;
 
 	@SuppressWarnings("unchecked")
 	public List<List<String>> getInitIvdesMny(String projectid){
@@ -287,11 +275,6 @@ public class BusiIndexCal {
 		ll41.add(d41+"");
 		ll41.add("");ll41.add("");ll41.add("");ll41.add("");
 		
-		int startmth = projectvo.getStartupDate().getMonth();
-		
-		 updateinvdis(d41,d412,4.9,startmth+0.00,
-				projectvo,basemapper4,basemapper5);
-
 		List<String> ll42 = new ArrayList<String>();
 		ll42.add(""); ll42.add("各工程费用占建设项目总投资的比例(%)"); 
 		Double r1 = getDouble2float(d411*100/d41);
@@ -334,90 +317,4 @@ public class BusiIndexCal {
 
 		return bm1;
 	}
-
-	public void updateinvdis(Double tzamt,
-			Double equipamt,Double rate,Double startmth,
-			FeaProjectB projectvo,
-			Fea_investdisVOMapper basemapper4,
-			Fea_investdisBVOMapper basemapper5
-			){
-
-		Double ldamt = 35.00;
-
-		Double a1 = rate*(12-startmth+1)/2400;
-		Double a2 = (1.25+0.25*a1);
-		//长期借款本金
-		Double y = tzamt/a2;
-		//建设期利息
-		Double x = a1*y;
-		//长期借款
-		Double d221 = x+y;
-		//流动资金借款
-		Double d222 = ldamt *0.7;
-		//借款
-		Double d22 = d221+d222;
-
-		//建设投资资本金
-		Double d211 = tzamt - y;
-		Double d212 =  ldamt*0.3;
-		Double d21 = d211 +d212;
-		//资金筹措
-		Double d2 = d21+d22;
-
-		Double d13 = 35.00;
-		Double d12 = x;
-		Double d11 = tzamt;
-
-		Double d1 = x+tzamt+35.00;
-
-		Fea_investdisVO vo = new Fea_investdisVO();
-		vo.setFeaProjectB(projectvo);
-		vo.setId(PubUtil.getid(1));
-		vo.setCreateBy(UserUtils.getUser());	
-		vo.setCreateDate(new Date());
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(projectvo.getStartupDate());
-		int year = cal.get(Calendar.YEAR);
-		vo.setYear(year+"");;		// 年度
-		vo.setInvestprop(100.00);;		// 投资比例
-		vo.setInvestamt(tzamt);;		// 投资额度
-		vo.setDeductvtax(getDouble2float(equipamt*0.17));		// 可抵扣税金
-		vo.setCappropsum(getDouble2float(d211));		// 注资方合计
-		vo.setLoanpropsum(getDouble2float(y));	// 融资合计
-
-
-		Fea_investdisBVO bvo = new Fea_investdisBVO();
-		bvo.setId(PubUtil.getid(1));
-		bvo.setFea_investdis(vo);
-		bvo.setCreateBy(UserUtils.getUser());	
-		bvo.setCreateDate(new Date());
-		bvo.setFea_investdis(vo);
-		bvo.setZjname("注资方");
-		bvo.setInvesttype("1");;		// 资金方类别
-		bvo.setInvestprop(20.00);;		// 当期比例（%）
-		bvo.setInvestamt(getDouble2float(d21));;		// 资金金额
-		bvo.setJsamt(getDouble2float(d211));		// 用于建设金额
-		bvo.setLdamt(d212);	// 用于流动资金金额
-		
-		Fea_investdisBVO ibvo2 = new Fea_investdisBVO();
-		ibvo2.setId(PubUtil.getid(1));
-		ibvo2.setCreateBy(UserUtils.getUser());	
-		ibvo2.setCreateDate(new Date());
-		ibvo2.setFea_investdis(vo);
-		ibvo2.setZjname("融资方");
-		ibvo2.setInvesttype("2");;		// 融资方
-		ibvo2.setInvestprop(80.00);;		// 当期比例（%）
-		ibvo2.setInvestamt(getDouble2float(d22));;		// 资金金额
-		ibvo2.setJsamt(getDouble2float(y));		// 用于建设金额
-		ibvo2.setLdamt(d222);	// 用于流动资金金额
-
-		basemapper5.execSelectSql("delete from spic.fea_investdis_b "
-				+ "where PKINVESTDIS in (select id from fea_investdis where PROJECT_ID='"+projectvo.getId()+"')");
-		basemapper4.execDeleteSql("delete from fea_investdis where PROJECT_ID='"+projectvo.getId()+"'");
-		basemapper4.insert(vo);
-		basemapper5.insert(bvo);
-		basemapper5.insert(ibvo2);
-	}
-
-
 }

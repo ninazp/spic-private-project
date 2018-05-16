@@ -12,9 +12,6 @@ import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
 import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcTVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_fundssrcVO;
-import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
@@ -28,8 +25,6 @@ public class GetparamDMO {
 	@SuppressWarnings("unchecked")
 	public static Map<String,Object> getparammap(FeaProjectB  projectvo,
 			BaseMapper fea_incomesetVOMapper,
-			BaseMapper fea_fundssrcVOMapper1,
-			BaseMapper fea_fundssrcTVOMapper,
 			BaseMapper fea_costfecfVOMapper,
 			BaseMapper fea_investdisVOMapper,
 			BaseMapper fea_investdisBVOMapper,

@@ -7,14 +7,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeeplus.common.utils.io.FilePathUtil;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.fecl.Fea_costfecfVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcTVOMapper;
-import com.jeeplus.modules.fea.mapper.funds.Fea_fundssrcVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
@@ -36,10 +33,6 @@ import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 public class createReportPubDMO {
 	@Autowired
 	private FeaProjectBMapper projectmapper;
-	@Autowired
-	private Fea_fundssrcVOMapper fea_fundssrcVOMapper;
-	@Autowired
-	private Fea_fundssrcTVOMapper fea_fundssrcTVOMapper;
 	@Autowired
 	private Fea_investdisVOMapper fea_investdisVOMapper;
 	@Autowired
@@ -74,8 +67,7 @@ public class createReportPubDMO {
 			projectvo =  (FeaProjectB) projectmapper.get(reportparam.get("projectid").toString());
 			
 			Map<String,Object> parammap = GetparamDMO.getparammap(projectvo, 
-					fea_incomesetVOMapper, fea_fundssrcVOMapper, 
-					fea_fundssrcTVOMapper, fea_costfecfVOMapper,
+					fea_incomesetVOMapper,fea_costfecfVOMapper,
 					fea_investdisVOMapper,fea_investdisBVOMapper,
 					fea_capformVOMapper,fea_productcostVOmapper,
 					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);

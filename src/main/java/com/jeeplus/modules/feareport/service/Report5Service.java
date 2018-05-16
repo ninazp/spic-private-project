@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.feareport.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,13 +69,18 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		
-		projectmapper.execUpdateSql("update fea_project_b  set  ordercol = (   case   id  when  '"+ids+"' then 1  else 0 end) ");
-		
 		return null != reportmap ? reportmap.get("投资计划与资金筹措表") : null;
 	}
 	
 	public List<FeaProjectB> getProjectDatas(){
-	     return projectmapper.findAllList(new FeaProjectB());
+		List<FeaProjectB> list = new ArrayList<FeaProjectB>();
+		FeaProjectB projectvo = projectmapper.findUniqueByProperty("ordercol", 1);
+		if(null!=projectvo) {
+			list.add(projectvo);
+		}else {
+			return projectmapper.findAllList(new FeaProjectB());
+		}
+		return list;
 	}
 	
 }

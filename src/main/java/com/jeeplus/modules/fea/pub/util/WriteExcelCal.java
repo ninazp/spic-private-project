@@ -95,9 +95,6 @@ public class WriteExcelCal {
 						}
 					}
 				}else {
-					if(i>33) {
-						System.out.println("abc");
-					}
 					for (int m = 0; m < totalgs.get(0).size(); m++)  {
 						HSSFCell cell = row1.createCell(m);
 						cell.setCellValue(totalgs.get(i-4).get(m));

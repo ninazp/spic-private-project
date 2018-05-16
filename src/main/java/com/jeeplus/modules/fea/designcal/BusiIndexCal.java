@@ -18,7 +18,6 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
-import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class BusiIndexCal {
 
@@ -376,8 +375,7 @@ public class BusiIndexCal {
 		retlst.add(ll37);retlst.add(ll38);retlst.add(ll39);
 		retlst.add(ll40);retlst.add(ll41);retlst.add(ll42);
 		
-		
-		WriteExcelCal.exportexcel("E:\\",projectvo.getProjectName(),null,retlst);
+		projectBMapper.execUpdateSql("update fea_project_b  set  ordercol = (   case   id  when  '"+projectid+"' then 1  else 0 end) ");
 		
 		return retlst;
 	}

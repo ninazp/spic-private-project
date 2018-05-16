@@ -38,6 +38,7 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 import com.jeeplus.modules.feareport.entity.ReportTotalEstimation;
 import com.jeeplus.modules.feareport.service.ReportTotalEstimationService;
 
@@ -282,6 +283,36 @@ public class ReportTotalEstimationController extends BaseController {
 		j.setMsg("");
 		j.setProjectId(ids);
 		j.setProjectName(projectName);
+		j.setSuccess(true);
+		
+		return j;
+	}
+	
+	/**
+	 * 获取项目数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:reportTotalEstimation:add","feareport:reportTotalEstimation:edit"},logical=Logical.OR)
+	@RequestMapping(value = "exportExcel")
+	public AjaxJson exportExcel(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		List<List<String>> gsmap = new ArrayList<List<String>>();
+
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
+		
+		if(null!=busiIndexCal){
+			gsmap = busiIndexCal.getInitIvdesMny(ids);
+		}
+		
+        Object reportbean = wac.getBean("createReportPubDMO");
+		
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("projectid", ids);
+		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
+		
+		j.setMsg(exportstatus);
+		j.setProjectId(ids);
 		j.setSuccess(true);
 		
 		return j;

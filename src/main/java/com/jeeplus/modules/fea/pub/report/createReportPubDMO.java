@@ -146,8 +146,6 @@ public class createReportPubDMO {
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
 			retmap.put("EVA测算表", temp); 
 		}
-	    WriteExcelCal.exportexcel("E:\\",projectvo.getProjectName(),retmap,null);
-
 		return retmap;
 	}
 
@@ -163,6 +161,24 @@ public class createReportPubDMO {
 			e.getMessage();
 		}
 		return retlst;
+	}
+	
+	public String exportexcel(String path,Map<String,Object> param ,List<List<String>> totalgs)  
+	{ 
+		
+		if(null!=param && param.get("projectid")!=null) {
+			Map<String,List<List<Double>>> retmap = getallreportnostatic(param);
+			
+			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
+			
+			 WriteExcelCal.exportexcel(path,projectvo.getProjectName(),retmap,totalgs);
+		}else {
+			return "未选择导出项目！";
+		}
+		
+		 
+		 return "导出成功！";
+		 
 	}
 
 	public List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){

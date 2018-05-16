@@ -18,6 +18,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
 
 public class BusiIndexCal {
 
@@ -155,7 +156,7 @@ public class BusiIndexCal {
 			Double gwamt22 = (null!=fidvo.getDjamt())?fidvo.getDjamt():0.00;
 			Double gwamt33 = (null!=fidvo.getGwamt())?fidvo.getGwamt():0.00;
 			l11.add(gwamt22+gwamt33);
-			l11.add(0.00);l11.add(0.00);l11.add((null!=fidvo.getTransamt()?fidvo.getTransamt():0.00));
+			l11.add(0.00);l11.add(0.00);l11.add((null!=fidvo.getOtheramt()?fidvo.getOtheramt():0.00));
 		}else {
 			l10.add(heatbuild);l10.add(heattransfee+lightbuy);l10.add(waterset+getheat+lightset+heattransset);l10.add(0.00);
 			l11.add(pumpDN300build+pumpDN200build+holehighbuild);
@@ -361,7 +362,7 @@ public class BusiIndexCal {
 		ll42.add(r3+"%");
 		Double r4 = getDouble2float(d414*100/d41);
 		ll42.add(r4+"%");
-		ll42.add("");ll42.add("");ll42.add("");ll42.add("");
+		ll42.add("");ll42.add("");ll42.add("");ll42.add("");ll42.add("");
 
 		retlst.add(ll8);
 		retlst.add(ll9);retlst.add(ll10);retlst.add(ll11);retlst.add(ll13);
@@ -374,6 +375,10 @@ public class BusiIndexCal {
 		retlst.add(ll32);retlst.add(ll33);retlst.add(ll36);
 		retlst.add(ll37);retlst.add(ll38);retlst.add(ll39);
 		retlst.add(ll40);retlst.add(ll41);retlst.add(ll42);
+		
+		
+		WriteExcelCal.exportexcel("E:\\",projectvo.getProjectName(),null,retlst);
+		
 		return retlst;
 	}
 

@@ -146,7 +146,7 @@ public class createReportPubDMO {
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
 			retmap.put("EVA测算表", temp); 
 		}
-	    WriteExcelCal.getexcel("E:\\",projectvo.getProjectName(),retmap);
+	    WriteExcelCal.exportexcel("E:\\",projectvo.getProjectName(),retmap,null);
 
 		return retmap;
 	}

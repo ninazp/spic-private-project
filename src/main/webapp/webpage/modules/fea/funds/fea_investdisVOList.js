@@ -118,7 +118,13 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'equitamt',
-		        title: '设备费',
+		        title: '设备购置费',
+		        sortable: true
+		       
+		    }
+			,{
+		        field: 'setupamt',
+		        title: '安装费',
 		        sortable: true
 		       
 		    }

@@ -72,14 +72,12 @@ public class ZjcctableHanderNew {
 						//资金筹备
 						if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("1")){
 							
-							Double prop1 = bvo.getInvestprop();//投资比例
-							
 							//先不考虑多个投资和融资机构的情况
 							Double investamt = (null!=bvo.getInvestamt()?bvo.getInvestamt():0.00);
 							
-							r211.set(investindex,investamt - (flowamtyear*0.3));
+							r211.set(investindex,investamt);
 							r212.set(investindex,flowamtyear*0.3);
-							r21.set(investindex,investamt);
+							r21.set(investindex,investamt+flowamtyear*0.3);
 
 							r211.set(0, r211.get(0)+r211.get(investindex));
 							r212.set(0, r212.get(0)+r212.get(investindex));
@@ -87,8 +85,6 @@ public class ZjcctableHanderNew {
 						}else if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("2")){
 							r2211.set(investindex,bvo.getInvestamt());//长期借款本金
 							Double principalrate = Double.valueOf(parammap.get("principalrate").toString());
-							
-							Object consperiod = parammap.get("constructPeriod");
 							
 							Double jslxamt = r2211.get(investindex)*principalrate/200;
 							

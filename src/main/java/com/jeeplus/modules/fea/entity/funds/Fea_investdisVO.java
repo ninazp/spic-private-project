@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 投资分配Entity
  * @author jw
- * @version 2018-05-09
+ * @version 2018-05-16
  */
 public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	
@@ -23,7 +23,8 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 	private String isreaddesgn;		// 是否依赖方案设计
 	private Double djamt;		// 打井费用
 	private Double transamt;		// 换热站建设费
-	private Double equitamt;		// 设备费
+	private Double equitamt;		// 设备购置费
+	private Double setupamt;		// 安装费
 	private Double gwamt;		// 管网费
 	private Double otheramt;		// 其他费
 	private String projectcode;		// 项目编码
@@ -65,7 +66,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.fea_fundssrc_investtotal = fea_fundssrc_investtotal;
 	}
 	
-	@ExcelField(title="是否依赖方案设计", align=2, sort=3)
+	@ExcelField(title="是否依赖方案设计", dictType="yes_no", align=2, sort=3)
 	public String getIsreaddesgn() {
 		return isreaddesgn;
 	}
@@ -92,7 +93,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.transamt = transamt;
 	}
 	
-	@ExcelField(title="设备费", align=2, sort=6)
+	@ExcelField(title="设备购置费", align=2, sort=6)
 	public Double getEquitamt() {
 		return equitamt;
 	}
@@ -101,7 +102,16 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.equitamt = equitamt;
 	}
 	
-	@ExcelField(title="管网费", align=2, sort=7)
+	@ExcelField(title="安装费", align=2, sort=7)
+	public Double getSetupamt() {
+		return setupamt;
+	}
+
+	public void setSetupamt(Double setupamt) {
+		this.setupamt = setupamt;
+	}
+	
+	@ExcelField(title="管网费", align=2, sort=8)
 	public Double getGwamt() {
 		return gwamt;
 	}
@@ -110,7 +120,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.gwamt = gwamt;
 	}
 	
-	@ExcelField(title="其他费", align=2, sort=8)
+	@ExcelField(title="其他费", align=2, sort=9)
 	public Double getOtheramt() {
 		return otheramt;
 	}
@@ -119,7 +129,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.otheramt = otheramt;
 	}
 	
-	@ExcelField(title="项目编码", align=2, sort=9)
+	@ExcelField(title="项目编码", align=2, sort=10)
 	public String getProjectcode() {
 		return projectcode;
 	}
@@ -128,7 +138,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.projectcode = projectcode;
 	}
 	
-	@ExcelField(title="项目名称", align=2, sort=10)
+	@ExcelField(title="项目名称", align=2, sort=11)
 	public String getProjectname() {
 		return projectname;
 	}
@@ -137,7 +147,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.projectname = projectname;
 	}
 	
-	@ExcelField(title="年度", align=2, sort=11)
+	@ExcelField(title="年度", align=2, sort=12)
 	public String getYear() {
 		return year;
 	}
@@ -146,7 +156,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.year = year;
 	}
 	
-	@ExcelField(title="投资比例", align=2, sort=12)
+	@ExcelField(title="投资比例", align=2, sort=13)
 	public Double getInvestprop() {
 		return investprop;
 	}
@@ -155,7 +165,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.investprop = investprop;
 	}
 	
-	@ExcelField(title="投资额度", align=2, sort=13)
+	@ExcelField(title="投资额度", align=2, sort=14)
 	public Double getInvestamt() {
 		return investamt;
 	}
@@ -164,7 +174,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.investamt = investamt;
 	}
 	
-	@ExcelField(title="可抵扣税金", align=2, sort=14)
+	@ExcelField(title="可抵扣税金", align=2, sort=15)
 	public Double getDeductvtax() {
 		return deductvtax;
 	}
@@ -173,7 +183,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.deductvtax = deductvtax;
 	}
 	
-	@ExcelField(title="注资方合计", align=2, sort=15)
+	@ExcelField(title="注资方合计", align=2, sort=16)
 	public Double getCappropsum() {
 		return cappropsum;
 	}
@@ -182,7 +192,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.cappropsum = cappropsum;
 	}
 	
-	@ExcelField(title="融资合计", align=2, sort=16)
+	@ExcelField(title="融资合计", align=2, sort=17)
 	public Double getLoanpropsum() {
 		return loanpropsum;
 	}
@@ -191,7 +201,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.loanpropsum = loanpropsum;
 	}
 	
-	@ExcelField(title="供热面积", align=2, sort=23)
+	@ExcelField(title="供热面积", align=2, sort=24)
 	public String getHeatarea() {
 		return heatarea;
 	}
@@ -200,7 +210,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.heatarea = heatarea;
 	}
 	
-	@ExcelField(title="部门", align=2, sort=24)
+	@ExcelField(title="部门", align=2, sort=25)
 	public String getOffice() {
 		return office;
 	}
@@ -209,7 +219,7 @@ public class Fea_investdisVO extends DataEntity<Fea_investdisVO> {
 		this.office = office;
 	}
 	
-	@ExcelField(title="公司", align=2, sort=25)
+	@ExcelField(title="公司", align=2, sort=26)
 	public String getPk_corp() {
 		return pk_corp;
 	}

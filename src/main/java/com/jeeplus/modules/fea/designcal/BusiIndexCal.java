@@ -7,8 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jeeplus.modules.fea.dao.Fea_productcostDAO;
+import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
+import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.quotation.FeaDesignReport;
+import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
+import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
@@ -19,13 +24,26 @@ public class BusiIndexCal {
 	private FeaProjectBMapper projectBMapper;
 	@Autowired
 	private FeaDesignReportMapper feaDesignReportMapper;
-
+	@Autowired
+	private Fea_investdisVOMapper  fea_investdisVOMapper;
+	
+	@Autowired
+	private Fea_costinfoVOMapper  Fea_costinfoVOMapper;
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<List<String>> getInitIvdesMny(String projectid){
 		List<List<String>> retlst = new ArrayList<List<String>>();
 
 		List<FeaDesignReport> reportvolst  = (List<FeaDesignReport>) PubBaseDAO.
 				getMutiParentVO("fea_design_report", "id", " project_id ='"+projectid+"' ", feaDesignReportMapper);
+		
+		List<Fea_investdisVO> fea_investdisVOlst  = (List<Fea_investdisVO>) PubBaseDAO.
+				getMutiParentVO("fea_investdis", "id", " project_id ='"+projectid+"' ", fea_investdisVOMapper);
+		
+		List<Fea_costinfoVO> fea_costinfoVOlst  = (List<Fea_costinfoVO>) PubBaseDAO.
+				getMutiParentVO("fea_costinfo", "id", " project_id ='"+projectid+"' ", Fea_costinfoVOMapper);
+		
 		Double heattransfee = 0.00 ;
 		Double heattransset = 0.00 ;
 		Double nk = 0.00;
@@ -102,14 +120,38 @@ public class BusiIndexCal {
 		Double holehighbuy = nk*18;
 		Double holehighset = nk*busiindex[6]*0.1/10000;
 
+		////////////////////////////////////////////////计算换热和热网工程费用//////////////////////////
+		//如果不依赖方案设计，
+		//换热站工程：建筑工程费=投资分配换热站建设费，设备购置=投资分配设备购置，安装工程=设备购置*15%，
+		//热网工程:建筑工程=投资分配打井费用+管网费用，设备及安装先不填。其他费用=投资分配其他费用
 		List<Double> l10 = new ArrayList<Double>();//换热站工程
-		l10.add(heatbuild);l10.add(heattransfee+lightbuy);l10.add(waterset+getheat+lightset+heattransset);l10.add(0.00);
 		List<Double> l11 = new ArrayList<Double>();//热网工程
-		l11.add(pumpDN300build+pumpDN200build+holehighbuild);
-		l11.add(holehighbuy);
-		l11.add(pumpDN300set+pumpDN200set+holehighset);
-		l11.add(pumpquip);
-
+		
+		
+		/**
+		 * private Double djamt;		// 打井费用
+	private Double transamt;		// 换热站建设费
+	private Double equitamt;		// 设备费
+	private Double gwamt;		// 管网费
+	private Double otheramt;		// 其他费
+		 */
+		if(null!=fea_investdisVOlst && fea_investdisVOlst.size()>0 
+				&& null!=fea_investdisVOlst.get(0) && null!=fea_investdisVOlst.get(0).getIsreaddesgn() && 
+				fea_investdisVOlst.get(0).getIsreaddesgn().equals("0")) {
+			
+			Fea_investdisVO fidvo = fea_investdisVOlst.get(0);
+			//换热
+			l10.add(fidvo.getTransamt());l10.add(fidvo.getEquitamt());l10.add(fidvo.getEquitamt()*0.15);l10.add(0.00);
+			//管网
+			l11.add(fidvo.getDjamt()+fidvo.getGwamt());
+			l11.add(0.00);l11.add(0.00);l11.add(fidvo.getOtheramt());
+		}else {
+			l10.add(heatbuild);l10.add(heattransfee+lightbuy);l10.add(waterset+getheat+lightset+heattransset);l10.add(0.00);
+			l11.add(pumpDN300build+pumpDN200build+holehighbuild);
+			l11.add(holehighbuy);
+			l11.add(pumpDN300set+pumpDN200set+holehighset);
+			l11.add(pumpquip);
+		}
 
 		Double sumbuild = 0.00;
 		for(int i=0;i<4;i++){
@@ -256,8 +298,22 @@ public class BusiIndexCal {
 		List<String> ll37 = getotherfee("一", "基本预备费", getDouble2float((sumbuild+ld13)*0.05), "5%");
 		List<String> ll38 = getotherfee("二", "涨价预备费", 0.00, "");
 
+		Double flowamt = 0.00;
+		if(fea_costinfoVOlst!=null && fea_costinfoVOlst.size()>0) {
+			Fea_costinfoVO rurate = fea_costinfoVOlst.get(0);
+			Double ruarea = 0.00;
+			if(null!=rurate) {
+				if(null!=fea_costinfoVOlst.get(0).getYear() && fea_costinfoVOlst.get(0).getYear()>0) {
+					ruarea = fea_costinfoVOlst.get(0).getYear();
+				}else if(null!=fea_costinfoVOlst.get(0).getYear2() && fea_costinfoVOlst.get(0).getYear2()>0) {
+					ruarea = fea_costinfoVOlst.get(0).getYear();
+				}
+				flowamt = projectvo.getPrice()*ruarea;
+			}
+		}
+		
 		List<String> ll39 = getotherfee("IV", "建设期贷款利息", 0.00, "");
-		List<String> ll40 = getotherfee("V", "铺底流动资金", 35.00, "");
+		List<String> ll40 = getotherfee("V", "铺底流动资金", getDouble2float(flowamt*0.2), "");
 
 		List<String> ll41 = new ArrayList<String>();
 		ll41.add(""); ll41.add("建设项目总投资");

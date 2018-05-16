@@ -150,29 +150,37 @@
 							data-placement="top" title="" /></td>
 				</tr>
 				<tr>
+				    <td class="width-15 active"><label class="pull-right">安装费：</label></td>
+					<td class="width-35">
+						<form:input path="setupamt" htmlEscape="false"    class="form-control"  readonly="true"/>
+					</td>
+				
 					<td class="width-15 active"><label class="pull-right">管网费：</label></td>
 					<td class="width-35"><form:input path="gwamt"
 							htmlEscape="false" class="form-control " data-toggle="tooltip"
 							data-placement="top" title="" /></td>
-					<td class="width-15 active"><label class="pull-right">其他费：</label></td>
-					<td class="width-35"><form:input path="otheramt"
-							htmlEscape="false" class="form-control " data-toggle="tooltip"
-							data-placement="top" title="" /></td>
+					
 				</tr>
 
 				<tr>
+				    <td class="width-15 active"><label class="pull-right">其他费：</label></td>
+					<td class="width-35"><form:input path="otheramt"
+							htmlEscape="false" class="form-control " data-toggle="tooltip"
+							data-placement="top" title="" /></td>
 					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
 					<td class="width-35"><form:input path="investamt"
 							htmlEscape="false" class="form-control required"
 							data-toggle="tooltip" data-placement="top" title="" /></td>
-					<td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
-					<td class="width-35"><form:input path="cappropsum"
-							htmlEscape="false" class="form-control required" /></td>
 				</tr>
 				<tr>
+				     <td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
+					<td class="width-35"><form:input path="cappropsum"
+							htmlEscape="false" class="form-control required" /></td>
 					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
 					<td class="width-35"><form:input path="loanpropsum"
 							htmlEscape="false" class="form-control required" /></td>
+				</tr>
+				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35"><form:textarea path="remarks"
 							htmlEscape="false" rows="4" class="form-control " /></td>
@@ -275,6 +283,12 @@
 					});
 					
 					$("#equitamt").blur(function(event){
+						var equitamtnew = $("#equitamt").val();//投资比例
+						if(!isNull(equitamtnew)) {
+							$("#setupamt").val(0.00);
+						}else{
+							$("#setupamt").val((Number(equitamtnew)*0.15).toFixed(2));
+						}
 						investpropChange(null,null);
 					});
 					
@@ -320,33 +334,33 @@
 						return;
 					}
 					if(Number(isreadinit)==1){
-						document.getElementById("otheramt").disabled=true;
-						document.getElementById("gwamt").disabled=true;
-						document.getElementById("equitamt").disabled=true;
-						document.getElementById("transamt").disabled=true;
-						document.getElementById("djamt").disabled=true;
+						document.getElementById("otheramt").readOnly=true;
+						document.getElementById("gwamt").readOnly=true;
+						document.getElementById("equitamt").readOnly=true;
+						document.getElementById("transamt").readOnly=true;
+						document.getElementById("djamt").readOnly=true;
 					}else{
-						document.getElementById("otheramt").disabled=false;
-						document.getElementById("gwamt").disabled=false;
-						document.getElementById("equitamt").disabled=false;
-						document.getElementById("transamt").disabled=false;
-						document.getElementById("djamt").disabled=false;
+						document.getElementById("otheramt").readOnly=false;
+						document.getElementById("gwamt").readOnly=false;
+						document.getElementById("equitamt").readOnly=false;
+						document.getElementById("transamt").readOnly=false;
+						document.getElementById("djamt").readOnly=false;
 					}
 				}
 				
 				function isreadedit(isread){
 					if(Number(isread)==1){
-						document.getElementById("otheramt").disabled=true;
-						document.getElementById("gwamt").disabled=true;
-						document.getElementById("equitamt").disabled=true;
-						document.getElementById("transamt").disabled=true;
-						document.getElementById("djamt").disabled=true;
+						document.getElementById("otheramt").readOnly=true;
+						document.getElementById("gwamt").readOnly=true;
+						document.getElementById("equitamt").readOnly=true;
+						document.getElementById("transamt").readOnly=true;
+						document.getElementById("djamt").readOnly=true;
 					}else{
-						document.getElementById("otheramt").disabled=false;
-						document.getElementById("gwamt").disabled=false;
-						document.getElementById("equitamt").disabled=false;
-						document.getElementById("transamt").disabled=false;
-						document.getElementById("djamt").disabled=false;
+						document.getElementById("otheramt").readOnly=false;
+						document.getElementById("gwamt").readOnly=false;
+						document.getElementById("equitamt").readOnly=false;
+						document.getElementById("transamt").readOnly=false;
+						document.getElementById("djamt").readOnly=false;
 					}
 				}
 				
@@ -381,17 +395,18 @@
 					var equitamt = $("#equitamt").val();
 					var gwamt = $("#gwamt").val();
                     var otheramt = $("#otheramt").val();
-                    
+                    var setupamt = $("#setupamt").val();
                     var intputinvestamt = $("#investamt").val();
-                    
                     var isreaddesgn = $("#isreaddesgn").val();//投资比例
+                    
+                    
                     
                     var investamt = 0;
                     
                     if(Number(isreaddesgn)==1){
                     	investamt = intputinvestamt;
                     }else{
-                    	investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt);
+                    	investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt)+Number(setupamt);
                     }
                     
 					if(isNull(investpropDom) && isNull(investamtDom)){//逐条算

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
@@ -296,20 +297,23 @@ public class ReportTotalEstimationController extends BaseController {
 	@RequestMapping(value = "exportExcel")
 	public AjaxJson exportExcel(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		AjaxJson j = new AjaxJson();
-		List<List<String>> gsmap = new ArrayList<List<String>>();
+		
+		
+		ServletOutputStream out=response.getOutputStream();
 
+		//***************调用后台逻辑
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
-		
+		List<List<String>> gsmap = new ArrayList<List<String>>();
 		if(null!=busiIndexCal){
 			gsmap = busiIndexCal.getInitIvdesMny(ids);
 		}
-		
         Object reportbean = wac.getBean("createReportPubDMO");
-		
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("projectid", ids);
-		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
+		
+		//exportstatus只有状态 ：
+		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel(param, gsmap,out);
 		
 		j.setMsg(exportstatus);
 		j.setProjectId(ids);

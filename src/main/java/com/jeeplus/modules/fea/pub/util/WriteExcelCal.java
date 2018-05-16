@@ -9,6 +9,8 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -19,8 +21,8 @@ import org.apache.poi.ss.util.Region;
 import com.jeeplus.modules.fea.pub.report.ColName;
 import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 public class WriteExcelCal {
-	public void exportExcel(
-			Map<String,List<List<Double>>>  retmap, OutputStream out,List<List<String>> totalgs)  
+	public void exportExcel(String projectname,
+			Map<String,List<List<Double>>>  retmap,List<List<String>> totalgs, OutputStream out)  
 	{  
 		String [] sheetname = new String [] {
 				"投资计划与资金筹措表","总成本费用表","借款还本付息计划表","利润和利润分配表","财务计划现金流量表",
@@ -48,7 +50,7 @@ public class WriteExcelCal {
 						if(i==0) {
 							cell.setCellValue("总估算表");
 						}else if(i==1) {
-							cell.setCellValue("工程名称：地热供热项目（一期）");
+							cell.setCellValue("工程名称："+projectname);
 						}else if(i==2) {
 							if(m==0) {
 								cell.setCellValue("序号");
@@ -261,15 +263,15 @@ public class WriteExcelCal {
 		}  
 	}  
 
-	public static void exportexcel(String path,String projectname,
-			Map<String,List<List<Double>>> retmap,List<List<String>> totalgs)  
+	public static void exportexcel(String projectname,
+			Map<String,List<List<Double>>> retmap,List<List<String>> totalgs,OutputStream outstream)  
 	{  
 		WriteExcelCal ex = new WriteExcelCal();
 		try  
 		{  
-			OutputStream out2 = new FileOutputStream(path+projectname+"经济性分析报表.xls");  
-			ex.exportExcel(retmap, out2,totalgs);
-			out2.close();  
+			ex.exportExcel(projectname,retmap,totalgs,outstream);
+			outstream.flush();
+			outstream.close();  
 		} catch (FileNotFoundException e) {  
 			e.printStackTrace();  
 		} catch (IOException e) {  

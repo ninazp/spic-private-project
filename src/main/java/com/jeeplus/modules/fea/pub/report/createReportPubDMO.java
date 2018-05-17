@@ -1,6 +1,5 @@
 package com.jeeplus.modules.fea.pub.report;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,21 +163,21 @@ public class createReportPubDMO {
 		return retlst;
 	}
 	
-	public String exportexcel(Map<String,Object> param ,List<List<String>> totalgs,OutputStream outputStream)  
+	public String exportexcel(String path,Map<String,Object> param ,List<List<String>> totalgs)  
 	{ 
 		
 		if(null!=param && param.get("projectid")!=null) {
 			Map<String,List<List<Double>>> retmap = getallreportnostatic(param);
 			
 			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
-			
-			 WriteExcelCal.exportexcel(projectvo.getProjectName(),retmap,totalgs,outputStream);
+			path = path + projectvo.getProjectName()+"经济性分析报表.xls";
+			 WriteExcelCal.exportexcel(path,retmap,totalgs);
 		}else {
 			return "未选择导出项目！";
 		}
 		
 		 
-		 return "导出成功！";
+		 return path;
 		 
 	}
 

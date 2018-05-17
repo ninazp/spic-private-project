@@ -3,12 +3,18 @@
  */
 package com.jeeplus.modules.feareport.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
@@ -297,29 +303,59 @@ public class ReportTotalEstimationController extends BaseController {
 	@RequestMapping(value = "exportExcel")
 	public AjaxJson exportExcel(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		AjaxJson j = new AjaxJson();
-		
-		
-		ServletOutputStream out=response.getOutputStream();
+		List<List<String>> gsmap = new ArrayList<List<String>>();
 
-		//***************调用后台逻辑
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
-		List<List<String>> gsmap = new ArrayList<List<String>>();
+		
 		if(null!=busiIndexCal){
 			gsmap = busiIndexCal.getInitIvdesMny(ids);
 		}
+		
         Object reportbean = wac.getBean("createReportPubDMO");
+		
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("projectid", ids);
+//		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
 		
-		//exportstatus只有状态 ：
-		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel(param, gsmap,out);
 		
-		j.setMsg(exportstatus);
+		String path = ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
+		
+		download(path, response);
+		
+//		j.setMsg(exportstatus);
 		j.setProjectId(ids);
 		j.setSuccess(true);
 		
 		return j;
 	}
+	
+	public void download(String path, HttpServletResponse response) {  
+        try {  
+            // path是指欲下载的文件的路径。  
+            File file = new File(path);  
+            // 取得文件名。  
+            String filename = file.getName();  
+            // 以流的形式下载文件。  
+            InputStream fis = new BufferedInputStream(new FileInputStream(path));  
+            byte[] buffer = new byte[fis.available()];  
+            fis.read(buffer);  
+            fis.close();  
+            // 清空response  
+            response.reset();  
+            // 设置response的Header  
+            response.addHeader("Content-Disposition", "attachment;filename="
+                    + new String(filename.getBytes()));  
+            response.addHeader("Content-Length", "" + file.length());
+            OutputStream toClient = new BufferedOutputStream(  
+                    response.getOutputStream());
+            response.setContentType("application/vnd.ms-excel;charset=gb2312");
+            toClient.write(buffer);  
+            toClient.flush();  
+            toClient.close();  
+        } catch (IOException ex) {  
+            ex.printStackTrace();  
+        }  
+    }  
 
 }

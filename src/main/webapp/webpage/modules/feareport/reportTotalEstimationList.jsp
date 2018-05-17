@@ -341,9 +341,20 @@
 		}
 		
 		function downLoad(){
+			
+			/* 
 			var d = utl.Object.copyJson(hot.getData());//<=====读取handsontable的数据
             //d.unshift(utl.Object.reverse(hot.getSettings().colHeaders));//<====追加到列头
-            utl.XLSX.onExport(d);//<====导出
+            utl.XLSX.onExport(d);//<====导出 
+            */
+			var param = $("#feaProjectBId").val();
+			/* jp.get("${ctx}/feareport/reportTotalEstimation/exportExcel?ids=" + param, function (data) {
+ 					if(data.success){
+ 	      	  		}else{
+ 	      	  			jp.error("获取项目信息失败");
+ 	      	  		}
+ 	            }) */
+			window.location.href="${ctx}/feareport/reportTotalEstimation/exportExcel?ids=" + param;
 		}
 
 	

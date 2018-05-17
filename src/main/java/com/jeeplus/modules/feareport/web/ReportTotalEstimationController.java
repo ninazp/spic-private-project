@@ -336,12 +336,13 @@ public class ReportTotalEstimationController extends BaseController {
             // 清空response  
             response.reset();  
             // 设置response的Header  
+//            response.setCharacterEncoding("utf-8");
             response.addHeader("Content-Disposition", "attachment;filename="
-                    + new String(filename.getBytes()));  
+                    + new String(filename.getBytes("gbk"), "ISO8859-1") );  
             response.addHeader("Content-Length", "" + file.length());
             OutputStream toClient = new BufferedOutputStream(  
                     response.getOutputStream());
-            response.setContentType("application/vnd.ms-excel;charset=gb2312");
+            response.setContentType("application/vnd.ms-excel;charset=GBK");
             toClient.write(buffer);  
             toClient.flush();  
             toClient.close();  

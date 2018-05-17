@@ -179,8 +179,8 @@ public class createReportPubDMO {
 		if(null!=param && param.get("projectid")!=null) {
 			Map<String,List<List<Double>>> retmap = getallreportnostatic(param);
 			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
-			path = path + projectvo.getProjectName()+"经济性分析报表.xls";
-			WriteExcelCal.exportexcel(path,retmap,totalgs);
+			path = path + "经济性分析报表(项目名称："+projectvo.getProjectName()+").xls";
+			WriteExcelCal.exportexcel(path,projectvo.getProjectName(),retmap,totalgs);
 		}
 		
 		 

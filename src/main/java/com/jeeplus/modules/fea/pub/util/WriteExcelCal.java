@@ -19,7 +19,7 @@ import org.apache.poi.ss.util.Region;
 import com.jeeplus.modules.fea.pub.report.ColName;
 import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 public class WriteExcelCal {
-	public void exportExcel(
+	public void exportExcel(String projectname,
 			Map<String,List<List<Double>>>  retmap, OutputStream out,List<List<String>> totalgs)  
 	{  
 		String [] sheetname = new String [] {
@@ -48,7 +48,7 @@ public class WriteExcelCal {
 						if(i==0) {
 							cell.setCellValue("总估算表");
 						}else if(i==1) {
-							cell.setCellValue("工程名称：地热供热项目（一期）");
+							cell.setCellValue("工程名称："+projectname);
 						}else if(i==2) {
 							if(m==0) {
 								cell.setCellValue("序号");
@@ -261,14 +261,14 @@ public class WriteExcelCal {
 		}  
 	}  
 
-	public static void exportexcel(String path,
+	public static void exportexcel(String path,String projectname,
 			Map<String,List<List<Double>>> retmap,List<List<String>> totalgs)  
 	{  
 		WriteExcelCal ex = new WriteExcelCal();
 		try  
 		{  
 			OutputStream out2 = new FileOutputStream(path);
-			ex.exportExcel(retmap, out2,totalgs);
+			ex.exportExcel(projectname,retmap, out2,totalgs);
 			out2.close();  
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();  

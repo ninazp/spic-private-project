@@ -10,11 +10,11 @@ public class TotalCostHander {
 
 	public static List<List<Double>> getTotalcosttable(
 			Map<String,Object> parammap,
-			List<List<Double>> interestTable,List<List<Double>> zjcktable){
+			List<List<Double>> interestTable,List<List<String>> designres){
 
 		List<List<Double>> totaltable = new ArrayList<List<Double>>();
 
-		totaltable = getbaseCost(parammap,interestTable,zjcktable);
+		totaltable = getbaseCost(parammap,interestTable,designres);
 
 		List<List<Double>> rettable = getcombineCost(totaltable, Double.valueOf(parammap.get("countyear").toString()));
 
@@ -31,7 +31,7 @@ public class TotalCostHander {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<List<Double>> getbaseCost(Map<String,Object> parammap ,
-			List<List<Double>> interesttable,List<List<Double>> zjcktable){
+			List<List<Double>> interesttable,List<List<String>> designresult){
 		List<List<Double>> retlistlist = new ArrayList<List<Double>>();
 
 		Double countyear = (Double) parammap.get("countyear");
@@ -49,10 +49,20 @@ public class TotalCostHander {
 		Double insurance = costparam.get(2);
 		Double perwage = costparam.get(3);
 		Double welfare =costparam.get(4);
+		
+		String jsamttotal = designresult.get(1).get(6);
+		String othertotal = designresult.get(1).get(5);
+		Double totaljsamt = 0.00;
+		if(null!=jsamttotal) totaljsamt = Double.valueOf(jsamttotal);
+		if(null!=othertotal) totaljsamt = totaljsamt - Double.valueOf(othertotal);
 
-		Map<Integer,Double> assetValmap=  getjsamt(zjcktable, dkjeamt);
-		Map<Integer,Double> assetValnolxmap=  getjsamtnolx(zjcktable, dkjeamt);
+		Map<Integer,Double> assetValmap=  new HashMap<Integer,Double>();
+		
+		assetValmap.put(1, totaljsamt);
+		
+		Map<Integer,Double> assetValnolxmap=  new HashMap<Integer,Double>();
 
+		assetValnolxmap.put(1, totaljsamt);
 
 		//折旧费  
 		List<Double> zjlist = getdepreciation(assetValmap, depyears, depleftrate,

@@ -14,7 +14,7 @@ public class ZjcctableHanderNew {
 	@SuppressWarnings("unchecked")
 	public static List<List<Double>> getzjcctable(
 			BaseMapper baseMapper,BaseMapper baseMapperb,
-			FeaProjectB projectvo, Map<String,Object> parammap){
+			FeaProjectB projectvo, Map<String,Object> parammap,List<List<String>> designresult){
 
 		List<List<Double>> rettable = new ArrayList<List<Double>>();
 		List<Double> r1 = new ArrayList<Double>() ;r1.add(0.0);
@@ -30,6 +30,11 @@ public class ZjcctableHanderNew {
 		List<Double> r2211 = new ArrayList<Double>();r2211.add(0.00);
 		List<Double> r2212 = new ArrayList<Double>();r2212.add(0.00);
 		List<Double> r222 = new ArrayList<Double>();r222.add(0.00);
+		
+		Double investamt = 0.00;
+		if(null!=designresult && designresult.size()>1) {
+			investamt = Double.valueOf(designresult.get(0).get(6));
+		}
 
 		//查询投资分配表
 		List<Fea_investdisVO>   distrvolst = (List<Fea_investdisVO>) PubBaseDAO.
@@ -71,19 +76,15 @@ public class ZjcctableHanderNew {
 					for(Fea_investdisBVO bvo : distriblst){
 						//资金筹备
 						if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("1")){
-							
-							//先不考虑多个投资和融资机构的情况
-							Double investamt = (null!=bvo.getInvestamt()?bvo.getInvestamt():0.00);
-							
-							r211.set(investindex,investamt);
+							r211.set(investindex,investamt*bvo.getInvestprop()/100);
 							r212.set(investindex,flowamtyear*0.3);
-							r21.set(investindex,investamt+flowamtyear*0.3);
+							r21.set(investindex,r211.get(investindex)+flowamtyear*0.3);
 
 							r211.set(0, r211.get(0)+r211.get(investindex));
 							r212.set(0, r212.get(0)+r212.get(investindex));
 							r21.set(0, r21.get(0)+r21.get(investindex));
 						}else if(null!=bvo.getInvesttype() && bvo.getInvesttype().equals("2")){
-							r2211.set(investindex,bvo.getInvestamt());//长期借款本金
+							r2211.set(investindex,investamt*bvo.getInvestprop()/100);//长期借款本金
 							Double principalrate = Double.valueOf(parammap.get("principalrate").toString());
 							
 							Double jslxamt = r2211.get(investindex)*principalrate/200;

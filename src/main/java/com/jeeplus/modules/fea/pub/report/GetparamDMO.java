@@ -65,7 +65,8 @@ public class GetparamDMO {
 		List<Fea_investdisVO>   fea_investdislst  = (List<Fea_investdisVO>) PubBaseDAO.
 				getMutiParentVO("fea_investdis", "id", wheresql, fea_investdisVOMapper);
 		
-		if(null!=fea_investdislst && fea_investdislst.size()>0 && fea_investdislst.get(0)!=null) {
+		if(null!=fea_investdislst && fea_investdislst.size()>0 && fea_investdislst.get(0)!=null
+				&& fea_investdislst.get(0).getIsreaddesgn().equals("1")) {
 			Double equitamt = (null!=fea_investdislst.get(0).getEquitamt())?fea_investdislst.get(0).getEquitamt():0.00;
 			retmap.put("equitamt", equitamt);
 		}

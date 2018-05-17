@@ -41,11 +41,13 @@ import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.common.utils.io.FilePathUtil;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
+import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 import com.jeeplus.modules.feareport.entity.ReportTotalEstimation;
 import com.jeeplus.modules.feareport.service.ReportTotalEstimationService;
 
@@ -235,14 +237,7 @@ public class ReportTotalEstimationController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		List<List<String>> reportmap = new ArrayList<List<String>>();
 
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		//com.jeeplus.modules.fea.designcal.BusiIndexCal
-		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
-		
-		if(null!=busiIndexCal){
-			reportmap = busiIndexCal.getInitIvdesMny(ids);
-		}
-		
+		reportmap = reportTotalEstimationService.getReportdata(ids);
 //		List<List<String>> datas = feaInvestmentEstimationService.getReportDatas(ids);
 		List<List<String>> reDatas = new ArrayList<List<String>>();
 		
@@ -316,14 +311,11 @@ public class ReportTotalEstimationController extends BaseController {
 		
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("projectid", ids);
-//		String exportstatus =  ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
 		
-		
-		String path = ((createReportPubDMO)reportbean).exportexcel("E://",param, gsmap);
+		String path = ((createReportPubDMO)reportbean).exportexcel(FilePathUtil.getJarPath(ReadExcelCal.class),param, gsmap);
 		
 		download(path, response);
 		
-//		j.setMsg(exportstatus);
 		j.setProjectId(ids);
 		j.setSuccess(true);
 		

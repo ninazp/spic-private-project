@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
+import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
@@ -72,9 +75,16 @@ public class createReportPubDMO {
 					fea_capformVOMapper,fea_productcostVOmapper,
 					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);
 			
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
+			List<List<String>> designresult = new ArrayList<List<String>>();
+			if(null!=busiIndexCal){
+				designresult = busiIndexCal.getInitIvdesMny(projectvo.getId());
+			}
+			
 			//1 -- 投资计划与资金筹措表
 			List<List<Double>> zjcktable = ZjcctableHanderNew.getzjcctable(
-					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap);
+					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap,designresult);
 			
 			List<Fea_investdisVO> fitvo =  (List<Fea_investdisVO>) PubBaseDAO.getMutiParentVO("fea_investdis", "id",
 					"project_id='"+projectvo.getId()+"'", fea_investdisVOMapper);
@@ -88,7 +98,7 @@ public class createReportPubDMO {
 //			List<List<Double>> zjcktable = GetZjcctable.getzjcctable(fitvo.get(0).getInvestamt(),
 //					0.00,rate, startmth+0.00);
 			
-			Map<String,List<List<Double>>>  basereportmap = GetBaseReportDMO.getbasereport(zjcktable, parammap);
+			Map<String,List<List<Double>>>  basereportmap = GetBaseReportDMO.getbasereport(zjcktable, parammap,designresult);
 			
 			//2总成本费用表
 			List<List<Double>> totalcostfinaltable = basereportmap.get("totalcostfinaltable");
@@ -168,12 +178,9 @@ public class createReportPubDMO {
 		
 		if(null!=param && param.get("projectid")!=null) {
 			Map<String,List<List<Double>>> retmap = getallreportnostatic(param);
-			
 			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
 			path = path + projectvo.getProjectName()+"经济性分析报表.xls";
-			 WriteExcelCal.exportexcel(path,retmap,totalgs);
-		}else {
-			return "未选择导出项目！";
+			WriteExcelCal.exportexcel(path,retmap,totalgs);
 		}
 		
 		 

@@ -15,7 +15,7 @@ import com.jeeplus.modules.fea.pub.util.TotalCostHander;
 
 public class GetBaseReportDMO {
 
-	public static Map<String,List<List<Double>>> getbasereport(List<List<Double>> zjcktable,Map<String,Object> parammap){
+	public static Map<String,List<List<Double>>> getbasereport(List<List<Double>> zjcktable,Map<String,Object> parammap,List<List<String>> designresult){
 		Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
 
 		//2总成本费用表
@@ -31,7 +31,7 @@ public class GetBaseReportDMO {
 		Double shortloanrate = (Double) parammap.get("shortloanrate");
 
 		List<List<Double>> interesttable = LoanRepayHandler.getLoanRepayTable(zjcktable, parammap);
-		List<List<Double>> costtable = TotalCostHander.getTotalcosttable(parammap, interesttable, zjcktable);
+		List<List<Double>> costtable = TotalCostHander.getTotalcosttable(parammap, interesttable, designresult);
 		List<List<Double>> lrtable = ProfitHandler.getprofittable(zjcktable, costtable, interesttable, parammap);
 		List<List<Double>> financeplan = FinanceHandler.getFinanceTable(countyear, lrtable, costtable, zjcktable, interesttable);
 
@@ -42,7 +42,7 @@ public class GetBaseReportDMO {
 		interesttable.set(12, retlst.get(2));
 
 		//2  -- 总成本费用表
-		totalcostfinaltable = TotalCostHander.getTotalcosttable(parammap, interesttable, zjcktable);
+		totalcostfinaltable = TotalCostHander.getTotalcosttable(parammap, interesttable, designresult);
 		//3	
 		lrfinaltable = ProfitHandler.getprofittable(zjcktable, totalcostfinaltable, interesttable, parammap);
 		//利息表备付率和偿付率

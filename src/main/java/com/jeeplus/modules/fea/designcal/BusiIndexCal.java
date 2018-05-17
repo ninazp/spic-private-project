@@ -452,7 +452,7 @@ public class BusiIndexCal {
 				ll41.add(""+d412); 
 				Double d413 = getDouble2float(l10.get(2)+l11.get(2));
 				ll41.add(""+d413);
-				Double d414 = getDouble2float(l10.get(3)+l11.get(3)+35+getDouble2float((sumbuild+ld13)*0.05)+getDouble2float(ld13));
+				Double d414 = getDouble2float(l10.get(3)+l11.get(3)+getDouble2float(flowamt)+getDouble2float((sumbuild+ld13)*0.05)+getDouble2float(ld13));
 				ll41.add(d414+""); 
 				//总投资
 				Double d41 = getDouble2float(d411+d412+d413+d414);
@@ -482,9 +482,6 @@ public class BusiIndexCal {
 				retlst.add(ll32);retlst.add(ll33);retlst.add(ll36);
 				retlst.add(ll37);retlst.add(ll38);retlst.add(ll39);
 				retlst.add(ll40);retlst.add(ll41);retlst.add(ll42);
-
-				projectBMapper.execUpdateSql("update fea_project_b  set  ordercol = (   case   id  when  '"+projectid+"' then 1  else 0 end) ");
-
 				return retlst;
 	}
 	

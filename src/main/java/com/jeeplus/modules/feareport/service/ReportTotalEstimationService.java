@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.feareport.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
+import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.designcal.PubDesignCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
@@ -55,6 +57,23 @@ public class ReportTotalEstimationService extends CrudService<ReportTotalEstimat
 	@Transactional(readOnly = false)
 	public void delete(ReportTotalEstimation reportTotalEstimation) {
 		super.delete(reportTotalEstimation);
+	}
+	
+	@Transactional(readOnly = false)
+    public List<List<String>> getReportdata(String id) throws Exception{
+		
+		List<List<String>> reportmap = new ArrayList<List<String>>();
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		//com.jeeplus.modules.fea.designcal.BusiIndexCal
+		BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
+		if(null!=busiIndexCal){
+			reportmap = busiIndexCal.getInitIvdesMny(id);
+		}
+		if(null!=reportmap) {
+			projectmapper.execUpdateSql("update fea_project_b  set  ordercol = (   case   id  when  '"+id+"' then 1  else 0 end) ");
+		}
+		
+		return null != reportmap ? reportmap : null;
 	}
 	
 	public List<List<String>> getReportDatas(String ids) throws Exception{

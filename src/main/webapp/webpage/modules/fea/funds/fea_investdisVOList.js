@@ -147,18 +147,6 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'cappropsum',
-		        title: '注资方合计',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'loanpropsum',
-		        title: '融资合计',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'remarks',
 		        title: '备注信息',
 		        sortable: true
@@ -301,7 +289,6 @@ $(document).ready(function() {
 								<th>资金方名称</th>
 								<th>资金方类别</th>
 								<th>当期比例（%）</th>
-								<th>资金金额</th>
 							</tr>
 						</thead>
 						<tbody id="fea_investdisVOChild-{{idx}}-1-List">
@@ -320,9 +307,6 @@ $(document).ready(function() {
 					</td>
 					<td>
 						{{row.investprop}}
-					</td>
-					<td>
-						{{row.investamt}}
 					</td>
 				</tr>//-->
 	</script>

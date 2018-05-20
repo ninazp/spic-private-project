@@ -112,6 +112,7 @@
 		INSERT INTO fea_costinfo(
 			id,
 			project_id,
+			unit,
 			year1,
 			create_by,
 			create_date,
@@ -153,6 +154,7 @@
 		) VALUES (
 			#{id},
 			#{feaProjectB.id},
+			#{unit},
 			#{year},
 			#{createBy.id},
 			#{createDate},
@@ -197,6 +199,7 @@
 	<update id="update">
 		UPDATE fea_costinfo SET 	 
 			project_id = #{feaProjectB.id},
+			unit = #{unit},
 			year1 = #{year},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},

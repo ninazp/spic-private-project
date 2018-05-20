@@ -173,14 +173,6 @@
 							data-toggle="tooltip" data-placement="top" title="" /></td>
 				</tr>
 				<tr>
-				     <td class="width-15 active"><label class="pull-right">注资方合计：</label></td>
-					<td class="width-35"><form:input path="cappropsum"
-							htmlEscape="false" class="form-control required" /></td>
-					<td class="width-15 active"><label class="pull-right">融资合计：</label></td>
-					<td class="width-35"><form:input path="loanpropsum"
-							htmlEscape="false" class="form-control required" /></td>
-				</tr>
-				<tr>
 					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35"><form:textarea path="remarks"
 							htmlEscape="false" rows="4" class="form-control " /></td>
@@ -204,7 +196,6 @@
 								<th>资金方名称</th>
 								<th>资金方类别</th>
 								<th>当期比例（%）</th>
-								<th>资金金额</th>
 								<th width="10">&nbsp;</th>
 							</tr>
 						</thead>
@@ -234,14 +225,8 @@
 					
 					
 					<td>
-						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control required checkTableInvestprop" max="100" onChange="investpropChange(fea_investdisBVOList{{idx}}_investprop,fea_investdisBVOList{{idx}}_investamt)"/>
+						<input id="fea_investdisBVOList{{idx}}_investprop" name="fea_investdisBVOList[{{idx}}].investprop" type="text" value="{{row.investprop}}"    class="form-control required checkTableInvestprop" max="100" />
 					</td>
-					
-					
-					<td>
-						<input id="fea_investdisBVOList{{idx}}_investamt" name="fea_investdisBVOList[{{idx}}].investamt" type="text" value="{{row.investamt}}"    class="form-control " onChange="investamtChange()" />
-					</td>
-					
 					<td class="text-center" width="10">
 						{{#delBtn}}<span class="close" onclick="delRow(this, '#fea_investdisBVOList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
@@ -258,15 +243,6 @@
 				});
 			</script>
 					<script type="text/javascript">
-			
-				$(function() {
-					 
-					 $('input[name=investamt]').keyup(function(e){
-					    if(e.keyCode == 13){
-					    	investpropChange(null,null);
-					    }
-					 });
-				});
 			
 				var investtotal_pub;//总投资额
 				
@@ -308,25 +284,7 @@
 						isreadedit(isreaddesgn);
 					});
 				}
-				
-				function windowLoadEnding(){
-					var projectId = $("#feaProjectBId").val();
-					if(!isNull(projectId))return;
-					jp.get("${ctx}/fea/funds/fea_fundssrcVO/getFea_fundssrcVOByProjectId?projectId=" + projectId, function (data) {
-	 					if(data.success){
-	 						var investtotal = data.body.Fea_fundssrcVO.investtotal;//投资总金额
-	 						var investprop = $("#investprop").val();//投资比例
-							if(!isNull(investtotal)){return;}
-							investtotal_pub = investtotal;
-							$("#investamt").val((investtotal_pub * investprop / 100).toFixed(2));
-							$("#investamt").attr("title","总投资额："+investtotal);
-							$(function () { $("[data-toggle='tooltip']").tooltip(); });
-	 	      	  		}else{
-	 	      	  			jp.error("获取项目投资总额失败");
-	 	      	  		}
-	 	            })
-				}
-				
+								
 				function initreadedit(){
 					
 					var isreadinit = $("#isreaddesgn").val();
@@ -364,31 +322,6 @@
 					}
 				}
 				
-				function investamtChange(){
-					var investamt1_total = 0;//投资金额
-					var investamt2_total = 0;//融资金额
-					$("#fea_investdisBVOList").find("tr").each(function(index,element){
-						var investtype = $(element).find('select[id$=_investtype]').val();
-						if(isNull(investtype) && investtype == 1){
-							investamt1_total = investamt1_total + Number($(element).find('input[id$=_investamt]').val());
-						}
-						if(isNull(investtype) && investtype == 2){
-							investamt2_total = investamt2_total + Number($(element).find('input[id$=_investamt]').val());
-						}
-					});
-					if(investamt1_total != 0){
-						$("#cappropsum").val(investamt1_total.toFixed(2));
-					}
-					if(investamt2_total != 0){
-						$("#loanpropsum").val(investamt2_total.toFixed(2));
-					}
-					
-					if(investamt1_total != 0 && investamt2_total != 0){
-						var totalamt = Number(investamt1_total)+Number(investamt2_total);
-						$("#investamt").val(totalamt.toFixed(2));
-					}
-				}
-				
 				function investpropChange(investpropDom, investamtDom){   
 					var djamt = $("#djamt").val();
 					var transamt =$("#transamt").val();
@@ -409,16 +342,7 @@
                     	investamt = Number(djamt) + Number(transamt) + Number(equitamt) + Number(gwamt) + Number(otheramt)+Number(setupamt);
                     }
                     
-					if(isNull(investpropDom) && isNull(investamtDom)){//逐条算
-						investamtDom.value = (investamt * investpropDom.value /100).toFixed(2);
-					}else{//全算一遍
-						$("#fea_investdisBVOList").find("tr").each(function(index,element){
-							investpropDom = $(element).find('input[id$=_investprop]');
-							investamtDom = $(element).find('input[id$=_investamt]');
-							investamtDom.val((investamt * investpropDom.val() /100).toFixed(2));
-						});
-					}
-					investamtChange();
+                    $("#investamt").val(Number(investamt));
 				}
 				
 				function tableChange(prop,amt){

@@ -316,7 +316,6 @@ $(document).ready(function() {
 		});
 	
 	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'costype');
-	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'unit');
 	  $('#fea_costinfoVOTable').bootstrapTable('hideColumn', 'productrate');
 		  
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端

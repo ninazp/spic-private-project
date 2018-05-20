@@ -19,8 +19,8 @@ public class Fea_costinfoDAO {
 		vo.setCreateBy(UserUtils.getUser());	
 		vo.setCreateDate(new Date());
 		
-		vo.setCostype("入住率");
-		vo.setUnit("%");
+		vo.setCostype("入住面积");
+		vo.setUnit("万平方米");
 		
 		if(null!=projectvo.getCountyears() && projectvo.getCountyears()>0){
 		   for(int i=0;i<projectvo.getCountyears();i++){

@@ -279,7 +279,7 @@ public class AnalysisEarningsController extends BaseController {
                 exportexcel.put("person", changevals1); exportexcel.put("price", changevals1);
                 
                 ((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class), exportexcel);
-                
+                 
 			}
 			j.setMsg(changevals.toString());
 			j.setProjectId(ids);

@@ -34,6 +34,7 @@ import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.common.utils.io.FilePathUtil;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.analysisearnings.entity.AnalysisEarnings;
@@ -41,6 +42,7 @@ import com.jeeplus.modules.analysisearnings.service.AnalysisEarningsService;
 import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
+import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 
 /**
  * 敏感分析（单因素）Controller
@@ -257,19 +259,27 @@ public class AnalysisEarningsController extends BaseController {
 			// * person ： 人工费
 			// * investamt ： 初投资
 			if(null!=reportbean){
-				//取暖费 价格变化： 
-				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
-				//电费：
-				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
-				//人工费 ：
-				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
 				//初投资 ： 
-				List<List<Double>> changevals4 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
+				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
+				//人工费 ：
+				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
+				//电费：
+				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
+				//取暖费 价格变化： 
+				List<List<Double>> changevals4= ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
 			
 				changevals.add(changevals1.get(0));
 				changevals.add(changevals2.get(0));
 				changevals.add(changevals3.get(0));
                 changevals.add(changevals4.get(0));
+                
+                Map<String,List<List<Double>>> exportexcel = new HashMap<String,List<List<Double>>>();
+                
+                exportexcel.put("investamt", changevals1); exportexcel.put("powercost", changevals1);
+                exportexcel.put("person", changevals1); exportexcel.put("price", changevals1);
+                
+                ((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class), exportexcel);
+                
 			}
 			j.setMsg(changevals.toString());
 			j.setProjectId(ids);

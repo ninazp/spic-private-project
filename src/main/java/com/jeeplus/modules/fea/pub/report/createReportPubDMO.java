@@ -33,6 +33,7 @@ import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 import com.jeeplus.modules.fea.pub.util.PubUtilHandler;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
 import com.jeeplus.modules.fea.pub.util.WriteExcelCal;
+import com.jeeplus.modules.fea.pub.util.WriteExcelMGFX;
 import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 
 public class createReportPubDMO {
@@ -72,6 +73,7 @@ public class createReportPubDMO {
 	public List<List<Double>>  getchange_irrnpv(String projectid,String changename,Double[] changevals){
 		List<Double> retdouble = new ArrayList<Double>();
 		List<Double> changdouble = new ArrayList<Double>();
+		List<Double> oridouble = new ArrayList<Double>();
 		
 		Double changezero = 0.00;
 		for(Double changeval : changevals) {
@@ -83,17 +85,16 @@ public class createReportPubDMO {
 				List<List<Double>> changetmp = reportlst.get("mgchange");
 				if(null!=changetmp && changetmp.size()>0 && null!=changetmp.get(0)) {
 					if(changetmp.get(0).size()>1) {
+						oridouble.add(changetmp.get(0).get(5));
 						changdouble.add(changetmp.get(0).get(5));
 					}else if(changetmp.get(0).size()==1) {
-						changdouble.add(changetmp.get(0).get(0));
+						oridouble.add(changetmp.get(0).get(0));
+						changdouble.add(changetmp.get(0).get(5));
 					}
 				}
 			}
 			List<List<Double>> investHandlerTable = reportlst.get("项目投资现金流量表");
 			List<Double> invest_irrnpv = getinvest_irrnpv(investHandlerTable);
-			
-			
-			
 			if(null!=invest_irrnpv && invest_irrnpv.size()>0) {
 				retdouble.add(getDouble2float(invest_irrnpv.get(0)*100));
 				if(changeval==0) {
@@ -106,16 +107,19 @@ public class createReportPubDMO {
 		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
 		
 		List<Double> mgdouble = new ArrayList<Double>();
+		List<Double> changerate = new ArrayList<Double>();
 		for(int i=0; i<retdouble.size();i++) {
 			Double cdzero =0.00;
 			if(changevals[i]!=0) {
 				cdzero = 100*((retdouble.get(i)-changezero)/changezero)/(changevals[i]);
 			}
-			mgdouble.add(cdzero);
+			mgdouble.add(getDouble2float(cdzero));
+			changerate.add(changevals[i]);
 		}
 		retlstlst.add(mgdouble);
 		retlstlst.add(retdouble);
 		retlstlst.add(changdouble);
+		retlstlst.add(changerate);
 		
 		return retlstlst;
 	}
@@ -334,10 +338,18 @@ public class createReportPubDMO {
 			path = path + "经济性分析报表(项目名称："+projectvo.getProjectName()+").xls";
 			WriteExcelCal.exportexcel(path,projectvo.getProjectName(),retmap,totalgs);
 		}
-
-
 		return path;
+	}
+	
+	public String exportMGFXexcel(String path,Map<String,List<List<Double>>> param)  
+	{ 
 
+		if(null!=param && param.get("projectid")!=null) {
+			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
+			path = path + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
+			WriteExcelMGFX.exportmgexcel(path,projectvo.getProjectName(),param);
+		}
+		return path;
 	}
 
 	public List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){

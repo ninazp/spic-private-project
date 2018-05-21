@@ -48,17 +48,17 @@ public class WriteExcelMGFX {
 					HSSFCell cell2 = row2.createCell(j);
 					if(j==0) cell2.setCellValue(""+(row+1));
 					if(j==1) cell2.setCellValue(namemap.get(mgitem));
-					if(j==2) cell2.setCellValue(changell.get(3).get(i));
-					if(j==3) cell2.setCellValue(changell.get(2).get(i));
-					if(j==4) cell2.setCellValue(changell.get(1).get(i));
+					if(j==2) cell2.setCellValue(changell.get(3).get(i)+"%");
+					if(j==3) cell2.setCellValue(getDouble2float(changell.get(2).get(i)));
+					if(j==4) cell2.setCellValue(changell.get(1).get(i)+"%");
 					if(j==5) cell2.setCellValue(changell.get(0).get(i));
 				}
 			}
 			row++;
 		}
 		for(int i=0;i<retmap.size();i++) {
-			sheet.addMergedRegion(new Region((i+1), (short) 0, (i+onerownum*(i+1)),(short)0));
-			sheet.addMergedRegion(new Region((i+1), (short)1,  (i+onerownum*(i+1)), (short)(1)));
+			sheet.addMergedRegion(new Region((i*(onerownum)+1), (short) 0, (onerownum*(i+1)),(short)0));
+			sheet.addMergedRegion(new Region((i*(onerownum)+1), (short)1,  (onerownum*(i+1)), (short)(1)));
 		}
 		try  
 		{  

@@ -38,14 +38,15 @@ public class WriteExcelMGFX {
 		namemap.put("powercost", "电费");namemap.put("price", "取暖费");
 
 		int onerownum = 0;
+		int row = 0;
 		for(String mgitem : retmap.keySet()) {
 			List<List<Double>> changell = retmap.get(mgitem);
 			onerownum = changell.get(0).size();
 			for(int i=0;i<changell.get(0).size();i++) {
-				HSSFRow row2 = sheet.createRow(i+1);
+				HSSFRow row2 = sheet.createRow(i+1+(row*onerownum));
 				for(int j=0;j<6;j++) {
 					HSSFCell cell2 = row2.createCell(j);
-					if(j==0) cell2.setCellValue(""+(i+1));
+					if(j==0) cell2.setCellValue(""+(row+1));
 					if(j==1) cell2.setCellValue(namemap.get(mgitem));
 					if(j==2) cell2.setCellValue(changell.get(3).get(i));
 					if(j==3) cell2.setCellValue(changell.get(2).get(i));
@@ -53,10 +54,11 @@ public class WriteExcelMGFX {
 					if(j==5) cell2.setCellValue(changell.get(0).get(i));
 				}
 			}
+			row++;
 		}
 		for(int i=0;i<retmap.size();i++) {
-			sheet.addMergedRegion(new Region((i+1), (short) 0, (i+1+onerownum),(short)0));
-			sheet.addMergedRegion(new Region((i+1), (short)1,  (i+1+onerownum), (short)(1)));
+			sheet.addMergedRegion(new Region((i+1), (short) 0, (i+onerownum*(i+1)),(short)0));
+			sheet.addMergedRegion(new Region((i+1), (short)1,  (i+onerownum*(i+1)), (short)(1)));
 		}
 		try  
 		{  

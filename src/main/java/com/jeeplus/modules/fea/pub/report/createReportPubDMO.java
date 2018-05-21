@@ -74,7 +74,7 @@ public class createReportPubDMO {
 		List<Double> retdouble = new ArrayList<Double>();
 		List<Double> changdouble = new ArrayList<Double>();
 		List<Double> oridouble = new ArrayList<Double>();
-		
+
 		Double changezero = 0.00;
 		for(Double changeval : changevals) {
 			Map<String,Object> reportparam = new HashMap<String,Object>();
@@ -86,10 +86,10 @@ public class createReportPubDMO {
 				if(null!=changetmp && changetmp.size()>0 && null!=changetmp.get(0)) {
 					if(changetmp.get(0).size()>1) {
 						oridouble.add(changetmp.get(0).get(5));
-						changdouble.add(changetmp.get(0).get(5));
+						changdouble.add(changetmp.get(1).get(5));
 					}else if(changetmp.get(0).size()==1) {
 						oridouble.add(changetmp.get(0).get(0));
-						changdouble.add(changetmp.get(0).get(5));
+						changdouble.add(changetmp.get(1).get(0));
 					}
 				}
 			}
@@ -105,7 +105,7 @@ public class createReportPubDMO {
 			}
 		}
 		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
-		
+
 		List<Double> mgdouble = new ArrayList<Double>();
 		List<Double> changerate = new ArrayList<Double>();
 		for(int i=0; i<retdouble.size();i++) {
@@ -120,7 +120,7 @@ public class createReportPubDMO {
 		retlstlst.add(retdouble);
 		retlstlst.add(changdouble);
 		retlstlst.add(changerate);
-		
+
 		return retlstlst;
 	}
 
@@ -144,7 +144,7 @@ public class createReportPubDMO {
 					fea_investdisVOMapper,fea_investdisBVOMapper,
 					fea_capformVOMapper,fea_productcostVOmapper,
 					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);
-			
+
 			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 			BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");
 			List<List<String>> designresult = new ArrayList<List<String>>();
@@ -160,7 +160,7 @@ public class createReportPubDMO {
 			List<List<Double>> retchangeval = new ArrayList<List<Double>>();
 			if(reportparam.containsKey("price") && null!=reportparam.get("price")) {
 				pricechange = (Double) reportparam.get("price");
-				
+
 				//--报表计算参数
 				List<Double> changelst0 = new ArrayList<Double>();
 				List<Double> changelst = new ArrayList<Double>();
@@ -171,57 +171,58 @@ public class createReportPubDMO {
 					parammap.put("price", price);
 					//返回组装导出excel用
 					changelst.add(price);
+					retchangeval.add(changelst0);
 					retchangeval.add(changelst);
 				}
-				
+
 			}
 			if(reportparam.containsKey("powercost") && null!=reportparam.get("powercost")) {
 				powercostchange = (Double) reportparam.get("powercost");
 				if(parammap.containsKey("heatcost") && null!=parammap.get("heatcost")) {
 					List<Double> heatcosts = (List<Double>) parammap.get("heatcost");
-					
+
 					List<Double> newcosts = new ArrayList<Double>();
 					for(Double ht : heatcosts) {
-						
+
 						ht = ht*(1+powercostchange);
-						
+
 						newcosts.add(ht);
-						
+
 					}
 					parammap.put("heatcost", newcosts);
-					
+
 					//返回组装导出excel用
 					retchangeval.add(heatcosts);
 					retchangeval.add(newcosts);
-					
+
 				}
-				
+
 			}
 			if(reportparam.containsKey("person") && null!=reportparam.get("person")) {
 				personchange = (Double) reportparam.get("person");
 				if(parammap.containsKey("person") && null!=parammap.get("person")) {
 					List<Double> personwage = (List<Double>) parammap.get("person");
-					
+
 					List<Double> personws = new ArrayList<Double>();
 					for(Double pwage : personwage) {
 						pwage = pwage*(1+personchange);
-						
+
 						personws.add(pwage);
 					}
 					parammap.put("person", personws);
-					
+
 					//返回组装导出excel用
 					retchangeval.add(personwage);
 					retchangeval.add(personws);
 				}
 			}
-			
+
 			if(reportparam.containsKey("investamt") && null!=reportparam.get("investamt")) {
 				investamtchange = (Double) reportparam.get("investamt");
 				if( null!=designresult && designresult.size()>1 && null!=designresult.get(1)) {
 					List<Double> temlst = new ArrayList<Double>();
 					List<Double> temlst0 = new ArrayList<Double>();
-                    Double totalamt = 0.00;
+					Double totalamt = 0.00;
 					for(int i=0;i<designresult.get(1).size();i++) {
 						if(i>1 && i<7 && designresult.size()>7 && null!=designresult.get(1).get(i)) {
 							Double tmp = Double.valueOf(designresult.get(1).get(i));
@@ -239,9 +240,9 @@ public class createReportPubDMO {
 					retchangeval.add(temlst);
 				}
 			}
-			
+
 			retmap.put("mgchange", retchangeval);
-			
+
 			//1 -- 投资计划与资金筹措表
 			List<List<Double>> zjcktable = ZjcctableHanderNew.getzjcctable(
 					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap,designresult);
@@ -340,15 +341,13 @@ public class createReportPubDMO {
 		}
 		return path;
 	}
-	
-	public String exportMGFXexcel(String path,Map<String,List<List<Double>>> param)  
+
+	public String exportMGFXexcel(String path,String projectid,Map<String,List<List<Double>>> param)  
 	{ 
 
-		if(null!=param && param.get("projectid")!=null) {
-			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
-			path = path + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
-			WriteExcelMGFX.exportmgexcel(path,projectvo.getProjectName(),param);
-		}
+		FeaProjectB projectvo = projectmapper.get(projectid);
+		path = path + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
+		WriteExcelMGFX.exportmgexcel(path,projectvo.getProjectName(),param);
 		return path;
 	}
 

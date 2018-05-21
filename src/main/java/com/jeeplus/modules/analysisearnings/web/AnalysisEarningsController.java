@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
@@ -15,6 +16,7 @@ import javax.validation.ConstraintViolationException;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,7 +41,6 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.analysisearnings.entity.AnalysisEarnings;
 import com.jeeplus.modules.analysisearnings.service.AnalysisEarningsService;
-import com.jeeplus.modules.fea.designcal.BusiIndexCal;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 import com.jeeplus.modules.fea.pub.util.ReadExcelCal;
@@ -238,7 +239,7 @@ public class AnalysisEarningsController extends BaseController {
 			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 			Object reportbean = wac.getBean("createReportPubDMO");
 
-			
+
 			//某个指标的变化率，百分比,前台组装参数
 			Double[] changerate1 = new Double[] {
 					-10.0,-5.0,0.0,5.0,10.0
@@ -253,6 +254,8 @@ public class AnalysisEarningsController extends BaseController {
 					-10.0,-5.0,0.0,5.0,10.0
 			};
 
+			Map<String,List<List<Double>>> exportexcel = new HashMap<String,List<List<Double>>>();
+
 			//changename : 设置规则
 			// * price :取暖费
 			//* powercost ：电费
@@ -260,26 +263,28 @@ public class AnalysisEarningsController extends BaseController {
 			// * investamt ： 初投资
 			if(null!=reportbean){
 				//初投资 ： 
-				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
+				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate1);
 				//人工费 ：
-				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
-				//电费：
-				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
-				//取暖费 价格变化： 
-				List<List<Double>> changevals4= ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
-			
+				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate2);
 				changevals.add(changevals1.get(0));
 				changevals.add(changevals2.get(0));
-				changevals.add(changevals3.get(0));
-                changevals.add(changevals4.get(0));
-                
-                Map<String,List<List<Double>>> exportexcel = new HashMap<String,List<List<Double>>>();
-                
-                exportexcel.put("investamt", changevals1); exportexcel.put("powercost", changevals1);
-                exportexcel.put("person", changevals1); exportexcel.put("price", changevals1);
-                
-                ((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class), exportexcel);
-                 
+
+				exportexcel.put("investamt", changevals1); exportexcel.put("person", changevals2);
+
+//				//电费：
+//				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate3);
+//
+//				//取暖费 价格变化： 
+//				List<List<Double>> changevals4= ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate4);
+//
+//				changevals.add(changevals3.get(0));
+//				changevals.add(changevals4.get(0));
+//
+//				exportexcel.put("person", changevals3); exportexcel.put("price", changevals4);
+
+
+				((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class),ids, exportexcel);
+
 			}
 			j.setMsg(changevals.toString());
 			j.setProjectId(ids);

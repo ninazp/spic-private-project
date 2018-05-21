@@ -72,6 +72,8 @@ public class createReportPubDMO {
 	public List<List<Double>>  getchange_irrnpv(String projectid,String changename,Double[] changevals){
 		List<Double> retdouble = new ArrayList<Double>();
 		List<Double> changdouble = new ArrayList<Double>();
+		
+		Double changezero = 0.00;
 		for(Double changeval : changevals) {
 			Map<String,Object> reportparam = new HashMap<String,Object>();
 			reportparam.put("projectid", projectid);
@@ -89,15 +91,31 @@ public class createReportPubDMO {
 			}
 			List<List<Double>> investHandlerTable = reportlst.get("项目投资现金流量表");
 			List<Double> invest_irrnpv = getinvest_irrnpv(investHandlerTable);
+			
+			
+			
 			if(null!=invest_irrnpv && invest_irrnpv.size()>0) {
 				retdouble.add(getDouble2float(invest_irrnpv.get(0)*100));
+				if(changeval==0) {
+					changezero = getDouble2float(invest_irrnpv.get(0)*100);
+				}
 			}else {
 				retdouble.add(0.00);
 			}
 		}
 		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
+		
+		List<Double> mgdouble = new ArrayList<Double>();
+		for(int i=0; i<retdouble.size();i++) {
+			Double cdzero =0.00;
+			if(changevals[i]!=0) {
+				cdzero = 100*((retdouble.get(i)-changezero)/changezero)/(changevals[i]);
+			}
+			mgdouble.add(cdzero);
+		}
+		retlstlst.add(mgdouble);
 		retlstlst.add(retdouble);
-		retlstlst.add(retdouble);
+		retlstlst.add(changdouble);
 		
 		return retlstlst;
 	}
@@ -140,12 +158,13 @@ public class createReportPubDMO {
 				pricechange = (Double) reportparam.get("price");
 				
 				//--报表计算参数
+				List<Double> changelst0 = new ArrayList<Double>();
 				List<Double> changelst = new ArrayList<Double>();
 				if(parammap.containsKey("price") && null!=parammap.get("price")) {
 					Double price = (Double) parammap.get("price");
+					changelst0.add(price);
 					price = price*(1+pricechange);
 					parammap.put("price", price);
-					
 					//返回组装导出excel用
 					changelst.add(price);
 					retchangeval.add(changelst);
@@ -159,6 +178,7 @@ public class createReportPubDMO {
 					
 					List<Double> newcosts = new ArrayList<Double>();
 					for(Double ht : heatcosts) {
+						
 						ht = ht*(1+powercostchange);
 						
 						newcosts.add(ht);
@@ -167,6 +187,7 @@ public class createReportPubDMO {
 					parammap.put("heatcost", newcosts);
 					
 					//返回组装导出excel用
+					retchangeval.add(heatcosts);
 					retchangeval.add(newcosts);
 					
 				}
@@ -186,6 +207,7 @@ public class createReportPubDMO {
 					parammap.put("person", personws);
 					
 					//返回组装导出excel用
+					retchangeval.add(personwage);
 					retchangeval.add(personws);
 				}
 			}
@@ -194,17 +216,22 @@ public class createReportPubDMO {
 				investamtchange = (Double) reportparam.get("investamt");
 				if( null!=designresult && designresult.size()>1 && null!=designresult.get(1)) {
 					List<Double> temlst = new ArrayList<Double>();
+					List<Double> temlst0 = new ArrayList<Double>();
+                    Double totalamt = 0.00;
 					for(int i=0;i<designresult.get(1).size();i++) {
 						if(i>1 && i<7 && designresult.size()>7 && null!=designresult.get(1).get(i)) {
 							Double tmp = Double.valueOf(designresult.get(1).get(i));
 							Double tmp1 = Double.valueOf(designresult.get(0).get(i));
+							if(i==6) totalamt = Double.valueOf(designresult.get(1).get(i));;
 							tmp = tmp*(1+investamtchange);
 							tmp1 = tmp1*(1+investamtchange);
 							designresult.get(1).set(i, tmp.toString());
 							designresult.get(0).set(i, tmp1.toString());
 						}
 					}
+					temlst0.add(totalamt);
 					temlst.add(Double.valueOf(designresult.get(1).get(6)));
+					retchangeval.add(temlst0);
 					retchangeval.add(temlst);
 				}
 			}

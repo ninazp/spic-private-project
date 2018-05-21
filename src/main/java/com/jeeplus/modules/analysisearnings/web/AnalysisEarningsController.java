@@ -258,18 +258,18 @@ public class AnalysisEarningsController extends BaseController {
 			// * investamt ： 初投资
 			if(null!=reportbean){
 				//取暖费 价格变化： 
-				List<Double> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
+				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
 				//电费：
-				List<Double> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
+				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
 				//人工费 ：
-  			    List<Double> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
+				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
 				//初投资 ： 
-				List<Double> changevals4 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
+				List<List<Double>> changevals4 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
 			
-				changevals.add(changevals1);
-				changevals.add(changevals2);
-				changevals.add(changevals3);
-                changevals.add(changevals4);
+				changevals.add(changevals1.get(0));
+				changevals.add(changevals2.get(0));
+				changevals.add(changevals3.get(0));
+                changevals.add(changevals4.get(0));
 			}
 			j.setMsg(changevals.toString());
 			j.setProjectId(ids);

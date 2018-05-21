@@ -69,7 +69,7 @@ public class createReportPubDMO {
 	 * @param changevals
 	 * @return
 	 */
-	public List<Double>  getchange_irrnpv(String projectid,String changename,Double[] changevals){
+	public List<List<Double>>  getchange_irrnpv(String projectid,String changename,Double[] changevals){
 		List<Double> retdouble = new ArrayList<Double>();
 		List<Double> changdouble = new ArrayList<Double>();
 		for(Double changeval : changevals) {
@@ -81,9 +81,9 @@ public class createReportPubDMO {
 				List<List<Double>> changetmp = reportlst.get("mgchange");
 				if(null!=changetmp && changetmp.size()>0 && null!=changetmp.get(0)) {
 					if(changetmp.get(0).size()>1) {
-						
+						changdouble.add(changetmp.get(0).get(5));
 					}else if(changetmp.get(0).size()==1) {
-						
+						changdouble.add(changetmp.get(0).get(0));
 					}
 				}
 			}
@@ -95,7 +95,11 @@ public class createReportPubDMO {
 				retdouble.add(0.00);
 			}
 		}
-		return retdouble;
+		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
+		retlstlst.add(retdouble);
+		retlstlst.add(retdouble);
+		
+		return retlstlst;
 	}
 
 

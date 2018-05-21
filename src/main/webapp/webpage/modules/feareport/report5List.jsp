@@ -220,7 +220,6 @@
 					["2.2.2","流动资金借款"]
 		    ];
  			//报表数据
- 			debugger;
 			var array = eval(datas);
 			var colLeg = array[0].length;
 			//计算年份数据 和 时期数据
@@ -423,9 +422,6 @@
 							<td class="width-70">
 								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
 									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
-							</td>
-							<td>
-								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>
 							</td>
 						</tr>
 			 	</tbody>

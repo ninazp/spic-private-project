@@ -342,7 +342,7 @@ public class createReportPubDMO {
 		return path;
 	}
 
-	public String exportMGFXexcel(String path,String projectid,Map<String,List<List<Double>>> param)  
+	public String exportMGFXexcel(String path,String projectid,Map<String,List<List<Double>>> param) throws Exception 
 	{ 
 
 		FeaProjectB projectvo = projectmapper.get(projectid);
@@ -385,9 +385,11 @@ public class createReportPubDMO {
 	}
 
 	public static Double getDouble2float(Double m){
-		BigDecimal  bm = new BigDecimal(m);
-		Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
-
-		return bm1;
+		if(null!=m && (m!=Double.NaN)) {
+		  BigDecimal  bm = new BigDecimal(m);
+		  Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
+		  return bm1;
+		}
+		return 0.00;
 	}
 }

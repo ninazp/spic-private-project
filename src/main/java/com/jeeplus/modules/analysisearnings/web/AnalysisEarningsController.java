@@ -3,6 +3,13 @@
  */
 package com.jeeplus.modules.analysisearnings.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,22 +160,22 @@ public class AnalysisEarningsController extends BaseController {
 	 */
 	@ResponseBody
 	@RequiresPermissions("analysisearnings:analysisEarnings:export")
-	@RequestMapping(value = "export", method=RequestMethod.POST)
-	public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "export", method=RequestMethod.POST)
+    public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-			String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-			Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
-			new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
-			j.setSuccess(true);
-			j.setMsg("导出成功！");
-			return j;
+            String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+            Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
+    		new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
+    		j.setSuccess(true);
+    		j.setMsg("导出成功！");
+    		return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
 			j.setMsg("导出敏感分析（单因素）记录失败！失败信息："+e.getMessage());
 		}
-		return j;
-	}
+			return j;
+    }
 
 	@ResponseBody
 	@RequestMapping(value = "detail")
@@ -227,80 +234,10 @@ public class AnalysisEarningsController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
 	}
 
-	@RequiresPermissions("analysisearnings:analysisEarnings:add")
-	@RequestMapping(value = "calculation")
-	public String calculation(String ids,String vals,HttpServletResponse response, RedirectAttributes redirectAttributes) {
-		try {
-
-			AjaxJson j = new AjaxJson();
-
-			List<List<Double>> changevals = new ArrayList<List<Double>>();
-
-			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-			Object reportbean = wac.getBean("createReportPubDMO");
-
-
-			//某个指标的变化率，百分比,前台组装参数
-			Double[] changerate1 = new Double[] {
-					-10.0,-5.0,0.0,5.0,10.0
-			};
-			Double[] changerate2 = new Double[] {
-					-10.0,-5.0,0.0,5.0,10.0
-			};
-			Double[] changerate3= new Double[] {
-					-10.0,-5.0,0.0,5.0,10.0
-			};
-			Double[] changerate4 = new Double[] {
-					-10.0,-5.0,0.0,5.0,10.0
-			};
-
-			Map<String,List<List<Double>>> exportexcel = new HashMap<String,List<List<Double>>>();
-
-			//changename : 设置规则
-			// * price :取暖费
-			//* powercost ：电费
-			// * person ： 人工费
-			// * investamt ： 初投资
-			if(null!=reportbean){
-				//初投资 ： 
-				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate1);
-				//人工费 ：
-				List<List<Double>> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate2);
-				changevals.add(changevals1.get(0));
-				changevals.add(changevals2.get(0));
-
-				exportexcel.put("investamt", changevals1); exportexcel.put("person", changevals2);
-
-//				//电费：
-//				List<List<Double>> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate3);
-//
-//				//取暖费 价格变化： 
-//				List<List<Double>> changevals4= ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate4);
-//
-//				changevals.add(changevals3.get(0));
-//				changevals.add(changevals4.get(0));
-//
-//				exportexcel.put("person", changevals3); exportexcel.put("price", changevals4);
-
-
-				((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class),ids, exportexcel);
-
-			}
-			j.setMsg(changevals.toString());
-			j.setProjectId(ids);
-			j.setSuccess(true);
-		} catch (Exception e) {
-			addMessage(redirectAttributes, "计算失败："+e.getMessage());
-		}
-		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
-	}
-
 	@ResponseBody
-	@RequiresPermissions(value={"feareport:report9:add","feareport:report9:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"analysisearnings:analysisEarnings:add","analysisearnings:analysisEarnings:edit"},logical=Logical.OR)
 	@RequestMapping(value = "getProjectDatas")
 	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
-
-		String projectName = "";
 
 		AjaxJson j = new AjaxJson();
 
@@ -308,14 +245,100 @@ public class AnalysisEarningsController extends BaseController {
 		FeaProjectB project = projectlist.get(0);
 
 		// 倒叙排序去第一条作为默认值返回
-		ids = project.getId();
-		projectName = project.getProjectName();
+		if(null==ids || ids.equals("") || ids.length()==0) {
+			ids = project.getId();
+		}
 
-		j.setMsg("");
+		//某个指标的变化率，百分比,前台组装参数
+		Double[] changerate1 = new Double[] {
+				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
+		};
+		Double[] changerate2 = new Double[] {
+				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
+		};
+		Double[] changerate3= new Double[] {
+				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
+		};
+		Double[] changerate4 = new Double[] {
+				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
+		};
+		Map<String,Double[]> parammap = new HashMap<String,Double[]>();
+		parammap.put("investamt", changerate1);
+		parammap.put("person", changerate2);
+		parammap.put("powercost", changerate3);
+		parammap.put("price", changerate4);
+
+		Map<String,List<Double>> retmap = analysisEarningsService.calmgfx(ids, parammap);
+
+		String [] keyname = new String[] {"investamt","person","powercost","price"};
+		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
+		for(String key : keyname) {
+			if(retmap.containsKey(key)) {
+				retlstlst.add(retmap.get(key));
+			}else {
+				List<Double> d = new ArrayList<Double>();
+				for(int i=0;i<changerate4.length;i++) {
+					d.add(0.00);
+				}
+				retlstlst.add(d);
+			}
+		}
+
+		j.setMsg(retlstlst.toString());
 		j.setProjectId(ids);
-		j.setProjectName(projectName);
+		j.setProjectName(project.getProjectName());
 		j.setSuccess(true);
 
 		return j;
+	}
+	
+	
+	@ResponseBody
+	@RequiresPermissions(value={"analysisearnings:analysisEarnings:add","analysisearnings:analysisEarnings:edit"},logical=Logical.OR)
+	@RequestMapping(value = "exportmgExcel")
+	public AjaxJson exportmgExcel(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		AjaxJson j = new AjaxJson();
+		try {
+			
+			FeaProjectB projectvo = analysisEarningsService.getprojectb(ids);
+			
+			if(null==projectvo) {
+				j.setSuccess(false);
+				j.setMsg("未选择项目");
+				
+				return j;
+			}
+			
+			   String path = FilePathUtil.getJarPath(ReadExcelCal.class) + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
+				// path是指欲下载的文件的路径。  
+				File file = new File(path);  
+				// 取得文件名。  
+				String filename = file.getName();  
+				// 以流的形式下载文件。  
+				InputStream fis = new BufferedInputStream(new FileInputStream(path));  
+				byte[] buffer = new byte[fis.available()];  
+				fis.read(buffer);  
+				fis.close();  
+				// 清空response  
+				response.reset();  
+				// 设置response的Header  
+				//		            response.setCharacterEncoding("utf-8");
+				response.addHeader("Content-Disposition", "attachment;filename="
+						+ new String(filename.getBytes("gbk"), "ISO8859-1") );  
+				response.addHeader("Content-Length", "" + file.length());
+				OutputStream toClient = new BufferedOutputStream(  
+						response.getOutputStream());
+				response.setContentType("application/vnd.ms-excel;charset=GBK");
+				toClient.write(buffer);  
+				toClient.flush();  
+				toClient.close();  
+			j.setSuccess(true);
+			j.setMsg("导出敏感分析（单因素）成功!");
+		} catch (Exception e) {
+			j.setSuccess(false);
+			j.setMsg("导出敏感分析（单因素）记录失败！失败信息："+e.getMessage());
+		}
+		return j;
+	
 	}
 }

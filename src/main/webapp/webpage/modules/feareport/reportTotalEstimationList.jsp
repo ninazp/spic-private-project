@@ -193,9 +193,7 @@
 		           [""   , ""          , "建筑工程"             ,"设备及工器具购置费","安装工程","其他费用","合计","单位"            ,"数量","指标",""],
 		    ];
  			//报表数据
- 			debugger;
 			var array = eval(datas);
-			debugger;
 			var colLeg = array.length;
 			//计算年份数据 和 时期数据
 			//var yearAndPeriodArray = yearAndPeriodDatas(colLeg);

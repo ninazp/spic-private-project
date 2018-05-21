@@ -149,7 +149,7 @@
 		
 		function init(projectIds){
 			if(projectIds.length ==0){
- 				jp.get("${ctx}/feareport/report4/getProjectDatas?ids=" + projectIds, function (data) {
+ 				jp.get("${ctx}/feareport/report2/getProjectDatas?ids=" + projectIds, function (data) {
  					if(data.success){
  						$("#feaProjectBId").val(data.projectId);
  				    	$("#feaProjectBName").val(data.projectName);
@@ -492,9 +492,6 @@
 							<td class="width-70">
 								<sys:gridselectCallback url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${analysisEarnings.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${analysisEarnings.feaProjectB.projectName}"
 									 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" callBack="true"></sys:gridselectCallback>
-							</td>
-							<td>
-								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i> 导出Excel</a>
 							</td>
 						</tr>
 			 	</tbody>

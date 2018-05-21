@@ -112,10 +112,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">水费：</label></td>
-					<td class="width-35">
-						<form:input path="waterAmount" htmlEscape="false"    class="form-control "/>
-					</td>
 					<td class="width-15 active"><label class="pull-right">人工费：</label></td>
 					<td class="width-35">
 						<form:input path="laborAmount" htmlEscape="false"    class="form-control "/>

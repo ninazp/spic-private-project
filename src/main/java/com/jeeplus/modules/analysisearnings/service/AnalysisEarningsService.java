@@ -3,6 +3,7 @@
  */
 package com.jeeplus.modules.analysisearnings.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.jeeplus.core.service.CrudService;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.modules.analysisearnings.entity.AnalysisEarnings;
 import com.jeeplus.modules.analysisearnings.mapper.AnalysisEarningsMapper;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
 import com.jeeplus.modules.analysisearnings.entity.AnalysisEarningsB;
 import com.jeeplus.modules.analysisearnings.mapper.AnalysisEarningsBMapper;
 
@@ -28,6 +31,9 @@ public class AnalysisEarningsService extends CrudService<AnalysisEarningsMapper,
 
 	@Autowired
 	private AnalysisEarningsBMapper analysisEarningsBMapper;
+	
+	@Autowired
+	private FeaProjectBMapper projectmapper;
 	
 	public AnalysisEarnings get(String id) {
 		AnalysisEarnings analysisEarnings = super.get(id);
@@ -69,6 +75,17 @@ public class AnalysisEarningsService extends CrudService<AnalysisEarningsMapper,
 	public void delete(AnalysisEarnings analysisEarnings) {
 		super.delete(analysisEarnings);
 		analysisEarningsBMapper.delete(new AnalysisEarningsB(analysisEarnings));
+	}
+	
+	public List<FeaProjectB> getProjectDatas(){
+		List<FeaProjectB> list = new ArrayList<FeaProjectB>();
+		FeaProjectB projectvo = projectmapper.findUniqueByProperty("ordercol", 1);
+		if(null!=projectvo) {
+			list.add(projectvo);
+		}else {
+			return projectmapper.findAllList(new FeaProjectB());
+		}
+		return list;
 	}
 	
 }

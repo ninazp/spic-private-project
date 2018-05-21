@@ -74,12 +74,10 @@
 			initChart();
 			
 			$('#feaProjectB').bind('keypress', function (event) {  
-				alert("test");
 	            if (event.keyCode == "13") {
-	                alert("test");  
-	               search();  
-	               return false;
-	               } 
+	                search();  
+	                return false;
+	             } 
                	}
              );
 		});
@@ -111,9 +109,6 @@
 			  	break;
 			case 3:
 			  	showLine("电费");
-			  	break;
-			case 4:
-			  	showLine("水费");
 			  	break;
 			case 5:
 			  	showLine("人工费");
@@ -154,7 +149,7 @@
 					trigger : 'axis'
 				},
 				legend : {
-					data : ['初始投资', '电费', '水费', '人工费', '取暖费' ]
+					data : ['初始投资', '电费', '人工费', '取暖费' ]
 				},
 				grid : {
 					left : '3%',
@@ -189,13 +184,8 @@
 						type : 'line',
 						stack : '总量',
 						data : [ '', -1.2, -1.0,0, -1.1, 1.1, '' ]
-					},
-					{
-						name : '水费',
-						type : 'line',
-						stack : '总量',
-						data : [ '', 1.4, 1.5, 0, 0.9, 0.8, '' ]
-					},
+					}
+					,
 					{
 						name : '人工费',
 						type : 'line',
@@ -234,7 +224,8 @@
                    }
 			})
 			*/
-			jp.post("${ctx}/analysisearnings/analysisEarnings/calculation?json=11111", $('#inputForm').serialize(), function(data){
+			var projectids = $('#feaProjectBId').val();
+			jp.post("${ctx}/analysisearnings/analysisEarnings/calculation?ids="+projectids+"&vals=123", $('#inputForm').serialize(), function(data){
        	  		if(data.success){
        	  			$('#courseTable').bootstrapTable('refresh');
        	  			jp.success(data.msg);
@@ -312,21 +303,6 @@
 									</td>
 									<td style="width:10%">
 										<form:input path="electricityAmount" htmlEscape="false"    class="form-control "/>
-									</td>
-								</tr>
-								<tr>
-									<td style="width:6%">
-										<label class="checkbox-inline">
-                                        <input type="checkbox" value="option3" id="inlineCheckbox1">水费：</label>
-									</td>
-									<td style="width:10%">
-										<form:input path="waterAmount" htmlEscape="false"    class="form-control "/>
-									</td>
-									<td style="width:10%">
-										<form:input path="waterAmount" htmlEscape="false"    class="form-control "/>
-									</td>
-									<td style="width:10%">
-										<form:input path="waterAmount" htmlEscape="false"    class="form-control "/>
 									</td>
 								</tr>
 								<tr>

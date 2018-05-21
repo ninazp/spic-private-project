@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.analysisearnings.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,6 +38,9 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.analysisearnings.entity.AnalysisEarnings;
 import com.jeeplus.modules.analysisearnings.service.AnalysisEarningsService;
+import com.jeeplus.modules.fea.designcal.BusiIndexCal;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
+import com.jeeplus.modules.fea.pub.report.createReportPubDMO;
 
 /**
  * 敏感分析（单因素）Controller
@@ -46,7 +53,7 @@ public class AnalysisEarningsController extends BaseController {
 
 	@Autowired
 	private AnalysisEarningsService analysisEarningsService;
-	
+
 	@ModelAttribute
 	public AnalysisEarnings get(@RequestParam(required=false) String id) {
 		AnalysisEarnings entity = null;
@@ -58,7 +65,7 @@ public class AnalysisEarningsController extends BaseController {
 		}
 		return entity;
 	}
-	
+
 	/**
 	 * 敏感分析（单因素）列表页面
 	 */
@@ -67,8 +74,8 @@ public class AnalysisEarningsController extends BaseController {
 	public String list() {
 		return "modules/analysisearnings/analysisEarningsList";
 	}
-	
-		/**
+
+	/**
 	 * 敏感分析（单因素）列表数据
 	 */
 	@ResponseBody
@@ -108,7 +115,7 @@ public class AnalysisEarningsController extends BaseController {
 		j.setMsg("保存敏感分析（单因素）成功");
 		return j;
 	}
-	
+
 	/**
 	 * 删除敏感分析（单因素）
 	 */
@@ -121,7 +128,7 @@ public class AnalysisEarningsController extends BaseController {
 		j.setMsg("删除敏感分析（单因素）成功");
 		return j;
 	}
-	
+
 	/**
 	 * 批量删除敏感分析（单因素）
 	 */
@@ -137,43 +144,43 @@ public class AnalysisEarningsController extends BaseController {
 		j.setMsg("删除敏感分析（单因素）成功");
 		return j;
 	}
-	
+
 	/**
 	 * 导出excel文件
 	 */
 	@ResponseBody
 	@RequiresPermissions("analysisearnings:analysisEarnings:export")
-    @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "export", method=RequestMethod.POST)
+	public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
-    		new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		j.setSuccess(true);
-    		j.setMsg("导出成功！");
-    		return j;
+			String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+			Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
+			new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
+			j.setSuccess(true);
+			j.setMsg("导出成功！");
+			return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
 			j.setMsg("导出敏感分析（单因素）记录失败！失败信息："+e.getMessage());
 		}
-			return j;
-    }
-    
-    @ResponseBody
-    @RequestMapping(value = "detail")
+		return j;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "detail")
 	public AnalysisEarnings detail(String id) {
 		return analysisEarningsService.get(id);
 	}
-	
+
 
 	/**
 	 * 导入Excel数据
 
 	 */
 	@RequiresPermissions("analysisearnings:analysisEarnings:import")
-    @RequestMapping(value = "import", method=RequestMethod.POST)
-    public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "import", method=RequestMethod.POST)
+	public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
 			int successNum = 0;
 			int failureNum = 0;
@@ -198,24 +205,102 @@ public class AnalysisEarningsController extends BaseController {
 			addMessage(redirectAttributes, "导入敏感分析（单因素）失败！失败信息："+e.getMessage());
 		}
 		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
-    }
-	
+	}
+
 	/**
 	 * 下载导入敏感分析（单因素）数据模板
 	 */
 	@RequiresPermissions("analysisearnings:analysisEarnings:import")
-    @RequestMapping(value = "import/template")
-    public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "import/template")
+	public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
-            String fileName = "敏感分析（单因素）数据导入模板.xlsx";
-    		List<AnalysisEarnings> list = Lists.newArrayList(); 
-    		new ExportExcel("敏感分析（单因素）数据", AnalysisEarnings.class, 1).setDataList(list).write(response, fileName).dispose();
-    		return null;
+			String fileName = "敏感分析（单因素）数据导入模板.xlsx";
+			List<AnalysisEarnings> list = Lists.newArrayList(); 
+			new ExportExcel("敏感分析（单因素）数据", AnalysisEarnings.class, 1).setDataList(list).write(response, fileName).dispose();
+			return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入模板下载失败！失败信息："+e.getMessage());
 		}
 		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
-    }
-	
+	}
 
+	@RequiresPermissions("analysisearnings:analysisEarnings:add")
+	@RequestMapping(value = "calculation")
+	public String calculation(String ids,String vals,HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		try {
+
+			AjaxJson j = new AjaxJson();
+
+			List<List<Double>> changevals = new ArrayList<List<Double>>();
+
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			Object reportbean = wac.getBean("createReportPubDMO");
+
+			
+			//某个指标的变化率，百分比,前台组装参数
+			Double[] changerate1 = new Double[] {
+					-10.0,-5.0,0.0,5.0,10.0
+			};
+			Double[] changerate2 = new Double[] {
+					-10.0,-5.0,0.0,5.0,10.0
+			};
+			Double[] changerate3= new Double[] {
+					-10.0,-5.0,0.0,5.0,10.0
+			};
+			Double[] changerate4 = new Double[] {
+					-10.0,-5.0,0.0,5.0,10.0
+			};
+
+			//changename : 设置规则
+			// * price :取暖费
+			//* powercost ：电费
+			// * person ： 人工费
+			// * investamt ： 初投资
+			if(null!=reportbean){
+				//取暖费 价格变化： 
+				List<Double> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "price", changerate1);
+				//电费：
+				List<Double> changevals2 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "powercost", changerate2);
+				//人工费 ：
+  			    List<Double> changevals3 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "person", changerate3);
+				//初投资 ： 
+				List<Double> changevals4 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, "investamt", changerate4);
+			
+				changevals.add(changevals1);
+				changevals.add(changevals2);
+				changevals.add(changevals3);
+                changevals.add(changevals4);
+			}
+			j.setMsg(changevals.toString());
+			j.setProjectId(ids);
+			j.setSuccess(true);
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "计算失败："+e.getMessage());
+		}
+		return "redirect:"+Global.getAdminPath()+"/analysisearnings/analysisEarnings/?repage";
+	}
+
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:report9:add","feareport:report9:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getProjectDatas")
+	public AjaxJson getProjectDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+
+		String projectName = "";
+
+		AjaxJson j = new AjaxJson();
+
+		List<FeaProjectB> projectlist = analysisEarningsService.getProjectDatas();
+		FeaProjectB project = projectlist.get(0);
+
+		// 倒叙排序去第一条作为默认值返回
+		ids = project.getId();
+		projectName = project.getProjectName();
+
+		j.setMsg("");
+		j.setProjectId(ids);
+		j.setProjectName(projectName);
+		j.setSuccess(true);
+
+		return j;
+	}
 }

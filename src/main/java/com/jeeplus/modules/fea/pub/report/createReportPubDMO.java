@@ -1,5 +1,7 @@
 package com.jeeplus.modules.fea.pub.report;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,17 +59,38 @@ public class createReportPubDMO {
 	private Fea_costfecfVOMapper fea_costfecfVOMapper;
 
 
-	public List<Double>  getchange_irrnpv(String projectid,String changename,List<Double> changevals){
+	/**
+	 * price :取暖费
+	 * powercost ：电费
+	 * person ： 人工费
+	 * investamt ： 初投资
+	 * @param projectid
+	 * @param changename
+	 * @param changevals
+	 * @return
+	 */
+	public List<Double>  getchange_irrnpv(String projectid,String changename,Double[] changevals){
 		List<Double> retdouble = new ArrayList<Double>();
+		List<Double> changdouble = new ArrayList<Double>();
 		for(Double changeval : changevals) {
 			Map<String,Object> reportparam = new HashMap<String,Object>();
 			reportparam.put("projectid", projectid);
-			reportparam.put(changename, changeval);
+			reportparam.put(changename, changeval/100);
 			Map<String,List<List<Double>>> reportlst =  getallreportnostatic(reportparam);
+			if(null!=reportlst && reportlst.size()>0) {
+				List<List<Double>> changetmp = reportlst.get("mgchange");
+				if(null!=changetmp && changetmp.size()>0 && null!=changetmp.get(0)) {
+					if(changetmp.get(0).size()>1) {
+						
+					}else if(changetmp.get(0).size()==1) {
+						
+					}
+				}
+			}
 			List<List<Double>> investHandlerTable = reportlst.get("项目投资现金流量表");
 			List<Double> invest_irrnpv = getinvest_irrnpv(investHandlerTable);
 			if(null!=invest_irrnpv && invest_irrnpv.size()>0) {
-				retdouble.add(invest_irrnpv.get(0));
+				retdouble.add(getDouble2float(invest_irrnpv.get(0)*100));
 			}else {
 				retdouble.add(0.00);
 			}
@@ -107,48 +130,83 @@ public class createReportPubDMO {
 			Double pricechange = 0.00;//调用参数 供暖价格变化率
 			Double powercostchange = 0.00;//调用参数 入住面积变化率
 			Double personchange = 0.00;//调用参数 入住面积变化率
-			Double investamt = 0.00;
+			Double investamtchange = 0.00;
+			List<List<Double>> retchangeval = new ArrayList<List<Double>>();
 			if(reportparam.containsKey("price") && null!=reportparam.get("price")) {
 				pricechange = (Double) reportparam.get("price");
 				
 				//--报表计算参数
+				List<Double> changelst = new ArrayList<Double>();
 				if(parammap.containsKey("price") && null!=parammap.get("price")) {
 					Double price = (Double) parammap.get("price");
 					price = price*(1+pricechange);
 					parammap.put("price", price);
+					
+					//返回组装导出excel用
+					changelst.add(price);
+					retchangeval.add(changelst);
 				}
 				
 			}
 			if(reportparam.containsKey("powercost") && null!=reportparam.get("powercost")) {
 				powercostchange = (Double) reportparam.get("powercost");
 				if(parammap.containsKey("heatcost") && null!=parammap.get("heatcost")) {
-					Double heatcost = (Double) parammap.get("heatcost");
-					heatcost = heatcost*(1+powercostchange);
-					parammap.put("heatcost", heatcost);
+					List<Double> heatcosts = (List<Double>) parammap.get("heatcost");
+					
+					List<Double> newcosts = new ArrayList<Double>();
+					for(Double ht : heatcosts) {
+						ht = ht*(1+powercostchange);
+						
+						newcosts.add(ht);
+						
+					}
+					parammap.put("heatcost", newcosts);
+					
+					//返回组装导出excel用
+					retchangeval.add(newcosts);
+					
 				}
 				
 			}
 			if(reportparam.containsKey("person") && null!=reportparam.get("person")) {
 				personchange = (Double) reportparam.get("person");
 				if(parammap.containsKey("person") && null!=parammap.get("person")) {
-					Double personwage = (Double) parammap.get("person");
-					personwage = personwage*(1+personchange);
-					parammap.put("person", personwage);
+					List<Double> personwage = (List<Double>) parammap.get("person");
+					
+					List<Double> personws = new ArrayList<Double>();
+					for(Double pwage : personwage) {
+						pwage = pwage*(1+personchange);
+						
+						personws.add(pwage);
+					}
+					parammap.put("person", personws);
+					
+					//返回组装导出excel用
+					retchangeval.add(personws);
 				}
 			}
 			
 			if(reportparam.containsKey("investamt") && null!=reportparam.get("investamt")) {
-				investamt = (Double) reportparam.get("investamt");
+				investamtchange = (Double) reportparam.get("investamt");
 				if( null!=designresult && designresult.size()>1 && null!=designresult.get(1)) {
+					List<Double> temlst = new ArrayList<Double>();
 					for(int i=0;i<designresult.get(1).size();i++) {
 						if(i>1 && i<7 && designresult.size()>7 && null!=designresult.get(1).get(i)) {
-							Double tmp = Double.valueOf(designresult.get(i).get(i));
-							tmp = tmp*(1+investamt);
+							Double tmp = Double.valueOf(designresult.get(1).get(i));
+							Double tmp1 = Double.valueOf(designresult.get(0).get(i));
+							tmp = tmp*(1+investamtchange);
+							tmp1 = tmp1*(1+investamtchange);
 							designresult.get(1).set(i, tmp.toString());
+							designresult.get(0).set(i, tmp1.toString());
 						}
 					}
+					temlst.add(Double.valueOf(designresult.get(1).get(6)));
+					retchangeval.add(temlst);
 				}
 			}
+			
+			retmap.put("mgchange", retchangeval);
+			
 			//1 -- 投资计划与资金筹措表
 			List<List<Double>> zjcktable = ZjcctableHanderNew.getzjcctable(
 					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap,designresult);
@@ -284,5 +342,10 @@ public class createReportPubDMO {
 		return retlst;
 	}
 
+	public static Double getDouble2float(Double m){
+		BigDecimal  bm = new BigDecimal(m);
+		Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
 
+		return bm1;
+	}
 }

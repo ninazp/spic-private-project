@@ -111,12 +111,6 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'waterAmount',
-		        title: '水费',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'laborAmount',
 		        title: '人工费',
 		        sortable: true

@@ -56,19 +56,40 @@ public class createReportPubDMO {
 	@Autowired
 	private Fea_costfecfVOMapper fea_costfecfVOMapper;
 
+
+	public List<Double>  getchange_irrnpv(String projectid,String changename,List<Double> changevals){
+		List<Double> retdouble = new ArrayList<Double>();
+		for(Double changeval : changevals) {
+			Map<String,Object> reportparam = new HashMap<String,Object>();
+			reportparam.put("projectid", projectid);
+			reportparam.put(changename, changeval);
+			Map<String,List<List<Double>>> reportlst =  getallreportnostatic(reportparam);
+			List<List<Double>> investHandlerTable = reportlst.get("项目投资现金流量表");
+			List<Double> invest_irrnpv = getinvest_irrnpv(investHandlerTable);
+			if(null!=invest_irrnpv && invest_irrnpv.size()>0) {
+				retdouble.add(invest_irrnpv.get(0));
+			}else {
+				retdouble.add(0.00);
+			}
+		}
+		return retdouble;
+	}
+
+
+
 	public Map<String,List<List<Double>>> getallreportnostatic(Map<String,Object> reportparam){
 
 		Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
 
 		FeaProjectB  projectvo = null;
-		
+
 		try{
 			if(null==reportparam || (!reportparam.containsKey("projectid"))){
 				return null;
 			}
-			
+
 			projectvo =  (FeaProjectB) projectmapper.get(reportparam.get("projectid").toString());
-			
+
 			Map<String,Object> parammap = GetparamDMO.getparammap(projectvo, 
 					fea_incomesetVOMapper,fea_costfecfVOMapper,
 					fea_investdisVOMapper,fea_investdisBVOMapper,
@@ -81,25 +102,67 @@ public class createReportPubDMO {
 			if(null!=busiIndexCal){
 				designresult = busiIndexCal.getInitIvdesMny(projectvo.getId());
 			}
+
+			//*******************计算单因素影响**********************//
+			Double pricechange = 0.00;//调用参数 供暖价格变化率
+			Double powercostchange = 0.00;//调用参数 入住面积变化率
+			Double personchange = 0.00;//调用参数 入住面积变化率
+			Double investamt = 0.00;
+			if(reportparam.containsKey("price") && null!=reportparam.get("price")) {
+				pricechange = (Double) reportparam.get("price");
+				
+				//--报表计算参数
+				if(parammap.containsKey("price") && null!=parammap.get("price")) {
+					Double price = (Double) parammap.get("price");
+					price = price*(1+pricechange);
+					parammap.put("price", price);
+				}
+				
+			}
+			if(reportparam.containsKey("powercost") && null!=reportparam.get("powercost")) {
+				powercostchange = (Double) reportparam.get("powercost");
+				if(parammap.containsKey("heatcost") && null!=parammap.get("heatcost")) {
+					Double heatcost = (Double) parammap.get("heatcost");
+					heatcost = heatcost*(1+powercostchange);
+					parammap.put("heatcost", heatcost);
+				}
+				
+			}
+			if(reportparam.containsKey("person") && null!=reportparam.get("person")) {
+				personchange = (Double) reportparam.get("person");
+				if(parammap.containsKey("person") && null!=parammap.get("person")) {
+					Double personwage = (Double) parammap.get("person");
+					personwage = personwage*(1+personchange);
+					parammap.put("person", personwage);
+				}
+			}
 			
+			if(reportparam.containsKey("investamt") && null!=reportparam.get("investamt")) {
+				investamt = (Double) reportparam.get("investamt");
+				if( null!=designresult && designresult.size()>1 && null!=designresult.get(1)) {
+					for(int i=0;i<designresult.get(1).size();i++) {
+						if(i>1 && i<7 && designresult.size()>7 && null!=designresult.get(1).get(i)) {
+							Double tmp = Double.valueOf(designresult.get(i).get(i));
+							tmp = tmp*(1+investamt);
+							designresult.get(1).set(i, tmp.toString());
+						}
+					}
+				}
+			}
 			//1 -- 投资计划与资金筹措表
 			List<List<Double>> zjcktable = ZjcctableHanderNew.getzjcctable(
 					fea_investdisVOMapper, fea_investdisBVOMapper, projectvo,parammap,designresult);
-			
+
+			@SuppressWarnings("unchecked")
 			List<Fea_investdisVO> fitvo =  (List<Fea_investdisVO>) PubBaseDAO.getMutiParentVO("fea_investdis", "id",
 					"project_id='"+projectvo.getId()+"'", fea_investdisVOMapper);
-			
+
 			if(null==fitvo || fitvo.size()==0){
 				return retmap;
 			}
-			
-			Double rate = (Double) parammap.get("langrate");
-			int startmth = (int) parammap.get("startmth");
-//			List<List<Double>> zjcktable = GetZjcctable.getzjcctable(fitvo.get(0).getInvestamt(),
-//					0.00,rate, startmth+0.00);
-			
+
 			Map<String,List<List<Double>>>  basereportmap = GetBaseReportDMO.getbasereport(zjcktable, parammap,designresult);
-			
+
 			//2总成本费用表
 			List<List<Double>> totalcostfinaltable = basereportmap.get("totalcostfinaltable");
 			//3利润表
@@ -172,20 +235,20 @@ public class createReportPubDMO {
 		}
 		return retlst;
 	}
-	
+
 	public String exportexcel(String path,Map<String,Object> param ,List<List<String>> totalgs)  
 	{ 
-		
+
 		if(null!=param && param.get("projectid")!=null) {
 			Map<String,List<List<Double>>> retmap = getallreportnostatic(param);
 			FeaProjectB projectvo = projectmapper.get(param.get("projectid").toString());
 			path = path + "经济性分析报表(项目名称："+projectvo.getProjectName()+").xls";
 			WriteExcelCal.exportexcel(path,projectvo.getProjectName(),retmap,totalgs);
 		}
-		
-		 
-		 return path;
-		 
+
+
+		return path;
+
 	}
 
 	public List<Double> getinvest_irrnpv(List<List<Double>> investHandlerTable){

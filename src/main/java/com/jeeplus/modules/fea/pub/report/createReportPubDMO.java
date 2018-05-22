@@ -110,7 +110,7 @@ public class createReportPubDMO {
 		List<Double> changerate = new ArrayList<Double>();
 		for(int i=0; i<retdouble.size();i++) {
 			Double cdzero =0.00;
-			if(changevals[i]!=0) {
+			if(changevals[i]!=0 && changezero!=0) {
 				cdzero = 100*((retdouble.get(i)-changezero)/changezero)/(changevals[i]);
 			}
 			mgdouble.add(getDouble2float(cdzero));

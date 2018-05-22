@@ -160,22 +160,22 @@ public class AnalysisEarningsController extends BaseController {
 	 */
 	@ResponseBody
 	@RequiresPermissions("analysisearnings:analysisEarnings:export")
-    @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "export", method=RequestMethod.POST)
+	public AjaxJson exportFile(AnalysisEarnings analysisEarnings, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
-    		new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		j.setSuccess(true);
-    		j.setMsg("导出成功！");
-    		return j;
+			String fileName = "敏感分析（单因素）"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+			Page<AnalysisEarnings> page = analysisEarningsService.findPage(new Page<AnalysisEarnings>(request, response, -1), analysisEarnings);
+			new ExportExcel("敏感分析（单因素）", AnalysisEarnings.class).setDataList(page.getList()).write(response, fileName).dispose();
+			j.setSuccess(true);
+			j.setMsg("导出成功！");
+			return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
 			j.setMsg("导出敏感分析（单因素）记录失败！失败信息："+e.getMessage());
 		}
-			return j;
-    }
+		return j;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "detail")
@@ -244,31 +244,85 @@ public class AnalysisEarningsController extends BaseController {
 		List<FeaProjectB> projectlist = analysisEarningsService.getProjectDatas();
 		FeaProjectB project = projectlist.get(0);
 
+		Map<String,Double[]> parammap = new HashMap<String,Double[]>();
+
+		String projectid = "";
+
+		int changenum = 0;
 		// 倒叙排序去第一条作为默认值返回
+		Double[] changerate1 = new Double[] {
+			-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
+		};
+		
+		List<Double> changeratefinal = new ArrayList<Double>();
+		for(Double cangedb : changerate1) {
+			changeratefinal.add(cangedb);
+		}
+		
 		if(null==ids || ids.equals("") || ids.length()==0) {
-			ids = project.getId();
+			projectid = project.getId();
+			changenum = changerate1.length;
+			parammap.put("investamt", changerate1);
+			parammap.put("person", changerate1);
+			parammap.put("powercost", changerate1);
+			parammap.put("price", changerate1);
+		}else if(ids.contains(";")) {
+				String [] changparam = ids.split(";");
+
+				if(null!=changparam && changparam.length>0) {
+					projectid = changparam[0];
+
+					String startamt = changparam[1];
+					String setupnum = changparam[2];
+					String endamt = changparam[3];
+
+					if(null==startamt || null==setupnum || endamt==null || Double.valueOf(startamt)>Double.valueOf(endamt)) {
+						changenum = changerate1.length;
+						parammap.put("investamt", changerate1);
+						parammap.put("person", changerate1);
+						parammap.put("powercost", changerate1);
+						parammap.put("price", changerate1);
+					}else {
+						Double dbstart = Double.valueOf(startamt);
+						Double dbend = Double.valueOf(endamt);
+						Double setupdb = Double.valueOf(setupnum);
+
+						List<Double> changrate = new ArrayList<Double>();
+
+						if(dbstart < dbend) {
+							Double sumamt = dbend - dbstart ;
+							if(dbstart>0) {
+								changrate.add(0.00);
+							}
+							changrate.add(dbstart);
+							while(dbstart<dbend && setupdb>0) {
+								if(dbstart<0 && (dbstart + setupdb)<0) {
+									changrate.add(0.00);
+								}
+								dbstart = dbstart + setupdb; 
+								changrate.add(dbstart);
+								sumamt = sumamt-setupdb;
+							}
+							if(sumamt<0) {
+								changrate.add(-sumamt);
+							}
+							if(dbend>0) {
+								changrate.add(0.00);
+							}
+						}
+						
+						changeratefinal =  changrate;
+						
+						changenum = changrate.size();
+						parammap.put("investamt", changrate.toArray(new Double[0]));
+						parammap.put("person", changrate.toArray(new Double[0]));
+						parammap.put("powercost", changrate.toArray(new Double[0]));
+						parammap.put("price", changrate.toArray(new Double[0]));
+					}
+				}
 		}
 
-		//某个指标的变化率，百分比,前台组装参数
-		Double[] changerate1 = new Double[] {
-				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
-		};
-		Double[] changerate2 = new Double[] {
-				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
-		};
-		Double[] changerate3= new Double[] {
-				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
-		};
-		Double[] changerate4 = new Double[] {
-				-15.0,-10.0,-5.0,0.0,5.0,10.0,15.0
-		};
-		Map<String,Double[]> parammap = new HashMap<String,Double[]>();
-		parammap.put("investamt", changerate1);
-		parammap.put("person", changerate2);
-		parammap.put("powercost", changerate3);
-		parammap.put("price", changerate4);
-
-		Map<String,List<Double>> retmap = analysisEarningsService.calmgfx(ids, parammap);
+		Map<String,List<Double>> retmap = analysisEarningsService.calmgfx(projectid, parammap);
 
 		String [] keyname = new String[] {"investamt","person","powercost","price"};
 		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
@@ -277,61 +331,63 @@ public class AnalysisEarningsController extends BaseController {
 				retlstlst.add(retmap.get(key));
 			}else {
 				List<Double> d = new ArrayList<Double>();
-				for(int i=0;i<changerate4.length;i++) {
+				for(int i=0;i<changenum;i++) {
 					d.add(0.00);
 				}
 				retlstlst.add(d);
 			}
 		}
+		
+		retlstlst.add(changeratefinal);
 
 		j.setMsg(retlstlst.toString());
-		j.setProjectId(ids);
+		j.setProjectId(projectid);
 		j.setProjectName(project.getProjectName());
 		j.setSuccess(true);
 
 		return j;
 	}
-	
-	
+
+
 	@ResponseBody
 	@RequiresPermissions(value={"analysisearnings:analysisEarnings:add","analysisearnings:analysisEarnings:edit"},logical=Logical.OR)
 	@RequestMapping(value = "exportmgExcel")
 	public AjaxJson exportmgExcel(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		AjaxJson j = new AjaxJson();
 		try {
-			
+
 			FeaProjectB projectvo = analysisEarningsService.getprojectb(ids);
-			
+
 			if(null==projectvo) {
 				j.setSuccess(false);
 				j.setMsg("未选择项目");
-				
+
 				return j;
 			}
-			
-			   String path = FilePathUtil.getJarPath(ReadExcelCal.class) + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
-				// path是指欲下载的文件的路径。  
-				File file = new File(path);  
-				// 取得文件名。  
-				String filename = file.getName();  
-				// 以流的形式下载文件。  
-				InputStream fis = new BufferedInputStream(new FileInputStream(path));  
-				byte[] buffer = new byte[fis.available()];  
-				fis.read(buffer);  
-				fis.close();  
-				// 清空response  
-				response.reset();  
-				// 设置response的Header  
-				//		            response.setCharacterEncoding("utf-8");
-				response.addHeader("Content-Disposition", "attachment;filename="
-						+ new String(filename.getBytes("gbk"), "ISO8859-1") );  
-				response.addHeader("Content-Length", "" + file.length());
-				OutputStream toClient = new BufferedOutputStream(  
-						response.getOutputStream());
-				response.setContentType("application/vnd.ms-excel;charset=GBK");
-				toClient.write(buffer);  
-				toClient.flush();  
-				toClient.close();  
+
+			String path = FilePathUtil.getJarPath(ReadExcelCal.class) + "敏感性分析报表(项目名称："+projectvo.getProjectName()+").xls";
+			// path是指欲下载的文件的路径。  
+			File file = new File(path);  
+			// 取得文件名。  
+			String filename = file.getName();  
+			// 以流的形式下载文件。  
+			InputStream fis = new BufferedInputStream(new FileInputStream(path));  
+			byte[] buffer = new byte[fis.available()];  
+			fis.read(buffer);  
+			fis.close();  
+			// 清空response  
+			response.reset();  
+			// 设置response的Header  
+			//		            response.setCharacterEncoding("utf-8");
+			response.addHeader("Content-Disposition", "attachment;filename="
+					+ new String(filename.getBytes("gbk"), "ISO8859-1") );  
+			response.addHeader("Content-Length", "" + file.length());
+			OutputStream toClient = new BufferedOutputStream(  
+					response.getOutputStream());
+			response.setContentType("application/vnd.ms-excel;charset=GBK");
+			toClient.write(buffer);  
+			toClient.flush();  
+			toClient.close();  
 			j.setSuccess(true);
 			j.setMsg("导出敏感分析（单因素）成功!");
 		} catch (Exception e) {
@@ -339,6 +395,6 @@ public class AnalysisEarningsController extends BaseController {
 			j.setMsg("导出敏感分析（单因素）记录失败！失败信息："+e.getMessage());
 		}
 		return j;
-	
+
 	}
 }

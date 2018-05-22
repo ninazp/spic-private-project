@@ -141,11 +141,6 @@
 		myChart.setOption(option);
 	}
 	
-	/*计算*/
-	function initpage() {
-		
-	}
-
 	function initChart() {
 		// 基于准备好的dom，初始化echarts实例
 		myChart = echarts.init(document.getElementById('main'));
@@ -158,7 +153,9 @@
 				$("#feaProjectBId").val(data.projectId);
 			    $("#feaProjectBName").val(data.projectName);
 			    
-			    
+			    $('#stepone').val("-15");
+				$('#steptwo').val("5");
+				$('#stepthree').val("15");
 			    
 				option = {
 						title : {
@@ -229,9 +226,22 @@
 	function calculation() {
 		var timestamp = (new Date()).valueOf();
 		var projectids = $('#feaProjectBId').val();
-		jp.get("${ctx}/analysisearnings/analysisEarnings/getProjectDatas?ids="+ projectids+"&timestamp="+timestamp, function(data) {
+		
+		var stepone = $('#stepone').val();
+		var steptwo = $('#steptwo').val();
+		var stepthree = $('#stepthree').val();
+		
+		var projectval = projectids+";"+stepone+";"+steptwo+";"+stepthree;
+		
+		jp.get("${ctx}/analysisearnings/analysisEarnings/getProjectDatas?ids="+ projectval+"&timestamp="+timestamp, function(data) {
 			if (data.success) {
 				initchartproject(data.msg);
+				
+				
+				$('#stepone').val(stepone);
+				$('#steptwo').val(steptwo);
+				$('#stepthree').val(stepthree);
+				
 			} else {
 				jp.error(data.msg);
 			}
@@ -264,7 +274,7 @@
 			xAxis : {
 				type : 'category',
 				boundaryGap : false,
-				data : [ '-15%', '-10%', '-5%', '0', '5%', '10%', '15%' ]
+				data : [ array[4][0]+"%", array[4][1]+"%", array[4][2]+"%", array[4][3]+"%",array[4][4]+"%",array[4][5]+"%",array[4][6]+"%"  ]
 			},
 
 			yAxis : {
@@ -343,18 +353,18 @@
 								</tbody>
 							</table>
 
-							<table class="table table-no-bordered" style="width: 450px">
+							<table id="stepnum" class="table table-no-bordered" style="width: 450px">
 								<tr>
 									<td style="width: 10%"><label class="self-label">初始值(%)</label></td>
-									<td style="width: 10%"><label class="self-label">步长</label></td>
-									<td style="width: 10%"><label class="self-label"">终值(%)</label></td>
+									<td style="width: 10%"><label class="self-label">步长(%)</label></td>
+									<td style="width: 10%"><label class="self-label">终值(%)</label></td>
 								</tr>
 								<tr>
-									<td style="width: 10%"><form:input path="initialOutlay"
+									<td style="width: 10%"><form:input path="initialOutlay" id="stepone"
 											htmlEscape="false" class="form-control " /></td>
-									<td style="width: 10%"><form:input path="initialOutlay"
+									<td style="width: 10%"><form:input path="initialOutlay" id="steptwo"
 											htmlEscape="false" class="form-control " /></td>
-									<td style="width: 10%"><form:input path="initialOutlay"
+									<td style="width: 10%"><form:input path="initialOutlay" id="stepthree"
 											htmlEscape="false" class="form-control " /></td>
 								</tr>
 							</table>

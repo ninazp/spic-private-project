@@ -296,17 +296,18 @@ public class AnalysisEarningsController extends BaseController {
 							}
 							changrate.add(dbstart);
 							while(dbstart<dbend && setupdb>0) {
-								if(dbstart<0 && (dbstart + setupdb)<0) {
+								if(dbstart<0 && (dbstart + setupdb)>0) {
 									changrate.add(0.00);
 								}
-								dbstart = dbstart + setupdb; 
+								if((dbstart + setupdb) <= dbend) {
+									dbstart = dbstart + setupdb; 
+								}else {
+									dbstart = dbstart + sumamt;
+								}
 								changrate.add(dbstart);
 								sumamt = sumamt-setupdb;
 							}
-							if(sumamt<0) {
-								changrate.add(-sumamt);
-							}
-							if(dbend>0) {
+							if(dbend<0) {
 								changrate.add(0.00);
 							}
 						}

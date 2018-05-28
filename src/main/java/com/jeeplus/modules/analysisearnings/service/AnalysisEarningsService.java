@@ -117,7 +117,7 @@ public class AnalysisEarningsService extends CrudService<AnalysisEarningsMapper,
 			for(String ky : parammap.keySet()) {
 				List<List<Double>> changevals1 = ((createReportPubDMO)reportbean).getchange_irrnpv(ids, ky, parammap.get(ky));
 				exportexcel.put(ky, changevals1);
-				changevalmap.put(ky,changevals1.get(0));
+				changevalmap.put(ky,changevals1.get(1));
 			}
 			((createReportPubDMO)reportbean).exportMGFXexcel(FilePathUtil.getJarPath(ReadExcelCal.class),ids, exportexcel);
 		}

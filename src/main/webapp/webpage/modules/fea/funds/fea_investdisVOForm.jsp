@@ -144,7 +144,7 @@
 					<td class="width-35"><form:input path="transamt"
 							htmlEscape="false" class="form-control " data-toggle="tooltip"
 							data-placement="top" title="" /></td>
-					<td class="width-15 active"><label class="pull-right">设备费：</label></td>
+					<td class="width-15 active"><label class="pull-right">设备购置费：</label></td>
 					<td class="width-35"><form:input path="equitamt"
 							htmlEscape="false" class="form-control " data-toggle="tooltip"
 							data-placement="top" title="" /></td>
@@ -152,7 +152,7 @@
 				<tr>
 				    <td class="width-15 active"><label class="pull-right">安装费：</label></td>
 					<td class="width-35">
-						<form:input path="setupamt" htmlEscape="false"    class="form-control"  readonly="true"/>
+						<form:input path="setupamt" htmlEscape="false"    class="form-control" />
 					</td>
 				
 					<td class="width-15 active"><label class="pull-right">管网费：</label></td>

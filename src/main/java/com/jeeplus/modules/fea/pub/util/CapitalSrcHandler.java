@@ -20,7 +20,7 @@ public class CapitalSrcHandler {
 			Map<String,Object> parammmap
 		){
 
-		Double dkjeamt =(Double) parammmap.get("dkjeamt");
+		Double depreciation = (Double) parammmap.get("depreciation");
 		
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
 
@@ -62,7 +62,7 @@ public class CapitalSrcHandler {
 			
 			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret10.add(cctable.get(3).get(0));
-				ret19.add(cctable.get(1).get(0)+cctable.get(2).get(0)- dkjeamt - costtable.get(0).get(0));
+				ret19.add(depreciation - costtable.get(0).get(0));
 			}else{
 				ret10.add(0.0);
 				ret19.add(0.0);

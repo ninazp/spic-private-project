@@ -60,6 +60,8 @@ public class TotalCostHander {
 		
 		assetValmap.put(1, totaljsamt);
 		
+		parammap.put("depreciation", totaljsamt);
+		
 		Map<Integer,Double> assetValnolxmap=  new HashMap<Integer,Double>();
 
 		assetValnolxmap.put(1, totaljsamt);

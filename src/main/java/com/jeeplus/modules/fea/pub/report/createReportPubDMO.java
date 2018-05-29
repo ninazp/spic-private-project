@@ -322,8 +322,45 @@ public class createReportPubDMO {
 		try{
 			Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 					0.07, 0.06, "3");
-			retlst.add(doub3);  
-
+			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
+					0.07, 0.06, "1");
+			
+			List<Double> sumbefore = new ArrayList<Double>();
+			sumbefore.add(0.00);
+			for(int i=1; i<capitalTable.get(12).size()-1;i++) {
+				if(i==1) {
+					 sumbefore.add(capitalTable.get(12).get(i));
+				}else {
+					 sumbefore.add(sumbefore.get(i-1)+capitalTable.get(12).get(i));
+				}
+			}
+			Double retunperiod =  ReadExcelCal.getreturnperiod(capitalTable.get(12).toArray(new Double[10]),
+					sumbefore.toArray(new Double[0]));
+			
+			List<Double> afterlst = new ArrayList<Double>();
+			for(int i=0; i<capitalTable.get(12).size();i++) {
+				afterlst.add(capitalTable.get(12).get(i)-capitalTable.get(11).get(i));
+			}
+			
+			List<Double> sumafter = new ArrayList<Double>();
+			sumbefore.add(0.00);
+			for(int i=1; i<afterlst.size()-1;i++) {
+				if(i==1) {
+					sumafter.add(afterlst.get(i));
+				}else {
+					 sumbefore.add(sumbefore.get(i-1)+afterlst.get(i));
+				}
+			}
+			
+			Double doub4 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+					0.07, 0.06, "4");
+			Double doub2 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+					0.07, 0.06, "2");
+			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
+					sumafter.toArray(new Double[0]));
+			retlst.add(doub3);  retlst.add(doub4);
+			retlst.add(doub1);  retlst.add(doub2); 
+			retlst.add(retunperiod);  retlst.add(retunperiod2);
 		}catch(Exception e){
 			e.getMessage();
 		}
@@ -365,7 +402,7 @@ public class createReportPubDMO {
 					0.07, 0.06, "4");
 			Double doub2 = ReadExcelCal.getirrnpvvalue(investHandlerTable.get(13).toArray(new Double[0]),
 					0.07, 0.06, "2");
-			Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(10).toArray(new Double[13]),
+			Double retunperiod2 =  ReadExcelCal.getreturnperiod(investHandlerTable.get(13).toArray(new Double[0]),
 					investHandlerTable.get(14).toArray(new Double[0]));
 			retlst.add(doub3);  retlst.add(doub4);
 			retlst.add(doub1);  retlst.add(doub2); 

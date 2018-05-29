@@ -186,7 +186,7 @@
 						},
 
 						yAxis : {
-							name : '敏感性系数',
+							name : '内部收益率',
 							type : 'value'
 						},
 						series : [

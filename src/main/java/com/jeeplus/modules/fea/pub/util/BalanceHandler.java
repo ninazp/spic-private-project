@@ -22,23 +22,8 @@ public class BalanceHandler {
 			List<List<Double>> costtable,List<List<Double>> cctable,List<List<Double>> loanrepay
 			,List<List<Double>> financeplanfinaltable,Map<String,Object> parammap){
 		
-		Double dkjeamt =  (Double) parammap.get("dkjeamt");
-		Map<Integer,Double> assetvalmap = TotalCostHander.getjsamt(cctable, dkjeamt);
-		List<Double> assetvallist = new ArrayList<Double>();
-		for(Integer key : assetvalmap.keySet()){
-			if(assetvallist.size()<lrtable.get(0).size()){
-			  for(int i=0;i<=key;i++){
-				assetvallist.add(0.00);
-			  }
-			}
-			for(int i=key+1;i<lrtable.get(0).size();i++){
-				if(assetvallist.size()<lrtable.get(0).size()){
-				    assetvallist.add(assetvalmap.get(key));
-				}else{
-					assetvallist.set(i,assetvallist.get(i)+assetvalmap.get(key));
-				}
-			}
-		}
+		Double depreciation = (Double) parammap.get("depreciation");
+		Double dkjeamt1 = (Double) parammap.get("dkjeamt");
 		
 		List<List<Double>>  rettable = new ArrayList<List<Double>>();
 
@@ -88,8 +73,8 @@ public class BalanceHandler {
 				ret15.add(0.0);
 			}else{
 				assetlost = assetlost+costtable.get(0).get(i);
-				ret13.add(assetvallist.get(i)-assetlost);
-				ret15.add(dkjeamt);
+				ret13.add(depreciation-assetlost);
+				ret15.add(dkjeamt1);
 			}
 			
 			ret14.add(0.0);

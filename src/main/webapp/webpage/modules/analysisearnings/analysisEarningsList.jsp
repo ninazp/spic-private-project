@@ -170,7 +170,7 @@
 						grid : {
 							left : '3%',
 							right : '4%',
-							bottom : '3%',
+							bottom : '6%',
 							containLabel : true
 						},
 						toolbox : {
@@ -180,6 +180,7 @@
 						},
 						xAxis : {
 							type : 'category',
+							name : "百分比",
 							boundaryGap : false,
 							data : [ '-15%', '-10%', '-5%', '0', '5%', '10%', '15%' ]
 						},
@@ -192,22 +193,22 @@
 								{
 									name : '初始投资',
 									type : 'line',
-									stack : '总量',
+									stack : '总量1',
 									data : [ array[0][0], array[0][1],array[0][2], array[0][3],array[0][4], array[0][5],array[0][6]]
 								}, {
 									name : '电费',
 									type : 'line',
-									stack : '总量',
+									stack : '总量2',
 									data : [ array[1][0],  array[1][1], array[1][2],  array[1][3], array[1][4], array[1][5],array[1][6] ]
 								}, {
 									name : '人工费',
 									type : 'line',
-									stack : '总量',
+									stack : '总量3',
 									data : [array[2][0], array[2][1], array[2][2], array[2][3],array[2][4],array[2][5],array[2][6] ]
 								}, {
 									name : '取暖费',
 									type : 'line',
-									stack : '总量',
+									stack : '总量4',
 									data : [array[3][0], array[3][1], array[3][2], array[3][3],array[3][4],array[3][5],array[3][6] ]
 								} ]
 					};
@@ -285,22 +286,22 @@
 					{
 						name : '初始投资',
 						type : 'line',
-						stack : '总量',
+						stack : '总量1',
 						data : [ array[0][0], array[0][1],array[0][2], array[0][3],array[0][4], array[0][5],array[0][6]]
 					}, {
 						name : '电费',
 						type : 'line',
-						stack : '总量',
+						stack : '总量2',
 						data : [ array[1][0],  array[1][1], array[1][2],  array[1][3], array[1][4], array[1][5],array[1][6] ]
 					}, {
 						name : '人工费',
 						type : 'line',
-						stack : '总量',
+						stack : '总量3',
 						data : [array[2][0], array[2][1], array[2][2], array[2][3],array[2][4],array[2][5],array[2][6] ]
 					}, {
 						name : '取暖费',
 						type : 'line',
-						stack : '总量',
+						stack : '总量4',
 						data : [array[3][0], array[3][1], array[3][2], array[3][3],array[3][4],array[3][5],array[3][6] ]
 					} ]
 		};

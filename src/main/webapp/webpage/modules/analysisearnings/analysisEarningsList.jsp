@@ -187,29 +187,35 @@
 
 						yAxis : {
 							name : '内部收益率',
-							type : 'value'
+							type : 'value',
+							//position:'left',
+		                    offset: -557
 						},
 						series : [
 								{
 									name : '初始投资',
 									type : 'line',
 									stack : '总量1',
-									data : [ array[0][0], array[0][1],array[0][2], array[0][3],array[0][4], array[0][5],array[0][6]]
+									data : [ array[0][0], array[0][1],array[0][2], array[0][3],array[0][4], array[0][5],array[0][6]],
+									label:{normal:{show: true}}
 								}, {
 									name : '电费',
 									type : 'line',
 									stack : '总量2',
-									data : [ array[1][0],  array[1][1], array[1][2],  array[1][3], array[1][4], array[1][5],array[1][6] ]
+									data : [ array[1][0],  array[1][1], array[1][2],  array[1][3], array[1][4], array[1][5],array[1][6] ],
+									label:{normal:{show: true}}
 								}, {
 									name : '人工费',
 									type : 'line',
 									stack : '总量3',
-									data : [array[2][0], array[2][1], array[2][2], array[2][3],array[2][4],array[2][5],array[2][6] ]
+									data : [array[2][0], array[2][1], array[2][2], array[2][3],array[2][4],array[2][5],array[2][6] ],
+									label:{normal:{show: true}}
 								}, {
 									name : '取暖费',
 									type : 'line',
 									stack : '总量4',
-									data : [array[3][0], array[3][1], array[3][2], array[3][3],array[3][4],array[3][5],array[3][6] ]
+									data : [array[3][0], array[3][1], array[3][2], array[3][3],array[3][4],array[3][5],array[3][6] ],
+									label:{normal:{show: true}}
 								} ]
 					};
 				
@@ -324,10 +330,22 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">敏感性分析（单因素）</h3>
 			</div>
-			<div class="panel-body">
-				<div style="width: 100%; height: 100%; margin: 0 auto;">
-					<div id="main" style="width: 40%; height: 400px; float: left;"></div>
-					<div id="selfform" style="width: 55%; float: right;">
+					<!-- 工具栏 -->
+					<div id="toolbar" style="margin-top: 20px;margin-left: 20px;">
+						<shiro:hasPermission name="analysisearnings:analysisEarnings:add">
+							<a id="add" class="btn btn-primary" onclick="calculation()"><i
+								class="glyphicon glyphicon-edit"></i> 计算</a>
+						</shiro:hasPermission>
+						
+						<td>
+							<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-export"></i>导出报表</a>
+						</td>
+						
+					</div>
+					<div id="selfform" style="width: 55%;margin-top: 20px;margin-left: 20px;">
+					
+					<fieldset>
+						<!-- <legend>数据填写</legend> -->
 						<form:form id="inputForm" modelAttribute="analysisEarnings"
 							action="${ctx}/analysisearnings/analysisEarnings/zhaopeng"
 							method="post" class="form-horizontal">
@@ -335,22 +353,19 @@
 							<sys:message content="${message}" />
 							<table class="table table-no-bordered" style="width: 450px">
 								<tbody>
-									<fieldset>
-										<legend>项目选择</legend>
-										<tr>
-											<td class="width-15 active"><label class="pull-right">项目：</label></td>
-											<td class="width-35"><sys:gridselect
-													url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB"
-													name="feaProjectB.id"
-													value="${analysisEarnings.feaProjectB.id}"
-													labelName="feaProjectB.projectName"
-													labelValue="${analysisEarnings.feaProjectB.projectName}"
-													title="选择项目" cssClass="form-control required"
-													fieldLabels="项目名称" fieldKeys="projectName"
-													searchLabels="项目名称" searchKeys="projectName"></sys:gridselect>
-											</td>
-										</tr>
-									</fieldset>
+									<tr>
+										<td class="width-15 active"><label class="pull-right">项目：</label></td>
+										<td class="width-35"><sys:gridselect
+												url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB"
+												name="feaProjectB.id"
+												value="${analysisEarnings.feaProjectB.id}"
+												labelName="feaProjectB.projectName"
+												labelValue="${analysisEarnings.feaProjectB.projectName}"
+												title="选择项目" cssClass="form-control required"
+												fieldLabels="项目名称" fieldKeys="projectName"
+												searchLabels="项目名称" searchKeys="projectName"></sys:gridselect>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 
@@ -370,7 +385,7 @@
 								</tr>
 							</table>
 
-							<table class="table table-no-bordered" style="width: 450px">
+							<%-- <table class="table table-no-bordered" style="width: 450px;margin-left: 50px;margin-top: 50px;">
 								<tbody>
 									<fieldset>
 										<tr>
@@ -382,24 +397,13 @@
 										</tr>
 									</fieldset>
 								</tbody>
-							</table>
+							</table> --%>
 
 						</form:form>
-						<!-- 工具栏 -->
-						<div id="toolbar">
-							<shiro:hasPermission name="analysisearnings:analysisEarnings:add">
-								<a id="add" class="btn btn-primary" onclick="calculation()"><i
-									class="glyphicon glyphicon-edit"></i> 计算</a>
-							</shiro:hasPermission>
-							
-							<td>
-								<a id="add" class="btn btn-primary" onclick="downLoad()"><i class="glyphicon glyphicon-edit"></i>导出报表</a>
-							</td>
-							
-						</div>
+					</fieldset>
 					</div>
 					<div style="clear: both;"></div>
-				</div>
+					<div id="main" style="width: 60%; height: 550px;margin-top: 20px;margin-left: 20px;"></div>
 </body>
 </div>
 </div>

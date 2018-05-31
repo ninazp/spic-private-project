@@ -304,7 +304,7 @@ public class singlewellNo {
 				yearunit = powfeeunit*A*rate/10000;
 			}
 
-			res1.add(rate);
+			res1.add(getDouble2float(rate));
 			res2.add(A*rate); 
 			res3.add(downwater);
 			res4.add(costunit);

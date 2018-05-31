@@ -91,6 +91,7 @@ public class Report3Service extends CrudService<Report3Mapper, Report3> {
 			  tempLi.add(temp);
 			}
 			reList.add(tempLi);
+			i++;
 		}
 		
 		//reList.add(reportList);

@@ -163,7 +163,7 @@ public class GetparamDMO {
 						m = fcvo.getClass().getMethod("getYear"+(j+1));
 					}
 					Object rated = m.invoke(fcvo);
-					if(null==fcvo.getUnit() || fcvo.getUnit().contains("面积")) {
+					if(null==fcvo.getUnit() || fcvo.getUnit().contains("面积") || fcvo.getUnit().contains("入住") || fcvo.getUnit().contains("平方米")) {
 						if(null!=rated){
 							costrate.add(((Double)rated));
 						}else{

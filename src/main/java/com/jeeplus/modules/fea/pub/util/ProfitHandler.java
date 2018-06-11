@@ -195,11 +195,13 @@ public class ProfitHandler {
 		}
 		if(null!=parammap.get("otherpro")) {
 			List<Double> otherpro = (List<Double>) parammap.get("otherpro");
+			if(otherpro.size()>countyear-1) {
 			for(int i = 1;i<countyear;i++) {
 				if(null!=otherpro.get(i-1)) {
 					retlist.set(i,retlist.get(i)+otherpro.get(i-1));
 					retlist.set(0, retlist.get(0)+retlist.get(i));
 				}
+			}
 			}
 		}
 		return retlist;

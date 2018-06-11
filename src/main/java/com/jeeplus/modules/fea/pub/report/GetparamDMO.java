@@ -61,17 +61,17 @@ public class GetparamDMO {
 		}else{
 			retmap.put("price", 14.00);//供热单价
 		}
-		
+
 		List<Fea_investdisVO>   fea_investdislst  = (List<Fea_investdisVO>) PubBaseDAO.
 				getMutiParentVO("fea_investdis", "id", wheresql, fea_investdisVOMapper);
-		
+
 		if(null!=fea_investdislst && fea_investdislst.size()>0 && fea_investdislst.get(0)!=null
 				&& fea_investdislst.get(0).getIsreaddesgn().equals("1")) {
 			Double equitamt = (null!=fea_investdislst.get(0).getEquitamt())?fea_investdislst.get(0).getEquitamt():0.00;
 			retmap.put("equitamt", equitamt);
 		}
-		
-		
+
+
 		List<List<Double>> costparam = getcostparam(projectvo.getId(), countyear, currentproductmonth, fea_capformVOMapper, fea_productcostVOMapper, fea_productcostBVOMapper);
 		retmap.put("repairrate", costparam.get(0));//维修费
 		retmap.put("costparam", costparam.get(1));
@@ -82,7 +82,7 @@ public class GetparamDMO {
 		retmap.put("heatcost", costparam.get(3));
 		retmap.put("income", getsubincome(fea_incosubsidyVOMapper, wheresql, countyear));//补贴收入
 
-		List<Double> occupancyarea = getproductlst(countyear, fea_costinfoVOMapper, wheresql);
+		List<List<Double>> productlst = getproductlst(countyear, fea_costinfoVOMapper, wheresql);
 
 		//账务费用
 		List<Fea_costfecfVO> Fea_costfecfVOlst = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", wheresql,fea_costfecfVOMapper);
@@ -94,12 +94,14 @@ public class GetparamDMO {
 			retmap.put("principalrate", Fea_costfecfVOlst.get(0).getLangrate());// 本金利率（%）
 			retmap.put("langrate", Fea_costfecfVOlst.get(0).getLangrate());// 利息利率（%）
 			retmap.put("repaytype", 1);//等额本金
-			
+
 			if(null!=Fea_costfecfVOlst.get(0).getFlowloanprop()) {
 				flowprop = Fea_costfecfVOlst.get(0).getFlowloanprop()/100;
 			}
 		}
 
+		
+		List<Double> occupancyarea = productlst.get(0);
 		//通过入住面积*单价*20% == 来计算流动资金 
 		Double flowamt = 0.00;
 		if(null!=occupancyarea && occupancyarea.size()>1){
@@ -110,6 +112,10 @@ public class GetparamDMO {
 			}
 		}
 		retmap.put("occupancy", occupancyarea);//入住面积
+		
+		if(productlst.size()>1) {
+			retmap.put("otherpro", productlst.get(1));//入住面积
+		}
 
 		retmap.put("flowamt", flowamt);
 
@@ -138,11 +144,15 @@ public class GetparamDMO {
 	}
 
 	//入住面积
-	public static List<Double> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
+	public static List<List<Double>> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
+		
+		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
+		
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", wheresql,
 						basemaper);
-		List<Double> costrate = new ArrayList<Double>();	
+		List<Double> costrate = new ArrayList<Double>();
+		List<Double> otherpro = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){
 			for(int j=0;j<countyear;j++){
 				try {
@@ -153,18 +163,29 @@ public class GetparamDMO {
 						m = fcvo.getClass().getMethod("getYear"+(j+1));
 					}
 					Object rated = m.invoke(fcvo);
-					if(null!=rated){
-						costrate.add(((Double)rated));
-					}else{
-						costrate.add(0.00);
+					if(null==fcvo.getUnit() || fcvo.getUnit().contains("面积")) {
+						if(null!=rated){
+							costrate.add(((Double)rated));
+						}else{
+							costrate.add(0.00);
+						}
+					}else if(null!=fcvo.getUnit()  && fcvo.getUnit().contains("其他")) {
+						if(null!=rated){
+							otherpro.add(((Double)rated));
+						}else{
+							otherpro.add(0.00);
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
 			}
 		}
+		
+		retlstlst.add(costrate);
+		if(null!=otherpro || otherpro.size()>0) retlstlst.add(otherpro);
 
-		return costrate;
+		return retlstlst;
 	}
 
 	public static List<Double> getsubincome(BaseMapper baseMapper,String wheresql,Double countyear){

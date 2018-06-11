@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>成本种类及产量管理</title>
+	<title>投资收入管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
@@ -14,7 +14,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">入住率</h3>
+		<h3 class="panel-title">投资收入</h3>
 	</div>
 	<div class="panel-body">
 		<sys:message content="${message}"/>

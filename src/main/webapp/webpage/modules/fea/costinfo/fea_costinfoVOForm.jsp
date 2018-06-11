@@ -26,7 +26,7 @@
 				rules: {
 					"feaProjectB.projectName" : {
 					
-							remote:{  
+							/**remote:{  
 			                    type:"POST",  
 			                    url:"${ctx}/fea/costinfo/fea_costinfoVO/checkProject",
 			                    data:{
@@ -36,14 +36,14 @@
 			                         	return $("#feaProjectBId").val(); 
 			                         }  
 			                    }  
-			                }
+			                }*/
 							/* remote: "${ctx}/fea/funds/fea_fundssrcVO/checkProject?fea_fundssrcVO=" + $('#inputForm').serialize() + 
 							"&newProjectID=" + $("#feaProjectBId").val() $("#${id}Id") */
 							
 					}
 				},
 				messages: {
-					"feaProjectB.projectName" : {remote: "该项目已被占用，不能重复创建"}
+					//"feaProjectB.projectName" : {remote: "该项目已被占用，不能重复创建"}
 				},
 				submitHandler: function(form){
 					jp.post("${ctx}/fea/costinfo/fea_costinfoVO/save",$('#inputForm').serialize(),function(data){
@@ -84,7 +84,7 @@
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_costinfoVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_costinfoVO.feaProjectB.projectName}"
 							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">单位：</label></td>
+					<td class="width-15 active"><label class="pull-right">收入类型（单位）：</label></td>
 					<td class="width-35">
 						<form:input path="unit" htmlEscape="false"    class="form-control"/>
 					</td>

@@ -26,14 +26,14 @@ public class ProfitHandler {
 		List<Double> profit2 = gettax(0.0,countyear);
 		List<Double> profit21 = gettax(0.0, countyear);
 		List<Double> profit22 = gettax(0.0, countyear);
-		List<Double> profit4 = gettax(0.0, countyear);//补贴收入
+		List<Double> profit4 = subincome;//gettax(0.0, countyear);//补贴收入
 
 		List<Double> profit3 = new ArrayList<Double>();//总成本费用
 		List<Double> profit5 = new ArrayList<Double>();
 		List<Double> profit6 = new ArrayList<Double>();;
 		List<Double> profit7 = new ArrayList<Double>();
 		List<Double> profit8 = new ArrayList<Double>();
-		List<Double> profit9 = subincome;//补贴含税
+		List<Double> profit9 = gettax(0.0, countyear);//补贴含税
 		List<Double> profit10 = new ArrayList<Double>();
 		List<Double> profit11 = new ArrayList<Double>();
 		List<Double> profit12 = new ArrayList<Double>();
@@ -193,8 +193,16 @@ public class ProfitHandler {
 			retlist.add(repval);
 			retlist.set(0, retlist.get(0)+repval);
 		}
+		if(null!=parammap.get("otherpro")) {
+			List<Double> otherpro = (List<Double>) parammap.get("otherpro");
+			for(int i = 1;i<countyear;i++) {
+				if(null!=otherpro.get(i-1)) {
+					retlist.set(i,retlist.get(i)+otherpro.get(i-1));
+					retlist.set(0, retlist.get(0)+retlist.get(i));
+				}
+			}
+		}
 		return retlist;
-
 	}
 
 	public static List<Double> gettax(Double taxrate,Double totalyears){

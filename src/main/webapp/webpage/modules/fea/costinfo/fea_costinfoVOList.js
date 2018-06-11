@@ -54,7 +54,7 @@ $(document).ready(function() {
                    if($el.data("item") == "edit"){
                    	edit(row.id);
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该入住率记录吗？', function(){
+                        jp.confirm('确认要删除该记录吗？', function(){
                        	jp.loading();
                        	jp.get("${ctx}/fea/costinfo/fea_costinfoVO/delete?id="+row.id, function(data){
                    	  		if(data.success){
@@ -109,7 +109,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'unit',
-		        title: '单位',
+		        title: '收入类型（单位）',
 		        sortable: true
 		       
 		    }

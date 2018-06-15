@@ -69,11 +69,12 @@ public class GetparamDMO {
 				getMutiParentVO("fea_investdis", "id", wheresql, fea_investdisVOMapper);
 
 		if(null!=fea_investdislst && fea_investdislst.size()>0 && fea_investdislst.get(0)!=null
-				&& fea_investdislst.get(0).getIsreaddesgn().equals("1")) {
+				&& null!=fea_investdislst.get(0).getIsreaddesgn() && fea_investdislst.get(0).getIsreaddesgn().equals("1")) {
 			Double equitamt = (null!=fea_investdislst.get(0).getEquitamt())?fea_investdislst.get(0).getEquitamt():0.00;
 			retmap.put("equitamt", equitamt);
+		}else {
+			retmap.put("equitamt", 0.00);
 		}
-
 
 		List<List<Double>> costparam = getcostparam(projectvo.getId(), countyear, currentproductmonth, fea_capformVOMapper, fea_productcostVOMapper, fea_productcostBVOMapper);
 		retmap.put("repairrate", costparam.get(0));//维修费
@@ -156,7 +157,7 @@ public class GetparamDMO {
 						basemaper);
 
 		List<FeaOthercostinfoVO>   feaOthercostinfoVOs = (List<FeaOthercostinfoVO>) PubBaseDAO.
-				getMutiParentVO("fea_costinfo", "id", wheresql,
+				getMutiParentVO("fea_othercostinfo", "id", wheresql,
 						feaOthercostinfoVOMapper);
 
 		List<Double> costrate = new ArrayList<Double>();

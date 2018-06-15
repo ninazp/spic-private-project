@@ -78,7 +78,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
+		        title: '地热项目',
 		        sortable: true
 		        ,formatter:function(value, row , index){
  			    if(value == null){
@@ -91,7 +91,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'unit',
-		        title: '单位',
+		        title: '收入单位',
 		        sortable: true
 		       
 		    }

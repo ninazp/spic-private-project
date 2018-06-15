@@ -20,6 +20,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_capformVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisBVOMapper;
 import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
+import com.jeeplus.modules.fea.mapper.othercostinfo.FeaOthercostinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.project.FeaProjectBMapper;
@@ -58,6 +59,10 @@ public class createReportPubDMO {
 
 	@Autowired
 	private Fea_costfecfVOMapper fea_costfecfVOMapper;
+	
+	@Autowired
+	private FeaOthercostinfoVOMapper feaOthercostinfoVOMapper;
+
 
 
 	/**
@@ -143,7 +148,8 @@ public class createReportPubDMO {
 					fea_incomesetVOMapper,fea_costfecfVOMapper,
 					fea_investdisVOMapper,fea_investdisBVOMapper,
 					fea_capformVOMapper,fea_productcostVOmapper,
-					fea_productcostBVOmapper,fea_costinfoVOMapper,fea_incosubsidyVOMapper);
+					fea_productcostBVOmapper,fea_costinfoVOMapper,
+					fea_incosubsidyVOMapper,feaOthercostinfoVOMapper);
 
 			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 			BusiIndexCal busiIndexCal = (BusiIndexCal) wac.getBean("busiIndexCal");

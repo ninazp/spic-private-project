@@ -14,10 +14,12 @@ import com.jeeplus.modules.fea.entity.fecl.Fea_costfecfVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_capformVO;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
 import com.jeeplus.modules.fea.entity.income.Fea_incomesetVO;
+import com.jeeplus.modules.fea.entity.othercostinfo.FeaOthercostinfoVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.entity.subsidy.Fea_incosubsidyVO;
+import com.jeeplus.modules.fea.mapper.othercostinfo.FeaOthercostinfoVOMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
 
 public class GetparamDMO {
@@ -33,7 +35,8 @@ public class GetparamDMO {
 			BaseMapper fea_productcostVOMapper,
 			BaseMapper fea_productcostBVOMapper,
 			BaseMapper fea_costinfoVOMapper,
-			BaseMapper fea_incosubsidyVOMapper
+			BaseMapper fea_incosubsidyVOMapper,
+			FeaOthercostinfoVOMapper feaOthercostinfoVOMapper
 			){
 		Map<String,Object> retmap = new HashMap<String, Object>();
 
@@ -82,7 +85,7 @@ public class GetparamDMO {
 		retmap.put("heatcost", costparam.get(3));
 		retmap.put("income", getsubincome(fea_incosubsidyVOMapper, wheresql, countyear));//补贴收入
 
-		List<List<Double>> productlst = getproductlst(countyear, fea_costinfoVOMapper, wheresql);
+		List<List<Double>> productlst = getproductlst(countyear, fea_costinfoVOMapper,feaOthercostinfoVOMapper, wheresql);
 
 		//账务费用
 		List<Fea_costfecfVO> Fea_costfecfVOlst = (List<Fea_costfecfVO>) PubBaseDAO.getMutiParentVO("fea_costfecf", "id", wheresql,fea_costfecfVOMapper);
@@ -100,7 +103,7 @@ public class GetparamDMO {
 			}
 		}
 
-		
+
 		List<Double> occupancyarea = productlst.get(0);
 		//通过入住面积*单价*20% == 来计算流动资金 
 		Double flowamt = 0.00;
@@ -112,7 +115,7 @@ public class GetparamDMO {
 			}
 		}
 		retmap.put("occupancy", occupancyarea);//入住面积
-		
+
 		if(productlst.size()>1) {
 			retmap.put("otherpro", productlst.get(1));//入住面积
 		}
@@ -144,15 +147,19 @@ public class GetparamDMO {
 	}
 
 	//入住面积
-	public static List<List<Double>> getproductlst(Double countyear,BaseMapper basemaper,String wheresql){
-		
+	public static List<List<Double>> getproductlst(Double countyear,BaseMapper basemaper,BaseMapper feaOthercostinfoVOMapper, String wheresql){
+
 		List<List<Double>> retlstlst = new ArrayList<List<Double>>();
-		
+
 		List<Fea_costinfoVO>   fea_costinfovo = (List<Fea_costinfoVO>) PubBaseDAO.
 				getMutiParentVO("fea_costinfo", "id", wheresql,
 						basemaper);
+
+		List<FeaOthercostinfoVO>   feaOthercostinfoVOs = (List<FeaOthercostinfoVO>) PubBaseDAO.
+				getMutiParentVO("fea_costinfo", "id", wheresql,
+						feaOthercostinfoVOMapper);
+
 		List<Double> costrate = new ArrayList<Double>();
-		List<Double> otherpro = new ArrayList<Double>();	
 		for(Fea_costinfoVO fcvo : fea_costinfovo){
 			for(int j=0;j<countyear;j++){
 				try {
@@ -169,12 +176,6 @@ public class GetparamDMO {
 						}else{
 							costrate.add(0.00);
 						}
-					}else if(null!=fcvo.getUnit()  && fcvo.getUnit().contains("其他")) {
-						if(null!=rated){
-							otherpro.add(((Double)rated));
-						}else{
-							otherpro.add(0.00);
-						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -183,8 +184,32 @@ public class GetparamDMO {
 		}
 		
 		retlstlst.add(costrate);
-		if(null!=otherpro || otherpro.size()>0) retlstlst.add(otherpro);
 
+		if(null!=feaOthercostinfoVOs) {
+			List<Double> Othercostin = new ArrayList<Double>();
+			for(FeaOthercostinfoVO othervo : feaOthercostinfoVOs){
+				for(int j=0;j<countyear;j++){
+					try {
+						Method m ;
+						if(j==0){
+							m = othervo.getClass().getMethod("getYear1");
+						}else{
+							m = othervo.getClass().getMethod("getYear"+(j+1));
+						}
+						Object otheramt = m.invoke(othervo);
+						if(null!=otheramt){
+							Othercostin.add(((Double)otheramt));
+						}else{
+							Othercostin.add(0.00);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				}
+			}
+			
+			retlstlst.add(Othercostin);
+		}
 		return retlstlst;
 	}
 

@@ -332,7 +332,7 @@ public class singlewellyes {
 			Double costunit = 0.00;
 			Double yearunit = 0.00;
 			if(A*rate <= Nk*A1 ){
-				yearpow = A*rate*W1*D*T*gmaq/(Nk*A1);
+				yearpow = A*rate*W1*D*T*gmaq/(A1);
 				downwater = A*rate*m*D*T/A1;
 			}else{
 				yearpow = (Nk*W1+(W2*(A*rate-Nk*A1)/A2))*D*T*gmaq;
@@ -344,15 +344,15 @@ public class singlewellyes {
 			 yearunit = powfeeunit*A*rate/10000;
 			}
 
-			res1.add(rate);
-			res2.add(A*rate); 
+			res1.add(getDouble2float(rate));
+			res2.add(getDouble2float(A*rate)); 
 			res3.add(downwater);
 			res4.add(costunit);
 			res5.add(yearunit);
 
 			try {
 				Method m1 = result1.getClass().getMethod("setYear"+(i), Double.class);
-				m1.invoke(result1, rate);
+				m1.invoke(result1, getDouble2float(rate));
 
 				Method m2 = result2.getClass().getMethod("setYear"+(i), Double.class);
 				BigDecimal   d1 = new BigDecimal(A*rate);
@@ -366,12 +366,12 @@ public class singlewellyes {
 
 				Method m4 = result4.getClass().getMethod("setYear"+(i), Double.class);
 				BigDecimal   d4 = new BigDecimal(costunit);
-				Double d41 = d4.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				Double d41 = d4.setScale(4, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 
 				Method m5 = result5.getClass().getMethod("setYear"+(i), Double.class);
 				BigDecimal   d5 = new BigDecimal(yearunit);
-				Double d51 = d5.setScale(2, RoundingMode.HALF_UP).doubleValue();
+				Double d51 = d5.setScale(4, RoundingMode.HALF_UP).doubleValue();
 				m4.invoke(result4, d41);
 				m5.invoke(result5, d51);
 				

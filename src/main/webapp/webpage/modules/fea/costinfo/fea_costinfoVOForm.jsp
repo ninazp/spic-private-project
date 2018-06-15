@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>入住率</title>
+	<title>入住面积</title>
 	<meta name="decorator" content="ani"/>
 	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
@@ -84,7 +84,7 @@
 						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_costinfoVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_costinfoVO.feaProjectB.projectName}"
 							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
 					</td>
-					<td class="width-15 active"><label class="pull-right">收入类型（单位）：</label></td>
+					<td class="width-15 active"><label class="pull-right">单位：</label></td>
 					<td class="width-35">
 						<form:input path="unit" htmlEscape="false"    class="form-control"/>
 					</td>

@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>供热参数管理</title>
+	<title>供热及井下参数管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
@@ -169,7 +169,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">供热参数列表</h3>
+		<h3 class="panel-title">供热及井下参数列表</h3>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -265,6 +265,9 @@
 		<table id="fea_design_heatVO_formtable" class="table table-bordered">
 		
 		   <tbody>
+		        <tr>
+					<td class="width-15 active"><label class="pull-left">供热参数</label></td>
+				</tr>	
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
@@ -312,6 +315,9 @@
 						</form:select>
 					</td>
 				</tr>
+				 <tr>
+					<td class="width-15 active"><label class="pull-left">井下参数</label></td>
+				</tr>	
 				<tr>
 					<td class="width-15 active"><label class="pull-right">井深（米）：</label></td>
 					<td class="width-35">

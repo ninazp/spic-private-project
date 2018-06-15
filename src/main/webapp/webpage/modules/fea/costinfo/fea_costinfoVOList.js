@@ -109,7 +109,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'unit',
-		        title: '收入类型（单位）',
+		        title: '单位',
 		        sortable: true
 		       
 		    }
@@ -379,7 +379,7 @@ $(document).ready(function() {
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该入住率记录吗？', function(){
+		jp.confirm('确认要删除该入住面积记录吗？', function(){
 			jp.loading();  	
 			jp.get("${ctx}/fea/costinfo/fea_costinfoVO/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
@@ -393,17 +393,17 @@ $(document).ready(function() {
 		})
   }
    function add(){
-	  jp.openDialog('新增入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form",'800px', '500px', $('#fea_costinfoVOTable'));
+	  jp.openDialog('新增入住面积', "${ctx}/fea/costinfo/fea_costinfoVO/form",'800px', '500px', $('#fea_costinfoVOTable'));
   }
   function edit(id){//没有权限时，不显示确定按钮
   	  if(id == undefined){
 			id = getIdSelections();
 		}
 	   <shiro:hasPermission name="fea:costinfo:fea_costinfoVO:edit">
-	  jp.openDialog('编辑入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
+	  jp.openDialog('编辑入住面积', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
 	   </shiro:hasPermission>
 	  <shiro:lacksPermission name="fea:costinfo:fea_costinfoVO:edit">
-	  jp.openDialogView('查看入住率', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
+	  jp.openDialogView('查看入住面积', "${ctx}/fea/costinfo/fea_costinfoVO/form?id=" + id,'800px', '500px', $('#fea_costinfoVOTable'));
 	  </shiro:lacksPermission>
   }
 

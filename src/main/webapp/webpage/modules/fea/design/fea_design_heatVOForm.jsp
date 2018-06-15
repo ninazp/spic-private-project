@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>供热参数管理</title>
+	<title>供热及井下参数管理</title>
 	<meta name="decorator" content="ani"/>
 	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">
@@ -72,6 +72,10 @@
 		<sys:message content="${message}"/>	
 		<table class="table table-bordered">
 		   <tbody>
+		        <tr>
+					<td class="width-15 active"><label class="pull-right">供热参数</label></td>
+				</tr>
+		   
 				<tr>
 					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
 					<td class="width-35">
@@ -119,6 +123,11 @@
 						</form:select>
 					</td>
 				</tr>
+				
+				<tr>
+					<td class="width-15 active"><label class="pull-right">井下参数</label></td>
+				</tr>
+				
 				<tr>
 					<td class="width-15 active"><label class="pull-right">井深（米）：</label></td>
 					<td class="width-35">

@@ -91,11 +91,17 @@ public class Fea_fundssrcDAO {
 			int year = cal.get(Calendar.YEAR);
 			vo.setYear(year+"");;		// 年度
 			vo.setInvestprop(100.00);;		// 投资比例
-			vo.setInvestamt(2228.16);;		// 投资额度
+			vo.setInvestamt(3075.00);;		// 投资额度
 			vo.setDeductvtax(0.00);;		// 可抵扣税金
-			vo.setCappropsum(2228.16*0.2);		// 注资方合计
-			vo.setLoanpropsum(2228.16*0.8);		// 融资合计
-
+			vo.setIsreaddesgn("0");
+			vo.setDjamt(500.00);
+			vo.setTransamt(500.00);
+			vo.setEquitamt(500.00);
+			vo.setDjamt(500.00);
+			vo.setSetupamt(75.00);
+			vo.setGwamt(500.00);
+			vo.setOtheramt(500.00);//其他费
+			
 			basemapper4.insert(vo);
 
 			for(int i=0;i<2;i++){

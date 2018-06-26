@@ -1,11 +1,13 @@
 package com.jeeplus.modules.fea.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisBVO;
+import com.jeeplus.modules.fea.entity.othercostinfo.FeaOthercostinfoVO;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostBVO;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.mapper.costinfo.Fea_costinfoVOMapper;
@@ -18,6 +20,7 @@ import com.jeeplus.modules.fea.mapper.funds.Fea_investdisVOMapper;
 import com.jeeplus.modules.fea.mapper.heatben.Fea_design_heatbenVOMapper;
 import com.jeeplus.modules.fea.mapper.heattrans.Fea_design_heattransVOMapper;
 import com.jeeplus.modules.fea.mapper.income.Fea_incomesetVOMapper;
+import com.jeeplus.modules.fea.mapper.othercostinfo.FeaOthercostinfoVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostBVOMapper;
 import com.jeeplus.modules.fea.mapper.procost.Fea_productcostVOMapper;
 import com.jeeplus.modules.fea.mapper.quotation.FeaDesignReportMapper;
@@ -26,6 +29,7 @@ import com.jeeplus.modules.fea.mapper.set.Fea_design_setVOMapper;
 import com.jeeplus.modules.fea.mapper.subsidy.Fea_incosubsidyVOMapper;
 import com.jeeplus.modules.fea.mapper.transfer.Fea_design_transferVOMapper;
 import com.jeeplus.modules.fea.pub.util.PubBaseDAO;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class PubUtil { 
 
@@ -64,6 +68,8 @@ public class PubUtil {
 	@Autowired
 	private FeaDesignReportMapper fea_design_reportmapper;
 
+	@Autowired
+	private FeaOthercostinfoVOMapper feaOthercostinfoVOMapper;
 
 
 	public static String getid(int number){
@@ -108,6 +114,16 @@ public class PubUtil {
 		Fea_designDefaultDAO.insertFea_design_transfer(fea_design_transferVOMapper, projectvo);
 		Fea_designDefaultDAO.insertFeaDesignSet(fea_design_setVOMapper, projectvo);
 		Fea_designDefaultDAO.insetFea_design_equiplst2VO(fea_design_equiplst2VOMapper, projectvo);
+		
+		//添加其他收入
+		FeaOthercostinfoVO othervo = new FeaOthercostinfoVO();
+		othervo.setFeaProjectB(projectvo);
+		othervo.setId(PubUtil.getid(1));
+		othervo.setCreateBy(UserUtils.getUser());
+		othervo.setCreateDate(new Date());
+		othervo.setUnit("万元");
+		feaOthercostinfoVOMapper.insert(othervo);
+		
 	}
 
 	public void deleteALLdata(FeaProjectB projectvo){
@@ -135,6 +151,7 @@ public class PubUtil {
 		fea_design_heattransVOMapper.execDeleteSql("DELETE from fea_design_heattrans where project_id='"+projectvo.getId()+"'");
 		fea_design_resultmapper.execDeleteSql("DELETE from fea_design_result where project_id='"+projectvo.getId()+"'");
 		fea_design_reportmapper.execDeleteSql("DELETE from fea_design_report where project_id='"+projectvo.getId()+"'");
-
+		feaOthercostinfoVOMapper.execDeleteSql("DELETE from fea_othercostinfo where project_id='"+projectvo.getId()+"'");
+		
 	}
 }

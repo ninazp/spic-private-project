@@ -488,7 +488,7 @@ public class BusiIndexCal {
 	public Double [] getparam(Double[][] params,Double val,int index,boolean before){
 		if(null!=params && params.length>0) {
 			for(int i=0;i<params.length-1;i++) {
-				if(val>params[i][index] && val<params[i+1][index]) {
+				if(val>=params[i][index] && val<params[i+1][index]) {
 					if(before) {
 						return params[i];
 					}else {

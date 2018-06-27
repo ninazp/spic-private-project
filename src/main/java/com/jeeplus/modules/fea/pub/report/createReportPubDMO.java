@@ -345,16 +345,16 @@ public class createReportPubDMO {
 			
 			List<Double> afterlst = new ArrayList<Double>();
 			for(int i=0; i<capitalTable.get(12).size();i++) {
-				afterlst.add(capitalTable.get(12).get(i)-capitalTable.get(11).get(i));
+				afterlst.add(capitalTable.get(12).get(i)+capitalTable.get(11).get(i));
 			}
 			
 			List<Double> sumafter = new ArrayList<Double>();
-			sumbefore.add(0.00);
+			sumafter.add(0.00);
 			for(int i=1; i<afterlst.size()-1;i++) {
 				if(i==1) {
 					sumafter.add(afterlst.get(i));
 				}else {
-					 sumbefore.add(sumbefore.get(i-1)+afterlst.get(i));
+					sumafter.add(sumafter.get(i-1)+afterlst.get(i));
 				}
 			}
 			
@@ -364,9 +364,9 @@ public class createReportPubDMO {
 					0.07, 0.06, "2");
 			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
 					sumafter.toArray(new Double[0]));
-			retlst.add(doub3);  retlst.add(doub4);
-			retlst.add(doub1);  retlst.add(doub2); 
-			retlst.add(retunperiod);  retlst.add(retunperiod2);
+			retlst.add(doub4);  retlst.add(doub3);
+			retlst.add(doub2);  retlst.add(doub1); 
+			retlst.add(retunperiod2);  retlst.add(retunperiod);
 		}catch(Exception e){
 			e.getMessage();
 		}

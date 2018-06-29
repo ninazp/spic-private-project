@@ -41,7 +41,7 @@ public class CapitalHandler {
 
 		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(0).get(i));//营业收入
-			ret12.add(lrtable.get(10).get(i));
+			ret12.add(lrtable.get(5).get(i));
 			
 			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret14.add(cctable.get(3).get(0));

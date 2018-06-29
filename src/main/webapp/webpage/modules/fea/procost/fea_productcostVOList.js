@@ -58,7 +58,7 @@ $(document).ready(function() {
                    if($el.data("item") == "edit"){
                    	edit(row.id);
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该生成成本记录吗？', function(){
+                        jp.confirm('确认要删除该生产成本记录吗？', function(){
                        	jp.loading();
                        	jp.get("${ctx}/fea/procost/fea_productcostVO/delete?id="+row.id, function(data){
                    	  		if(data.success){
@@ -203,7 +203,7 @@ $(document).ready(function() {
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该生成成本记录吗？', function(){
+		jp.confirm('确认要删除该生产成本记录吗？', function(){
 			jp.loading();  	
 			jp.get("${ctx}/fea/procost/fea_productcostVO/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
@@ -218,7 +218,7 @@ $(document).ready(function() {
   }
   
   function add(){
-	  jp.openDialog('新增生成成本', "${ctx}/fea/procost/fea_productcostVO/form",'1500px', '750px', $('#fea_productcostVOTable'));
+	  jp.openDialog('新增生产成本', "${ctx}/fea/procost/fea_productcostVO/form",'1500px', '750px', $('#fea_productcostVOTable'));
   }
   
   function edit(id){//没有权限时，不显示确定按钮
@@ -226,10 +226,10 @@ $(document).ready(function() {
 			id = getIdSelections();
 		}
 	   <shiro:hasPermission name="fea:procost:fea_productcostVO:edit">
-	  jp.openDialog('编辑生成成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
+	  jp.openDialog('编辑生产成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
 	   </shiro:hasPermission>
 	  <shiro:lacksPermission name="fea:procost:fea_productcostVO:edit">
-	  jp.openDialogView('查看生成成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
+	  jp.openDialogView('查看生产成本', "${ctx}/fea/procost/fea_productcostVO/form?id=" + id,'1500px', '750px', $('#fea_productcostVOTable'));
 	  </shiro:lacksPermission>
   }
   

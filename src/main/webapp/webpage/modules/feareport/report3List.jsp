@@ -222,12 +222,7 @@
 		           ["2.6", "所得税"],
 		           ["3", "净现金流量（1-2）"],
 		           ["计算指标：",""],
-		           ["资本金财务内部收益率（%）（所得税前）",""],
-		           ["资本金财务内部收益率（%）（所得税后）",""],
-		           ["资本金财务财务净现值（万元）（所得税前）",""],
-		           ["资本金财务财务净现值（万元）（所得税后",""],
-		           ["资本金财务回收期（年）（所得税前）",""],
-		           ["资本金财务回收期（年）（所得税后）",""]
+		           ["资本金财务内部收益率（%）",""]
 		    ];
  			//报表数据
 			var array = eval(datas);
@@ -309,17 +304,7 @@
 			    	{row:17, col:0, rowspan:1, colspan:2},
 			    	{row:17, col:3, rowspan:1, colspan:colLeg-1},
 			    	{row:18, col:0, rowspan:1, colspan:2},
-			    	{row:18, col:3, rowspan:1, colspan:colLeg-1},
-			    	{row:19, col:3, rowspan:1, colspan:colLeg-1},
-			    	{row:19, col:0, rowspan:1, colspan:2},
-			    	{row:20, col:0, rowspan:1, colspan:2},
-			    	{row:20, col:3, rowspan:1, colspan:colLeg-1},
-			    	{row:21, col:0, rowspan:1, colspan:2},
-			    	{row:21, col:3, rowspan:1, colspan:colLeg-1},
-			    	{row:22, col:0, rowspan:1, colspan:2},
-			    	{row:22, col:3, rowspan:1, colspan:colLeg-1},
-			    	{row:23, col:0, rowspan:1, colspan:2},
-			    	{row:23, col:3, rowspan:1, colspan:colLeg-1}
+			    	{row:18, col:3, rowspan:1, colspan:colLeg-1}
 			    ],
 			    contextMenu: true,
 			    colHeaders:true,
@@ -352,22 +337,7 @@
 					{row: 17, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
 					{row: 18, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
 					{row: 17, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
-					{row: 18, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 19, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
-					{row: 20, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 21, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 22, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 23, col: 0, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 19, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
-					{row: 20, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 21, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 22, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 23, col: 2, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 19, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'}},
-					{row: 20, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 21, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 22, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}},
-					{row: 23, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}}
+					{row: 18, col: 3, left: {width: 0, color: 'white'}, right: {width: 0, color: 'white'}, bottom: {width: 0, color: 'white'},top: {width: 0, color: 'white'}}
 				]
             	
 			};
@@ -395,7 +365,7 @@
 			   */
 			 //填充报表数据
 		     hot.populateFromArray(4, 2, array, 16, colLeg+1, "populateFromArray", "overwrite", null, null);
-		     hot.populateFromArray(18, 2, array2, 23, 2, "populateFromArray", "overwrite", null, null);
+		     hot.populateFromArray(18, 2, array2, 18, 2, "populateFromArray", "overwrite", null, null);
 		     //填充年份数据
 		     hot.populateFromArray(2, 3, yearAndPeriodArray, 3, colLeg+1, "populateFromArray", "overwrite", null, null);
 		     //hot.colWidths = colWidthsArray;

@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>生成成本管理</title>
+	<title>生产成本管理</title>
 	<meta name="decorator" content="ani"/>
 	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<script type="text/javascript">

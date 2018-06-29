@@ -326,47 +326,52 @@ public class createReportPubDMO {
 		List<Double> retlst = new ArrayList<Double>();
 
 		try{
+			//税后-正常的没有变动的
 			Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
-					0.07, 0.06, "3");
-			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
-					0.07, 0.06, "1");
-			
-			List<Double> sumbefore = new ArrayList<Double>();
-			sumbefore.add(0.00);
-			for(int i=1; i<capitalTable.get(12).size()-1;i++) {
-				if(i==1) {
-					 sumbefore.add(capitalTable.get(12).get(i));
-				}else {
-					 sumbefore.add(sumbefore.get(i-1)+capitalTable.get(12).get(i));
-				}
-			}
-			Double retunperiod =  ReadExcelCal.getreturnperiod(capitalTable.get(12).toArray(new Double[10]),
-					sumbefore.toArray(new Double[0]));
-			
-			List<Double> afterlst = new ArrayList<Double>();
-			for(int i=0; i<capitalTable.get(12).size();i++) {
-				afterlst.add(capitalTable.get(12).get(i)+capitalTable.get(11).get(i));
-			}
-			
-			List<Double> sumafter = new ArrayList<Double>();
-			sumafter.add(0.00);
-			for(int i=1; i<afterlst.size()-1;i++) {
-				if(i==1) {
-					sumafter.add(afterlst.get(i));
-				}else {
-					sumafter.add(sumafter.get(i-1)+afterlst.get(i));
-				}
-			}
-			
-			Double doub4 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
 					0.07, 0.06, "4");
-			Double doub2 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
-					0.07, 0.06, "2");
-			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
-					sumafter.toArray(new Double[0]));
-			retlst.add(doub4);  retlst.add(doub3);
-			retlst.add(doub2);  retlst.add(doub1); 
-			retlst.add(retunperiod2);  retlst.add(retunperiod);
+//			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
+//					0.07, 0.06, "2");
+			
+//			List<Double> sumbefore = new ArrayList<Double>();
+//			sumbefore.add(0.00);
+//			for(int i=1; i<capitalTable.get(12).size()-1;i++) {
+//				if(i==1) {
+//					 sumbefore.add(capitalTable.get(12).get(i));
+//				}else {
+//					 sumbefore.add(sumbefore.get(i-1)+capitalTable.get(12).get(i));
+//				}
+//			}
+//			Double retunperiod =  ReadExcelCal.getreturnperiod(capitalTable.get(12).toArray(new Double[10]),
+//					sumbefore.toArray(new Double[0]));
+//			
+//			List<Double> afterlst = new ArrayList<Double>();
+//			for(int i=0; i<capitalTable.get(12).size();i++) {
+//				afterlst.add(capitalTable.get(12).get(i)+capitalTable.get(11).get(i));
+//			}
+//			
+//			List<Double> sumafter = new ArrayList<Double>();
+//			sumafter.add(0.00);
+//			for(int i=1; i<afterlst.size()-1;i++) {
+//				if(i==1) {
+//					sumafter.add(afterlst.get(i));
+//				}else {
+//					sumafter.add(sumafter.get(i-1)+afterlst.get(i));
+//				}
+//			}
+			
+//			//税前=加上已经减掉的所得税
+//			Double doub4 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+//					0.07, 0.06, "3");
+//			Double doub2 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+//					0.07, 0.06, "1");
+//			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
+//					sumafter.toArray(new Double[0]));
+//			retlst.add(doub4); 
+			retlst.add(doub3);
+//			retlst.add(doub2);  
+//			retlst.add(doub1); 
+//			retlst.add(retunperiod2);  
+//			retlst.add(retunperiod);
 		}catch(Exception e){
 			e.getMessage();
 		}

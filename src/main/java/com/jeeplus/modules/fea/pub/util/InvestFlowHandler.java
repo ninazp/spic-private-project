@@ -48,7 +48,7 @@ public class InvestFlowHandler {
 		
 		for(int i=0;i<lrtable.get(0).size();i++){
 			ret11.add(lrtable.get(0).get(i));
-			ret12.add(lrtable.get(10).get(i));
+			ret12.add(lrtable.get(5).get(i));
 			
 			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret14.add(zjcktable.get(3).get(0));

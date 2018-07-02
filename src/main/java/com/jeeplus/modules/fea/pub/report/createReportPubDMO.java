@@ -328,7 +328,7 @@ public class createReportPubDMO {
 		try{
 			//税后-正常的没有变动的
 			Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
-					0.07, 0.06, "4");
+					0.07, 0.06, "3");
 //			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 //					0.07, 0.06, "2");
 			

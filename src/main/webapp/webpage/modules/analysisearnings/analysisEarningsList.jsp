@@ -184,12 +184,12 @@
 							boundaryGap : false,
 							data : [ '-15%', '-10%', '-5%', '0', '5%', '10%', '15%' ]
 						},
-
+						
 						yAxis : {
 							name : '内部收益率',
 							type : 'value',
 							//position:'left',
-		                    offset: -557
+		                    offset: -585
 						},
 						series : [
 								{
@@ -403,7 +403,7 @@
 					</fieldset>
 					</div>
 					<div style="clear: both;"></div>
-					<div id="main" style="width: 60%; height: 550px;margin-top: 20px;margin-left: 20px;"></div>
+					<div id="main" style="width: 1282px; height: 550px;margin-top: 20px;margin-left: 20px;"></div>
 </body>
 </div>
 </div>

@@ -62,8 +62,8 @@ public class BalanceHandler {
 			ret112.add(flowasset);
 			
 			ret11.add(ret111.get(i-1)+ret112.get(i-1));
-			if(i<cctable.get(1).size()){
-				ret12.add(cctable.get(1).get(i)+cctable.get(2).get(i));
+			if(i==1){
+				ret12.add(depreciation);
 			}else{
 				ret12.add(0.0);
 			}

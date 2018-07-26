@@ -76,7 +76,7 @@ public class FinanceHandler {
 			ret12.add(ret121.get(i)+ret122.get(i)+ret123.get(i)+ret124.get(i)+ret125.get(i)+ret126.get(i));
 			ret1.add(ret11.get(i)-ret12.get(i));
 			
-			ret21.add(lrtable.get(10).get(i));
+			ret21.add(lrtable.get(5).get(i));
 			if(i>=cctable.get(1).size()){
 				ret221.add(0.0);
 				ret222.add(0.0);

@@ -58,7 +58,7 @@ public class CapitalSrcHandler {
 			}else{
 				ret17.add(cctable.get(5).get(i));
 			}
-			ret18.add(lrtable.get(10).get(i));
+			ret18.add(lrtable.get(5).get(i));
 			
 			if(i==0 || i==(lrtable.get(0).size()-1)){
 				ret10.add(cctable.get(3).get(0));

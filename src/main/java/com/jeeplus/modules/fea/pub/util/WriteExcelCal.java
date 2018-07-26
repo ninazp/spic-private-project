@@ -140,17 +140,30 @@ public class WriteExcelCal {
 							}else if(i==1) {
 								cell.setCellValue("人民币单位：万元");
 							}else if(i==2) {
-								if(m==0) {
-									cell.setCellValue("序号");
-								}else if(m==1) {
-									cell.setCellValue("项目");
-								}else if(m==2) {
-									cell.setCellValue("合计");
-								}else if(m==3) {
-									cell.setCellValue("建设期");
-								} else{
-									cell.setCellValue("运行期");
+								if(title.equals("资产负债表")) {
+									if(m==0) {
+										cell.setCellValue("序号");
+									}else if(m==1) {
+										cell.setCellValue("项目");
+									}if(m==2) {
+										cell.setCellValue("建设期");
+									} else{
+										cell.setCellValue("运行期");
+									}
+								}else {
+									if(m==0) {
+										cell.setCellValue("序号");
+									}else if(m==1) {
+										cell.setCellValue("项目");
+									}else if(m==2) {
+										cell.setCellValue("合计");
+									}else if(m==3) {
+										cell.setCellValue("建设期");
+									} else{
+										cell.setCellValue("运行期");
+									}
 								}
+								
 							}else if(i==3) {
 							   cell.setCellValue("第"+(m-2)+"期");
 							}

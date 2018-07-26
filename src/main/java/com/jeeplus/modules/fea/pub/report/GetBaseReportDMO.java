@@ -14,7 +14,7 @@ import com.jeeplus.modules.fea.pub.util.ShortLoanHander;
 import com.jeeplus.modules.fea.pub.util.TotalCostHander;
 
 public class GetBaseReportDMO {
-
+  
 	public static Map<String,List<List<Double>>> getbasereport(List<List<Double>> zjcktable,Map<String,Object> parammap,List<List<String>> designresult){
 		Map<String,List<List<Double>>> retmap = new HashMap<String, List<List<Double>>>();
 

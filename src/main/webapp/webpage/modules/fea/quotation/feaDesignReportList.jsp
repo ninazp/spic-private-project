@@ -109,7 +109,7 @@
 				</a>
 				<shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
 				    <button id="showImage" class="btn btn-success" disabled onclick="showImage()">
-		            	<i class="glyphicon glyphicon-play"></i> 示例图
+		            	<i class="glyphicon glyphicon-play"></i> 方案简图
 		        	</button>
 				</shiro:hasPermission>
 		    </div>

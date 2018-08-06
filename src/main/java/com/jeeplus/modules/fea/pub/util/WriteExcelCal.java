@@ -163,9 +163,13 @@ public class WriteExcelCal {
 										cell.setCellValue("运行期");
 									}
 								}
-								
 							}else if(i==3) {
-							   cell.setCellValue("第"+(m-2)+"期");
+							   if(title.equals("资产负债表")) {
+								   cell.setCellValue("第"+(m-1)+"期");
+							   }else {
+								   cell.setCellValue("第"+(m-2)+"期");
+							   }
+							   
 							}
 						}
 					}else {
@@ -253,15 +257,16 @@ public class WriteExcelCal {
 					}
 				}
 				
+	            //表头的单元格合并
 				sheet.addMergedRegion(new Region(0, (short) 0, (short)0, (short)(dataset.get(0).size()+1)));
 				sheet.addMergedRegion(new Region(1, (short) 0, (short)1, (short)(dataset.get(0).size()+1)));
 				sheet.addMergedRegion(new Region(2, (short) 0, (short)3, (short)(0)));
 				sheet.addMergedRegion(new Region(2, (short) 1, (short)3, (short)(1)));
-				sheet.addMergedRegion(new Region(2, (short)2, (short)3, (short)(2)));
-				
+				if(!title.equals("资产负债表")) {
+					sheet.addMergedRegion(new Region(2, (short)2, (short)3, (short)(2)));
+				}
 				sheet.getRow(0).getCell(0).setCellStyle(cellStyle1);
 				sheet.getRow(1).getCell(0).setCellStyle(cellStyle2);
-				
 			}
 		}
 		try  

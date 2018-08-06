@@ -31,13 +31,13 @@ public class Fea_costinfoDAO {
 					}else{
 						 Method m = vo.getClass().getMethod("setYear"+(i+1),Double.class);
 						 if(i==1){
-							 m.invoke(vo, 0.60);
+							 m.invoke(vo, 0.60*projectvo.getHeatArea());
 						 }else if(i==2){
-							 m.invoke(vo, 0.70);
+							 m.invoke(vo, 0.70*projectvo.getHeatArea());
 						 }else if(i==3){
-							 m.invoke(vo, 0.80);
+							 m.invoke(vo, 0.80*projectvo.getHeatArea());
 						 }else{
-							 m.invoke(vo, 0.85);
+							 m.invoke(vo, 0.85*projectvo.getHeatArea());
 						 }
 					}
 				} catch(Exception e) {

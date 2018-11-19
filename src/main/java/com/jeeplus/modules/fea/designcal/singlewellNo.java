@@ -22,7 +22,7 @@ import com.jeeplus.modules.fea.mapper.result.Fea_design_resultVOMapper;
 import com.jeeplus.modules.sys.utils.UserUtils;
 
 public class singlewellNo {
-
+ 
 	public  static Map<String,Object> calsinglewelNo(Fea_design_heatVO  fea_design_heatVO,
 			Fea_design_transferVO fea_design_transferVO,
 			Fea_design_setVO fea_design_setVO,

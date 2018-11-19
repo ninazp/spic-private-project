@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>报表管理</title>
+	<title>总成本费用表</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
@@ -197,7 +197,7 @@
 		           ["5", "电费"],
 		           ["6", "摊销费"],
 		           ["7", "利息支出"],
-		           ["8", "趸热费"],
+		           ["8", "其他费用"],
 		           ["", "固定成本"],
 		           ["", "可变成本"],
 		           ["", "总成本费用"],

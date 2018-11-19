@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>总估算表管理</title>
+	<title>工程费用总估算表</title>
 	<meta name="decorator" content="ani"/>
 	<script type="text/javascript">
 		var validateForm;

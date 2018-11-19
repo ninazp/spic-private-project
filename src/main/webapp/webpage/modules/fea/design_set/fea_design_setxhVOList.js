@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <script>
 $(document).ready(function() {
-	$('#fea_design_heatbenVOTable').bootstrapTable({
+	$('#fea_design_setxhVOTable').bootstrapTable({
 		 
 		  //请求方法
                method: 'get',
@@ -34,7 +34,7 @@ $(document).ready(function() {
                //可供选择的每页的行数（*）    
                pageList: [10, 25, 50, 100],
                //这个接口需要处理bootstrap table传递的固定参数,并返回特定格式的json数据  
-               url: "${ctx}/fea/heatben/fea_design_heatbenVO/data",
+               url: "${ctx}/fea/design_set/fea_design_setxhVO/data",
                //默认值为 'limit',传给服务端的参数为：limit, offset, search, sort, order Else
                //queryParamsType:'',   
                ////查询参数,每次调用是会带上这个参数，可自定义                         
@@ -52,13 +52,13 @@ $(document).ready(function() {
                contextMenu: '#context-menu',
                onContextMenuItem: function(row, $el){
                    if($el.data("item") == "edit"){
-                   	edit(row.id);
+                   	window.location = "${ctx}/fea/design_set/fea_design_setxhVO/form?id=" + row.id;
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该热泵价格记录吗？', function(){
+                        jp.confirm('确认要删除该循环水泵价格记录吗？', function(){
                        	jp.loading();
-                       	jp.get("${ctx}/fea/heatben/fea_design_heatbenVO/delete?id="+row.id, function(data){
+                       	jp.get("${ctx}/fea/design_set/fea_design_setxhVO/delete?id="+row.id, function(data){
                    	  		if(data.success){
-                   	  			$('#fea_design_heatbenVOTable').bootstrapTable('refresh');
+                   	  			$('#fea_design_setxhVOTable').bootstrapTable('refresh');
                    	  			jp.success(data.msg);
                    	  		}else{
                    	  			jp.error(data.msg);
@@ -77,39 +77,17 @@ $(document).ready(function() {
 		       
 		    }
 			,{
-		        field: 'feaProjectB.projectName',
-		        title: '项目名称',
-		        sortable: true
-		        ,formatter:function(value, row , index){
- 			    if(value == null){
-		            	return "<a href='javascript:edit(\""+row.id+"\")'>-</a>";
-		            }else{
-		                return "<a href='javascript:edit(\""+row.id+"\")'>"+value+"</a>";
-		            }
-		        }
-		       
-		    }
-			,{
-		        field: 'qr2',
-		        title: '制热量Qr2(kw)',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'pr2',
-		        title: '电热量Pr2(kw)',
-		        sortable: true
-		       
-		    }
-			,{
-		        field: 'cr2',
-		        title: '价格Cr2（万元）',
-		        sortable: true
-		       
-		    }
-			,{
 		        field: 'remarks',
 		        title: '备注信息',
+		        sortable: true
+		        ,formatter:function(value, row , index){
+		        	return "<a href='${ctx}/fea/design_set/fea_design_setxhVO/form?id="+row.id+"'>"+value+"</a>";
+		         }
+		       
+		    }
+			,{
+		        field: 'xhprice',
+		        title: '循环水泵价格',
 		        sortable: true
 		       
 		    }
@@ -121,13 +99,13 @@ $(document).ready(function() {
 	  if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){//如果是移动端
 
 		 
-		  $('#fea_design_heatbenVOTable').bootstrapTable("toggleView");
+		  $('#fea_design_setxhVOTable').bootstrapTable("toggleView");
 		}
 	  
-	  $('#fea_design_heatbenVOTable').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
+	  $('#fea_design_setxhVOTable').on('check.bs.table uncheck.bs.table load-success.bs.table ' +
                 'check-all.bs.table uncheck-all.bs.table', function () {
-            $('#remove').prop('disabled', ! $('#fea_design_heatbenVOTable').bootstrapTable('getSelections').length);
-            $('#edit').prop('disabled', $('#fea_design_heatbenVOTable').bootstrapTable('getSelections').length!=1);
+            $('#remove').prop('disabled', ! $('#fea_design_setxhVOTable').bootstrapTable('getSelections').length);
+            $('#edit').prop('disabled', $('#fea_design_setxhVOTable').bootstrapTable('getSelections').length!=1);
         });
 		  
 		$("#btnImport").click(function(){
@@ -138,7 +116,7 @@ $(document).ready(function() {
 			    content:$("#importBox").html() ,
 			    btn: ['下载模板','确定', '关闭'],
 				    btn1: function(index, layero){
-					  window.location='${ctx}/fea/heatben/fea_design_heatbenVO/import/template';
+					  window.location='${ctx}/fea/design_set/fea_design_setxhVO/import/template';
 				  },
 			    btn2: function(index, layero){
 				        var inputForm =top.$("#importForm");
@@ -158,32 +136,32 @@ $(document).ready(function() {
 		});
 		    
 	  $("#search").click("click", function() {// 绑定查询按扭
-		  $('#fea_design_heatbenVOTable').bootstrapTable('refresh');
+		  $('#fea_design_setxhVOTable').bootstrapTable('refresh');
 		});
 	 
 	 $("#reset").click("click", function() {// 绑定查询按扭
 		  $("#searchForm  input").val("");
 		  $("#searchForm  select").val("");
 		  $("#searchForm  .select-item").html("");
-		  $('#fea_design_heatbenVOTable').bootstrapTable('refresh');
+		  $('#fea_design_setxhVOTable').bootstrapTable('refresh');
 		});
 		
 		
 	});
 		
   function getIdSelections() {
-        return $.map($("#fea_design_heatbenVOTable").bootstrapTable('getSelections'), function (row) {
+        return $.map($("#fea_design_setxhVOTable").bootstrapTable('getSelections'), function (row) {
             return row.id
         });
     }
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该热泵价格记录吗？', function(){
+		jp.confirm('确认要删除该循环水泵价格记录吗？', function(){
 			jp.loading();  	
-			jp.get("${ctx}/fea/heatben/fea_design_heatbenVO/deleteAll?ids=" + getIdSelections(), function(data){
+			jp.get("${ctx}/fea/design_set/fea_design_setxhVO/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
-         	  			$('#fea_design_heatbenVOTable').bootstrapTable('refresh');
+         	  			$('#fea_design_setxhVOTable').bootstrapTable('refresh');
          	  			jp.success(data.msg);
          	  		}else{
          	  			jp.error(data.msg);
@@ -192,24 +170,8 @@ $(document).ready(function() {
           	   
 		})
   }
-   function add(){
-	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
-	  if(isNull(node) && isNull(node.id)){
-		  jp.openDialog('新增热泵价格', "${ctx}/fea/heatben/fea_design_heatbenVO/form?feaProjectB.id="+node.id +"&feaProjectB.projectName="+node.text,'800px', '500px', $('#fea_design_heatbenVOTable'));
-	  }else{
-		  jp.warning("请在左侧选择的一个项目");
-	  }
+  function edit(){
+	  window.location = "${ctx}/fea/design_set/fea_design_setxhVO/form?id=" + getIdSelections();
   }
-  function edit(id){//没有权限时，不显示确定按钮
-  	  if(id == undefined){
-			id = getIdSelections();
-		}
-	   <shiro:hasPermission name="fea:heatben:fea_design_heatbenVO:edit">
-	  jp.openDialog('编辑热泵价格', "${ctx}/fea/heatben/fea_design_heatbenVO/form?id=" + id,'800px', '500px', $('#fea_design_heatbenVOTable'));
-	   </shiro:hasPermission>
-	  <shiro:lacksPermission name="fea:heatben:fea_design_heatbenVO:edit">
-	  jp.openDialogView('查看热泵价格', "${ctx}/fea/heatben/fea_design_heatbenVO/form?id=" + id,'800px', '500px', $('#fea_design_heatbenVOTable'));
-	  </shiro:lacksPermission>
-  }
-
+  
 </script>

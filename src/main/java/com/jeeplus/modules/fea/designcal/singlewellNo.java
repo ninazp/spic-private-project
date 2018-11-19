@@ -274,7 +274,7 @@ public class singlewellNo {
 		result2.setResulttype("供暖面积（平方米）");
 		result3.setResulttype("地下水用量（立方米/年）");
 		result4.setResulttype("单位面积电费（元/平方米）");
-		result5.setResulttype("运行成本（万元/年）");
+		result5.setResulttype("运行电费（万元/年）");
 
 		//更新成本-电费
 		Fea_productcostBVO bvo = new Fea_productcostBVO();

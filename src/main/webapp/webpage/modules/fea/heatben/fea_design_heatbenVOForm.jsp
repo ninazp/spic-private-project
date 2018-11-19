@@ -70,7 +70,7 @@
 					<td class="width-35">
 						<form:input path="pr2" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">价格Cr2（元）：</label></td>
+					<td class="width-15 active"><label class="pull-right">价格Cr2（万元）：</label></td>
 					<td class="width-35">
 						<form:input path="cr2" htmlEscape="false"    class="form-control "/>
 					</td>

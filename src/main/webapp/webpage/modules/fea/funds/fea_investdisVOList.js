@@ -140,17 +140,16 @@ $(document).ready(function() {
 		        sortable: true
 		       
 		    }
-			,{
-		        field: 'investamt',
-		        title: '投资额度',
-		        sortable: true
-		       
-		    }
+//			,{
+//		        field: 'investamt',
+//		        title: '投资额度',
+//		        sortable: true
+//		    }
 			,{
 		        field: 'remarks',
 		        title: '备注信息',
 		        sortable: true
-		       
+		        
 		    }
 		     ]
 		

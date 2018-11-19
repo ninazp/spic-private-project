@@ -2,42 +2,35 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>基本参数管理</title>
+	<title>循环水泵价格管理</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
-	<script src="${ctxStatic}/common/js/Util-tools.js"></script>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
 	<%@include file="/webpage/include/treeview.jsp" %>
-	<%@include file="fea_design_setVOList.js" %>
+	<%@include file="fea_design_setxhVOList.js" %>
 	<%@include file="/webpage/modules/fea/project/feaProjectBTreeListPublic.js" %>
+	
 	<script type="text/javascript">
 		var validateForm;
 		function selectproject(){
 			/*判断是否是编辑状态*/
 			if($("#save").is(":visible")){//saveBtn是否可见
 				readOnly(true);
-				/* jp.confirm("正在编辑的项目尚未保存，如果切换项目将丢失刚刚录入的数据，是否还要切换项目？", function(){
-					readOnly(true);
-				},function(){
-					return;
-				}); */
 			}
+			
+			//readOnly(false);
+			
 			/*切换项目清空表单数据*/
-			//$('#inputForm')[0].reset();
 			$('#inputForm').clearForm();
 			$("#inputForm input[type='hidden']").val(null);
 			var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
 			
-        	$('#edit').prop('disabled', !(isNull(node) && isNull(node.id)));
-            
+		//	$('#edit').prop('disabled', !(isNull(node) && isNull(node.id)));
+		
+		    $("#edit").enable();
+			
 			jp.get("${ctx}/fea/set/fea_design_setVO/getFormByProjectId?feaProjectId="+node.id,function(data){
-				
 				if(data.success){
-					
-                	//2$table.bootstrapTable('refresh');
-                	//jp.success(data.msg);
-                	//var test1 = "${fea_design_heatVO}";
-                	//var test2 = "${fea_design_heatVO.feaProjectB.projectName}";
                 	loadJsonDataToForm(data.body.fea_design_heatVO);
                 }else{
        	  			jp.error(data.msg);
@@ -57,7 +50,6 @@
 	            for(x in obj){
 	                key = x;
 	                value = obj[x];
-	                
 	                if(typeof(value)==="object"){
 	                	for(x1 in value){
 	                		key1 = x1;
@@ -95,6 +87,10 @@
 	            alert("加载表单出错："+e.message+",数据内容"+JSON.stringify(jsonStr));
 	        }
 	    }
+	     
+	     function doEidt(){
+	    	 readOnly(false);
+		 }
 	    
 	    function doSubmit(){
 		  if(validateForm.form()){
@@ -102,7 +98,6 @@
 			  $("#inputForm").submit();
 			  return true;
 		  }
-
 		  return false;
 		}
 	    
@@ -164,6 +159,8 @@
 			*/
 		}
 	</script>
+	
+	
 </head>
 <body>
 	<div class="wrapper wrapper-content">
@@ -184,11 +181,6 @@
 
 								</div>
 							</div>
-							<%-- <div class="col-sm-2" >
-								<button  class="btn btn-default btn-sm"  onclick="jp.openDialog('新建项目（主表）', '${ctx}/fea/project/feaProject/form','800px', '500px', $('#feaProjectjsTree'))">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div> --%>
 						</div>
 					</div>
 					<div id="feaProjectjsTree"></div>
@@ -219,85 +211,61 @@
 	
 	<!-- 工具栏 -->
 	<div id="toolbar">
-			<shiro:hasPermission name="fea:set:fea_design_setVO:edit">
-			    <button id="edit" class="btn btn-success" disabled onclick="edit()">
+			<shiro:hasPermission name="fea:design_set:fea_design_setxhVO:edit">
+			    <button id="edit" class="btn btn-success" disabled onclick="readOnly(false)">
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:set:fea_design_setVO:edit">
+			<shiro:hasPermission name="fea:design_set:fea_design_setxhVO:edit">
 			    <button id="save" class="btn btn-danger" onclick="doSubmit()">
 	            	<i class="glyphicon glyphicon-ok-sign"></i> 保存
 	        	</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="fea:set:fea_design_setVO:edit">
+			<shiro:hasPermission name="fea:design_set:fea_design_setxhVO:edit">
 			    <button id="cancel" class="btn btn-default" onclick="readOnly(true)">
 	            	<i class="glyphicon glyphicon-off"></i> 取消
 	        	</button>
 			</shiro:hasPermission>
     </div>
-		
-	<!-- 表格 -->
-	<!-- <table id="fea_design_setVOTable"   data-toolbar="#toolbar"></table> -->
-	
-	<form:form id="inputForm" modelAttribute="fea_design_setVO" class="form-horizontal">
+   <form:form id="inputForm" modelAttribute="fea_design_setxhVO"  class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>	
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目名称：</label></td>
+					<td class="width-15 active"><label class="pull-right">循环水泵单价系数：</label></td>
 					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_design_setVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_design_setVO.feaProjectB.projectName}"
-							 title="选择项目名称" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+						<form:input path="cxxs" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">综合热效率：</label></td>
+					<td class="width-15 active"><label class="pull-right">循环水泵单价常量：</label></td>
 					<td class="width-35">
-						<form:input path="sumheatefficient" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">负荷率：</label></td>
-					<td class="width-35">
-						<form:input path="loadrate" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">热泵效率：</label></td>
-					<td class="width-35">
-						<form:input path="pumprate" htmlEscape="false"    class="form-control "/>
+						<form:input path="cxcl" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">潜水泵水下位置（米）：</label></td>
+					<td class="width-15 active"><label class="pull-right">变频控制柜单价系数：</label></td>
 					<td class="width-35">
-						<form:input path="hddept" htmlEscape="false"    class="form-control "/>
+						<form:input path="bpxs" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">潜水泵压力损失（米）：</label></td>
+					<td class="width-15 active"><label class="pull-right">变频控制柜单价常量：</label></td>
 					<td class="width-35">
-						<form:input path="hdlose" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">水密度：</label></td>
-					<td class="width-35">
-						<form:input path="rou" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">循环水泵扬程：</label></td>
-					<td class="width-35">
-						<form:input path="hx2" htmlEscape="false"    class="form-control "/>
+						<form:input path="bpcl" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">蒸发器侧水泵扬程：</label></td>
+					<td class="width-15 active"><label class="pull-right">补水泵单价系数：</label></td>
 					<td class="width-35">
-						<form:input path="hb2" htmlEscape="false"    class="form-control "/>
+						<form:input path="bsxs" htmlEscape="false"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">补水泵流量系数（%）：</label></td>
+					<td class="width-15 active"><label class="pull-right">补水泵单价常量：</label></td>
 					<td class="width-35">
-						<form:input path="mpumpcoe" htmlEscape="false"    class="form-control "/>
+						<form:input path="bsxl" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
-		 	</tbody>
+			</tbody>
 		</table>
-	</form:form>
+				
+		</form:form>
 	</div>
 	</div>
 	</div>

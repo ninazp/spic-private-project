@@ -164,11 +164,11 @@
 
 				<tr>
 				    <td class="width-15 active"><label class="pull-right">其他费：</label></td>
-					<td class="width-35"><form:input path="otheramt"
+					<td class="width-35" ><form:input path="otheramt"
 							htmlEscape="false" class="form-control " data-toggle="tooltip"
 							data-placement="top" title="" /></td>
-					<td class="width-15 active"><label class="pull-right">投资额度：</label></td>
-					<td class="width-35"><form:input path="investamt"
+					<td class="width-15 active" style="display:none;" id="hidetd" ><label class="pull-right">投资额度：</label></td>
+					<td class="width-35" style="display:none;" id="hidetd"><form:input path="investamt"
 							htmlEscape="false" class="form-control required"
 							data-toggle="tooltip" data-placement="top" title="" /></td>
 				</tr>

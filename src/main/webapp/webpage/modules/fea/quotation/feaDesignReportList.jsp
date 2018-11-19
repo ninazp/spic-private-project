@@ -83,11 +83,11 @@
 			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:add">
 				<a id="add" class="btn btn-primary" onclick="add()"><i class="glyphicon glyphicon-plus"></i> 新建</a>
 			</shiro:hasPermission> --%>
-			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
-			    <button id="edit" class="btn btn-success" disabled onclick="edit()">
+			 <shiro:hasPermission name="fea:quotation:feaDesignReport:edit">
+			    <button id="edit" class="btn btn-success" enable onclick="edit()">
 	            	<i class="glyphicon glyphicon-edit"></i> 修改
 	        	</button>
-			</shiro:hasPermission> --%>
+			</shiro:hasPermission> 
 			<%-- <shiro:hasPermission name="fea:quotation:feaDesignReport:del">
 				<button id="remove" class="btn btn-danger" disabled onclick="deleteAll()">
 	            	<i class="glyphicon glyphicon-remove"></i> 删除

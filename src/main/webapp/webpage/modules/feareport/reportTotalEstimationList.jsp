@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>总估算表管理</title>
+	<title>工程费用总估算表</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="decorator" content="ani"/>
 	<%@ include file="/webpage/include/bootstraptable.jsp"%>
@@ -187,7 +187,7 @@
 			//固定数据
 			$('#report').empty();
  			var data = [
-		           ["总    估    算    表","","","","","","","","","",""],
+		           ["工  程  费  用  总  估  算  表","","","","","","","","","",""],
 		           ["","","","","","","","","","",""],
 		           ["序号", "工程和费用名称", "估    算   价   值   （万  元 ）",""              ,""      ,""     ,""   ,"技术经济指标（万元）",""    ,""  ,"备注"],
 		           [""   , ""          , "建筑工程"             ,"设备及工器具购置费","安装工程","其他费用","合计","单位"            ,"数量","指标",""],

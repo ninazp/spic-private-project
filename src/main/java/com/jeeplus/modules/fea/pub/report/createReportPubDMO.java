@@ -314,10 +314,10 @@ public class createReportPubDMO {
 
 			//投资现金流测算回收期
 			List<Double> irrnpv = getinvest_irrnpv(investHandlerTable);
-			report_total.add(irrnpv.get(4)*100);
-			report_total.add(irrnpv.get(5)*100);
-			report_total.add(irrnpv.get(0));
-			report_total.add(irrnpv.get(1));
+			report_total.add(irrnpv.get(4));
+			report_total.add(irrnpv.get(5));
+			report_total.add(irrnpv.get(0)*100);
+			report_total.add(irrnpv.get(1)*100);
 			report_total.add(irrnpv.get(2));
 			report_total.add(irrnpv.get(3));
 

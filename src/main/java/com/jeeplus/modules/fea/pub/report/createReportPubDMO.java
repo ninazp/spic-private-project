@@ -306,8 +306,8 @@ public class createReportPubDMO {
 			report_total.add(zjcktable.get(2).get(0));
 			report_total.add(zjcktable.get(3).get(0));
 			report_total.add(lrfinaltable.get(0).get(0));//收入5
-			report_total.add(totalcostfinaltable.get(0).get(totalcostfinaltable.get(0).size()-2));//总成本
-			report_total.add(lrfinaltable.get(0).get(1));//营业税及附加综合
+			report_total.add(totalcostfinaltable.get(totalcostfinaltable.size()-2).get(0));//总成本
+			report_total.add(lrfinaltable.get(1).get(0));//营业税及附加综合
 			report_total.add(report_total.get(5)-report_total.get(6));//供热利润总额8
 			report_total.add(projectvo.getPrice());
 			report_total.add(projectvo.getPrice());
@@ -335,7 +335,7 @@ public class createReportPubDMO {
 			
 			Double lyl = 100*(report_total.get(6)/report_total.get(5));
 			report_total.add(lyl);
-			report_total.add(projectvo.getHeatArea()*lyl);
+			report_total.add(projectvo.getHeatArea()*lyl/100);
 
 			//10 -- EVA测算表
 			List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(lrfinaltable, totalcostfinaltable, balancetable);

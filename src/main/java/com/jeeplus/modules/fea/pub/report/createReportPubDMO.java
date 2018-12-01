@@ -38,7 +38,7 @@ import com.jeeplus.modules.fea.pub.util.WriteExcelMGFX;
 import com.jeeplus.modules.fea.pub.util.ZjcctableHanderNew;
 
 public class createReportPubDMO {
-	@Autowired
+	@Autowired 
 	private FeaProjectBMapper projectmapper;
 	@Autowired
 	private Fea_investdisVOMapper fea_investdisVOMapper;

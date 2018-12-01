@@ -23,7 +23,7 @@
 		$(document).ready(function() {
 			validateForm = $("#inputForm").validate({
 				submitHandler: function(form){
-					jp.post("${ctx}/fea/totaltab/fea_finansumVO/save",$('#inputForm').serialize(),function(data){
+					jp.post("${ctx}/fea/report_totaltab/fea_totaltabVO/save",$('#inputForm').serialize(),function(data){
 						if(data.success){
 	                    	$table.bootstrapTable('refresh');
 	                    	jp.success(data.msg);
@@ -49,30 +49,19 @@
 	</script>
 </head>
 <body class="bg-white">
-		<form:form id="inputForm" modelAttribute="fea_finansumVO" class="form-horizontal">
+		<form:form id="inputForm" modelAttribute="fea_totaltabVO" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>	
 		<table class="table table-bordered">
 		   <tbody>
 				<tr>
-					<td class="width-15 active"><label class="pull-right">项目：</label></td>
+					<td class="width-15 active"><label class="pull-right">备注信息：</label></td>
 					<td class="width-35">
-						<sys:gridselect url="${ctx}/fea/project/feaProjectB/data" id="feaProjectB" name="feaProjectB.id" value="${fea_finansumVO.feaProjectB.id}" labelName="feaProjectB.projectName" labelValue="${fea_finansumVO.feaProjectB.projectName}"
-							 title="选择项目" cssClass="form-control required" fieldLabels="项目名称" fieldKeys="projectName" searchLabels="项目名称" searchKeys="projectName" ></sys:gridselect>
+						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
-					<td class="width-15 active"><label class="pull-right">供热面积：</label></td>
+					<td class="width-15 active"><label class="pull-right">汇总金额：</label></td>
 					<td class="width-35">
-						<form:input path="heatarea" htmlEscape="false"    class="form-control "/>
-					</td>
-				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-right">常规年供热面积：</label></td>
-					<td class="width-35">
-						<form:input path="cgheatarea" htmlEscape="false"    class="form-control "/>
-					</td>
-					<td class="width-15 active"><label class="pull-right">总投资：</label></td>
-					<td class="width-35">
-						<form:input path="investtotal" htmlEscape="false"    class="form-control "/>
+						<form:input path="hzje" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
 		 	</tbody>

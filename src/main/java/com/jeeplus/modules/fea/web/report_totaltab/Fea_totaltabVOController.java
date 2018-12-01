@@ -1,10 +1,8 @@
 /**
  * Copyright &copy; 2015-2020 <a href="http://www.jeeplus.org/">JeePlus</a> All rights reserved.
  */
-package com.jeeplus.modules.fea.web.totaltab;
+package com.jeeplus.modules.fea.web.report_totaltab;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +32,8 @@ import com.jeeplus.core.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
-import com.jeeplus.modules.fea.entity.totaltab.Fea_finansumVO;
-import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
+import com.jeeplus.modules.fea.entity.report_totaltab.Fea_totaltabVO;
+import com.jeeplus.modules.fea.service.report_totaltab.Fea_totaltabVOService;
 
 /**
  * 财务指标汇总表Controller
@@ -43,20 +41,20 @@ import com.jeeplus.modules.fea.service.totaltab.Fea_finansumVOService;
  * @version 2018-12-01
  */
 @Controller
-@RequestMapping(value = "${adminPath}/fea/totaltab/fea_finansumVO")
-public class Fea_finansumVOController extends BaseController {
+@RequestMapping(value = "${adminPath}/fea/report_totaltab/fea_totaltabVO")
+public class Fea_totaltabVOController extends BaseController {
 
 	@Autowired
-	private Fea_finansumVOService fea_finansumVOService;
+	private Fea_totaltabVOService fea_totaltabVOService;
 	
 	@ModelAttribute
-	public Fea_finansumVO get(@RequestParam(required=false) String id) {
-		Fea_finansumVO entity = null;
+	public Fea_totaltabVO get(@RequestParam(required=false) String id) {
+		Fea_totaltabVO entity = null;
 		if (StringUtils.isNotBlank(id)){
-			entity = fea_finansumVOService.get(id);
+			entity = fea_totaltabVOService.get(id);
 		}
 		if (entity == null){
-			entity = new Fea_finansumVO();
+			entity = new Fea_totaltabVO();
 		}
 		return entity;
 	}
@@ -64,47 +62,47 @@ public class Fea_finansumVOController extends BaseController {
 	/**
 	 * 财务指标汇总表列表页面
 	 */
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:list")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:list")
 	@RequestMapping(value = {"list", ""})
 	public String list() {
-		return "modules/fea/totaltab/fea_finansumVOList";
+		return "modules/fea/report_totaltab/fea_totaltabVOList";
 	}
 	
 		/**
 	 * 财务指标汇总表列表数据
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:list")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:list")
 	@RequestMapping(value = "data")
-	public Map<String, Object> data(Fea_finansumVO fea_finansumVO, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Fea_finansumVO> page = fea_finansumVOService.findPage(new Page<Fea_finansumVO>(request, response), fea_finansumVO); 
+	public Map<String, Object> data(Fea_totaltabVO fea_totaltabVO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Fea_totaltabVO> page = fea_totaltabVOService.findPage(new Page<Fea_totaltabVO>(request, response), fea_totaltabVO); 
 		return getBootstrapData(page);
 	}
 
 	/**
 	 * 查看，增加，编辑财务指标汇总表表单页面
 	 */
-	@RequiresPermissions(value={"fea:totaltab:fea_finansumVO:view","fea:totaltab:fea_finansumVO:add","fea:totaltab:fea_finansumVO:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"fea:report_totaltab:fea_totaltabVO:view","fea:report_totaltab:fea_totaltabVO:add","fea:report_totaltab:fea_totaltabVO:edit"},logical=Logical.OR)
 	@RequestMapping(value = "form")
-	public String form(Fea_finansumVO fea_finansumVO, Model model) {
-		model.addAttribute("fea_finansumVO", fea_finansumVO);
-		return "modules/fea/totaltab/fea_finansumVOForm";
+	public String form(Fea_totaltabVO fea_totaltabVO, Model model) {
+		model.addAttribute("fea_totaltabVO", fea_totaltabVO);
+		return "modules/fea/report_totaltab/fea_totaltabVOForm";
 	}
 
 	/**
 	 * 保存财务指标汇总表
 	 */
 	@ResponseBody
-	@RequiresPermissions(value={"fea:totaltab:fea_finansumVO:add","fea:totaltab:fea_finansumVO:edit"},logical=Logical.OR)
+	@RequiresPermissions(value={"fea:report_totaltab:fea_totaltabVO:add","fea:report_totaltab:fea_totaltabVO:edit"},logical=Logical.OR)
 	@RequestMapping(value = "save")
-	public AjaxJson save(Fea_finansumVO fea_finansumVO, Model model, RedirectAttributes redirectAttributes) throws Exception{
+	public AjaxJson save(Fea_totaltabVO fea_totaltabVO, Model model, RedirectAttributes redirectAttributes) throws Exception{
 		AjaxJson j = new AjaxJson();
-		if (!beanValidator(model, fea_finansumVO)){
+		if (!beanValidator(model, fea_totaltabVO)){
 			j.setSuccess(false);
 			j.setMsg("非法参数！");
 			return j;
 		}
-		fea_finansumVOService.save(fea_finansumVO);//新建或者编辑保存
+		fea_totaltabVOService.save(fea_totaltabVO);//新建或者编辑保存
 		j.setSuccess(true);
 		j.setMsg("保存财务指标汇总表成功");
 		return j;
@@ -114,11 +112,11 @@ public class Fea_finansumVOController extends BaseController {
 	 * 删除财务指标汇总表
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:del")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:del")
 	@RequestMapping(value = "delete")
-	public AjaxJson delete(Fea_finansumVO fea_finansumVO, RedirectAttributes redirectAttributes) {
+	public AjaxJson delete(Fea_totaltabVO fea_totaltabVO, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
-		fea_finansumVOService.delete(fea_finansumVO);
+		fea_totaltabVOService.delete(fea_totaltabVO);
 		j.setMsg("删除财务指标汇总表成功");
 		return j;
 	}
@@ -127,13 +125,13 @@ public class Fea_finansumVOController extends BaseController {
 	 * 批量删除财务指标汇总表
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:del")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:del")
 	@RequestMapping(value = "deleteAll")
 	public AjaxJson deleteAll(String ids, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		String idArray[] =ids.split(",");
 		for(String id : idArray){
-			fea_finansumVOService.delete(fea_finansumVOService.get(id));
+			fea_totaltabVOService.delete(fea_totaltabVOService.get(id));
 		}
 		j.setMsg("删除财务指标汇总表成功");
 		return j;
@@ -143,14 +141,14 @@ public class Fea_finansumVOController extends BaseController {
 	 * 导出excel文件
 	 */
 	@ResponseBody
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:export")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:export")
     @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(Fea_finansumVO fea_finansumVO, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    public AjaxJson exportFile(Fea_totaltabVO fea_totaltabVO, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
             String fileName = "财务指标汇总表"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<Fea_finansumVO> page = fea_finansumVOService.findPage(new Page<Fea_finansumVO>(request, response, -1), fea_finansumVO);
-    		new ExportExcel("财务指标汇总表", Fea_finansumVO.class).setDataList(page.getList()).write(response, fileName).dispose();
+            Page<Fea_totaltabVO> page = fea_totaltabVOService.findPage(new Page<Fea_totaltabVO>(request, response, -1), fea_totaltabVO);
+    		new ExportExcel("财务指标汇总表", Fea_totaltabVO.class).setDataList(page.getList()).write(response, fileName).dispose();
     		j.setSuccess(true);
     		j.setMsg("导出成功！");
     		return j;
@@ -165,7 +163,7 @@ public class Fea_finansumVOController extends BaseController {
 	 * 导入Excel数据
 
 	 */
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:import")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:import")
     @RequestMapping(value = "import", method=RequestMethod.POST)
     public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
@@ -173,10 +171,10 @@ public class Fea_finansumVOController extends BaseController {
 			int failureNum = 0;
 			StringBuilder failureMsg = new StringBuilder();
 			ImportExcel ei = new ImportExcel(file, 1, 0);
-			List<Fea_finansumVO> list = ei.getDataList(Fea_finansumVO.class);
-			for (Fea_finansumVO fea_finansumVO : list){
+			List<Fea_totaltabVO> list = ei.getDataList(Fea_totaltabVO.class);
+			for (Fea_totaltabVO fea_totaltabVO : list){
 				try{
-					fea_finansumVOService.save(fea_finansumVO);
+					fea_totaltabVOService.save(fea_totaltabVO);
 					successNum++;
 				}catch(ConstraintViolationException ex){
 					failureNum++;
@@ -191,24 +189,46 @@ public class Fea_finansumVOController extends BaseController {
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入财务指标汇总表失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/fea/totaltab/fea_finansumVO/?repage";
+		return "redirect:"+Global.getAdminPath()+"/fea/report_totaltab/fea_totaltabVO/?repage";
     }
 	
 	/**
 	 * 下载导入财务指标汇总表数据模板
 	 */
-	@RequiresPermissions("fea:totaltab:fea_finansumVO:import")
+	@RequiresPermissions("fea:report_totaltab:fea_totaltabVO:import")
     @RequestMapping(value = "import/template")
     public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
             String fileName = "财务指标汇总表数据导入模板.xlsx";
-    		List<Fea_finansumVO> list = Lists.newArrayList(); 
-    		new ExportExcel("财务指标汇总表数据", Fea_finansumVO.class, 1).setDataList(list).write(response, fileName).dispose();
+    		List<Fea_totaltabVO> list = Lists.newArrayList(); 
+    		new ExportExcel("财务指标汇总表数据", Fea_totaltabVO.class, 1).setDataList(list).write(response, fileName).dispose();
     		return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入模板下载失败！失败信息："+e.getMessage());
 		}
-		return "redirect:"+Global.getAdminPath()+"/fea/totaltab/fea_finansumVO/?repage";
+		return "redirect:"+Global.getAdminPath()+"/fea/report_totaltab/fea_totaltabVO/?repage";
     }
+	
+	@ResponseBody
+	@RequiresPermissions(value={"fea:report_totaltab:fea_totaltabVO:add","fea:report_totaltab:fea_totaltabVO:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getReportDatas")
+    public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		
+		AjaxJson j = new AjaxJson();
+
+		List<List<Double>> datas = fea_totaltabVOService.getReportDatas(ids);
+		
+		if(null == datas || datas.size()<1){
+			j.setMsg("没有查询到报表信息");
+			j.setSuccess(false);
+			return j;
+		}
+		j.setMsg(datas.toString());
+		j.setProjectId(ids);
+		j.setSuccess(true);
+		
+		return j;
+		
+	}
 
 }

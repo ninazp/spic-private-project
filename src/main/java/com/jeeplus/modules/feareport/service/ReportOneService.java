@@ -23,7 +23,7 @@ import com.jeeplus.modules.feareport.entity.ReportOne;
 import com.jeeplus.modules.feareport.mapper.ReportOneMapper;
 
 /**
- * 报表Service
+ * 总成本费用表报表Service
  * @author zp
  * @version 2017-11-28
  */

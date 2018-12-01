@@ -59,7 +59,7 @@ public class createReportPubDMO {
 
 	@Autowired
 	private Fea_costfecfVOMapper fea_costfecfVOMapper;
-	
+
 	@Autowired
 	private FeaOthercostinfoVOMapper feaOthercostinfoVOMapper;
 
@@ -289,6 +289,53 @@ public class createReportPubDMO {
 					lrfinaltable, totalcostfinaltable, zjcktable, interestFinaltable,
 					financeplanfinaltable,parammap);
 
+			//00 财务指标汇总表
+			List<Double> report_total = new ArrayList<Double>();
+			report_total.add(projectvo.getHeatArea());
+			Double normalarea = 0.00;
+			if(null!=parammap.get("occupancy")) {
+				List<Double> occupancy = (List<Double>) parammap.get("occupancy");
+				if(occupancy.size()>3) {
+					normalarea = occupancy.get(occupancy.size()-3);
+				}else if (occupancy.size()>0){
+					normalarea = occupancy.get(occupancy.size());
+				}
+			}
+			report_total.add(normalarea);//常规年供热面积
+			report_total.add(zjcktable.get(0).get(0));//总投资金额
+			report_total.add(zjcktable.get(2).get(0));
+			report_total.add(zjcktable.get(3).get(0));
+			report_total.add(lrfinaltable.get(0).get(0));//收入5
+			report_total.add(totalcostfinaltable.get(0).get(totalcostfinaltable.get(0).size()-2));//总成本
+			report_total.add(lrfinaltable.get(0).get(1));//营业税及附加综合
+			report_total.add(report_total.get(5)-report_total.get(6));//供热利润总额8
+			report_total.add(projectvo.getPrice());
+			report_total.add(projectvo.getPrice());
+
+			//投资现金流测算回收期
+			List<Double> irrnpv = getinvest_irrnpv(investHandlerTable);
+			report_total.add(irrnpv.get(4)*100);
+			report_total.add(irrnpv.get(5)*100);
+			report_total.add(irrnpv.get(0));
+			report_total.add(irrnpv.get(1));
+			report_total.add(irrnpv.get(2));
+			report_total.add(irrnpv.get(3));
+
+			List<Double> capital_irrnpv = getcapital_irrnpv(capitalTable);
+			report_total.add(capital_irrnpv.get(0)*100);
+			report_total.add(capital_irrnpv.get(1));
+			Double roi = lrfinaltable.get(0).get(lrfinaltable.get(0).size()-2)/(zjcktable.get(0).get(0)*projectvo.getCountyears());
+			report_total.add(roi*100);
+			report_total.add(report_total.get(8)*100/(report_total.get(2)*projectvo.getCountyears()));
+			//项目资本金净利润率（ROE）
+			Double roe = 100*lrfinaltable.get(11).get(0)/zjcktable.get(5).get(0);
+			report_total.add(roe);
+			report_total.add(balancetable.get(balancetable.size()-1).get(0));
+			//敏感性因素分析
+			report_total.add(0.00);
+			report_total.add(0.00);
+			
+
 			//10 -- EVA测算表
 			List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(lrfinaltable, totalcostfinaltable, balancetable);
 
@@ -302,12 +349,16 @@ public class createReportPubDMO {
 			List<List<Double>> table8 = PubUtilHandler.getRoundingTable(capitalsrcTable);
 			List<List<Double>> table9 = PubUtilHandler.getRoundingTable(balancetable);
 			List<List<Double>> table10 = PubUtilHandler.getRoundingTable(eVAHandlerTable);
+			List<Double> report_total2 = PubUtilHandler.getRoundDanTable(report_total);
+			List<List<Double>> table11 = new ArrayList<List<Double>>();
+			table11.add(report_total2);
 
 			retmap.put("投资计划与资金筹措表", table1); retmap.put("总成本费用表", table2); 
 			retmap.put("借款还本付息计划表",table3 ); retmap.put("利润和利润分配表",table4 ); 
 			retmap.put("财务计划现金流量表", table5);retmap.put("项目投资现金流量表", table6);
 			retmap.put("项目资本金现金流量表",table7 ); retmap.put("资金来源与运用表",table8 );
 			retmap.put("资产负债表",table9 ); retmap.put("EVA测算表", table10); 
+			retmap.put("财务指标汇总表", table11); 
 
 		}catch(Exception e){
 			e.getMessage();
@@ -317,7 +368,7 @@ public class createReportPubDMO {
 			retmap.put("利润和利润分配表",temp ); retmap.put("财务计划现金流量表", temp);
 			retmap.put("项目投资现金流量表",temp );
 			retmap.put("项目资本金现金流量表",temp ); retmap.put("资金来源与运用表",temp );retmap.put("资产负债表",temp ); 
-			retmap.put("EVA测算表", temp); 
+			retmap.put("EVA测算表", temp); retmap.put("财务指标汇总表", temp); 
 		}
 		return retmap;
 	}
@@ -329,49 +380,49 @@ public class createReportPubDMO {
 			//税后-正常的没有变动的
 			Double doub3 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
 					0.07, 0.06, "3");
-//			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
-//					0.07, 0.06, "2");
-			
-//			List<Double> sumbefore = new ArrayList<Double>();
-//			sumbefore.add(0.00);
-//			for(int i=1; i<capitalTable.get(12).size()-1;i++) {
-//				if(i==1) {
-//					 sumbefore.add(capitalTable.get(12).get(i));
-//				}else {
-//					 sumbefore.add(sumbefore.get(i-1)+capitalTable.get(12).get(i));
-//				}
-//			}
-//			Double retunperiod =  ReadExcelCal.getreturnperiod(capitalTable.get(12).toArray(new Double[10]),
-//					sumbefore.toArray(new Double[0]));
-//			
-//			List<Double> afterlst = new ArrayList<Double>();
-//			for(int i=0; i<capitalTable.get(12).size();i++) {
-//				afterlst.add(capitalTable.get(12).get(i)+capitalTable.get(11).get(i));
-//			}
-//			
-//			List<Double> sumafter = new ArrayList<Double>();
-//			sumafter.add(0.00);
-//			for(int i=1; i<afterlst.size()-1;i++) {
-//				if(i==1) {
-//					sumafter.add(afterlst.get(i));
-//				}else {
-//					sumafter.add(sumafter.get(i-1)+afterlst.get(i));
-//				}
-//			}
-			
-//			//税前=加上已经减掉的所得税
-//			Double doub4 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
-//					0.07, 0.06, "3");
-//			Double doub2 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
-//					0.07, 0.06, "1");
-//			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
-//					sumafter.toArray(new Double[0]));
-//			retlst.add(doub4); 
+			Double doub1 = ReadExcelCal.getirrnpvvalue(capitalTable.get(12).toArray(new Double[0]),
+					0.07, 0.06, "1");
+
+			//			List<Double> sumbefore = new ArrayList<Double>();
+			//			sumbefore.add(0.00);
+			//			for(int i=1; i<capitalTable.get(12).size()-1;i++) {
+			//				if(i==1) {
+			//					 sumbefore.add(capitalTable.get(12).get(i));
+			//				}else {
+			//					 sumbefore.add(sumbefore.get(i-1)+capitalTable.get(12).get(i));
+			//				}
+			//			}
+			//			Double retunperiod =  ReadExcelCal.getreturnperiod(capitalTable.get(12).toArray(new Double[10]),
+			//					sumbefore.toArray(new Double[0]));
+			//			
+			//			List<Double> afterlst = new ArrayList<Double>();
+			//			for(int i=0; i<capitalTable.get(12).size();i++) {
+			//				afterlst.add(capitalTable.get(12).get(i)+capitalTable.get(11).get(i));
+			//			}
+			//			
+			//			List<Double> sumafter = new ArrayList<Double>();
+			//			sumafter.add(0.00);
+			//			for(int i=1; i<afterlst.size()-1;i++) {
+			//				if(i==1) {
+			//					sumafter.add(afterlst.get(i));
+			//				}else {
+			//					sumafter.add(sumafter.get(i-1)+afterlst.get(i));
+			//				}
+			//			}
+
+			//			//税前=加上已经减掉的所得税
+			//			Double doub4 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+			//					0.07, 0.06, "3");
+			//			Double doub2 = ReadExcelCal.getirrnpvvalue(afterlst.toArray(new Double[0]),
+			//					0.07, 0.06, "1");
+			//			Double retunperiod2 =  ReadExcelCal.getreturnperiod(afterlst.toArray(new Double[0]),
+			//					sumafter.toArray(new Double[0]));
+			//			retlst.add(doub4); 
 			retlst.add(doub3);
-//			retlst.add(doub2);  
-//			retlst.add(doub1); 
-//			retlst.add(retunperiod2);  
-//			retlst.add(retunperiod);
+			//			retlst.add(doub2);  
+			retlst.add(doub1); 
+			//			retlst.add(retunperiod2);  
+			//			retlst.add(retunperiod);
 		}catch(Exception e){
 			e.getMessage();
 		}
@@ -434,9 +485,9 @@ public class createReportPubDMO {
 
 	public static Double getDouble2float(Double m){
 		if(null!=m && (m!=Double.NaN)) {
-		  BigDecimal  bm = new BigDecimal(m);
-		  Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
-		  return bm1;
+			BigDecimal  bm = new BigDecimal(m);
+			Double bm1 = bm.setScale(2, RoundingMode.HALF_UP).doubleValue();
+			return bm1;
 		}
 		return 0.00;
 	}

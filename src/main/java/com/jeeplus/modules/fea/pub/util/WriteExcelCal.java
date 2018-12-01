@@ -117,6 +117,54 @@ public class WriteExcelCal {
 			
 		}
 		
+		
+		// 声明一个工作薄  
+		if(null!=retmap.get("财务指标汇总表") && retmap.get("财务指标汇总表").size()>0) {
+			// 生成一个表格  
+			HSSFSheet sheet = workbook.createSheet("财务指标汇总表");  
+			
+			HSSFCellStyle cellStyle1 =  workbook.createCellStyle();
+			HSSFCellStyle cellStyle2 =  workbook.createCellStyle();
+			
+			cellStyle1.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			
+			List<Double> reporttotal = retmap.get("财务指标汇总表").get(0);
+			// 遍历集合数据，产生数据行  
+			for(int i=0;i< 2;i++)
+			{  
+				HSSFRow row1 = sheet.createRow(i);  
+					for (int m = 0; m < 4; m++)  {
+						HSSFCell cell = row1.createCell(m);
+						if(i==0) {
+							cell.setCellValue("财务指标汇总表");
+						}else if(i==1) {			
+							if(m==0) cell.setCellValue("序号");
+							if(m==1) cell.setCellValue("项目");
+							if(m==2) cell.setCellValue("单位");
+							if(m==3) cell.setCellValue("数值");
+						}
+					}
+			}
+			String [] [] elevencol =ColName.getcolmap().get("财务指标汇总表");
+			for(int j=0;j<reporttotal.size();j++) {
+				HSSFRow row1 = sheet.createRow(j+2); 
+				for (int m = 0; m < 4; m++)  {
+					HSSFCell cell = row1.createCell(m);
+					if(m<3) {
+						if(m==0) cell.setCellValue(elevencol[0][j]);
+						if(m==1) cell.setCellValue(elevencol[1][j]);
+						if(m==2)cell.setCellValue(elevencol[2][j]);
+					}else {
+						cell.setCellValue(reporttotal.get(j));
+					}
+				}
+			}
+			sheet.addMergedRegion(new Region(0, (short)0, (short)(0), (short)(3)));
+			sheet.getRow(0).getCell(0).setCellStyle(cellStyle1);
+			sheet.getRow(1).getCell(0).setCellStyle(cellStyle2);
+		}
+		
 		if(null!=retmap && retmap.size()>0) {
 			for(String title :sheetname) {
 				List<List<Double>> dataset  = retmap.get(title);

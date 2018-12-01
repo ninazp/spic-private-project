@@ -11,7 +11,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 财务指标汇总表Entity
  * @author jw
- * @version 2017-12-06
+ * @version 2018-12-01
  */
 public class Fea_finansumVO extends DataEntity<Fea_finansumVO> {
 	

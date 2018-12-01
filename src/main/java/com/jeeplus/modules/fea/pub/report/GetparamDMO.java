@@ -84,6 +84,7 @@ public class GetparamDMO {
 
 		retmap.put("person", costparam.get(2));
 		retmap.put("heatcost", costparam.get(3));
+		retmap.put("othercost", costparam.get(4));
 		retmap.put("income", getsubincome(fea_incosubsidyVOMapper, wheresql, countyear));//补贴收入
 
 		List<List<Double>> productlst = getproductlst(countyear, fea_costinfoVOMapper,feaOthercostinfoVOMapper, wheresql);
@@ -146,7 +147,7 @@ public class GetparamDMO {
 
 		return retmap;
 	}
-
+	
 	//入住面积
 	public static List<List<Double>> getproductlst(Double countyear,BaseMapper basemaper,BaseMapper feaOthercostinfoVOMapper, String wheresql){
 
@@ -258,6 +259,7 @@ public class GetparamDMO {
 		List<Double> repairrate = new ArrayList<Double>();
 		List<Double> personlst = new ArrayList<Double>();
 		List<Double> heatcostlst = new ArrayList<Double>();
+		List<Double> othercostlst = new ArrayList<Double>();
 
 		Double insurance = 0.0;
 		Double perwage = 0.00;
@@ -285,6 +287,8 @@ public class GetparamDMO {
 								personlst.add(rateddf);
 							}else if(bvo.getCosttype().contains("电费") || bvo.getCosttype().equals("2")){
 								heatcostlst.add(rateddf);
+							}else {
+								othercostlst.add(rateddf);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -318,6 +322,7 @@ public class GetparamDMO {
 		retlst.add(paramdoub);//1
 		retlst.add(personlst);
 		retlst.add(heatcostlst);
+		retlst.add(othercostlst);
 
 		return retlst;
 	}

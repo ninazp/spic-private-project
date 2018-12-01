@@ -41,6 +41,7 @@ public class TotalCostHander {
 		List<Double> costparam = (List<Double>) parammap.get("costparam");
 		List<Double> person = (List<Double>) parammap.get("person");
 		List<Double> heatcostlst = (List<Double>) parammap.get("heatcost");
+		List<Double> othercostlst = (List<Double>) parammap.get("othercost");
 		Double dkjeamt = (Double) parammap.get("dkjeamt");
 
 		//折旧年限，残值率，保险费率，工资,福利，供热,泵热费
@@ -79,7 +80,11 @@ public class TotalCostHander {
 		List<Double> heatlist = getheatbrcost(heatcostlst, currentproductmonth, countyear);
 		//摊销
 		List<Double> txlist = gettx( countyear);
+		//其他费用
 		List<Double> otherlist = gettx( countyear);
+		if(null!=othercostlst && othercostlst.size()==countyear) {
+			otherlist = getRepairsCost(othercostlst, countyear);
+		}
 		//利息支出  先去计算利息表--再计算这个
 		List<Double> interestlist = getrepaylx(interesttable);
 

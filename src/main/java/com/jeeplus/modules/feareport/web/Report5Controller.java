@@ -220,8 +220,19 @@ public class Report5Controller extends BaseController {
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
 		AjaxJson j = new AjaxJson();
+		String []names = ids.split("-");
 
-		List<List<Double>> datas = report5Service.getReportDatas(ids);
+		List<List<Double>> datas = report5Service.getReportDatas(names[0],names[1]);
+		
+		List<List<Double>> newdatas = new ArrayList<List<Double>>();
+		if(names[1].equals("财务指标汇总表") && null!=datas) {
+			for(Double d : datas.get(0)) {
+				List<Double> line = new ArrayList<Double>();
+				line.add(d);
+				newdatas.add(line);
+			}
+			datas = newdatas;
+		}
 		
 		if(null == datas || datas.size()<1){
 			j.setMsg("没有查询到报表信息");

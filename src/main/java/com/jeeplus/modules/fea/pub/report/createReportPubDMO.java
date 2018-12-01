@@ -332,9 +332,10 @@ public class createReportPubDMO {
 			report_total.add(roe);
 			report_total.add(balancetable.get(balancetable.size()-1).get(0));
 			//敏感性因素分析
-			report_total.add(0.00);
-			report_total.add(0.00);
 			
+			Double lyl = 100*(report_total.get(6)/report_total.get(5));
+			report_total.add(lyl);
+			report_total.add(projectvo.getHeatArea()*lyl);
 
 			//10 -- EVA测算表
 			List<List<Double>> eVAHandlerTable = EVAHandler.getEVAHandlerTable(lrfinaltable, totalcostfinaltable, balancetable);

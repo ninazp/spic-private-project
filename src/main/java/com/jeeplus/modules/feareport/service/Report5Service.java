@@ -57,7 +57,7 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 	}
 	
 	@Transactional(readOnly = false)
-	public List<List<Double>> getReportDatas(String ids,String tablename){
+	public List<List<Double>> getReportDatas(String ids){
 		Map<String,List<List<Double>>> reportmap = new HashMap<String,List<List<Double>>>();
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		Object reportbean = wac.getBean("createReportPubDMO");
@@ -69,7 +69,23 @@ public class Report5Service extends CrudService<Report5Mapper, Report5> {
 			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
 		}
 		// "投资计划与资金筹措表"
-		return null != reportmap ? reportmap.get(tablename) : null;
+		return null != reportmap ? reportmap.get("投资计划与资金筹措表") : null;
+	}
+	
+	@Transactional(readOnly = false)
+	public List<List<Double>> getReportDatas2(String ids){
+		Map<String,List<List<Double>>> reportmap = new HashMap<String,List<List<Double>>>();
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		Object reportbean = wac.getBean("createReportPubDMO");
+		
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("projectid", ids);
+		
+		if(null!=reportbean){
+			 reportmap = ((createReportPubDMO)reportbean).getallreportnostatic(param);
+		}
+		// "投资计划与资金筹措表"
+		return null != reportmap ? reportmap.get("财务指标汇总表") : null;
 	}
 	
 	public List<FeaProjectB> getProjectDatas(){

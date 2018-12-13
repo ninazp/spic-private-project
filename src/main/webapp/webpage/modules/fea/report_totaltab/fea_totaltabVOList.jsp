@@ -167,9 +167,7 @@
 		function execute(projectIds){
 			jp.loading();
 			var timestamp = (new Date()).valueOf();  
-			var retname = projectIds + "-财务指标汇总表";
-
-			jp.get("${ctx}/feareport/report5/getReportDatas?ids=" + retname+"&timestamp="+timestamp, function (data) {
+			jp.get("${ctx}/feareport/report5/getReportDatas2?ids=" + projectIds+"&timestamp="+timestamp, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);

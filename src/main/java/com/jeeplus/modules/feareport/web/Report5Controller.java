@@ -220,12 +220,34 @@ public class Report5Controller extends BaseController {
 	public AjaxJson getReportDatas(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
 		AjaxJson j = new AjaxJson();
-		String []names = ids.split("-");
-
-		List<List<Double>> datas = report5Service.getReportDatas(names[0],names[1]);
+		List<List<Double>> datas = report5Service.getReportDatas(ids);
+		
+		if(null == datas || datas.size()<1){
+			j.setMsg("没有查询到报表信息");
+			j.setSuccess(false);
+			return j;
+		}
+		j.setMsg(datas.toString());
+		j.setProjectId(ids);
+		j.setSuccess(true);
+		
+		return j;
+		
+	}
+	
+	/**
+	 * 获取财务指标汇总表报表数据
+	 */
+	@ResponseBody
+	@RequiresPermissions(value={"feareport:report5:add","feareport:report5:edit"},logical=Logical.OR)
+	@RequestMapping(value = "getReportDatas2")
+	public AjaxJson getReportDatas2(String ids, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		
+		AjaxJson j = new AjaxJson();
+		List<List<Double>> datas = report5Service.getReportDatas2(ids);
 		
 		List<List<Double>> newdatas = new ArrayList<List<Double>>();
-		if(names[1].equals("财务指标汇总表") && null!=datas) {
+		if(null!=datas) {
 			for(Double d : datas.get(0)) {
 				List<Double> line = new ArrayList<Double>();
 				line.add(d);

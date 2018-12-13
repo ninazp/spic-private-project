@@ -170,9 +170,7 @@
 			jp.loading();
 			var timestamp = (new Date()).valueOf();  
 
-			var retname = projectIds + "-投资计划与资金筹措表";
-			
-			jp.get("${ctx}/feareport/report5/getReportDatas?ids=" + retname+"&timestamp="+timestamp, function (data) {
+			jp.get("${ctx}/feareport/report5/getReportDatas?ids=" + projectIds+"&timestamp="+timestamp, function (data) {
 				if(data.success){
       	  			//初始化报表
 					initreport(data.msg);

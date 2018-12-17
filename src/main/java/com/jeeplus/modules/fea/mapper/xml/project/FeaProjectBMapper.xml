@@ -72,7 +72,10 @@
 				AND a.startup_date = #{startupDate}
 			</if>
 			<if test="office != null and office.id != null and office.id != ''">
-				AND a.deptid = #{office.id}
+				AND a.deptid = #{createBy.office.id}
+			</if>
+			<if test="createBy != null and createBy.office != null and createBy.office.id != ''">
+				AND a.deptid = #{createBy.office.id}
 			</if>
 		</where>
 		<choose>

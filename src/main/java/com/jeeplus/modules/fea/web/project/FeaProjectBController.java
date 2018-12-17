@@ -36,6 +36,8 @@ import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.project.FeaProject;
 import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.project.FeaProjectBService;
+import com.jeeplus.modules.sys.entity.Office;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 /**
  * 项目（子表）Controller
@@ -77,6 +79,7 @@ public class FeaProjectBController extends BaseController {
 	@RequiresPermissions("fea:project:feaProjectB:list")
 	@RequestMapping(value = "data")
 	public Map<String, Object> data(FeaProjectB feaProjectB, HttpServletRequest request, HttpServletResponse response, Model model) {
+		feaProjectB.setCreateBy(UserUtils.getUser());
 		Page<FeaProjectB> page = feaProjectBService.findPage(new Page<FeaProjectB>(request, response), feaProjectB); 
 		return getBootstrapData(page);
 	}
@@ -114,6 +117,9 @@ public class FeaProjectBController extends BaseController {
 			j.setMsg("非法参数！");
 			return j;
 		}
+		
+		feaProjectB.setOffice(UserUtils.getUser().getOffice());
+		
 		feaProjectBService.save(feaProjectB);//新建或者编辑保存
 		j.setSuccess(true);
 		j.setMsg("保存项目（子表）成功");
@@ -247,7 +253,9 @@ public class FeaProjectBController extends BaseController {
 	@RequestMapping(value = "treeData")
 	public List<Map<String, Object>> treeData(@RequestParam(required=false) String extId, HttpServletResponse response) {
 		List<Map<String, Object>> mapList = Lists.newArrayList();
-		List<FeaProjectB> list = feaProjectBService.findList(new FeaProjectB());
+		FeaProjectB  feaProjectB = new FeaProjectB();
+		feaProjectB.setCreateBy(UserUtils.getUser());
+		List<FeaProjectB> list = feaProjectBService.findList(feaProjectB);
 		for (int i=0; i<list.size(); i++){
 			FeaProjectB e = list.get(i);
 			Map<String, Object> map = Maps.newHashMap();

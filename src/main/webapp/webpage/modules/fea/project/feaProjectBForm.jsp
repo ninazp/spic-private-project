@@ -154,15 +154,6 @@
 						<form:input path="countyears" htmlEscape="false"    class="form-control required"/>
 					</td>
 				</tr>
-				<tr>
-					<td class="width-15 active"><label class="pull-left">部门：</label></td>
-					<td class="width-35">
-						<sys:treeselect id="office" name="office.id" value="${feaProjectB.office.id}" labelName="office.name" labelValue="${feaProjectB.office.name}"
-							title="部门" url="/sys/office/treeData?type=2" cssClass="form-control " allowClear="true" notAllowSelectParent="true"/>
-					</td>
-					<td class="width-15 active"></td>
-		   			<td class="width-35" ></td>
-		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>

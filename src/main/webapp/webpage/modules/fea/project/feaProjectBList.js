@@ -159,7 +159,7 @@ $(document).ready(function() {
 		    }
 			,{
 		        field: 'office.name',
-		        title: '部门',
+		        title: '公司/部门',
 		        sortable: true
 		       
 		    }

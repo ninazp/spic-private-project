@@ -87,11 +87,6 @@
 					</div>
 				</div>
 			</div>
-			 <div class="col-xs-12 col-sm-6 col-md-4">
-				<label class="label-item single-overflow pull-left" title="部门：">部门：</label>
-				<sys:treeselect id="office" name="office.id" value="${feaProjectB.office.id}" labelName="office.name" labelValue="${feaProjectB.office.name}"
-					title="部门" url="/sys/office/treeData?type=2" cssClass="form-control" allowClear="true" notAllowSelectParent="true"/>
-			</div>
 		 <div class="col-xs-12 col-sm-6 col-md-4">
 			<div style="margin-top:26px">
 			  <a  id="search" class="btn btn-primary btn-rounded  btn-bordered btn-sm"><i class="fa fa-search"></i> 查询</a>

@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.fea.web.funds;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,10 @@ import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.funds.Fea_investdisVO;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.funds.Fea_investdisVOService;
+import com.jeeplus.modules.fea.service.project.FeaProjectBService;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 /**
  * 投资分配Controller
@@ -46,6 +51,10 @@ public class Fea_investdisVOController extends BaseController {
 
 	@Autowired
 	private Fea_investdisVOService fea_investdisVOService;
+	
+
+	@Autowired
+	private FeaProjectBService feaProjectBService;
 	
 	@ModelAttribute
 	public Fea_investdisVO get(@RequestParam(required=false) String id) {
@@ -76,6 +85,28 @@ public class Fea_investdisVOController extends BaseController {
 	@RequestMapping(value = "data")
 	public Map<String, Object> data(Fea_investdisVO fea_investdisVO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<Fea_investdisVO> page = fea_investdisVOService.findPage(new Page<Fea_investdisVO>(request, response), fea_investdisVO); 
+		
+		FeaProjectB  feaProjectB = new FeaProjectB();
+		feaProjectB.setCreateBy(UserUtils.getUser());
+		List<FeaProjectB> list = feaProjectBService.findList(feaProjectB);
+		Map<String,String> projectbmap = new HashMap<String,String>();
+		if(null!=list && list.size()>0) {
+			for(FeaProjectB proj : list) {
+				projectbmap.put(proj.getId(), proj.getId());
+			}
+		}
+		List<Fea_investdisVO> flist = page.getList();
+
+		List<Fea_investdisVO> filterlist = new ArrayList<>();
+		if(null!=flist && flist.size()>0) {
+			for(Fea_investdisVO vo : flist) {
+				if(projectbmap.containsKey(vo.getFeaProjectB().getId())) {
+					filterlist.add(vo);
+				}
+			}
+		}
+		page.setList(filterlist);
+		
 		return getBootstrapData(page);
 	}
 

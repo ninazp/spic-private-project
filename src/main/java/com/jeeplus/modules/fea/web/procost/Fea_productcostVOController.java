@@ -3,8 +3,8 @@
  */
 package com.jeeplus.modules.fea.web.procost;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,16 +26,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.config.Global;
 import com.jeeplus.common.json.AjaxJson;
-import com.jeeplus.core.persistence.Page;
-import com.jeeplus.core.web.BaseController;
+import com.jeeplus.common.utils.DateUtils;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.core.persistence.Page;
+import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.procost.Fea_productcostVO;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.procost.Fea_productcostVOService;
+import com.jeeplus.modules.fea.service.project.FeaProjectBService;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 /**
  * 生成成本Controller
@@ -48,6 +51,9 @@ public class Fea_productcostVOController extends BaseController {
 
 	@Autowired
 	private Fea_productcostVOService fea_productcostVOService;
+	
+	@Autowired
+	private FeaProjectBService feaProjectBService;
 	
 	@ModelAttribute
 	public Fea_productcostVO get(@RequestParam(required=false) String id) {
@@ -78,6 +84,28 @@ public class Fea_productcostVOController extends BaseController {
 	@RequestMapping(value = "data")
 	public Map<String, Object> data(Fea_productcostVO fea_productcostVO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<Fea_productcostVO> page = fea_productcostVOService.findPage(new Page<Fea_productcostVO>(request, response), fea_productcostVO); 
+		
+		FeaProjectB  feaProjectB = new FeaProjectB();
+		feaProjectB.setCreateBy(UserUtils.getUser());
+		List<FeaProjectB> list = feaProjectBService.findList(feaProjectB);
+		Map<String,String> projectbmap = new HashMap<String,String>();
+		if(null!=list && list.size()>0) {
+			for(FeaProjectB proj : list) {
+				projectbmap.put(proj.getId(), proj.getId());
+			}
+		}
+		List<Fea_productcostVO> flist = page.getList();
+
+		List<Fea_productcostVO> filterlist = new ArrayList<>();
+		if(null!=flist && flist.size()>0) {
+			for(Fea_productcostVO vo : flist) {
+				if(projectbmap.containsKey(vo.getFeaProjectB().getId())) {
+					filterlist.add(vo);
+				}
+			}
+		}
+		page.setList(filterlist);
+		
 		return getBootstrapData(page);
 	}
 

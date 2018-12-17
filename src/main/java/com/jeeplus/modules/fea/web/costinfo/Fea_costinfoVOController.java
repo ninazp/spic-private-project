@@ -3,6 +3,8 @@
  */
 package com.jeeplus.modules.fea.web.costinfo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,10 @@ import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.fea.entity.costinfo.Fea_costinfoVO;
+import com.jeeplus.modules.fea.entity.project.FeaProjectB;
 import com.jeeplus.modules.fea.service.costinfo.Fea_costinfoVOService;
+import com.jeeplus.modules.fea.service.project.FeaProjectBService;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 /**
  * 成本种类及产量Controller
@@ -46,7 +51,10 @@ public class Fea_costinfoVOController extends BaseController {
 
 	@Autowired
 	private Fea_costinfoVOService fea_costinfoVOService;
-	
+
+	@Autowired
+	private FeaProjectBService feaProjectBService;
+
 	@ModelAttribute
 	public Fea_costinfoVO get(@RequestParam(required=false) String id) {
 		Fea_costinfoVO entity = null;
@@ -58,7 +66,7 @@ public class Fea_costinfoVOController extends BaseController {
 		}
 		return entity;
 	}
-	
+
 	/**
 	 * 成本种类及产量列表页面
 	 */
@@ -67,8 +75,8 @@ public class Fea_costinfoVOController extends BaseController {
 	public String list() {
 		return "modules/fea/costinfo/fea_costinfoVOList";
 	}
-	
-		/**
+
+	/**
 	 * 成本种类及产量列表数据
 	 */
 	@ResponseBody
@@ -76,6 +84,28 @@ public class Fea_costinfoVOController extends BaseController {
 	@RequestMapping(value = "data")
 	public Map<String, Object> data(Fea_costinfoVO fea_costinfoVO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<Fea_costinfoVO> page = fea_costinfoVOService.findPage(new Page<Fea_costinfoVO>(request, response), fea_costinfoVO); 
+
+		FeaProjectB  feaProjectB = new FeaProjectB();
+		feaProjectB.setCreateBy(UserUtils.getUser());
+		List<FeaProjectB> list = feaProjectBService.findList(feaProjectB);
+		Map<String,String> projectbmap = new HashMap<String,String>();
+		if(null!=list && list.size()>0) {
+			for(FeaProjectB proj : list) {
+				projectbmap.put(proj.getId(), proj.getId());
+			}
+		}
+		List<Fea_costinfoVO> flist = page.getList();
+
+		List<Fea_costinfoVO> filterlist = new ArrayList<>();
+		if(null!=flist && flist.size()>0) {
+			for(Fea_costinfoVO vo : flist) {
+				if(projectbmap.containsKey(vo.getFeaProjectB().getId())) {
+					filterlist.add(vo);
+				}
+			}
+		}
+		page.setList(filterlist);
+
 		return getBootstrapData(page);
 	}
 
@@ -107,7 +137,7 @@ public class Fea_costinfoVOController extends BaseController {
 		j.setMsg("保存成本种类及产量成功");
 		return j;
 	}
-	
+
 	/**
 	 * 删除成本种类及产量
 	 */
@@ -120,7 +150,7 @@ public class Fea_costinfoVOController extends BaseController {
 		j.setMsg("删除成本种类及产量成功");
 		return j;
 	}
-	
+
 	/**
 	 * 批量删除成本种类及产量
 	 */
@@ -136,36 +166,36 @@ public class Fea_costinfoVOController extends BaseController {
 		j.setMsg("删除成本种类及产量成功");
 		return j;
 	}
-	
+
 	/**
 	 * 导出excel文件
 	 */
 	@ResponseBody
 	@RequiresPermissions("fea:costinfo:fea_costinfoVO:export")
-    @RequestMapping(value = "export", method=RequestMethod.POST)
-    public AjaxJson exportFile(Fea_costinfoVO fea_costinfoVO, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "export", method=RequestMethod.POST)
+	public AjaxJson exportFile(Fea_costinfoVO fea_costinfoVO, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "成本种类及产量"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<Fea_costinfoVO> page = fea_costinfoVOService.findPage(new Page<Fea_costinfoVO>(request, response, -1), fea_costinfoVO);
-    		new ExportExcel("成本种类及产量", Fea_costinfoVO.class).setDataList(page.getList()).write(response, fileName).dispose();
-    		j.setSuccess(true);
-    		j.setMsg("导出成功！");
-    		return j;
+			String fileName = "成本种类及产量"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+			Page<Fea_costinfoVO> page = fea_costinfoVOService.findPage(new Page<Fea_costinfoVO>(request, response, -1), fea_costinfoVO);
+			new ExportExcel("成本种类及产量", Fea_costinfoVO.class).setDataList(page.getList()).write(response, fileName).dispose();
+			j.setSuccess(true);
+			j.setMsg("导出成功！");
+			return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
 			j.setMsg("导出成本种类及产量记录失败！失败信息："+e.getMessage());
 		}
-			return j;
-    }
+		return j;
+	}
 
 	/**
 	 * 导入Excel数据
 
 	 */
 	@RequiresPermissions("fea:costinfo:fea_costinfoVO:import")
-    @RequestMapping(value = "import", method=RequestMethod.POST)
-    public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "import", method=RequestMethod.POST)
+	public String importFile(MultipartFile file, RedirectAttributes redirectAttributes) {
 		try {
 			int successNum = 0;
 			int failureNum = 0;
@@ -190,26 +220,26 @@ public class Fea_costinfoVOController extends BaseController {
 			addMessage(redirectAttributes, "导入成本种类及产量失败！失败信息："+e.getMessage());
 		}
 		return "redirect:"+Global.getAdminPath()+"/fea/costinfo/fea_costinfoVO/?repage";
-    }
-	
+	}
+
 	/**
 	 * 下载导入成本种类及产量数据模板
 	 */
 	@RequiresPermissions("fea:costinfo:fea_costinfoVO:import")
-    @RequestMapping(value = "import/template")
-    public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "import/template")
+	public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
-            String fileName = "成本种类及产量数据导入模板.xlsx";
-    		List<Fea_costinfoVO> list = Lists.newArrayList(); 
-    		new ExportExcel("成本种类及产量数据", Fea_costinfoVO.class, 1).setDataList(list).write(response, fileName).dispose();
-    		return null;
+			String fileName = "成本种类及产量数据导入模板.xlsx";
+			List<Fea_costinfoVO> list = Lists.newArrayList(); 
+			new ExportExcel("成本种类及产量数据", Fea_costinfoVO.class, 1).setDataList(list).write(response, fileName).dispose();
+			return null;
 		} catch (Exception e) {
 			addMessage(redirectAttributes, "导入模板下载失败！失败信息："+e.getMessage());
 		}
 		return "redirect:"+Global.getAdminPath()+"/fea/costinfo/fea_costinfoVO/?repage";
-    }
-	
-	
+	}
+
+
 	@ResponseBody
 	@RequiresPermissions(value={"fea:costinfo:fea_costinfoVO:view","fea:costinfo:fea_costinfoVO:add","fea:costinfo:fea_costinfoVO:edit"},logical=Logical.OR)
 	@RequestMapping(value = "checkProject", method=RequestMethod.POST)

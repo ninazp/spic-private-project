@@ -251,10 +251,10 @@ $(document).ready(function() {
    function add(){
 	  var node = $('#feaProjectjsTree').jstree(true).get_selected(true)[0];
 	  if(isNull(node) && isNull(node.id)){
-		  debugger;
 		  $("#kind.id").val(node.id);
-			$("#kind.name").val(node.text);
-		  jp.openDialog('新增项目（子表）', "${ctx}/fea/project/feaProjectB/form?kind.id="+node.id+"&kind.name="+node.text,'800px', '500px', $('#feaProjectBTable'));
+		  $("#kind.name").val(node.text);
+		  var ndname = encodeURI(node.text);
+		  jp.openDialog('新增项目（子表）', "${ctx}/fea/project/feaProjectB/form?kind.id="+node.id+"&kind.name="+ndname,'800px', '500px', $('#feaProjectBTable'));
 	  }else{
 		  jp.warning("请在左侧选择的一个项目大类");
 	  }
